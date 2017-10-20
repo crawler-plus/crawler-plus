@@ -1,6 +1,6 @@
-crawler_plus
+crawler-plus
 
-crawler_plus是一款学习型JavaWeb多功能前后端完全分离的管理系统，该系统包含如下若干功能：
+crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系统，该系统包含如下若干功能：
 
 功能简介：
 
@@ -15,14 +15,14 @@ crawler_plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 
 前端：
 
-1. H+(一款基于bootstrap的后台管理框架)
-2. jquery
+1. H+(一款基于Bootstrap的后台管理框架)
+2. Jquery
 3. Bootstrap
-4. bootstrap-table
-5. layer.js
-6. zTree.js
-7. handlebar.js
-8. sessionStorage
+4. Bootstrap-table
+5. Layer.js
+6. ZTree.js
+7. Handlebar.js
+8. SessionStorage
 ......
 
 后端：
@@ -30,26 +30,26 @@ crawler_plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 1. SpringBoot 1.5.7.RELEASE
 2. MyBatis
 3. Spring 4.3.11.RELEASE
-4. hibernate-validator
+4. Hibernate-validator
 5. Swagger2
 6. Jsoup 1.10.3
 7. Ehcache 2.10.4
-9. spring-scheduled
-10.Druid
+8. Spring-scheduled
+9. Druid
 ......
 
 项目特点：
 
 1. 该项目是彻彻底底的前后端分离项目，前端工程和后端工程可以单独部署
-2. 基于SpringBoot,采用maven依赖的方式，简化了大量配置代码，方便部署
+2. 基于SpringBoot,采用Maven依赖的方式，简化了大量配置代码，方便部署
 3. 支持多环境部署（开发，测试，生产环境）
-4. 后台部分模块采用ehcache缓存数据，提高响应速度
-5. 采用logback框架记录日志，对于开发，测试，生产环境的不同特点，采用不同日志级别
+4. 后台部分模块采用Ehcache缓存数据，提高响应速度
+5. 采用Logback框架记录日志，对于开发，测试，生产环境的不同特点，采用不同日志级别
 6. 该项目实现了一个简单的基于用户-角色-权限的管理模型
-7. 该项目实现了一个简单的爬虫应用，基于jsoup框架，用户可以在此基础上进行开发
+7. 该项目实现了一个简单的爬虫应用，基于Jsoup框架，用户可以在此基础上进行开发
 8. 该项目采用了统一的异常处理机制
-9. 采用spring-scheduled定时去网络抓取新闻数据
-10. 前端封装了一个ajax通用方法，简化ajax操作
+9. 采用Spring-scheduled定时去网络抓取新闻数据
+10. 前端封装了一个Ajax通用方法，简化Ajax操作
 
 运行步骤：
 
@@ -67,5 +67,5 @@ var comm = {
     url : 'http://127.0.0.1:8088/'
 }
 根据自己的环境修改正确
-3. 生产环境建议部署nginx下
+3. 生产环境建议部署Nginx下
 4. 登录默认用户名：admin， 密码：123456

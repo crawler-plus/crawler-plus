@@ -47,7 +47,7 @@ public class JobsConfiguration {
      */
 
 //    @Scheduled(cron = "*/60 * * * * ?")
-    // 每隔3个小时定时跑一次定时任务，根据网站配置模版抓取网页信息
+    // 每隔4个小时定时跑一次定时任务，根据网站配置模版抓取网页信息
     @Scheduled(cron = "0 0 10,14,18 * * ?")
     public void cronJob() {
     	this.articleService.cronjob();
