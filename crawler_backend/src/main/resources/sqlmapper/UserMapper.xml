@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crawler.dao.UserMapper" >
+
+    <select id="checkUserExists" resultType="int" parameterType="com.crawler.domain.SysUser">
+        SELECT
+        COUNT(1) FROM sys_user
+        <trim prefix="where" suffixOverrides="AND">
+            <if test='loginAccount != null and loginAccount != "" '>
+                 login_account = #{loginAccount, jdbcType=VARCHAR} AND
+            </if>
+            <if test='password != null and password != "" '>
+                 password = #{password, jdbcType=VARCHAR} AND
+            </if>
+        </trim>
+    </select>
+
+    <select id="getSysUserByloginAccount" resultType="com.crawler.domain.SysUser" parameterType="String">
+        SELECT
+            id AS id,
+            login_account AS loginAccount,
+            name AS name
+        FROM sys_user
+        WHERE login_account = #{loginAccount, jdbcType=VARCHAR}
+    </select>
+
+    <select id="listAll" resultType="com.crawler.domain.SysUser" parameterType="com.crawler.domain.SysUser">
+        SELECT
+        id AS id,
+        login_account AS loginAccount,
+        name AS name
+        FROM sys_user
+        <if test='name != null and name != "" '>
+            WHERE name LIKE CONCAT("%", #{name, jdbcType=VARCHAR}, "%")
+        </if>
+    </select>
+
+    <select id="getUsersListCount" resultType="int" parameterType="com.crawler.domain.SysUser">
+        SELECT
+        COUNT(1)
+        FROM sys_user
+        <if test='name != null and name != "" '>
+            WHERE name LIKE CONCAT("%", #{name, jdbcType=VARCHAR}, "%")
+        </if>
+    </select>
+
+    <select id="getSysUserByUserId" resultType="com.crawler.domain.SysUser" parameterType="int">
+        SELECT
+        id AS id,
+        login_account AS loginAccount,
+        name AS name,
+        password AS password
+        FROM sys_user
+        WHERE id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM sys_user
+        WHERE id = #{id, jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteUserRoleMapping" parameterType="int">
+        DELETE FROM sys_user_role
+        WHERE user_id = #{id, jdbcType=INTEGER}
+    </delete>
+
+    <insert id="userAdd" parameterType="com.crawler.domain.SysUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_user
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            id,
+            <if test='loginAccount != null and loginAccount != "" '>
+                login_account,
+            </if>
+            <if test='name != null and name != "" '>
+                name,
+            </if>
+            <if test='password != null and password != "" '>
+                password,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            NULL,
+            <if test='loginAccount != null and loginAccount != "" '>
+                #{loginAccount, jdbcType=VARCHAR},
+            </if>
+            <if test='name != null and name != "" '>
+                #{name, jdbcType=VARCHAR},
+            </if>
+            <if test='password != null and password != "" '>
+                #{password, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="addSysUserRole" parameterType="java.util.List">
+        INSERT INTO sys_user_role
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (NULL, #{item.userId}, #{item.roleId})
+        </foreach>
+    </insert>
+
+    <update id="userUpdate" parameterType="com.crawler.domain.SysUser">
+        UPDATE sys_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test='name != null and name != "" '>
+                name = #{name, jdbcType=VARCHAR},
+            </if>
+            <if test='password != null and password != "" '>
+                password = #{password, jdbcType=VARCHAR},
+            </if>
+        </trim>
+        WHERE id = #{id, jdbcType=INTEGER}
+    </update>
+
+</mapper>

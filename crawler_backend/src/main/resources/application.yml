@@ -1,0 +1,43 @@
+crawler:
+  md5Salt: crawler
+  defaultPassword: 123456
+
+spring:
+  application:
+    name: crawler
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  aop:
+    proxy-target-class: true
+  mail:
+        host: smtp.qq.com
+        username: 110@qq.com
+        password: 123456
+        properties:
+          mail:
+            smtp:
+              auth: true
+              starttls:
+                enable: true
+                required: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+
+logging:
+  config: classpath:logback-crawler.xml
+
+mybatis:
+  mapperLocations: classpath:sqlmapper/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

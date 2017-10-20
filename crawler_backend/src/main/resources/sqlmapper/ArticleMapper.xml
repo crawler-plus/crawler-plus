@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crawler.dao.ArticleMapper" >
+
+    <insert id="saveTemplateConfig" parameterType="com.crawler.domain.TemplateConfig">
+        INSERT INTO template_config
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test='id != null and id != "" '>
+                id,
+            </if>
+            <if test='url != null and url != "" '>
+                url,
+            </if>
+            <if test='firstLevelPattern != null and firstLevelPattern != "" '>
+                first_level_pattern,
+            </if>
+            <if test='titlePattern != null and titlePattern != "" '>
+                title_pattern,
+            </if>
+            <if test='timePattern != null and timePattern != "" '>
+                time_pattern,
+            </if>
+            <if test='contentPattern != null and contentPattern != "" '>
+                content_pattern,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test='id != null and id != "" '>
+                #{id, jdbcType=VARCHAR},
+            </if>
+            <if test='url != null and url != "" '>
+                #{url, jdbcType=VARCHAR},
+            </if>
+            <if test='firstLevelPattern != null and firstLevelPattern != "" '>
+                #{firstLevelPattern, jdbcType=VARCHAR},
+            </if>
+            <if test='titlePattern != null and titlePattern != "" '>
+                #{titlePattern, jdbcType=VARCHAR},
+            </if>
+            <if test='timePattern != null and timePattern != "" '>
+                #{timePattern, jdbcType=VARCHAR},
+            </if>
+            <if test='contentPattern != null and contentPattern != "" '>
+                #{contentPattern, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="editTemplateConfig"  parameterType="com.crawler.domain.TemplateConfig">
+        UPDATE template_config
+        <trim prefix="set" suffixOverrides=",">
+            <if test='url != null and url != "" '>
+                url = #{url, jdbcType=VARCHAR},
+            </if>
+            <if test='firstLevelPattern != null and firstLevelPattern != "" '>
+                first_level_pattern = #{firstLevelPattern, jdbcType=VARCHAR},
+            </if>
+            <if test='titlePattern != null and titlePattern != "" '>
+                title_pattern = #{titlePattern, jdbcType=VARCHAR},
+            </if>
+            <if test='timePattern != null and timePattern != "" '>
+                time_pattern = #{timePattern, jdbcType=VARCHAR},
+            </if>
+            <if test='contentPattern != null and contentPattern != "" '>
+                content_pattern = #{contentPattern, jdbcType=VARCHAR},
+            </if>
+        </trim>
+        WHERE id = #{id, jdbcType=VARCHAR}
+    </update>
+
+    <delete id="removeTemplateConfig" parameterType="String">
+        DELETE FROM template_config WHERE id = #{id, jdbcType=VARCHAR}
+    </delete>
+
+    <select id="listAllTemplateConfig" resultType="com.crawler.domain.TemplateConfig">
+        SELECT id                    as id,
+                url                   as url,
+                first_level_pattern   as firstLevelPattern,
+                title_pattern         as titlePattern,
+                time_pattern          as timePattern,
+                content_pattern       as contentPattern
+        FROM template_config
+    </select>
+
+    <select id="getTemplateConfig" resultType="com.crawler.domain.TemplateConfig" parameterType="String">
+        SELECT
+        id                    as id,
+        url                   as url,
+        first_level_pattern   as firstLevelPattern,
+        title_pattern         as titlePattern,
+        time_pattern          as timePattern,
+        content_pattern       as contentPattern
+        FROM template_config
+        WHERE id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <select id="listAllCrawlerContents" resultType="com.crawler.domain.CrawlerContent">
+        SELECT
+        id             as id,
+        url            as url,
+        title          as title,
+        time          as time,
+        content_body   as contentBody,
+        DATE_FORMAT(created, '%Y年%m月%d日 %H:%i:%s') as insertTime
+        FROM crawler_content
+        ORDER BY created DESC
+    </select>
+
+    <select id="getCrawlerContent" resultType="com.crawler.domain.CrawlerContent" parameterType="String">
+        SELECT
+        id             as id,
+        url            as url,
+        title          as title,
+        time          as time,
+        content_body   as contentBody
+        FROM crawler_content
+        WHERE id = #{id, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="saveCrawlerContent" parameterType="com.crawler.domain.CrawlerContent">
+        INSERT INTO crawler_content
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                cid,
+            <if test='id != null and id != "" '>
+                id,
+            </if>
+            <if test='url != null and url != "" '>
+                url,
+            </if>
+            <if test='title != null and title != "" '>
+                title,
+            </if>
+            <if test='time != null and time != "" '>
+                time,
+            </if>
+            <if test='contentBody != null and contentBody != "" '>
+                content_body,
+            </if>
+                created,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+                NULL,
+            <if test='id != null and id != "" '>
+                #{id, jdbcType=VARCHAR},
+            </if>
+            <if test='url != null and url != "" '>
+                #{url, jdbcType=VARCHAR},
+            </if>
+            <if test='title != null and title != "" '>
+                #{title, jdbcType=VARCHAR},
+            </if>
+            <if test='time != null and time != "" '>
+                #{time, jdbcType=VARCHAR},
+            </if>
+            <if test='contentBody != null and contentBody != "" '>
+                #{contentBody, jdbcType=VARCHAR},
+            </if>
+                NOW(),
+        </trim>
+    </insert>
+
+    <insert id="batchSaveCrawlerContent" parameterType="java.util.List">
+        INSERT INTO crawler_content
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (NULL, #{item.id}, #{item.url}, #{item.title}, #{item.time}, #{item.contentBody}, NOW())
+        </foreach>
+    </insert>
+
+    <select id="fetchAllArticleUrls" resultType="java.lang.String">
+        SELECT
+        url            as url
+        FROM crawler_content
+    </select>
+
+    <select id="isExistUrl" resultType="java.lang.Integer" parameterType="String">
+        SELECT
+        count(url) as cnt
+        FROM crawler_content
+        where url= #{url, jdbcType=VARCHAR}
+    </select>
+</mapper>

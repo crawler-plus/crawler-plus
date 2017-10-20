@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="ibox-content">
+    <div class="ibox-content">
+        <h1>网站内容模版添加</h1>
+        <form class="form-horizontal m-t" id="templateForm">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">网站链接：</label>
+                <div class="col-sm-8">
+                    <input id="url" name="url" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">一级pattern：</label>
+                <div class="col-sm-8">
+                    <input id="firstLevelPattern" name="firstLevelPattern" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">二级标题pattern：</label>
+                <div class="col-sm-8">
+                    <input id="titlePattern" name="titlePattern" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">二级时间pattern：</label>
+                <div class="col-sm-8">
+                    <input id="timePattern" name="timePattern" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">二级内容pattern：</label>
+                <div class="col-sm-8">
+                    <input id="contentPattern" name="contentPattern" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-3">
+                    <button class="btn btn-primary" type="submit">添加</button>
+                    <button class="btn btn-primary" type="reset">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+    <script src="../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="../js/plugins/validate/messages_zh.min.js"></script>
+    <script src="../js/jquery.goup.min.js"></script>
+    <script src="../js/handlebars.js"></script>
+    <script src="../js/plugins/toastr/toastr.min.js"></script>
+    <script src="../js/plugins/layer/layer.min.js"></script>
+    <script src="../common/dataRequest.js"></script>
+    <script src="../common/commonUtil.js"></script>
+    <script src="js/addTemplate.js"></script>
+</body>
+</html>

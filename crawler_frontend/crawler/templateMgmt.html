@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <button class="btn-danger btn" id="addTemplateBtn">新增模版</button>
+        <button class="btn-danger btn" id="refreshTemplateBtn">刷新模版</button>
+        <button class="btn-danger btn" id="executeCron">执行爬取任务</button>
+        <br>
+        <div class="row" id="resultRow">
+        </div>
+    </div>
+    <script id="resultScript" type="text/x-handlebars-template">
+        <div class="col-sm-4">
+            <div class="contact-box">
+                <div>
+                    <div class="col-sm-8">
+                        <h3>模版页面url：<strong>{{url}}</strong></h3>
+                        url指定区域pattern：<b>{{firstLevelPattern}}</b><br>
+                        子页面标题pattern：<b>{{titlePattern}}</b><br>
+                        子页面发布时间pattern：<b>{{timePattern}}</b><br>
+                        子页面内容pattern：<b>{{contentPattern}}</b><br>
+                    </div>
+                    <button class="btn btn-info editTemplate" name="{{id}}">修改</button>
+                    <button class="btn btn-danger delTemplate" name="{{id}}">删除</button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script src="../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="../js/plugins/validate/messages_zh.min.js"></script>
+    <script src="../js/jquery.goup.min.js"></script>
+    <script src="../js/handlebars.js"></script>
+    <script src="../js/plugins/toastr/toastr.min.js"></script>
+    <script src="../js/plugins/layer/layer.min.js"></script>
+    <script src="../common/dataRequest.js"></script>
+    <script src="../common/commonUtil.js"></script>
+    <script src="js/templateMgmt.js"></script>
+</body>
+</html>

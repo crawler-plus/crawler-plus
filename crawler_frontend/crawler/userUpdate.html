@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="ibox-content">
+    <h1>用户查看</h1>
+    <form class="form-horizontal m-t" id="userUpdate">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">用户登录帐号：</label>
+            <div class="col-sm-8">
+                <input id="loginAccount" name="loginAccount" type="text" class="form-control" readonly>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">用户昵称：</label>
+            <div class="col-sm-8">
+                <input id="name" name="name" type="text" class="form-control" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">用户密码：</label>
+            <div class="col-sm-8">
+                <input id="password" name="password" type="password" class="form-control" >
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">分配用户角色：</label>
+            <div class="col-sm-8" id="checkbox-area">
+            </div>
+        </div>
+        <input type="hidden" name="id" id="userId">
+        <input type="hidden" name="userRoleStr" id="userRoleStr">
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-3">
+                <button class="btn btn-primary" type="submit">提交</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+    <div class="wrapper wrapper-content  animated fadeInRight blog">
+        <ul class="sortable-list connectList agile-list" id="dataRow">
+        </ul>
+    </div>
+
+    <script id="handleBarScript" type="text/x-handlebars-template">
+        <div class="checkbox i-checks">
+            <label>
+                <input type="checkbox" value="{{id}}" {{#if isRefByUser}}checked{{/if}}> <i></i> {{roleName}}
+            </label>
+        </div>
+    </script>
+    <script src="../js/jquery.min.js?v=2.1.4"></script>
+    <script src="../js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="../js/plugins/validate/messages_zh.min.js"></script>
+    <script src="../js/jquery.goup.min.js"></script>
+    <script src="../js/handlebars.js"></script>
+    <script src="../js/plugins/toastr/toastr.min.js"></script>
+    <script src="../js/plugins/layer/layer.min.js"></script>
+    <script src="../js/plugins/iCheck/icheck.min.js"></script>
+    <script src="../common/dataRequest.js"></script>
+    <script src="../common/commonUtil.js"></script>
+    <script src="js/userUpdate.js"></script>
+</body>
+</html>

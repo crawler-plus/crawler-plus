@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crawler.dao.MenuMapper" >
+
+    <select id="getMenuList" resultType="com.crawler.domain.SysMenu" parameterType="int">
+        SELECT DISTINCT sm.menu_id AS menuId,
+                sm.menu_name AS menuName,
+                sm.menu_parent_id AS menuParentId,
+                sm.sort_order AS sortOrder,
+                sm.url AS url
+        FROM sys_menu sm
+        LEFT JOIN sys_role_menu srm ON sm.menu_id = srm.menu_id
+        LEFT JOIN sys_user_role sur ON srm.role_id = sur.role_id
+        LEFT JOIN sys_user su ON sur.user_id = su.id
+        WHERE su.id = #{id, jdbcType=INTEGER}
+        ORDER BY sm.sort_order
+    </select>
+
+    <select id="getMenuTreeList" resultType="com.crawler.domain.TreeNode">
+        SELECT
+        s.menu_id AS id,
+        s.menu_name AS name,
+        s.menu_parent_id AS pId
+        FROM sys_menu s
+        ORDER BY s.sort_order
+    </select>
+
+    <update id="updateUrl" parameterType="java.lang.String">
+        UPDATE sys_menu SET url = CASE url
+            WHEN '/druid/index.html' THEN  CONCAT(#{prefix, jdbcType=VARCHAR}, '/druid/index.html')
+            WHEN '/swagger-ui.html' THEN  CONCAT(#{prefix, jdbcType=VARCHAR}, '/swagger-ui.html')
+        END
+        WHERE url IN('/druid/index.html', '/swagger-ui.html')
+    </update>
+
+</mapper>

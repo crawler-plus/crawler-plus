@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crawler.dao.RoleMapper" >
+
+    <select id="listAll" resultType="com.crawler.domain.SysRole" parameterType="com.crawler.domain.SysRole">
+        SELECT
+        id AS id,
+        role_name AS roleName,
+        remark AS remark
+        FROM sys_role
+        <if test='roleName != null and roleName != "" '>
+            WHERE role_name LIKE CONCAT("%", #{roleName, jdbcType=VARCHAR}, "%")
+        </if>
+    </select>
+
+    <select id="getRolesListCount" resultType="int" parameterType="com.crawler.domain.SysRole">
+        SELECT
+        COUNT(1)
+        FROM sys_role
+        <if test='roleName != null and roleName != "" '>
+            WHERE role_name LIKE CONCAT("%", #{roleName, jdbcType=VARCHAR}, "%")
+        </if>
+    </select>
+
+    <select id="getUserReferencesCountByRoleId" resultType="int" parameterType="int">
+        SELECT
+        COUNT(1)
+        FROM sys_user_role
+        WHERE role_id = #{id, jdbcType=INTEGER}
+    </select>
+
+
+    <delete id="deleteRole" parameterType="int">
+        DELETE FROM sys_role
+        WHERE id = #{id, jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteRoleMenuMapping" parameterType="int">
+        DELETE FROM sys_role_menu
+        WHERE role_id = #{id, jdbcType=INTEGER}
+    </delete>
+
+    <select id="getRoleByUserId" resultType="com.crawler.domain.SysRole" parameterType="int">
+        SELECT s.id AS id,
+                s.role_name AS roleName,
+        (CASE WHEN sur.role_id IS NULL THEN 0
+        ELSE 1 END) AS isRefByUser
+        FROM sys_role s
+        LEFT JOIN sys_user_role sur
+        ON s.id = sur.role_id
+        AND sur.user_id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <select id="checkRoleNameExists" resultType="int" parameterType="com.crawler.domain.SysRole">
+        SELECT
+        COUNT(1)
+        FROM sys_role
+        WHERE role_name = #{roleName, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="roleAdd" parameterType="com.crawler.domain.SysRole" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_role
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            id,
+            <if test='roleName != null and roleName != "" '>
+                role_name,
+            </if>
+            <if test='remark != null and remark != "" '>
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            NULL,
+            <if test='roleName != null and roleName != "" '>
+                #{roleName, jdbcType=VARCHAR},
+            </if>
+            <if test='remark != null and remark != "" '>
+                #{remark, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="addSysRoleMenu" parameterType="java.util.List">
+        INSERT INTO sys_role_menu
+        VALUES
+        <foreach collection="list" item="item" index="index" separator="," >
+            (NULL, #{item.roleId}, #{item.menuId})
+        </foreach>
+    </insert>
+
+    <select id="getRoleByRoleId" resultType="com.crawler.domain.SysRole" parameterType="int">
+        SELECT
+        id AS id,
+        role_name AS roleName,
+        remark AS remark
+        FROM sys_role
+        WHERE id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <select id="fetchAllMenuId" resultType="java.lang.Integer" parameterType="int">
+        SELECT menu_id FROM sys_role_menu WHERE role_id = #{id, jdbcType=INTEGER}
+    </select>
+
+    <update id="roleUpdate" parameterType="com.crawler.domain.SysRole">
+        UPDATE sys_role
+        <trim prefix="set" suffixOverrides=",">
+            <if test='roleName != null and roleName != "" '>
+                role_name = #{roleName, jdbcType=VARCHAR},
+            </if>
+            <if test='remark != null and remark != "" '>
+                remark = #{remark, jdbcType=VARCHAR},
+            </if>
+        </trim>
+        WHERE id = #{id, jdbcType=INTEGER}
+    </update>
+
+</mapper>
