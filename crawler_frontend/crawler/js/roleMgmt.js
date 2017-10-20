@@ -3,14 +3,12 @@ var roleMgmt = function () {
     var bootstrapTableEl = $("#roleList");
     // 查询按钮
     var queryBtnEl = $("#queryBtn");
-    // 用户姓名
+    // 角色姓名
     var roleName = $("#roleName");
     // 新增按钮
     var addBtnEl = $("#addRole");
-
-    // 用户查询url
+    // 角色查询url
     var roleQueryUrl= comm.url + "role/queryAll";
-
     //  浏览按钮
     var viewBtnEl = '<a class="view ml10 btn btn-sm btn-primary" href="javascript:void(0)" title="查看">查看</a>';
     //  修改按钮

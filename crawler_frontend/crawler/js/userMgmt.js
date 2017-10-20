@@ -7,10 +7,8 @@ var userMgmt = function () {
     var name = $("#name");
     // 新增按钮
     var addBtnEl = $("#addUser");
-
     // 用户查询url
     var userQueryUrl= comm.url + "user/queryAll";
-
     //  浏览按钮
     var viewBtnEl = '<a class="view ml10 btn btn-sm btn-primary" href="javascript:void(0)" title="查看">查看</a>';
     //  修改按钮

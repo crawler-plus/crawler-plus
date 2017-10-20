@@ -44,11 +44,8 @@ var addTemplate = function () {
                     },
                     function (data) {
                         layer.closeAll();
-                        console.log(data);
                         if(data.status === 400) {
                             var response = JSON.parse(data.responseText);
-                            console.log(response);
-                            console.log(typeof response);
                             toastr.error(response.errors);
                         }else {
                             toastr.error('请检查网络！');

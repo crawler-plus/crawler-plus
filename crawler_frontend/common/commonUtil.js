@@ -228,84 +228,6 @@ var commonUtil = function () {
     }
 
     /**
-     * 初始化下拉菜单
-     * @param obj   id:渲染的select type:下拉列表dict类型
-     * @private
-     */
-    var _initComboBox = function(obj){
-        var signOptions = {
-            formID: null,
-            isFormData: false
-        }
-        var ajaxOptions = {
-            method: "GET",
-            url: constant.url + "dict/"+DICT[obj.type]
-        }
-
-        dataRequest.requestSend(signOptions, ajaxOptions, function (data) {
-            if (data.code == '200') {
-                $.each(data.data, function (index, object) {
-                    if (!obj.selected) {
-                        var option = $("<option value='" + object.code + "' >" + object.cname + "</option>");
-                        $("#"+obj.id).append(option);
-                    } else {
-                        if (obj.selected == object.code) {
-                            var option = $("<option value='" + object.code + "' selected>" + object.cname + "</option>");
-                        } else {
-                            var option = $("<option value='" + object.code + "' >" + object.cname + "</option>");
-                        }
-                        $("#"+obj.id).append(option);
-                    }
-                });
-            }
-        }, function (e) {
-            var result = commonUtil.getHttpMessage(e);
-            toastr.error(result.message, "错误");
-        });
-    }
-
-    /**
-     * 日期控件初始化
-     * @param obj   id:elementId
-     * @private
-     */
-    var _initDateComboBox = function(obj){
-        if(!obj.format){
-            obj.format = 'yyyy-mm-dd'
-        }
-
-        if(!obj.language){
-            obj.language = 'zh-CN'
-        }
-
-        if(!obj.todayBtn){
-            obj.todayBtn = 1
-        }
-
-        if(!obj.todayHighlight){
-            obj.todayHighlight = true
-        }
-
-        if(!obj.forceParse){
-            obj.forceParse = 0
-        }
-
-        if(!obj.startView){
-            obj.startView = 2
-        }
-
-        if(!obj.minView){
-            obj.minView = 2
-        }
-
-        if(!obj.autoclose){
-            obj.autoclose = true
-        }
-
-        $("#"+obj.id).datetimepicker(obj);
-    }
-
-    /**
      * 禁用所有表单项
      * @private
      */
@@ -362,8 +284,6 @@ var commonUtil = function () {
         buildUrlParam: _buildUrlParam,
         openUrlInIframe:_openUrlInIframe,
         closeTab:closeTab,
-        initComboBox:_initComboBox,
-        initDateComboBox: _initDateComboBox,
         disableForm: _disableForm,
         removeError: _removeError,
         enableBtn: _enableBtn,

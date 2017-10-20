@@ -27,7 +27,6 @@ var roleUpdate = function () {
                 var treeJson = content.menuTreeInfo;
                 // 得到角色关联的菜单IDs
                 var roleRelatedMenuIds = content.roleRelatedMenuIds;
-                console.log(roleRelatedMenuIds);
                 var setting = {
                     check: {
                         enable: true,
