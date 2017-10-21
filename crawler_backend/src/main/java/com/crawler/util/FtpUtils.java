@@ -3,6 +3,7 @@ package com.crawler.util;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.net.ftp.FTPClient;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 public class FtpUtils {
@@ -24,6 +25,11 @@ public class FtpUtils {
             e.printStackTrace();
         }finally {
             IOUtils.closeQuietly(is);
+            try {
+                ftpClient.disconnect();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
