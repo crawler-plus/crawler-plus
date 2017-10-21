@@ -16,6 +16,14 @@ public class CrawlerProperties {
     // 用户默认密码
     private String defaultPassword;
 
+    private String captchaFtpServerHost;
+
+    private String captchaFtpServerUserName;
+
+    private String captchaFtpServerPassword;
+
+    private String captchaFtpServerUrl;
+
     public String getMd5Salt() {
         return md5Salt;
     }
@@ -30,5 +38,37 @@ public class CrawlerProperties {
 
     public void setDefaultPassword(String defaultPassword) {
         this.defaultPassword = defaultPassword;
+    }
+
+    public String getCaptchaFtpServerHost() {
+        return captchaFtpServerHost;
+    }
+
+    public void setCaptchaFtpServerHost(String captchaFtpServerHost) {
+        this.captchaFtpServerHost = captchaFtpServerHost;
+    }
+
+    public String getCaptchaFtpServerUserName() {
+        return captchaFtpServerUserName;
+    }
+
+    public void setCaptchaFtpServerUserName(String captchaFtpServerUserName) {
+        this.captchaFtpServerUserName = captchaFtpServerUserName;
+    }
+
+    public String getCaptchaFtpServerPassword() {
+        return captchaFtpServerPassword;
+    }
+
+    public void setCaptchaFtpServerPassword(String captchaFtpServerPassword) {
+        this.captchaFtpServerPassword = captchaFtpServerPassword;
+    }
+
+    public String getCaptchaFtpServerUrl() {
+        return captchaFtpServerUrl;
+    }
+
+    public void setCaptchaFtpServerUrl(String captchaFtpServerUrl) {
+        this.captchaFtpServerUrl = captchaFtpServerUrl;
     }
 }

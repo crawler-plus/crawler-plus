@@ -1,26 +1,20 @@
 package com.crawler.controller;
 
-import com.crawler.constant.Const;
+import com.crawler.components.CrawlerProperties;
 import com.crawler.domain.BaseEntity;
-import com.crawler.domain.CrawlerContent;
-import com.crawler.domain.TemplateConfig;
-import com.crawler.service.api.ArticleService;
+import com.crawler.util.FtpUtils;
 import com.google.code.kaptcha.Producer;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
-import javax.validation.Valid;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.List;
-import java.util.UUID;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 /**
  * 验证码Controller
@@ -33,16 +27,25 @@ public class CaptchaController {
 	@Autowired
 	private Producer captchaProducer;
 
+	@Autowired
+	private CrawlerProperties crawlerProperties;
+
 	@GetMapping("/create")
 	public BaseEntity createCaptcha() {
 		// create the text for the image
 		String capText = captchaProducer.createText();
 		System.out.println(capText);
 		BufferedImage bi = captchaProducer.createImage(capText);
-		OutputStream os = null;
+		ByteArrayOutputStream os = null;
 		try {
-			os = new FileOutputStream("E:/captcha.png");
+			os = new ByteArrayOutputStream();
 			ImageIO.write(bi, "jpg", os);
+			InputStream inputStream = new ByteArrayInputStream(os.toByteArray());
+			FtpUtils.fileUploadByFtp(crawlerProperties.getCaptchaFtpServerHost(),
+					crawlerProperties.getCaptchaFtpServerUserName(),
+					crawlerProperties.getCaptchaFtpServerPassword(),
+					crawlerProperties.getCaptchaFtpServerUrl(),
+					inputStream, "testCaptCha.jpg");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

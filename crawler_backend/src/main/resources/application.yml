@@ -1,6 +1,10 @@
 crawler:
   md5Salt: crawler
   defaultPassword: 123456
+  captchaFtpServerHost: 192.168.3.129
+  captchaFtpServerUserName: root
+  captchaFtpServerPassword: root
+  captchaFtpServerUrl:
 
 spring:
   application:
