@@ -49,7 +49,7 @@ public class CaptchaController {
 	public BaseEntity createCaptcha() {
 		BaseEntity be = new BaseEntity();
 		// 生成验证码图片的名称
-		String imgName = UUID.randomUUID().toString().replace("-", "") + ".jpg";
+		String imgName = UUID.randomUUID().toString().replace("-", "") + ".png";
 		// create the text for the image
 		String capText = captchaProducer.createText();
 		// 将验证码字符串写入redis
@@ -58,7 +58,7 @@ public class CaptchaController {
 		ByteArrayOutputStream os = null;
 		try {
 			os = new ByteArrayOutputStream();
-			ImageIO.write(bi, "jpg", os);
+			ImageIO.write(bi, "png", os);
 			InputStream inputStream = new ByteArrayInputStream(os.toByteArray());
 			FtpUtils.fileUploadByFtp(crawlerProperties.getCaptchaFtpServerHost(),
 					crawlerProperties.getCaptchaFtpServerUserName(),
