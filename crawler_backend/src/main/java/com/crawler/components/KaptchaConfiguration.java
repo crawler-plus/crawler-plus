@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
+/**
+ * 验证码配置
+ */
 @Configuration
 public class KaptchaConfiguration {
 
@@ -17,6 +20,7 @@ public class KaptchaConfiguration {
         properties.setProperty("kaptcha.border", "yes");
         properties.setProperty("kaptcha.border.color", "105,179,90");
         properties.setProperty("kaptcha.textproducer.font.color", "blue");
+        properties.setProperty("kaptcha.textproducer.char.string", "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
         properties.setProperty("kaptcha.image.width", "125");
         properties.setProperty("kaptcha.image.height", "45");
         properties.setProperty("kaptcha.session.key", "code");

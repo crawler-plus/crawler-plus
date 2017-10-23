@@ -20,6 +20,9 @@ public class SysUser extends BaseEntity {
     // 用户角色字符串，用逗号分割
     private String userRoleStr;
 
+    // 图片验证码
+    private String captcha;
+
     public int getId() {
         return id;
     }
@@ -58,5 +61,13 @@ public class SysUser extends BaseEntity {
 
     public void setUserRoleStr(String userRoleStr) {
         this.userRoleStr = userRoleStr;
+    }
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 }

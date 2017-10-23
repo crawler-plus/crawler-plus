@@ -1,7 +1,55 @@
 var login = function () {
 
-    var init = function () {
+    // 图片验证码对象
+    var captchaImgObj = $("#captchaImg");
 
+    var btn_init = function () {
+        captchaImgObj.on('click', function () {
+            create_captcha();
+        }).on("mouseover", function () {
+            $(this).css("cursor", "pointer")
+        }).on("mouseout", function () {
+            $(this).css("cursor", "");
+        });
+    }
+
+    // 加载验证码
+    var create_captcha = function () {
+        layer.msg('正在加载验证码', {
+            icon: 16
+            ,shade: 0.01
+            ,time: 1000 * 10 // 10s
+        });
+        // 加载验证码
+        var signOptions = {
+            formID : '',
+            isFormData : false
+        };
+        var ajaxOptions = {
+            url: comm.url + 'captcha/create',
+            method : 'GET'
+        };
+        dataRequest.requestSend(
+            signOptions,
+            ajaxOptions,
+            function (data) {
+                layer.closeAll();
+                if(data.msgCode === '400') {
+                    layer.msg('加载验证码失败', {icon: 5});
+                }else {
+                    captchaImgObj.prop("src", data.content);
+                }
+            },
+            function (data) {
+                layer.closeAll();
+                layer.msg('加载验证码失败', {icon: 5});
+            }
+        );
+    }
+
+    var init = function () {
+        btn_init();
+        create_captcha();
         // 清空sessionStorage中关于用户的信息
         sessionStorage.removeItem("userPermissions");
         sessionStorage.removeItem("userName");
@@ -12,6 +60,9 @@ var login = function () {
                     required : true
                 },
                 password: {
+                    required : true
+                },
+                captcha: {
                     required : true
                 }
             },
@@ -43,7 +94,7 @@ var login = function () {
                     },
                     function (data) {
                         layer.closeAll();
-                        toastr.error('请检查网络！');
+                        layer.msg('请检查网络', {icon: 5});
                     }
                 );
             }

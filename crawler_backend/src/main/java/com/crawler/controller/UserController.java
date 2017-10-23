@@ -1,6 +1,7 @@
 package com.crawler.controller;
 
 import com.crawler.components.CrawlerProperties;
+import com.crawler.components.RedisConfiguration;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysMenu;
@@ -14,6 +15,7 @@ import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -40,6 +42,12 @@ public class UserController {
     @Autowired
     private CrawlerProperties crawlerProperties;
 
+    @Autowired
+    private RedisConfiguration redisConfiguration;
+
+    @Autowired
+    protected RedisTemplate<String, Object> redisTemplate;
+
     /**
      * 用户登录
      */
@@ -47,37 +55,46 @@ public class UserController {
     @ApiOperation(value="用户登录", notes="用户登录")
     @ApiImplicitParam(name = "sysUser", value = "系统用户entity", required = true, dataType = "SysUser")
     public BaseEntity login(SysUser sysUser) {
-        String password = MD5Utils.toMD5String(sysUser.getPassword(), crawlerProperties.getMd5Salt());
-        sysUser.setPassword(password);
         BaseEntity be = new BaseEntity();
-        int exists = userService.checkUserExists(sysUser);
-        // 如果用户存在
-        if(exists > 0) {
-            // 得到用户信息
-            SysUser sysUserByloginAccount = userService.getSysUserByloginAccount(sysUser.getLoginAccount());
-            // 得到用户对应的菜单信息
-            List<SysMenu> menuList = menuService.getMenuList(sysUserByloginAccount.getId());
-            Map<String, Object> infoMap = new HashMap<>();
-            List<List<SysMenu>> sList = new ArrayList<>();
-            menuList.stream().forEach(t -> {
-                // 如果是一个根节点
-                if(t.getMenuParentId() == 0) {
-                    List<SysMenu> smList = new ArrayList<>();
-                    smList.add(t);
-                    sList.add(smList);
-                }
-                // 如果是上一个根节点的子节点
-                else {
-                    sList.get(sList.size() - 1).add(t);
-                }
-            });
-            infoMap.put("userInfo", sysUserByloginAccount);
-            infoMap.put("menuInfo", sList);
-            be.setContent(infoMap);
-            be.setMsgCode(Const.MESSAGE_CODE_OK);
-        }else {
+        // 判断验证码是否正确
+        String captcha = sysUser.getCaptcha();
+        // 如果验证码正确
+        if(redisConfiguration.setOperations(redisTemplate).isMember("captchaSet", captcha)) {
+            String password = MD5Utils.toMD5String(sysUser.getPassword(), crawlerProperties.getMd5Salt());
+            sysUser.setPassword(password);
+            int exists = userService.checkUserExists(sysUser);
+            // 如果用户存在
+            if(exists > 0) {
+                // 得到用户信息
+                SysUser sysUserByloginAccount = userService.getSysUserByloginAccount(sysUser.getLoginAccount());
+                // 得到用户对应的菜单信息
+                List<SysMenu> menuList = menuService.getMenuList(sysUserByloginAccount.getId());
+                Map<String, Object> infoMap = new HashMap<>();
+                List<List<SysMenu>> sList = new ArrayList<>();
+                menuList.stream().forEach(t -> {
+                    // 如果是一个根节点
+                    if(t.getMenuParentId() == 0) {
+                        List<SysMenu> smList = new ArrayList<>();
+                        smList.add(t);
+                        sList.add(smList);
+                    }
+                    // 如果是上一个根节点的子节点
+                    else {
+                        sList.get(sList.size() - 1).add(t);
+                    }
+                });
+                infoMap.put("userInfo", sysUserByloginAccount);
+                infoMap.put("menuInfo", sList);
+                be.setContent(infoMap);
+                be.setMsgCode(Const.MESSAGE_CODE_OK);
+            }else {
+                be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+                be.setContent("用户名或密码错误，请重试");
+            }
+        }
+        else {
             be.setMsgCode(Const.MESSAGE_CODE_ERROR);
-            be.setContent("用户名或密码错误，请重试");
+            be.setContent("验证码错误，请重新输入");
         }
         return be;
     }

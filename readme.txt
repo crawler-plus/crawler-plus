@@ -36,6 +36,8 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 7. Ehcache 2.10.4
 8. Spring-scheduled
 9. Druid
+10. Redis(缓存服务器)
+11. Nginx + Vsftpd (图片服务器)
 ......
 
 项目特点：
@@ -50,6 +52,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 8. 该项目采用了统一的异常处理机制
 9. 采用Spring-scheduled定时去网络抓取新闻数据
 10. 前端封装了一个Ajax通用方法，简化Ajax操作
+11. 登录验证码支持
 
 运行步骤：
 
@@ -59,6 +62,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 注意：
 ************生产环境下请将application.yml中的active: dev改成active: prod， 并且将application-prod.yml中的server.address，server.port和mysql链接地址改正确************
 3.建议生产环境下采用jar包运行，打jar包命令：clean package
+4.需要有Redis环境，Nginx环境，vsftpd环境
 
 前端：
 1. 运行crawler_frontend下的login.html

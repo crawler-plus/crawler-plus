@@ -1,10 +1,10 @@
 crawler:
-  md5Salt: crawler
-  defaultPassword: 123456
-  captchaFtpServerHost: 192.168.3.129
-  captchaFtpServerUserName: root
-  captchaFtpServerPassword: root
-  captchaFtpServerUrl:
+  md5Salt: crawler #密码加密salt
+  defaultPassword: 123456 #用户默认密码
+  captchaFtpServerHost: 192.168.3.110  # vsftpd默认host
+  captchaFtpServerUserName: ftpuser # vsftpd默认用户名
+  captchaFtpServerPassword: ftpuser # vsftpd默认密码
+  captchaFtpServerUrl: /usr/local/img # vsftpd图片存放路径
 
 spring:
   application:
@@ -33,6 +33,17 @@ spring:
     encoding: UTF-8
     content-type: text/html
     cache: false
+  redis:
+    database: 0
+    host: 192.168.3.129
+    port: 6379
+    password:
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
 
 logging:
   config: classpath:logback-crawler.xml
