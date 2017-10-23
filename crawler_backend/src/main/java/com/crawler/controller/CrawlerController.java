@@ -1,7 +1,9 @@
 package com.crawler.controller;
 
+import com.crawler.components.CheckToken;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
+import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
 import com.crawler.exception.CrawlerException;
 import com.crawler.util.JsoupUtils;
@@ -9,6 +11,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +29,15 @@ import java.util.Map;
 @RequestMapping("/crawler")
 public class CrawlerController {
 
+	@Autowired
+	private CheckToken checkToken;
+
 	@ApiOperation(value="根据参数爬取网站内容", notes="根据参数爬取网站内容")
 	@ApiImplicitParam(name = "te", value = "传递的参数Entity", required = true, dataType = "TransferEntity")
 	@PostMapping("/crawler")
-	public BaseEntity crawler(@RequestBody TransferEntity te) throws CrawlerException {
+	public BaseEntity crawler(@RequestBody TransferEntity te, TokenEntity t) throws CrawlerException {
+		// 验证token
+		checkToken.checkToken(t);
 		Map<String, String> reqHeadersMap = new HashMap<>();
 		reqHeadersMap.put("Accept", "*/*");
 		reqHeadersMap.put("Accept-Encoding", "gzip, deflate");

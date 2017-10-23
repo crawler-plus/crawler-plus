@@ -269,7 +269,11 @@ var commonUtil = function () {
     }
 
     var _getAccessToken = function () {
-        return "12345"
+        return sessionStorage.getItem("token");
+    }
+
+    var _getUserId = function () {
+        return sessionStorage.getItem("userId");
     }
 
 
@@ -289,7 +293,8 @@ var commonUtil = function () {
         enableBtn: _enableBtn,
         disableBtn: _disableBtn,
         showLoadingMessage: _showLoadingMessage,
-        getAccessToken: _getAccessToken
+        getAccessToken: _getAccessToken,
+        getUserId: _getUserId
     }
 }();
 $(function () {

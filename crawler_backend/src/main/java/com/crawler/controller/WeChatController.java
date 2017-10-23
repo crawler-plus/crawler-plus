@@ -1,7 +1,9 @@
 package com.crawler.controller;
 
+import com.crawler.components.CheckToken;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
+import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
 import com.crawler.domain.WeChatOfficialAccounts;
 import com.crawler.exception.CrawlerException;
@@ -11,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,10 +31,15 @@ import java.util.Map;
 @RequestMapping("/weChat")
 public class WeChatController {
 
+	@Autowired
+	private CheckToken checkToken;
+
 	@ApiOperation(value="根据微信公众号名称搜索微信公众号", notes="根据微信公众号名称搜索微信公众号")
 	@ApiImplicitParam(name = "weChatTitle", value = "微信公众号名称", required = true, dataType = "String")
 	@GetMapping(path = "/weChat/{weChatTitle}")
-	public BaseEntity barCode(@PathVariable("weChatTitle") String weChatTitle) throws CrawlerException {
+	public BaseEntity barCode(@PathVariable("weChatTitle") String weChatTitle, TokenEntity t) throws CrawlerException {
+		// 验证token
+		checkToken.checkToken(t);
 		BaseEntity be = new BaseEntity();
 		TransferEntity te = new TransferEntity();
 		te.setUrl("http://weixin.sogou.com/weixin?type=1&query=" + weChatTitle + "&ie=utf8&s_from=input&page=1");

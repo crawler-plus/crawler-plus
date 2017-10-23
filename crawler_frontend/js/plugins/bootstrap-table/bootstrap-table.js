@@ -1964,7 +1964,7 @@
         }
         request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
-            url:  url || this.options.url+";JSESSIONID="+commonUtil.getAccessToken(),
+            url:  url || this.options.url + "?token="+commonUtil.getAccessToken() + "&uid="+commonUtil.getUserId(),
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
                 JSON.stringify(data) : data,
             cache: this.options.cache,
@@ -1983,13 +1983,8 @@
             error: function (res) {
                 that.trigger('load-error', res.status, res);
                 if (!silent) that.$tableLoading.hide();
-                if(res.status=="401"){
-                    alert("该用户无权限访问此功能，请重新登录");
-                    if(window.sessionStorage.getItem("certType")=="pwd"){
-                        window.location.href=constant.feUrl+"login.html";
-                    }else{
-                        window.location.href=constant.feUrl+"logincert.html";
-                    }
+                if(res.status == "401"){
+                    location.href = '../login.html';
                 }
             }
         });
@@ -2732,7 +2727,7 @@
             this.options.pageNumber = 1;
         }
         this.initServer(params && params.silent,
-            params && params.query, params && params.url+";JSESSIONID="+commonUtil.getAccessToken());
+            params && params.query, params && params.url+"?token="+commonUtil.getAccessToken() + "&uid=" + commonUtil.getUserId());
         this.trigger('refresh', params);
     };
 

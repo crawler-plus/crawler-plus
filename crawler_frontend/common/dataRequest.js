@@ -25,6 +25,7 @@ var dataRequest = function() {
 	 */
 	var _ajaxWrapper=function(signOptions, ajaxOptions, ajaxSuccCallback, ajaxFailedCallback) {
         var ajaxURL = ajaxOptions.url;
+        ajaxURL = ajaxURL + "?uid=" + commonUtil.getUserId() + "&token=" + commonUtil.getAccessToken();
 		if(!signOptions.isFormData && !signOptions.isUploadReq) {
 			ajaxOptions.headers= {
 				'Accept': 'application/json',
@@ -50,6 +51,10 @@ var dataRequest = function() {
 		$.ajax(ajaxOpts).done(function(data){
             ajaxSuccCallback(data);
 		}).fail(function (error) {
+			// 证明无权限
+			if(error.status === 401) {
+				location.href = '../login.html';
+			}
             ajaxFailedCallback(error);
         }).always(function () {
         });

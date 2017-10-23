@@ -1,8 +1,10 @@
 package com.crawler.controller;
 
+import com.crawler.components.CheckToken;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysRole;
+import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TreeNode;
 import com.crawler.service.api.MenuService;
 import com.crawler.service.api.RoleService;
@@ -29,13 +31,18 @@ public class RoleController {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private CheckToken checkToken;
+
     /**
      * 查询系统角色
      */
     @GetMapping("/queryAll")
     @ApiOperation(value="查询所有系统角色", notes="查询所有系统角色")
     @ApiImplicitParam(name = "sysRole", value = "系统角色entity", required = true, dataType = "SysRole")
-    public BaseEntity queryAll(SysRole sysRole) {
+    public BaseEntity queryAll(SysRole sysRole, TokenEntity t) {
+        // 验证token
+        checkToken.checkToken(t);
         int roleCount =  roleService.getRolesListCount(sysRole);
         // 分页查询
         PageHelper.startPage(sysRole.getPage(),sysRole.getLimit());
@@ -52,7 +59,9 @@ public class RoleController {
      */
     @GetMapping("/queryAllRolesWithoutCondition")
     @ApiOperation(value="查询系统角色(不带条件)", notes="查询系统角色(不带条件)")
-    public BaseEntity queryAllRolesWithoutCondition() {
+    public BaseEntity queryAllRolesWithoutCondition(TokenEntity t) {
+        // 验证token
+        checkToken.checkToken(t);
         SysRole sysRole = new SysRole();
         List<SysRole> sysRoles = roleService.listAll(sysRole);
         BaseEntity be = new BaseEntity();
@@ -67,7 +76,9 @@ public class RoleController {
     @DeleteMapping(path = "/delete/{id}")
     @ApiOperation(value="删除角色", notes="删除角色")
     @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int")
-    public BaseEntity delete(@PathVariable("id") int roleId) {
+    public BaseEntity delete(@PathVariable("id") int roleId, TokenEntity t) {
+        // 验证token
+        checkToken.checkToken(t);
         BaseEntity be = new BaseEntity();
         int countByRoleId = roleService.getUserReferencesCountByRoleId(roleId);
         // 当前角色已经被引用，不能删除
@@ -87,7 +98,9 @@ public class RoleController {
      */
     @GetMapping("/initMenuTree")
     @ApiOperation(value="初始化菜单树形节点", notes="初始化菜单树形节点")
-    public BaseEntity initMenuTree() {
+    public BaseEntity initMenuTree(TokenEntity t) {
+        // 验证token
+        checkToken.checkToken(t);
         List<TreeNode> menuList = menuService.getMenuTreeList();
         BaseEntity be = new BaseEntity();
         be.setContent(menuList);
@@ -101,7 +114,9 @@ public class RoleController {
     @PostMapping(path = "/addRole")
     @ApiOperation(value="添加系统角色", notes="添加系统角色")
     @ApiImplicitParam(name = "addRole", value = "系统角色Entity", required = true, dataType = "SysRole")
-    public BaseEntity addRole(SysRole sysRole) {
+    public BaseEntity addRole(SysRole sysRole, TokenEntity t) {
+        // 验证token
+        checkToken.checkToken(t);
         BaseEntity be = new BaseEntity();
         // 判断角色名称是否存在
         int roleNameExists = roleService.checkRoleNameExists(sysRole);
@@ -123,7 +138,9 @@ public class RoleController {
     @GetMapping(path = "/getRoleInfoById/{id}")
     @ApiOperation(value="查询单个系统角色信息", notes="查询单个系统角色信息")
     @ApiImplicitParam(name = "roleId", value = "系统角色Id", required = true, dataType = "int")
-    public BaseEntity getRoleInfoById(@PathVariable("id") int roleId) {
+    public BaseEntity getRoleInfoById(@PathVariable("id") int roleId, TokenEntity t) {
+        // 验证token
+        checkToken.checkToken(t);
         BaseEntity be = new BaseEntity();
         // 获得角色信息
         SysRole roleByRoleId = roleService.getRoleByRoleId(roleId);
@@ -146,7 +163,9 @@ public class RoleController {
     @PutMapping(path = "/updateRole")
     @ApiOperation(value="修改系统角色", notes="修改系统角色")
     @ApiImplicitParam(name = "sysRole", value = "系统角色Entity", required = true, dataType = "SysRole")
-    public BaseEntity updateUser(SysRole sysRole) {
+    public BaseEntity updateUser(SysRole sysRole, TokenEntity t) {
+        // 验证token
+        checkToken.checkToken(t);
         BaseEntity be = new BaseEntity();
         roleService.updateRole(sysRole);
         be.setContent("修改系统角色成功");
