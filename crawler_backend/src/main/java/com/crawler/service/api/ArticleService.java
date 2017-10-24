@@ -2,17 +2,12 @@ package com.crawler.service.api;
 
 import com.crawler.domain.CrawlerContent;
 import com.crawler.domain.TemplateConfig;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
 /**
  * 文章Service
  */
-@CacheConfig(cacheNames = "templateConfig")
 public interface ArticleService {
 
     /**
@@ -25,14 +20,12 @@ public interface ArticleService {
      * 修改文章配置
      * @param tc
      */
-    @CachePut(value = "templateConfig", key = "#tc.getId()")
     void editTemplateConfig(TemplateConfig tc);
 
     /**
      * 根据id删除文章配置
      * @param id
      */
-    @CacheEvict(value = "templateConfig")
     void removeTemplateConfig(String id);
 
     /**
@@ -46,7 +39,6 @@ public interface ArticleService {
      * @param id
      * @return
      */
-    @Cacheable
     TemplateConfig getTemplateConfig(String id);
 
     /**

@@ -23,7 +23,6 @@ public class ArticleServiceImpl implements ArticleService {
 	@Autowired
 	private ArticleMapper articleMapper;
 
-
 	@Override
 	public void saveTemplateConfig(TemplateConfig tc) {
 		articleMapper.saveTemplateConfig(tc);
