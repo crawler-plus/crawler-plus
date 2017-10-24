@@ -81,13 +81,8 @@ var userAdd = function () {
                         if(data.msgCode === '400') {
                             toastr.error(data.content);
                         }else {
-                            toastr.success(data.content);
                             commonUtil.closeTab();
                         }
-                    },
-                    function (data) {
-                        layer.closeAll();
-                        toastr.error('请检查网络！');
                     }
                 );
             }

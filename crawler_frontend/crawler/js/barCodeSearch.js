@@ -45,16 +45,11 @@ var barCodeSearch = function () {
                     function (data) {
                         layer.closeAll();
                         var msgCode = data.msgCode;
-                        var content = data.content;
                         if('400' === msgCode) {
                             toastr.error('查不到商品数据！');
                         }else {
                             fecthData(data);
                         }
-                    },
-                    function () {
-                        layer.closeAll();
-                        toastr.error('请检查网络！');
                     }
                 );
             }

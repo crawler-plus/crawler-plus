@@ -51,10 +51,6 @@ var roleUpdate = function () {
                         treeObj.checkNode(nodes[i], true, true);
                     }
                 }
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
     }
@@ -96,17 +92,7 @@ var roleUpdate = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
-                        if(data.msgCode === '400') {
-                            toastr.error(data.content);
-                        }else {
-                            toastr.success(data.content);
-                            commonUtil.closeTab();
-                        }
-                    },
-                    function (data) {
-                        layer.closeAll();
-                        toastr.error('请检查网络！');
+                        commonUtil.closeTab();
                     }
                 );
             }

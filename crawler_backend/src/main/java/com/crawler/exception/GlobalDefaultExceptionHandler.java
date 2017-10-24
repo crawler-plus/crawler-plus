@@ -23,6 +23,7 @@ public class GlobalDefaultExceptionHandler {
      * @return
      */
     @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR, reason="server error")
     public BaseEntity runtimeExceptionHandler(RuntimeException e) {
         if(logger.isWarnEnabled()) {
             logger.warn(e.getMessage());

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * 验证token公共类
  */
@@ -25,6 +27,8 @@ public class CheckToken {
         if(StringUtils.isEmpty(uid) || StringUtils.isEmpty(token) || !token.equals(redisConfiguration.valueOperations(redisTemplate).get(te.getUid()))) {
             throw new TokenInvalidException("invalid token");
         }
+        // 设置默认过期时间为30分钟
+        redisTemplate.expire(String.valueOf(te.getUid()), 30, TimeUnit.MINUTES);
     }
 
 }

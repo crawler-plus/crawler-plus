@@ -136,10 +136,6 @@ var userMgmt = function () {
                                 toastr.success(data.content);
                             }
                             _refreshCurrentTable();
-                        },
-                        function () {
-                            layer.closeAll();
-                            toastr.error('请检查网络！');
                         }
                     );
                 }, function(){

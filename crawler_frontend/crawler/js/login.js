@@ -39,10 +39,6 @@ var login = function () {
                 }else {
                     captchaImgObj.prop("src", data.content);
                 }
-            },
-            function (data) {
-                layer.closeAll();
-                layer.msg('加载验证码失败', {icon: 5});
             }
         );
     }
@@ -95,10 +91,6 @@ var login = function () {
                             // 跳转到index.html
                             location.href = 'index.html';
                         }
-                    },
-                    function (data) {
-                        layer.closeAll();
-                        layer.msg('请检查网络', {icon: 5});
                     }
                 );
             }

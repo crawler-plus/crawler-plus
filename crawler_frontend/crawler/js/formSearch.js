@@ -110,10 +110,6 @@ var formSearch = function () {
                         }else {
                             fecthData(data);
                         }
-                    },
-                    function () {
-                        layer.closeAll();
-                        toastr.error('请检查网络！');
                     }
                 );
             }

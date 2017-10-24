@@ -36,10 +36,6 @@ var templateMgmt = function () {
                     ajaxOptions,
                     function (data) {
                         layer.closeAll();
-                    },
-                    function () {
-                        layer.closeAll();
-                        toastr.error('请检查网络！');
                     }
                 );
             }, function(){
@@ -67,7 +63,6 @@ var templateMgmt = function () {
             ajaxOptions,
             function (data) {
                 layer.closeAll();
-                if(data.msgCode != '400') {
                     var dataLen = data.content.length;
                     if(dataLen > 0) {
                         var tpl = $("#resultScript").html();
@@ -88,9 +83,6 @@ var templateMgmt = function () {
                             $("#resultRow").append(html);
                         }
                     }
-                }else {
-                    toastr.error(data.content);
-                }
 
                 /**
                  * 删除模版
@@ -115,10 +107,6 @@ var templateMgmt = function () {
                             function (data) {
                                 layer.closeAll();
                                 listAllTemplate();
-                            },
-                            function () {
-                                layer.closeAll();
-                                toastr.error('请检查网络！');
                             }
                         );
                     }, function(){
@@ -139,10 +127,6 @@ var templateMgmt = function () {
                     commonUtil.openUrlInIframe("修改模版", commonUtil.buildUrlParam("crawler/editTemplate.html", params));
                 });
 
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
     }

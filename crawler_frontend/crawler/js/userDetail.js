@@ -20,10 +20,6 @@ var userDetail = function () {
             function (data) {
                 $("#loginAccount").val(data.content.loginAccount);
                 $("#name").val(data.content.name);
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
 

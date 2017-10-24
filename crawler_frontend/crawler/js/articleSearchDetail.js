@@ -18,9 +18,6 @@ var articleSearchDetail = function () {
             function (data) {
                 $("#dataRow").html('');
                 fecthData(data);
-            },
-            function () {
-                toastr.error('请检查网络！');
             }
         );
     }

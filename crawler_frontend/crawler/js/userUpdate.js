@@ -21,10 +21,6 @@ var userUpdate = function () {
                 $("#loginAccount").val(data.content.loginAccount);
                 $("#name").val(data.content.name);
                 $("#password").val(data.content.password);
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
 
@@ -55,10 +51,6 @@ var userUpdate = function () {
                     checkboxClass: 'icheckbox_square-green',
                     radioClass: 'iradio_square-green',
                 });
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
 
@@ -103,17 +95,7 @@ var userUpdate = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
-                        if(data.msgCode === '400') {
-                            toastr.error(data.content);
-                        }else {
-                            toastr.success(data.content);
-                            commonUtil.closeTab();
-                        }
-                    },
-                    function (data) {
-                        layer.closeAll();
-                        toastr.error('请检查网络！');
+                        commonUtil.closeTab();
                     }
                 );
             }

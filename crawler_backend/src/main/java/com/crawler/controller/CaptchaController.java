@@ -52,9 +52,11 @@ public class CaptchaController {
 		String imgName = UUID.randomUUID().toString().replace("-", "") + ".png";
 		// create the text for the image
 		String capText = captchaProducer.createText();
+		BufferedImage bi = captchaProducer.createImage(capText);
+		// 转化为小写字母
+		capText = capText.toLowerCase();
 		// 将验证码字符串写入redis
 		redisConfiguration.setOperations(redisTemplate).add("captchaSet", capText);
-		BufferedImage bi = captchaProducer.createImage(capText);
 		ByteArrayOutputStream os = null;
 		try {
 			os = new ByteArrayOutputStream();

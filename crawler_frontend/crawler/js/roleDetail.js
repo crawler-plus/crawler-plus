@@ -53,10 +53,6 @@ var roleDetail = function () {
                     // 所有节点都不可点击
                     treeObj.setChkDisabled(nodes[i], true, true);
                 }
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
     }

@@ -34,22 +34,7 @@ var addTemplate = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
-                        if(data.msgCode === '400') {
-                            toastr.error(data.content);
-                        }else {
-                            toastr.success(data.content);
-                            commonUtil.closeTab();
-                        }
-                    },
-                    function (data) {
-                        layer.closeAll();
-                        if(data.status === 400) {
-                            var response = JSON.parse(data.responseText);
-                            toastr.error(response.errors);
-                        }else {
-                            toastr.error('请检查网络！');
-                        }
+                        commonUtil.closeTab();
                     }
                 );
             }

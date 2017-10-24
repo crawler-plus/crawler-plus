@@ -17,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 用户Controller
@@ -57,7 +58,7 @@ public class UserController {
         // 判断验证码是否正确
         String captcha = sysUser.getCaptcha();
         // 如果验证码正确
-        if(redisConfiguration.setOperations(redisTemplate).isMember("captchaSet", captcha)) {
+        if(redisConfiguration.setOperations(redisTemplate).isMember("captchaSet", captcha.toLowerCase())) {
             String password = MD5Utils.toMD5String(sysUser.getPassword(), crawlerProperties.getMd5Salt());
             sysUser.setPassword(password);
             int exists = userService.checkUserExists(sysUser);
@@ -84,6 +85,8 @@ public class UserController {
                 // 将用户信息最为token记录到redis中
                 String userToken = "user" + UUID.randomUUID().toString().replace("-", "");
                 redisConfiguration.valueOperations(redisTemplate).set(String.valueOf(sysUserByloginAccount.getId()), userToken);
+                // 设置默认过期时间为30分钟
+                redisTemplate.expire(String.valueOf(sysUserByloginAccount.getId()), 30, TimeUnit.MINUTES);
                 infoMap.put("userInfo", sysUserByloginAccount);
                 infoMap.put("menuInfo", sList);
                 infoMap.put("token", userToken);
@@ -215,4 +218,19 @@ public class UserController {
         be.setMsgCode(Const.MESSAGE_CODE_OK);
         return be;
     }
+
+    /**
+     * 用户退出
+     */
+    @GetMapping(path = "/logout/{id}")
+    @ApiOperation(value="用户退出", notes="用户退出")
+    @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
+    public BaseEntity logout(@PathVariable("id") int userId) {
+        BaseEntity be = new BaseEntity();
+        redisTemplate.delete(String.valueOf(userId));
+        be.setContent("用户退出");
+        be.setMsgCode(Const.MESSAGE_CODE_OK);
+        return be;
+    }
+
 }

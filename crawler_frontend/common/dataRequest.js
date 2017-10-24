@@ -50,12 +50,24 @@ var dataRequest = function() {
 		}
 		$.ajax(ajaxOpts).done(function(data){
             ajaxSuccCallback(data);
-		}).fail(function (error) {
+		}).fail(function (error, status) {
+            layer.closeAll();
+			// 断网
+			if(error.statusText === 'error') {
+                layer.msg('请检查网络', {icon: 5});
+        	}
 			// 证明无权限
 			if(error.status === 401) {
 				location.href = '../login.html';
 			}
-            ajaxFailedCallback(error);
+			// 参数错误
+			else if(error.status === 400) {
+                layer.msg('请检查参数', {icon: 5});
+			}
+			// 服务器内部错误
+			else if(error.status === 500) {
+				location.href = '../500.html';
+			}
         }).always(function () {
         });
 	}

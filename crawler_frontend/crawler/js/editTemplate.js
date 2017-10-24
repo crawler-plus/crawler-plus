@@ -24,10 +24,6 @@ var editTemplate = function () {
                 $("#titlePattern").val(pPata.titlePattern);
                 $("#timePattern").val(pPata.timePattern);
                 $("#contentPattern").val(pPata.contentPattern);
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
 
@@ -64,13 +60,7 @@ var editTemplate = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
-                        toastr.success(data.content);
                         commonUtil.closeTab();
-                    },
-                    function () {
-                        layer.closeAll();
-                        toastr.error('请检查网络！');
                     }
                 );
             }

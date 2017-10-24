@@ -42,7 +42,6 @@ var articleSearch = function () {
             function (data) {
                 layer.closeAll();
                 fecthData(data);
-
                 /**
                  * 查询文章详情
                  */
@@ -56,10 +55,6 @@ var articleSearch = function () {
                     commonUtil.openUrlInIframe("文章详情", commonUtil.buildUrlParam("crawler/articleSearchDetail.html", params));
                 });
 
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
     }
