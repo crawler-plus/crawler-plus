@@ -27,7 +27,7 @@ public class CheckToken {
         if(StringUtils.isEmpty(uid) || StringUtils.isEmpty(token) || !token.equals(redisConfiguration.valueOperations(redisTemplate).get(te.getUid()))) {
             throw new TokenInvalidException("invalid token");
         }
-        // 设置默认过期时间为30分钟
+        // 刷新默认过期时间为30分钟
         redisTemplate.expire(String.valueOf(te.getUid()), 30, TimeUnit.MINUTES);
     }
 
