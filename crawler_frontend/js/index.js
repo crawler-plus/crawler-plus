@@ -50,23 +50,28 @@ var index = function () {
 
         // 点击退出按钮，发起后台请求，清空token信息
         $("#logoutBtn").on('click', function () {
-            // 通过表单验证
-            var signOptions = {
-                formID : null,
-                isFormData : false
-            };
-            var ajaxOptions = {
-                url: comm.url + 'user/logout/' + sessionStorage.getItem("userId"),
-                method : 'GET'
-            };
-            dataRequest.requestSend(
-                signOptions,
-                ajaxOptions,
-                function (data) {
-                    location.href = 'login.html';
-                }
-            );
-
+            layer.confirm('确定要退出吗？', {
+                btn: ['是','否'] //按钮
+            }, function(){
+                // 通过表单验证
+                var signOptions = {
+                    formID : null,
+                    isFormData : false
+                };
+                var ajaxOptions = {
+                    url: comm.url + 'user/logout/' + sessionStorage.getItem("userId"),
+                    method : 'GET'
+                };
+                dataRequest.requestSend(
+                    signOptions,
+                    ajaxOptions,
+                    function (data) {
+                        location.href = 'login.html';
+                    }
+                );
+            }, function(){
+                layer.closeAll();
+            });
         })
     }
 
