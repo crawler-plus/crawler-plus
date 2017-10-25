@@ -50,10 +50,6 @@ var userDetail = function () {
                     checkboxClass: 'icheckbox_square-green',
                     radioClass: 'iradio_square-green',
                 });
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
 

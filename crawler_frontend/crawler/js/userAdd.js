@@ -30,10 +30,6 @@ var userAdd = function () {
                     radioClass: 'iradio_square-green',
                 });
 
-            },
-            function () {
-                layer.closeAll();
-                toastr.error('请检查网络！');
             }
         );
     }
