@@ -10,6 +10,7 @@ import com.crawler.service.api.MenuService;
 import com.crawler.service.api.RoleService;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +38,12 @@ public class RoleController {
     /**
      * 查询系统角色
      */
-    @GetMapping("/queryAll")
     @ApiOperation(value="查询所有系统角色", notes="查询所有系统角色")
-    @ApiImplicitParam(name = "sysRole", value = "系统角色entity", required = true, dataType = "SysRole")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sysRole", value = "系统角色entity", required = true, dataType = "SysRole"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @GetMapping("/queryAll")
     public BaseEntity queryAll(SysRole sysRole, TokenEntity t) {
         // 验证token
         checkToken.checkToken(t);
@@ -57,8 +61,9 @@ public class RoleController {
     /**
      * 查询系统角色(不带条件)
      */
-    @GetMapping("/queryAllRolesWithoutCondition")
     @ApiOperation(value="查询系统角色(不带条件)", notes="查询系统角色(不带条件)")
+    @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    @GetMapping("/queryAllRolesWithoutCondition")
     public BaseEntity queryAllRolesWithoutCondition(TokenEntity t) {
         // 验证token
         checkToken.checkToken(t);
@@ -73,9 +78,12 @@ public class RoleController {
     /**
      *  角色删除
      */
-    @DeleteMapping(path = "/delete/{id}")
     @ApiOperation(value="删除角色", notes="删除角色")
-    @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @DeleteMapping(path = "/delete/{id}")
     public BaseEntity delete(@PathVariable("id") int roleId, TokenEntity t) {
         // 验证token
         checkToken.checkToken(t);
@@ -96,8 +104,9 @@ public class RoleController {
     /**
      * 初始化菜单树形节点
      */
-    @GetMapping("/initMenuTree")
     @ApiOperation(value="初始化菜单树形节点", notes="初始化菜单树形节点")
+    @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    @GetMapping("/initMenuTree")
     public BaseEntity initMenuTree(TokenEntity t) {
         // 验证token
         checkToken.checkToken(t);
@@ -111,9 +120,12 @@ public class RoleController {
     /**
      * 添加系统角色
      */
-    @PostMapping(path = "/addRole")
     @ApiOperation(value="添加系统角色", notes="添加系统角色")
-    @ApiImplicitParam(name = "addRole", value = "系统角色Entity", required = true, dataType = "SysRole")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "addRole", value = "系统角色Entity", required = true, dataType = "SysRole"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @PostMapping(path = "/addRole")
     public BaseEntity addRole(SysRole sysRole, TokenEntity t) {
         // 验证token
         checkToken.checkToken(t);
@@ -135,9 +147,12 @@ public class RoleController {
     /**
      * 查询单个角色信息
      */
-    @GetMapping(path = "/getRoleInfoById/{id}")
     @ApiOperation(value="查询单个系统角色信息", notes="查询单个系统角色信息")
-    @ApiImplicitParam(name = "roleId", value = "系统角色Id", required = true, dataType = "int")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "系统角色Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @GetMapping(path = "/getRoleInfoById/{id}")
     public BaseEntity getRoleInfoById(@PathVariable("id") int roleId, TokenEntity t) {
         // 验证token
         checkToken.checkToken(t);
@@ -160,9 +175,12 @@ public class RoleController {
     /**
      * 修改系统角色
      */
-    @PutMapping(path = "/updateRole")
     @ApiOperation(value="修改系统角色", notes="修改系统角色")
-    @ApiImplicitParam(name = "sysRole", value = "系统角色Entity", required = true, dataType = "SysRole")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sysRole", value = "系统角色Entity", required = true, dataType = "SysRole"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @PutMapping(path = "/updateRole")
     public BaseEntity updateUser(SysRole sysRole, TokenEntity t) {
         // 验证token
         checkToken.checkToken(t);

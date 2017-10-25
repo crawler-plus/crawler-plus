@@ -8,6 +8,7 @@ import com.crawler.domain.TransferEntity;
 import com.crawler.exception.CrawlerException;
 import com.crawler.util.JsoupUtils;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -33,7 +34,10 @@ public class CrawlerController {
 	private CheckToken checkToken;
 
 	@ApiOperation(value="根据参数爬取网站内容", notes="根据参数爬取网站内容")
-	@ApiImplicitParam(name = "te", value = "传递的参数Entity", required = true, dataType = "TransferEntity")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "te", value = "传递的参数Entity", required = true, dataType = "TransferEntity"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
 	@PostMapping("/crawler")
 	public BaseEntity crawler(@RequestBody TransferEntity te, TokenEntity t) throws CrawlerException {
 		// 验证token

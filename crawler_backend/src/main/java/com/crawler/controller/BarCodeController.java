@@ -10,6 +10,7 @@ import com.crawler.exception.CrawlerException;
 import com.crawler.util.JsonUtils;
 import com.crawler.util.JsoupUtils;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -33,7 +34,10 @@ public class BarCodeController {
 	private CheckToken checkToken;
 
 	@ApiOperation(value="根据条形码查商品信息", notes="根据条形码查商品信息")
-	@ApiImplicitParam(name = "code", value = "条形码", required = true, dataType = "String")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "code", value = "条形码", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
 	@GetMapping(path = "/barCode/{code}")
 	public BaseEntity barCode(@PathVariable("code") String code, TokenEntity t) throws CrawlerException {
 		// 验证token

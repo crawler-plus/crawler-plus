@@ -9,6 +9,7 @@ import com.crawler.domain.WeChatOfficialAccounts;
 import com.crawler.exception.CrawlerException;
 import com.crawler.util.JsoupUtils;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -35,7 +36,10 @@ public class WeChatController {
 	private CheckToken checkToken;
 
 	@ApiOperation(value="根据微信公众号名称搜索微信公众号", notes="根据微信公众号名称搜索微信公众号")
-	@ApiImplicitParam(name = "weChatTitle", value = "微信公众号名称", required = true, dataType = "String")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "weChatTitle", value = "微信公众号名称", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
 	@GetMapping(path = "/weChat/{weChatTitle}")
 	public BaseEntity barCode(@PathVariable("weChatTitle") String weChatTitle, TokenEntity t) throws CrawlerException {
 		// 验证token

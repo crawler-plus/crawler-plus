@@ -45,7 +45,6 @@ var login = function () {
 
     var init = function () {
         btn_init();
-        create_captcha();
         // 清空sessionStorage中关于用户的信息
         sessionStorage.removeItem("userPermissions");
         sessionStorage.removeItem("userName");

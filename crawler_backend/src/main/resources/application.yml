@@ -1,10 +1,12 @@
 crawler:
   md5Salt: crawler #密码加密salt
   defaultPassword: 123456 #用户默认密码
-  captchaFtpServerHost: 192.168.3.110  # vsftpd默认host
+  captchaFtpServerHost: 192.168.3.129  # vsftpd-nginx默认host
+  captchaFtpServerPort: 8888 # vsftpd-nginx默认port
   captchaFtpServerUserName: ftpuser # vsftpd默认用户名
   captchaFtpServerPassword: ftpuser # vsftpd默认密码
   captchaFtpServerUrl: /usr/local/img # vsftpd图片存放路径
+  useEhCache: false #是否使用ehcache
 
 spring:
   application:

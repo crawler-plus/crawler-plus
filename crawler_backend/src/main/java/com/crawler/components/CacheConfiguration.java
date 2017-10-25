@@ -1,5 +1,6 @@
 package com.crawler.components;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
@@ -12,6 +13,7 @@ import org.springframework.core.io.ClassPathResource;
  */
 @Configuration
 @EnableCaching
+@ConditionalOnProperty(prefix = "crawler", name = "useEhCache", havingValue = "true")
 public class CacheConfiguration {
 
     /**

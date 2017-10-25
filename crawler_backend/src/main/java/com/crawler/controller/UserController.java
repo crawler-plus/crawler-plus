@@ -11,6 +11,7 @@ import com.crawler.service.api.UserService;
 import com.crawler.util.MD5Utils;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -50,9 +51,9 @@ public class UserController {
     /**
      * 用户登录
      */
-    @PostMapping("/login")
     @ApiOperation(value="用户登录", notes="用户登录")
     @ApiImplicitParam(name = "sysUser", value = "系统用户entity", required = true, dataType = "SysUser")
+    @PostMapping("/login")
     public BaseEntity login(SysUser sysUser) {
         BaseEntity be = new BaseEntity();
         // 判断验证码是否正确
@@ -107,9 +108,12 @@ public class UserController {
     /**
      * 用户查询
      */
-    @GetMapping("/queryAll")
     @ApiOperation(value="查询所有用户", notes="查询所有用户")
-    @ApiImplicitParam(name = "sysUser", value = "系统用户entity", required = true, dataType = "SysUser")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sysUser", value = "系统用户entity", required = true, dataType = "SysUser"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @GetMapping("/queryAll")
     public BaseEntity queryAll(SysUser sysUser, TokenEntity te) {
         // 验证token
         checkToken.checkToken(te);
@@ -127,9 +131,12 @@ public class UserController {
     /**
      * 用户删除
      */
-    @DeleteMapping(path = "/delete/{id}")
     @ApiOperation(value="删除用户", notes="删除用户")
-    @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @DeleteMapping(path = "/delete/{id}")
     public BaseEntity delete(@PathVariable("id") int userId, TokenEntity te) {
         // 验证token
         checkToken.checkToken(te);
@@ -150,9 +157,12 @@ public class UserController {
     /**
      * 查询单个用户信息
      */
-    @GetMapping(path = "/queryUser/{id}")
     @ApiOperation(value="查询单个用户信息", notes="查询单个用户信息")
-    @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @GetMapping(path = "/queryUser/{id}")
     public BaseEntity queryUser(@PathVariable("id") int userId, TokenEntity te) {
         // 验证token
         checkToken.checkToken(te);
@@ -166,9 +176,12 @@ public class UserController {
     /**
      * 查询单个用户的角色
      */
-    @GetMapping(path = "/getRoleByUserId/{id}")
     @ApiOperation(value="查询单个用户的角色", notes="查询单个用户的角色")
-    @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @GetMapping(path = "/getRoleByUserId/{id}")
     public BaseEntity getRoleByUserId(@PathVariable("id") int userId, TokenEntity te) {
         // 验证token
         checkToken.checkToken(te);
@@ -182,9 +195,12 @@ public class UserController {
     /**
      * 添加系统用户
      */
-    @PostMapping(path = "/addUser")
     @ApiOperation(value="添加系统用户", notes="添加系统用户")
-    @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", required = true, dataType = "SysUser")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", required = true, dataType = "SysUser"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @PostMapping(path = "/addUser")
     public BaseEntity addUser(SysUser sysUser, TokenEntity te) {
         // 验证token
         checkToken.checkToken(te);
@@ -206,9 +222,12 @@ public class UserController {
     /**
      * 修改系统用户
      */
-    @PutMapping(path = "/updateUser")
     @ApiOperation(value="修改系统用户", notes="修改系统用户")
-    @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", required = true, dataType = "SysUser")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", required = true, dataType = "SysUser"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @PutMapping(path = "/updateUser")
     public BaseEntity updateUser(SysUser sysUser, TokenEntity te) {
         // 验证token
         checkToken.checkToken(te);
@@ -222,9 +241,12 @@ public class UserController {
     /**
      * 用户退出
      */
-    @GetMapping(path = "/logout/{id}")
     @ApiOperation(value="用户退出", notes="用户退出")
-    @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @GetMapping(path = "/logout/{id}")
     public BaseEntity logout(@PathVariable("id") int userId) {
         BaseEntity be = new BaseEntity();
         redisTemplate.delete(String.valueOf(userId));

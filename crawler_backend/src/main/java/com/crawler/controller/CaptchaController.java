@@ -69,7 +69,7 @@ public class CaptchaController {
 					inputStream, imgName);
 			be.setMsgCode(Const.MESSAGE_CODE_OK);
 			// 设置图片地址
-			be.setContent("http://" + crawlerProperties.getCaptchaFtpServerHost() + ":80/" + imgName);
+			be.setContent("http://" + crawlerProperties.getCaptchaFtpServerHost() + ":" + crawlerProperties.getCaptchaFtpServerPort() + "/" + imgName);
 		} catch (Exception e) {
 			if(logger.isWarnEnabled()) {
 				logger.warn("验证码生成失败，原因：" + e.getMessage());

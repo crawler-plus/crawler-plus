@@ -8,6 +8,7 @@ import com.crawler.domain.TemplateConfig;
 import com.crawler.domain.TokenEntity;
 import com.crawler.service.api.ArticleService;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,7 @@ public class ArticleController {
 	 * 执行cron
 	 */
 	@ApiOperation(value="执行cron", notes="执行cron")
+	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/cron")
 	public void cron(TokenEntity t) {
 		// 验证token
@@ -44,9 +46,12 @@ public class ArticleController {
 	/**
 	 * 保存文章配置
 	 */
-	@PostMapping("/saveTemplateConfig")
 	@ApiOperation(value="保存文章配置", notes="保存文章配置")
-	@ApiImplicitParam(name = "te", value = "文章配置entity", required = true, dataType = "TemplateConfig")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "te", value = "文章配置entity", required = true, dataType = "TemplateConfig"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
+	@PostMapping("/saveTemplateConfig")
 	public BaseEntity saveTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
 		// 验证token
 		checkToken.checkToken(t);
@@ -62,7 +67,10 @@ public class ArticleController {
 	 * 修改文章配置
 	 */
 	@ApiOperation(value="修改文章配置", notes="修改文章配置")
-	@ApiImplicitParam(name = "te", value = "文章配置entity", required = true, dataType = "TemplateConfig")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "te", value = "文章配置entity", required = true, dataType = "TemplateConfig"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
 	@PutMapping("/editTemplateConfig")
 	public BaseEntity editTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
 		// 验证token
@@ -78,7 +86,10 @@ public class ArticleController {
 	 * 根据id删除文章配置
 	 */
 	@ApiOperation(value="根据id删除文章配置", notes="根据id删除文章配置")
-	@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
 	@DeleteMapping(path = "/removeTemplateConfig/{id}")
 	public BaseEntity removeTemplateConfig(@PathVariable("id") String id, TokenEntity t) {
 		// 验证token
@@ -94,6 +105,7 @@ public class ArticleController {
 	 * 列出所有文章配置
 	 */
 	@ApiOperation(value="列出所有文章配置", notes="列出所有文章配置")
+	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/listAllTemplateConfig")
 	public BaseEntity listAllTemplateConfig(TokenEntity t) {
 		// 验证token
@@ -109,7 +121,10 @@ public class ArticleController {
 	 * 根据id获得文章配置
 	 */
 	@ApiOperation(value="根据id获得文章配置", notes="根据id获得文章配置")
-	@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
 	@GetMapping(path = "/getTemplateConfig/{id}")
 	public BaseEntity getTemplateConfig(@PathVariable("id") String id, TokenEntity t) {
 		// 验证token
@@ -125,6 +140,7 @@ public class ArticleController {
 	 * 列出所有查询出的文章
 	 */
 	@ApiOperation(value="列出所有查询出的文章", notes="列出所有查询出的文章")
+	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/listAllCrawlerContents")
 	public BaseEntity listAllCrawlerContents(TokenEntity t) {
 		// 验证token
@@ -140,7 +156,10 @@ public class ArticleController {
 	 * 根据id获得指定文章
 	 */
 	@ApiOperation(value="根据id获得指定文章", notes="根据id获得指定文章")
-	@ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "String")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
 	@GetMapping(path = "/getCrawlerContent/{id}")
 	public BaseEntity getCrawlerContent(@PathVariable("id") String id, TokenEntity t) {
 		// 验证token
@@ -156,6 +175,7 @@ public class ArticleController {
 	 * 执行cron
 	 */
 	@ApiOperation(value="执行cron", notes="执行cron")
+	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/executeCron")
 	public BaseEntity executeCron(TokenEntity t) {
 		// 验证token

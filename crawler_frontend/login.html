@@ -19,31 +19,35 @@
     <div class="middle-box text-center loginscreen  animated fadeInDown">
         <div>
             <h2>欢迎使用 crawler-plus</h2>
-            <form class="m-t" role="form" id="loginForm">
+            <form class="form-horizontal" id="loginForm">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">用户名：</label>
+                    <label class="col-sm-3 control-label">用户名：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" placeholder="用户名" id="loginAccount" name="loginAccount">
+                        <input type="text" placeholder="用户名" class="form-control" id="loginAccount" name="loginAccount">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">密码：</label>
+                    <label class="col-sm-3 control-label">密码：</label>
                     <div class="col-sm-8">
-                        <input type="password" class="form-control" placeholder="密码" id="password" name="password">
+                        <input type="password" placeholder="密码" class="form-control" id="password" name="password">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-4 control-label">验证码：</label>
+                    <label class="col-sm-3 control-label">验证码：</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" placeholder="验证码" id="captcha" name="captcha">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-8">
-                        <img data-src="" id="captchaImg" ALT="图片验证码">
+                        <img data-src="" id="captchaImg" ALT="点击加载图片验证码">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-8">
+                        <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

@@ -24,6 +24,8 @@ public class CrawlerProperties {
 
     private String captchaFtpServerUrl;
 
+    private String captchaFtpServerPort;
+
     public String getMd5Salt() {
         return md5Salt;
     }
@@ -70,5 +72,13 @@ public class CrawlerProperties {
 
     public void setCaptchaFtpServerUrl(String captchaFtpServerUrl) {
         this.captchaFtpServerUrl = captchaFtpServerUrl;
+    }
+
+    public String getCaptchaFtpServerPort() {
+        return captchaFtpServerPort;
+    }
+
+    public void setCaptchaFtpServerPort(String captchaFtpServerPort) {
+        this.captchaFtpServerPort = captchaFtpServerPort;
     }
 }
