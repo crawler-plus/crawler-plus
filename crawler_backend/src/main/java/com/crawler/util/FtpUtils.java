@@ -2,6 +2,8 @@ package com.crawler.util;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.net.ftp.FTPClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +12,8 @@ import java.io.InputStream;
  * FTP工具类
  */
 public class FtpUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(FtpUtils.class);
 
     /**
      * 上传文件到FTP服务器
@@ -24,13 +28,17 @@ public class FtpUtils {
             ftpClient.storeFile(fileName, is);
             ftpClient.logout();
         }catch (Exception e) {
-            e.printStackTrace();
+            if(logger.isWarnEnabled()) {
+                logger.warn(e.getMessage());
+            }
         }finally {
             IOUtils.closeQuietly(is);
             try {
                 ftpClient.disconnect();
             } catch (IOException e) {
-                e.printStackTrace();
+                if(logger.isWarnEnabled()) {
+                    logger.warn(e.getMessage());
+                }
             }
         }
     }

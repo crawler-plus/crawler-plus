@@ -16,14 +16,19 @@ public class CrawlerProperties {
     // 用户默认密码
     private String defaultPassword;
 
+    // vsftpd-nginx默认host
     private String captchaFtpServerHost;
 
+    // vsftpd默认用户名
     private String captchaFtpServerUserName;
 
+    // vsftpd默认密码
     private String captchaFtpServerPassword;
 
+    // vsftpd图片存放路径
     private String captchaFtpServerUrl;
 
+    // vsftpd-nginx默认port
     private String captchaFtpServerPort;
 
     public String getMd5Salt() {
