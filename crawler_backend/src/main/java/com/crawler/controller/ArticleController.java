@@ -1,21 +1,26 @@
 package com.crawler.controller;
 
 import com.crawler.components.CheckToken;
+import com.crawler.components.RedisConfiguration;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.CrawlerContent;
 import com.crawler.domain.TemplateConfig;
 import com.crawler.domain.TokenEntity;
 import com.crawler.service.api.ArticleService;
+import com.crawler.util.JsonUtils;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 文章Controller
@@ -30,6 +35,12 @@ public class ArticleController {
 
 	@Autowired
 	private CheckToken checkToken;
+
+	@Autowired
+	private RedisConfiguration redisConfiguration;
+
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
 
 	/**
 	 * 执行cron
@@ -145,9 +156,22 @@ public class ArticleController {
 	public BaseEntity listAllCrawlerContents(TokenEntity t) {
 		// 验证token
 		checkToken.checkToken(t);
+		List<CrawlerContent> contents = null;
+		// 从redis中获取文章
+		String crawlerContent = (String)redisConfiguration.valueOperations(redisTemplate).get("crawlerContent");
+		// 如果redis中的文章列表为空
+		if(StringUtils.isEmpty(crawlerContent)) {
+			contents = articleService.listAllCrawlerContents();
+			// 把文章列表序列化到redis
+			String crawlerJson = JsonUtils.objectToJson(contents);
+			redisConfiguration.valueOperations(redisTemplate).set("crawlerContent", crawlerJson);
+			// 设置过期时间为4h
+			redisTemplate.expire("crawlerContent", 4, TimeUnit.HOURS);
+		}else { // 从redis中取出文章列表
+			contents = JsonUtils.jsonToList(crawlerContent, CrawlerContent.class);
+		}
 		BaseEntity be = new BaseEntity();
-		List<CrawlerContent> crawlerContents = articleService.listAllCrawlerContents();
-		be.setContent(crawlerContents);
+		be.setContent(contents);
 		be.setMsgCode(Const.MESSAGE_CODE_OK);
 		return be;
 	}
@@ -181,6 +205,8 @@ public class ArticleController {
 		// 验证token
 		checkToken.checkToken(t);
 		this.articleService.cronjob();
+		// 将redis中的crawlerContent删除
+		redisTemplate.delete("crawlerContent");
 		BaseEntity be = new BaseEntity();
 		be.setContent("执行爬取...");
 		be.setMsgCode(Const.MESSAGE_CODE_OK);
