@@ -66,7 +66,11 @@ var dataRequest = function() {
 			}
 			// 服务器内部错误
 			else if(error.status === 500) {
-				location.href = '../500.html';
+				if(ajaxURL.indexof("captcha/create") > -1) {
+                    location.href = '../500.html';
+				}else {
+                    location.href = '500.html';
+				}
 			}
         }).always(function () {
         });
