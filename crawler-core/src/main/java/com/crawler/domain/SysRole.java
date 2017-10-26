@@ -3,7 +3,7 @@ package com.crawler.domain;
 /**
  * 角色entity
  */
-public class SysRole extends BaseEntity{
+public class SysRole extends BaseEntity {
 
     // 自增ID
     private int id;

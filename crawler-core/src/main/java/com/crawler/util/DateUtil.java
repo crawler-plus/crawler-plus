@@ -89,7 +89,7 @@ public class DateUtil {
 
 	public static String formatDateTime(String formatstr) {
 		SimpleDateFormat sdf=new SimpleDateFormat(formatstr);  
-		java.util.Date date=new java.util.Date();  
+		Date date=new Date();
 		String str=sdf.format(date);  
 		return str;
 	}
