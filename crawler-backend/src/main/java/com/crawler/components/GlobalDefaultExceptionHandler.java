@@ -1,7 +1,9 @@
-package com.crawler.exception;
+package com.crawler.components;
 
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
+import com.crawler.exception.CrawlerException;
+import com.crawler.exception.TokenInvalidException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

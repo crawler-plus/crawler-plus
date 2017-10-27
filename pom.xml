@@ -9,6 +9,13 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>crawler-plus</name>
+    <description>crawler-plus  project</description>
+    <url>https://github.com/crawler-plus/crawler-plus</url>
+    <developers>
+        <developer>
+            <name>crawler</name>
+        </developer>
+    </developers>
 
     <modules>
         <module>crawler-core</module>
@@ -50,7 +57,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Dalston.SR1</version>
+                <version>Dalston.SR4</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
