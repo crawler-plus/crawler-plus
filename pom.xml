@@ -20,6 +20,8 @@
     <modules>
         <module>crawler-core</module>
         <module>crawler-backend</module>
+        <module>crawler-eureka-server</module>
+        <module>crawler-captcha-producer</module>
     </modules>
 
     <parent>

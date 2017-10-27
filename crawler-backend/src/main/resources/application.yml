@@ -58,3 +58,8 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka/
