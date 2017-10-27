@@ -28,39 +28,46 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 后端：
 
 1. SpringBoot 1.5.7.RELEASE
-2. MyBatis
-3. Spring 4.3.11.RELEASE
-4. Hibernate-validator
-5. Swagger2
-6. Jsoup 1.10.3
-7. Ehcache 2.10.4
-8. Spring-scheduled
-9. Druid
-10. Redis(缓存服务器)
-11. Nginx + Vsftpd (图片服务器)
+2. SpringCloud Dalston.SR4
+3. MyBatis
+4. Spring 4.3.11.RELEASE
+5. Hibernate-validator
+6. Swagger2
+7. Jsoup 1.10.3
+8. Ehcache 2.10.4
+9. Spring-scheduled
+10. Druid
+11. Redis(缓存服务器)
+12. Nginx + Vsftpd (图片服务器)
 ......
 
 项目特点：
 
 1. 该项目是彻彻底底的前后端分离项目，前端工程和后端工程可以单独部署
 2. 基于SpringBoot,采用Maven依赖的方式，简化了大量配置代码，方便部署
-3. 支持多环境部署（开发，测试，生产环境）
-4. 后台部分模块采用Ehcache缓存数据，提高响应速度
-5. 采用Logback框架记录日志，对于开发，测试，生产环境的不同特点，采用不同日志级别
-6. 该项目实现了一个简单的基于用户-角色-权限的管理模型
-7. 该项目实现了一个简单的爬虫应用，基于Jsoup框架，用户可以在此基础上进行开发
-8. 该项目采用了统一的异常处理机制
-9. 采用Spring-scheduled定时去网络抓取新闻数据
-10. 前端封装了一个Ajax通用方法，简化Ajax操作
-11. 登录验证码支持
+3. 使用部分SpringCloud模块的功能，如Eureka，Ribbon等，对模块进行拆分形成微服务
+4. 支持多环境部署（开发，测试，生产环境）
+5. 后台部分模块采用Ehcache缓存数据，提高响应速度
+6. 采用Logback框架记录日志，对于开发，测试，生产环境的不同特点，采用不同日志级别
+7. 该项目实现了一个简单的基于用户-角色-权限的管理模型
+8. 该项目实现了一个简单的爬虫应用，基于Jsoup框架，用户可以在此基础上进行开发
+9. 该项目采用了统一的异常处理机制
+10. 采用Spring-scheduled定时去网络抓取新闻数据
+11. 前端封装了一个Ajax通用方法，简化Ajax操作
+12. 登录验证码支持
+
 
 运行步骤：
 
 后端：
 1.将crawler_backend目录下的spider.sql导入mysql数据库中
-2.运行CrawlerApplication.java
+2.运行crawler-eureka-server中的CrawlerEurekaServerApplication.java开启Eureka注册微服务
+3.运行crawler-captcha-producer中的CrawlerCaptchaProducerApplication.java开启验证码生产者，注册到Eureka服务中
+4.运行crawler-backend中的CrawlerApplication.java开启后台服务
+
 注意：
-************生产环境下请将application.yml中的active: dev改成active: prod， 并且将application-prod.yml中的server.address，server.port和mysql链接地址改正确************
+************生产环境下请将crawler-backend中的application.yml中的active: dev改成active: prod， 并且将application-prod.yml中的server.address，server.port和mysql链接地址改正确，
+并将crawler-captcha-producer和crawler-eureka-server工程中的application.yml相应的host和port修改正确************
 3.建议生产环境下采用jar包运行，打jar包命令：clean package
 4.需要有Redis环境，Nginx环境，vsftpd环境
 
