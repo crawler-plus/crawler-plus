@@ -30,6 +30,9 @@ yum makecache
 安装vim
 yum install -y vim
 
+安装wget
+yum install -y wget
+
 关闭selinux
 vi /etc/selinux/config
 将SELINUX=enforcing改为SELINUX=disabled
@@ -51,3 +54,126 @@ reboot
 修改主机名称：
 hostnamectl set-hostname crawler
 
+---------------------如下为安装软件的步骤-------------------------------
+软件全部安装在/usr/local下，首先把该目录下的内容清空
+cd /usr/local
+rm -rf *
+安装jdk
+从官网下载jdk64位的安装包，我的是jdk-8u151-linux-x64.tar.gz
+传到linux中
+tar -zxvf jdk-8u151-linux-x64.tar.gz -C /usr/local/jdk
+修改文件夹名称
+cd /usr/local
+mv jdk1.8.0_151/ jdk
+删除jdk-8u151-linux-x64.tar.gz
+rm -rf jdk-8u151-linux-x64.tar.gz
+设置jdk环境变量
+vim /etc/profile.d/java.sh
+export JAVA_HOME=/usr/local/jdk
+export PATH=$JAVA_HOME/bin:$PATH
+保存退出
+source /etc/profile.d/java.sh
+java -version 如果输出java版本号证明jdk环境变量配置成功
+
+安装redis
+安装之前需要安装gcc-c++
+yum install gcc-c++
+cd /usr/local
+wget http://download.redis.io/releases/redis-3.2.11.tar.gz
+tar -zxvf redis-3.2.11.tar.gz
+mv redis-3.2.11 redis
+rm -rf redis-3.2.11.tar.gz
+cd redis
+make MALLOC=libc
+make install
+修改redis.conf文件
+vim redis.conf
+daemonize yes 为后台启动
+保存退出
+cd src
+./redis-server ../redis.conf
+验证redis是否启动
+ps -ef | grep redis
+root     11198     1  0 22:23 ?        00:00:00 ./redis-server 127.0.0.1:6379
+root     11202  1016  0 22:23 pts/0    00:00:00 grep --color=auto redis
+有如上信息证明redis启动成功
+最后需要修改防火墙配置，将6379端口开放，修改方式上面已经有介绍，不做过多介绍。
+
+安装nginx
+选用的安装包为nginx-1.12.0.tar.gz
+上传到/usr/local下
+tar -zxvf nginx-1.12.0.tar.gz
+mv nginx-1.12.0.tar.gz nginx
+rm -rf nginx-1.12.0.tar.gz
+首先安装 yum -y install pcre* zlib* openssl*
+cd nginx
+./configure --prefix=/usr/local/nginx --conf-path=/usr/local/nginx/nginx.conf --with-http_stub_status_module --with-http_ssl_module
+make && make install
+验证nginx是否安装成功
+sbin/nginx
+ps -ef | grep nginx
+root     16335     1  0 22:42 ?        00:00:00 nginx: master process sbin/nginx
+nobody   16336 16335  0 22:42 ?        00:00:00 nginx: worker process
+root     16338  1016  0 22:42 pts/0    00:00:00 grep --color=auto nginx
+出现如上输出证明nginx安装成功
+最后需要修改防火墙配置，将80端口开放，修改方式上面已经有介绍，不做过多介绍。
+在浏览器上输入：
+http://192.168.3.120查看是否生效
+
+安装mysql
+首先卸载centOS7中默认安装的mariadb
+rpm -qa |grep myria*
+mariadb-libs-5.5.56-2.el7.x86_64
+rpm -e --nodeps mariadb-libs-5.5.56-2.el7.x86_64
+下载mysql源安装包
+wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
+安装mysql源
+yum localinstall mysql57-community-release-el7-8.noarch.rpm
+检查mysql源是否安装成功
+yum repolist enabled | grep "mysql.*-community.*"
+修改vim /etc/yum.repos.d/mysql-community.repo源，改变默认安装的mysql版本。比如要安装5.6版本，将5.7源的enabled=1改成enabled=0。然后再将5.6源的enabled=0改成enabled=1即可
+安装MySQL
+yum install mysql-community-server
+启动MySQL服务
+systemctl start mysqld
+验证 : ps -ef|grep mysql
+修改密码策略
+在/etc/my.cnf文件添加validate_password_policy配置，指定密码策略
+添加validate_password = off 禁用密码策略
+重新启动mysql服务使配置生效：
+systemctl restart mysqld
+修改root密码
+首先查看root默认密码：
+grep 'temporary password' /var/log/mysqld.log 我的是wzWRd!I8Xof3
+mysql -uroot -p
+password：wzWRd!I8Xof3
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'root';
+添加远程登录用户
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION;
+exit
+然后修改mysql编码为 utf8
+vim /etc/my.cnf
+[mysqld]
+character_set_server=utf8
+init_connect='SET NAMES utf8'
+保存退出
+重启mysql服务
+最后需要修改防火墙配置，将3306端口开放，修改方式上面已经有介绍，不做过多介绍。
+
+安装vsftpd
+yum install -y vsftpd
+cd /etc/vsftpd/
+cp vsftpd.conf vsftpd.conf.bak
+vim  vsftpd.conf
+anonymous_enable=YES” 改成 “anonymous_enable=NO
+文件末尾新增：userlist_deny=NO
+创建ftp用户
+useradd ftpuser
+passwd ftpuser
+echo ftpuser >> /etc/vsftpd/user_list
+systemctl restart vsftpd.service
+验证是否启动成功：
+ps -ef|grep vsftpd
+root     16832     1  0 23:15 ?        00:00:00 /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
+root     16834  1016  0 23:16 pts/0    00:00:00 grep --color=auto vsftpd
+输出上面的证明启动vsftpd成功
