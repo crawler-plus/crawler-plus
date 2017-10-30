@@ -21,7 +21,7 @@ ssh 192.168.3.120
 更新yum源
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
 cd /etc/yum.repos.d/
-通过如下命令打开网页下载163的yum repo文件传到上述目录
+把网页下载163的yum repo文件传到上述目录
 执行如下两个命令
 yum clean all
 yum makecache
@@ -89,6 +89,7 @@ make install
 修改redis.conf文件
 vim redis.conf
 daemonize yes 为后台启动
+bind:127.0.0.1这行注释掉
 requirepass redis 设置密码为redis
 保存退出
 cd src
@@ -96,7 +97,7 @@ cd src
 
 验证redis是否启动
 ps -ef | grep redis
-root     11198     1  0 22:23 ?        00:00:00 ./redis-server 127.0.0.1:6379
+root     11198     1  0 22:23 ?        00:00:00 ./redis-server *:6379
 root     11202  1016  0 22:23 pts/0    00:00:00 grep --color=auto redis
 有如上信息证明redis启动成功
 最后需要修改防火墙配置，将6379端口开放，修改方式上面已经有介绍，不做过多介绍。
@@ -118,7 +119,9 @@ root     16335     1  0 22:42 ?        00:00:00 nginx: master process sbin/nginx
 nobody   16336 16335  0 22:42 ?        00:00:00 nginx: worker process
 root     16338  1016  0 22:42 pts/0    00:00:00 grep --color=auto nginx
 出现如上输出证明nginx安装成功
-最后需要修改防火墙配置，将80端口开放，修改方式上面已经有介绍，不做过多介绍。
+将根目录下的nginx.conf替换掉conf/nginx.conf文件
+重启nginx:sbin/nginx -s reload
+最后需要修改防火墙配置，将80端口和8888端口开放，修改方式上面已经有介绍，不做过多介绍。
 在浏览器上输入：
 http://192.168.3.120查看是否生效
 
