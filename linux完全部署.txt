@@ -89,9 +89,11 @@ make install
 修改redis.conf文件
 vim redis.conf
 daemonize yes 为后台启动
+requirepass redis 设置密码为redis
 保存退出
 cd src
 ./redis-server ../redis.conf
+
 验证redis是否启动
 ps -ef | grep redis
 root     11198     1  0 22:23 ?        00:00:00 ./redis-server 127.0.0.1:6379
@@ -177,3 +179,4 @@ ps -ef|grep vsftpd
 root     16832     1  0 23:15 ?        00:00:00 /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
 root     16834  1016  0 23:16 pts/0    00:00:00 grep --color=auto vsftpd
 输出上面的证明启动vsftpd成功
+最后需要修改防火墙配置，将21端口开放，修改方式上面已经有介绍，不做过多介绍。

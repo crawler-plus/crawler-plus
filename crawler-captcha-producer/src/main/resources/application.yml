@@ -1,5 +1,5 @@
 crawler:
-  captchaFtpServerHost: 192.168.3.129  # vsftpd-nginx默认host
+  captchaFtpServerHost: 192.168.3.120  # vsftpd-nginx默认host
   captchaFtpServerPort: 8888 # vsftpd-nginx默认port
   captchaFtpServerUserName: ftpuser # vsftpd默认用户名
   captchaFtpServerPassword: ftpuser # vsftpd默认密码
@@ -10,15 +10,9 @@ spring:
     name: captcha-service
   redis:
       database: 0
-      host: 192.168.3.129
+      host: 192.168.3.120
       port: 6379
-      password:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 8
-        min-idle: 0
-      timeout: 0
+      password: redis
 
 eureka:
   client:
