@@ -1,0 +1,53 @@
+说明：本文档是基于linux-centOS7-64位系统进行部署的，会详细介绍从系统配置到软件安装到软件部署的方方面面。
+下面的步骤假定用户已经安装了cent0S7，并且已经通过root用户登录到系统。
+
+1.查看linux内核命令：uname -r 我本地的是3.10.0-693.el7.x86_64
+2.查看centOS版本命令：cat /etc/redhat-release 我本地的是CentOS Linux release 7.4.1708 (Core)
+
+修改静态ip设置：
+vi /etc/sysconfig/network-scripts/ifcfg-ens33
+BOOTPROTO=static
+ONBOOT=yes
+IPADDR=192.168.3.120
+NETMASK=255.255.255.0
+GATEWAY=192.168.3.1
+DNS1=192.168.3.1
+保存退出之后reboot
+
+之后vmvare网络适配器采用桥接模式即可
+用root用户登录系统后ifconfig 命令，确认ip地址为上面配置的192.168.3.120，之后的操作采用XSHELL工具即可操作远程服务器
+ssh 192.168.3.120
+
+更新yum源
+mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+cd /etc/yum.repos.d/
+通过如下命令打开网页下载163的yum repo文件传到上述目录
+执行如下两个命令
+yum clean all
+yum makecache
+之后就可以用yum命令安装软件
+
+安装vim
+yum install -y vim
+
+关闭selinux
+vi /etc/selinux/config
+将SELINUX=enforcing改为SELINUX=disabled
+reboot
+
+使用iptables作为防火墙
+CentOS 7.0默认使用的是firewall作为防火墙，使用iptables必须重新设置一下
+systemctl stop firewalld.service #关闭防火墙使配置生效
+systemctl disable firewalld.service #设置防火墙开机不启动
+yum install -y iptables-services
+vim /etc/sysconfig/iptables
+首先增加一个规则，用于开启3306端口
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT
+保存退出
+systemctl restart iptables.service #重启防火墙使配置生效
+systemctl enable iptables.service #设置防火墙开机启动
+reboot
+
+修改主机名称：
+hostnamectl set-hostname crawler
+
