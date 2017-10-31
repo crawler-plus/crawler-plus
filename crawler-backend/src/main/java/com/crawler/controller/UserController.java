@@ -5,6 +5,7 @@ import com.crawler.components.CrawlerProperties;
 import com.crawler.components.RedisConfiguration;
 import com.crawler.constant.Const;
 import com.crawler.domain.*;
+import com.crawler.service.api.LogService;
 import com.crawler.service.api.MenuService;
 import com.crawler.service.api.RoleService;
 import com.crawler.service.api.UserService;
@@ -35,6 +36,9 @@ public class UserController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private LogService logService;
 
     @Autowired
     private CrawlerProperties crawlerProperties;
@@ -88,6 +92,11 @@ public class UserController {
                 redisConfiguration.valueOperations(redisTemplate).set(String.valueOf(sysUserByloginAccount.getId()), userToken);
                 // 设置默认过期时间为30分钟
                 redisTemplate.expire(String.valueOf(sysUserByloginAccount.getId()), 30, TimeUnit.MINUTES);
+                // 往系统log表中添加一条记录
+                SysLog sysLog = new SysLog();
+                sysLog.setLoginAccount(sysUser.getLoginAccount());
+                sysLog.setTypeId(1);
+                logService.logAdd(sysLog);
                 infoMap.put("userInfo", sysUserByloginAccount);
                 infoMap.put("menuInfo", sList);
                 infoMap.put("token", userToken);
@@ -249,6 +258,12 @@ public class UserController {
     @GetMapping(path = "/logout/{id}")
     public BaseEntity logout(@PathVariable("id") int userId) {
         BaseEntity be = new BaseEntity();
+        SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
+        // 往系统log表中添加一条记录
+        SysLog sysLog = new SysLog();
+        sysLog.setLoginAccount(sysUserByUserId.getLoginAccount());
+        sysLog.setTypeId(2);
+        logService.logAdd(sysLog);
         redisTemplate.delete(String.valueOf(userId));
         be.setContent("用户退出");
         be.setMsgCode(Const.MESSAGE_CODE_OK);

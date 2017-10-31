@@ -13,7 +13,7 @@
         LEFT JOIN sys_user_role sur ON srm.role_id = sur.role_id
         LEFT JOIN sys_user su ON sur.user_id = su.id
         WHERE su.id = #{id, jdbcType=INTEGER}
-        ORDER BY sm.sort_order
+        ORDER BY sm.group_id ASC, sm.sort_order ASC
     </select>
 
     <select id="getMenuTreeList" resultType="com.crawler.domain.TreeNode">
@@ -22,7 +22,7 @@
         s.menu_name AS name,
         s.menu_parent_id AS pId
         FROM sys_menu s
-        ORDER BY s.sort_order
+        ORDER BY s.group_id ASC, s.sort_order ASC
     </select>
 
     <update id="updateUrl" parameterType="java.lang.String">

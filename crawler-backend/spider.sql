@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50527
 File Encoding         : 65001
 
-Date: 2017-10-20 09:12:01
+Date: 2017-10-31 14:56:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -90,6 +90,36 @@ INSERT INTO `crawler_content` VALUES ('480', '72ef90ee33734502834a45d72de48d29',
 INSERT INTO `crawler_content` VALUES ('481', 'fe358b404799458e8875c991cfca484a', 'http://sports.sina.com.cn/china/j/2017-10-19/doc-ifymzzpv6554155.shtml', '中超前瞻：恒大冠军点拒闪失 鲁能或送辽足降级', '2017年10月19日15:53', '<figure class=\"article-a__figure\" layout-mt-e> \n <img src=\"http://n.sinaimg.cn/sports/transform/20171019/v11u-fymzqpq2376789.jpg\"> \n <figcaption class=\"article-a__figcaption\">\n  恒大有望提前夺冠\n </figcaption> \n</figure> \n<link rel=\"stylesheet\" href=\"http://news.sina.com.cn/css/268/2011/1110/17/weibo-all.css\"> \n<p>　　2017赛季中超联赛第28轮赛事将在10月20日至22日进行，恒大在主场对阵恒丰智诚的比赛中迎来冠军点，赢球就可提前实现七连冠；权健主场对阵华夏幸福，比赛结果直接关乎积分榜第3位的争夺形势；亿利主场对阵国安，此战有着多种看点；辽足客战鲁能，辽足如不能取胜就将提前降级。</p> \n<p>　　山东鲁能泰山vs辽宁沈阳开新</p> \n<p>　　比赛时间：10月20日&nbsp;周五&nbsp;19：35</p> \n<p>　　比赛地点：济南奥体中心</p> \n<p>　　天气：晴&nbsp;18摄氏度&nbsp;微风</p> \n<p>　　主裁判：赵治治（北京）</p> \n<p>　　电视转播：中央电视台体育频道、山东体育、辽宁体育</p> \n<p>　　预测结果：鲁能胜</p> \n<p>　　6轮不胜的鲁能距积分榜第3华夏幸福有6分差距，距第4权健有2分差距，因足协杯冠军尚未产生，鲁能冲击亚冠资格的希望仍值得努力。从中超交锋记录来看，对阵辽足正是鲁能结束不胜走势的好机会：鲁能对辽足17胜4平4负，主场对阵辽足的战绩更是压倒性的11胜1平。</p> \n<p>　　上轮辽足在肇俊哲指挥下3-3战平上港，打出了久违的积极面貌，但辽足的形势仍很严峻，本轮如不能取胜就会提前降级。或许，很多人已对辽足降级的结果提前形成了心理准备，而就比赛来说，辽足打出自己的积极性与技战术内容仍很有意义。</p> \n<p>　　延边富德vs河南建业</p> \n<p>　　比赛时间：10月21日&nbsp;周六&nbsp;15：30</p> \n<p>　　比赛地点：延吉人民体育场</p> \n<p>　　天气：小雨&nbsp;14摄氏度&nbsp;微风</p> \n<p>　　主裁判：艾堃（北体大）</p> \n<p>　　电视转播：延边综合、河南新闻</p> \n<p>　　预测结果：富德不败</p> \n<p>　　联赛还剩3轮，延边队距积分榜倒数第3亿利有6分差距，逆袭保级的可能性非常有限。但近阶段延边队的表现继续赢得着球迷舆论好评，一波1胜2平的抢分走势后，上轮延边队客场3-4惜败于恒大。积极努力不放弃，剩余的比赛中延边队将继续展示自己的精神面貌。</p> \n<p>　　建业领先延边队8分，只差理论上的“正式上岸”。建业在中超3战延边队取得全胜，其中包括本赛季首回合交锋时的主场3-1。双方在球风上是否存在某种克制为比赛增添了看点。另一方面，再度换帅后建业也存在重新捏合的课题，要尽可能地为下赛季做好准备。</p> \n<p>　　天津权健vs河北华夏幸福</p> \n<p>　　比赛时间：10月21日&nbsp;周六&nbsp;19：35</p> \n<p>　　比赛地点：海河教育园区体育场</p> \n<p>　　天气：阴转小雨&nbsp;18摄氏度&nbsp;微风</p> \n<p>　　主裁判：外籍裁判</p> \n<p>　　电视转播：中央电视台体育赛事频道、天津体育、河北都市</p> \n<p>　　预测结果：权健不败</p> \n<p>　　近3战2负1平的走势直接影响了权健争夺亚冠门票的形势，但机会还有，本轮权健如能战胜华夏幸福，双方的分差就将缩小到1分。本赛季前13个主场权健8胜4平1负（打入25球失14球）。本赛季首回合较量权健客场0-1负于华夏幸福，该场双方对峙的非常胶着，华夏幸福凭借姆比亚在收官阶段的入球奏凯。结合上轮权健主场战平鲁能的胶着战局，强强对峙的局面会对权健形成相当考验。</p> \n<p>　　此战对华夏幸福的考验也很大。华夏幸福近8轮6胜2平，球队走势积极呼应了俱乐部“必拿亚冠门票”的硬性目标，掌控了抢票主动权；但剩余3轮对阵权健、恒大与鲁能的赛程颇具难度，这赛程显然隐藏着较大变数。上轮华夏幸福在一度3-0领先的绝对好局下被苏宁连扳2球，本赛季中途曾出现过的剧烈起伏似乎又有抬头之势，这是必须引起华夏幸福重视的。拉维奇目前有3张黄牌在身，这也是需要尽力掌控住的隐忧。</p> \n<p>　　长春亚泰vs江苏苏宁易购</p> \n<p>　　比赛时间：10月22日&nbsp;周日&nbsp;15：30</p> \n<p>　　比赛地点：长春经开体育场</p> \n<p>　　天气：晴转多云&nbsp;7摄氏度&nbsp;微风</p> \n<p>　　主裁判：李海新（广东）</p> \n<p>　　电视转播：吉林公共、江苏体育休闲</p> \n<p>　　预测结果：亚泰不败</p> \n<p>　　稳居积分榜中游的亚泰近3轮2胜1平，2胜均是在客场，体现出了进取心。当然上轮同恒丰智诚间发生的球场冲突需要引以为戒。中超交锋史上亚泰对苏宁7胜5平5负，主场对苏宁2胜4平2负；上赛季苏宁主客场双杀亚泰，而本赛季首回合亚泰客场1-0战胜苏宁，如今有机会对苏宁还以双杀。</p> \n<p>　　苏宁阵营对本赛季主场0-1负于亚泰一战记忆犹新，那场比赛对卡佩罗有着“生日夜首秀”的特殊意义，但比赛中苏宁数次击中门框，还以乌龙球的方式令亚泰破门。现在苏宁领先降级区7分，只差理论上的“正式上岸”，球队心态较为轻松，能否向亚泰“复仇”更多将检验苏宁的现有硬实力。</p> \n<p>　　上海上港vs广州富力</p> \n<p>　　比赛时间：10月22日&nbsp;周日&nbsp;19：35</p> \n<p>　　比赛地点：上海体育场</p> \n<p>　　天气：晴转多云&nbsp;18摄氏度&nbsp;北风转西北风4-5级</p> \n<p>　　主裁判：外籍裁判</p> \n<p>　　电视转播：上海五星体育</p> \n<p>　　预测结果：上港不败</p> \n<p>　　周中亚冠战线上港未能拿到决赛门票，包括球队整体性、技战术等多方面内容引起舆论热议。联赛中上港的争冠希望基本破灭，领先第3名6分的亚军形势又非常稳固，客观情况决定了上港接下来的工作重心是11月份进行的足协杯决赛。上港与富力本赛季首回合交锋战为1-1，该场比赛中奥斯卡以非道德行为引发双方冲突，多人被多场禁赛，双方再战时相应看点不可回避。</p> \n<p>　　富力上轮3-2险胜建业，积分提升到43分已追平鲁能，继续保有着争夺亚冠资格的理论希望。中超交锋史上富力对上港2胜4平3负，富力前2次客战上港均取得胜利，而近2次客战上港均是落败，如此走势能体现出上港近些年的持续提升，对富力形成了检验意义。扎哈维近2场比赛未能取得入球，赛季入球数停滞在25球，剩余3轮他的火力表现值得持续关注。</p> \n<p>　　重庆当代力帆vs上海绿地申花</p> \n<p>　　比赛时间：10月22日&nbsp;周日&nbsp;19：35</p> \n<p>　　比赛地点：重庆奥体中心</p> \n<p>　　天气：中雨转小雨&nbsp;19摄氏度&nbsp;微风</p> \n<p>　　主裁判：外籍裁判</p> \n<p>　　电视转播：重庆生活</p> \n<p>　　预测结果：力帆不败</p> \n<p>　　重返中超后，力帆在2015赛季以35分排名第8位，上赛季以37分再次排名第8位；目前少赛一场的力帆积35分排名积分榜第9位，对照前两个赛季的成绩，力帆在本赛季剩余几场比赛中具备着战绩上的推动力。</p> \n<p>　　包括本赛季首回合较量在内，力帆重返中超后3次客战申花均打出2-2的比分，但2次主场对阵申花均是落败且未能取得入球，如此的交锋走势对双方均形成了看点。申花的工作重心是11月份的足协杯决赛，联赛收官阶段的任务是尽可能在稳定中提升球队战斗力。</p> \n<p>　　广州恒大淘宝vs贵州恒丰智诚</p> \n<p>　　比赛时间：10月22日&nbsp;周日&nbsp;19：35</p> \n<p>　　比赛地点：广州天河体育中心体育场</p> \n<p>　　天气：晴&nbsp;24摄氏度&nbsp;北风3-4级</p> \n<p>　　主裁判：傅明（北京）</p> \n<p>　　电视转播：中央电视台体育频道、广东体育、贵州大众生活</p> \n<p>　　预测结果：恒大胜</p> \n<p>　　上轮险胜延边后，恒大已定下实现七连冠的大势，本轮如能在主场奏凯就可提前两轮夺冠。此前多个赛季中恒大曾数次出现“错过冠军点”的情况，虽然并未影响最终结果，但也相应提升了如今再遇冠军点时的看点。最后两轮恒大要客战华夏幸福、主场对阵权健，从赛程看本轮也属必须把握的机会。</p> \n<p>　　积39分的恒丰智诚排名积分榜第7位，如此表现对于一支并不突出于资金力度的球队显然非常可喜。过往的经验告诉我们，如能阻击手握冠军点时的恒大，这对于任何球队都是拔升形象的机会。本赛季首回合交锋时恒丰智诚主场0-2负于恒大，但该场是恒丰智诚本赛季最显水准与积极性的比赛之一，那场比赛中耶拉维奇射失点球。</p> \n<p>　　天津亿利vs北京中赫国安</p> \n<p>　　比赛时间：10月22日&nbsp;周日&nbsp;19：35</p> \n<p>　　比赛地点：天津奥体中心</p> \n<p>　　天气：阴&nbsp;13摄氏度&nbsp;东风3-4级</p> \n<p>　　主裁判：王竞（贵州）</p> \n<p>　　电视转播：天津体育、北京体育</p> \n<p>　　预测结果：亿利不败</p> \n<p>　　凭借一波3连胜表现，亿利在还剩3轮时已甩开降级区6分，并且手中还握有本轮对国安、最后一轮对建业的两个主场，保级形势已非常明朗。但从另一个方面看，亿利引发关注的绝不仅是实现保级的最终结果，持续证明自己、打出积极性等将是长久课题。</p> \n<p>　　上轮赛事延期令国安将在接下来一周时间内迎来双赛，对阵亿利又因传统的“京津对话”以及现如今的客观敏感性而增添了分量。近4战1平3负的国安目前排名第8位，从自我要求的层面看也需要尽可能提升排名。中超交锋史上国安对亿利（前天津泰达）10胜10平7负，其中国安客场战绩为3胜4平6负；2015赛季第29轮赛事，国安客场0-4负于当时深陷保级战团的泰达；本赛季首回合较量，国安主场2-0战胜亿利，亿利买提江被红牌罚下。</p> \n<p>　　（木之火）</p> \n<div style=\"margin-top:35px;\">\n  声明：新浪网独家稿件，未经授权禁止转载！\n</div>', '2017-10-19 16:33:07');
 
 -- ----------------------------
+-- Table structure for sys_log
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_log`;
+CREATE TABLE `sys_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `login_account` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '登录账户',
+  `execute_time` datetime DEFAULT NULL COMMENT '执行时间',
+  `type_id` int(11) DEFAULT NULL COMMENT '类型（1：登录系统，2：登出系统）',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+INSERT INTO `sys_log` VALUES ('9', 'lisi', '2017-10-31 14:48:34', '2');
+INSERT INTO `sys_log` VALUES ('10', 'admin', '2017-10-31 14:48:45', '1');
+INSERT INTO `sys_log` VALUES ('11', 'admin', '2017-10-31 14:48:48', '2');
+INSERT INTO `sys_log` VALUES ('12', 'lisi', '2017-10-31 14:49:13', '1');
+INSERT INTO `sys_log` VALUES ('13', 'lisi', '2017-10-31 14:49:16', '2');
+INSERT INTO `sys_log` VALUES ('14', 'admin', '2017-10-31 14:50:05', '1');
+INSERT INTO `sys_log` VALUES ('15', 'admin', '2017-10-31 14:50:25', '2');
+INSERT INTO `sys_log` VALUES ('16', 'admin', '2017-10-31 14:50:43', '1');
+INSERT INTO `sys_log` VALUES ('17', 'admin', '2017-10-31 14:50:46', '2');
+INSERT INTO `sys_log` VALUES ('18', 'lisi', '2017-10-31 14:51:30', '1');
+INSERT INTO `sys_log` VALUES ('19', 'lisi', '2017-10-31 14:51:33', '2');
+INSERT INTO `sys_log` VALUES ('20', 'wangwu', '2017-10-31 14:51:51', '1');
+INSERT INTO `sys_log` VALUES ('21', 'wangwu', '2017-10-31 14:51:58', '2');
+INSERT INTO `sys_log` VALUES ('22', 'admin', '2017-10-31 14:52:42', '1');
+
+-- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -99,24 +129,26 @@ CREATE TABLE `sys_menu` (
   `menu_parent_id` int(11) DEFAULT NULL COMMENT '父菜单ID',
   `sort_order` int(11) DEFAULT NULL COMMENT '排序',
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'url',
+  `group_id` int(11) DEFAULT NULL COMMENT '组id',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '1', '#');
-INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', '/druid/index.html');
-INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', '/swagger-ui.html');
-INSERT INTO `sys_menu` VALUES ('4', '用户管理', '1', '4', 'crawler/userMgmt.html');
-INSERT INTO `sys_menu` VALUES ('5', '角色管理', '1', '5', 'crawler/roleMgmt.html');
-INSERT INTO `sys_menu` VALUES ('6', '网页爬虫管理', '0', '6', '#');
-INSERT INTO `sys_menu` VALUES ('7', '网页爬虫查询', '6', '7', 'crawler/formSearch.html');
-INSERT INTO `sys_menu` VALUES ('8', '二维码信息查询', '6', '8', 'crawler/barCodeSearch.html');
-INSERT INTO `sys_menu` VALUES ('9', '微信公众号查询', '6', '9', 'crawler/weChatSearch.html');
-INSERT INTO `sys_menu` VALUES ('10', '文章爬虫管理', '0', '10', '#');
-INSERT INTO `sys_menu` VALUES ('11', '网站模版管理', '10', '11', 'crawler/templateMgmt.html');
-INSERT INTO `sys_menu` VALUES ('12', '文章查询', '10', '12', 'crawler/articleSearch.html');
+INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '1', '#', '1');
+INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', 'http://127.0.0.1:8088/druid/index.html', '1');
+INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', 'http://127.0.0.1:8088/swagger-ui.html', '1');
+INSERT INTO `sys_menu` VALUES ('4', '用户管理', '1', '4', 'crawler/userMgmt.html', '1');
+INSERT INTO `sys_menu` VALUES ('5', '角色管理', '1', '5', 'crawler/roleMgmt.html', '1');
+INSERT INTO `sys_menu` VALUES ('6', '网页爬虫管理', '0', '6', '#', '2');
+INSERT INTO `sys_menu` VALUES ('7', '网页爬虫查询', '6', '7', 'crawler/formSearch.html', '2');
+INSERT INTO `sys_menu` VALUES ('8', '二维码信息查询', '6', '8', 'crawler/barCodeSearch.html', '2');
+INSERT INTO `sys_menu` VALUES ('9', '微信公众号查询', '6', '9', 'crawler/weChatSearch.html', '2');
+INSERT INTO `sys_menu` VALUES ('10', '文章爬虫管理', '0', '10', '#', '3');
+INSERT INTO `sys_menu` VALUES ('11', '网站模版管理', '10', '11', 'crawler/templateMgmt.html', '3');
+INSERT INTO `sys_menu` VALUES ('12', '文章查询', '10', '12', 'crawler/articleSearch.html', '3');
+INSERT INTO `sys_menu` VALUES ('13', '系统日志管理', '1', '13', 'crawler/logMgmt.html', '1');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -148,16 +180,11 @@ CREATE TABLE `sys_role_menu` (
   `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
   `menu_id` int(11) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('1', '1', '1');
-INSERT INTO `sys_role_menu` VALUES ('2', '1', '2');
-INSERT INTO `sys_role_menu` VALUES ('3', '1', '3');
-INSERT INTO `sys_role_menu` VALUES ('4', '1', '4');
-INSERT INTO `sys_role_menu` VALUES ('5', '1', '5');
 INSERT INTO `sys_role_menu` VALUES ('13', '2', '10');
 INSERT INTO `sys_role_menu` VALUES ('14', '2', '11');
 INSERT INTO `sys_role_menu` VALUES ('15', '2', '12');
@@ -178,6 +205,12 @@ INSERT INTO `sys_role_menu` VALUES ('52', '3', '12');
 INSERT INTO `sys_role_menu` VALUES ('63', '14', '10');
 INSERT INTO `sys_role_menu` VALUES ('64', '14', '11');
 INSERT INTO `sys_role_menu` VALUES ('65', '14', '12');
+INSERT INTO `sys_role_menu` VALUES ('66', '1', '1');
+INSERT INTO `sys_role_menu` VALUES ('67', '1', '2');
+INSERT INTO `sys_role_menu` VALUES ('68', '1', '3');
+INSERT INTO `sys_role_menu` VALUES ('69', '1', '4');
+INSERT INTO `sys_role_menu` VALUES ('70', '1', '5');
+INSERT INTO `sys_role_menu` VALUES ('71', '1', '13');
 
 -- ----------------------------
 -- Table structure for sys_user
