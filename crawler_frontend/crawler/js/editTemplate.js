@@ -46,26 +46,54 @@ var editTemplate = function () {
                 }
             },
             submitHandler: function () {
-                commonUtil.showLoadingMessage();
                 // 通过表单验证
-                var signOptions = {
-                    formID : 'templateForm',
-                    isFormData : true
-                };
-                var ajaxOptions = {
-                    url: comm.url + 'article/editTemplateConfig',
-                    method : 'PUT'
-                };
-                dataRequest.requestSend(
-                    signOptions,
-                    ajaxOptions,
-                    function (data) {
-                        commonUtil.closeTab();
-                    }
-                );
+                _checkTemplateConfigExists(id, function () {
+                    var signOptions = {
+                        formID : 'templateForm',
+                        isFormData : true
+                    };
+                    var ajaxOptions = {
+                        url: comm.url + 'article/editTemplateConfig',
+                        method : 'PUT'
+                    };
+                    dataRequest.requestSend(
+                        signOptions,
+                        ajaxOptions,
+                        function (data) {
+                            commonUtil.closeTab();
+                        }
+                    );
+                });
             }
         });
+    }
 
+    /**
+     * 判断文章配置是否存在
+     * @param id
+     * @private
+     */
+    var _checkTemplateConfigExists = function (id, callback) {
+        var signOptions = {
+            formID : null,
+            isFormData : false
+        };
+        var ajaxOptions = {
+            url: comm.url + 'article/checkTemplateConfigExists/' + id,
+            method : 'GET'
+        };
+        dataRequest.requestSend(
+            signOptions,
+            ajaxOptions,
+            function (data) {
+                if(data.msgCode === '400') {
+                    layer.msg(data.content, {icon: 5}, function () {
+                    });
+                }else {
+                    callback();
+                }
+            }
+        );
     }
 
     return {

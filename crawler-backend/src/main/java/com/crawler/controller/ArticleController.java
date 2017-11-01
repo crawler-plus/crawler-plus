@@ -212,4 +212,30 @@ public class ArticleController {
 		be.setMsgCode(Const.MESSAGE_CODE_OK);
 		return be;
 	}
+
+	/**
+	 * 判断文章配置是否存在
+	 */
+	@ApiOperation(value="判断文章配置是否存在", notes="判断文章配置是否存在")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "templateConfigId", value = "文章配置id", required = true, dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
+	@GetMapping(path = "/checkTemplateConfigExists/{id}")
+	public BaseEntity checkTemplateConfigExists(@PathVariable("id") String templateConfigId, TokenEntity t) {
+		// 验证token
+		checkToken.checkToken(t);
+		TemplateConfig templateConfig = new TemplateConfig();
+		templateConfig.setId(templateConfigId);
+		int templateConfigCount = articleService.checkTemplateConfigExists(templateConfig);
+		BaseEntity be = new BaseEntity();
+		// 如果文章配置不存在
+		if(templateConfigCount < 1) {
+			be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+			be.setContent("该文章配置已被删除！");
+		}else {
+			be.setMsgCode(Const.MESSAGE_CODE_OK);
+		}
+		return be;
+	}
 }

@@ -179,4 +179,14 @@
         FROM crawler_content
         where url= #{url, jdbcType=VARCHAR}
     </select>
+
+    <select id="checkTemplateConfigExists" resultType="int" parameterType="com.crawler.domain.TemplateConfig">
+        SELECT
+        COUNT(1) FROM template_config
+        <trim prefix="where" suffixOverrides="AND">
+            <if test='id != null and id != "" '>
+                id = #{id, jdbcType=VARCHAR} AND
+            </if>
+        </trim>
+    </select>
 </mapper>

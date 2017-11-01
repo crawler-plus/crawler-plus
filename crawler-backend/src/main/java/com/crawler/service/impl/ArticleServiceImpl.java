@@ -91,12 +91,8 @@ public class ArticleServiceImpl implements ArticleService {
             reqHeadersMap.put("Accept-Language", "zh-CN,zh;q=0.8");
             reqHeadersMap.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31");
             for (TemplateConfig tc : templateConfigs) {
-                // 保存系统中已经存在的url
-//                List<String> existsUrls = fetchAllArticleUrls();
                 // 查出的待爬取的url
                 List<String> crawlerUrl = new ArrayList<>();
-//                // 要批量插入数据库的数据
-//                List<CrawlerContent> cc = new ArrayList<>();
                 // 得到一级url
                 String url = tc.getUrl();
                 // 构造其他参数信息
@@ -121,8 +117,6 @@ public class ArticleServiceImpl implements ArticleService {
                     String link = aLink.get(j).attr("href");
                     crawlerUrl.add(link);
                 }
-                // 将系统中已存在的URL和当前的URL做差集
-//                crawlerUrl.removeAll(existsUrls);
                 if (!CollectionUtils.isEmpty(crawlerUrl)) {
                     for (String eachUrl : crawlerUrl) {
                     	if(this.articleMapper.isExistUrl(eachUrl) > 0) {
@@ -181,20 +175,14 @@ public class ArticleServiceImpl implements ArticleService {
                         c.setContentBody(body);
                         // 改为每次插入单条数据！！！
                         saveCrawlerContent(c);
-//                        cc.add(c);
                     }
                 }
-//                if (!CollectionUtils.isEmpty(cc)) {
-//                    // 批量插入
-//                    try {
-//                        batchSaveCrawlerContent(cc);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
             }
         }
-    
 	}
-	
+
+    @Override
+    public int checkTemplateConfigExists(TemplateConfig templateConfig) {
+        return articleMapper.checkTemplateConfigExists(templateConfig);
+    }
 }

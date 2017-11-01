@@ -89,28 +89,30 @@ var templateMgmt = function () {
                  */
                 $("button[class$=delTemplate]").on('click', function () {
                     var that = $(this);
-                    layer.confirm('确定要删除吗？', {
-                        btn: ['是','否'] //按钮
-                    }, function(){
-                        var id = that.prop("name");
-                        var signOptions = {
-                            formID : null,
-                            isFormData : false
-                        };
-                        var ajaxOptions = {
-                            url: comm.url + 'article/removeTemplateConfig/' + id,
-                            method : 'DELETE'
-                        };
-                        dataRequest.requestSend(
-                            signOptions,
-                            ajaxOptions,
-                            function (data) {
-                                layer.closeAll();
-                                listAllTemplate();
-                            }
-                        );
-                    }, function(){
-                        layer.closeAll();
+                    var id = that.prop("name");
+                    _checkTemplateConfigExists(id, function () {
+                        layer.confirm('确定要删除吗？', {
+                            btn: ['是','否'] //按钮
+                        }, function(){
+                            var signOptions = {
+                                formID : null,
+                                isFormData : false
+                            };
+                            var ajaxOptions = {
+                                url: comm.url + 'article/removeTemplateConfig/' + id,
+                                method : 'DELETE'
+                            };
+                            dataRequest.requestSend(
+                                signOptions,
+                                ajaxOptions,
+                                function (data) {
+                                    layer.closeAll();
+                                    listAllTemplate();
+                                }
+                            );
+                        }, function(){
+                            layer.closeAll();
+                        });
                     });
                 });
 
@@ -120,11 +122,13 @@ var templateMgmt = function () {
                 $("button[class$=editTemplate]").on('click', function () {
                     var that = $(this);
                     var id = that.prop("name");
-                    // 新选项卡打开
-                    var params = {
-                        id:  id
-                    };
-                    commonUtil.openUrlInIframe("修改模版", commonUtil.buildUrlParam("crawler/editTemplate.html", params));
+                    _checkTemplateConfigExists(id, function () {
+                        // 新选项卡打开
+                        var params = {
+                            id:  id
+                        };
+                        commonUtil.openUrlInIframe("修改模版", commonUtil.buildUrlParam("crawler/editTemplate.html", params));
+                    });
                 });
 
             }
@@ -135,6 +139,35 @@ var templateMgmt = function () {
        // 调用后台接口，查询当前全部的模版
         listAllTemplate();
         registerBtn();
+    }
+
+    /**
+     * 判断文章配置是否存在
+     * @param id
+     * @private
+     */
+    var _checkTemplateConfigExists = function (id, callback) {
+        var signOptions = {
+            formID : null,
+            isFormData : false
+        };
+        var ajaxOptions = {
+            url: comm.url + 'article/checkTemplateConfigExists/' + id,
+            method : 'GET'
+        };
+        dataRequest.requestSend(
+            signOptions,
+            ajaxOptions,
+            function (data) {
+                if(data.msgCode === '400') {
+                    layer.msg(data.content, {icon: 5}, function () {
+                        listAllTemplate();
+                    });
+                }else {
+                    callback();
+                }
+            }
+        );
     }
 
     return {

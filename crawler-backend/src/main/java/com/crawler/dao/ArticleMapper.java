@@ -79,4 +79,11 @@ public interface ArticleMapper {
      * @return
      */
     Integer isExistUrl(String url);
+
+    /**
+     * 判断文章配置否存在
+     * @param templateConfig
+     * @return
+     */
+    int checkTemplateConfigExists(TemplateConfig templateConfig);
 }

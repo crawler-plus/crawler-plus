@@ -77,4 +77,11 @@ public interface ArticleService {
      * 执行爬取
      */
     void cronjob();
+
+    /**
+     * 判断文章配置否存在
+     * @param templateConfig
+     * @return
+     */
+    int checkTemplateConfigExists(TemplateConfig templateConfig);
 }
