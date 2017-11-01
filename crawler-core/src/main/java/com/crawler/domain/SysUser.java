@@ -23,6 +23,9 @@ public class SysUser extends BaseEntity {
     // 图片验证码
     private String captcha;
 
+    // sys_user表的版本号（乐观锁）
+    private int version;
+
     public int getId() {
         return id;
     }
@@ -69,5 +72,13 @@ public class SysUser extends BaseEntity {
 
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

@@ -6,6 +6,9 @@
         SELECT
         COUNT(1) FROM sys_user
         <trim prefix="where" suffixOverrides="AND">
+            <if test='id != 0'>
+                id = #{id, jdbcType=INTEGER} AND
+            </if>
             <if test='loginAccount != null and loginAccount != "" '>
                  login_account = #{loginAccount, jdbcType=VARCHAR} AND
             </if>
@@ -49,7 +52,8 @@
         id AS id,
         login_account AS loginAccount,
         name AS name,
-        password AS password
+        password AS password,
+        version as version
         FROM sys_user
         WHERE id = #{id, jdbcType=INTEGER}
     </select>
@@ -77,6 +81,7 @@
             <if test='password != null and password != "" '>
                 password,
             </if>
+                version,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             NULL,
@@ -89,6 +94,7 @@
             <if test='password != null and password != "" '>
                 #{password, jdbcType=VARCHAR},
             </if>
+                1,
         </trim>
     </insert>
 
@@ -109,6 +115,7 @@
             <if test='password != null and password != "" '>
                 password = #{password, jdbcType=VARCHAR},
             </if>
+                version = version + 1,
         </trim>
         WHERE id = #{id, jdbcType=INTEGER}
     </update>

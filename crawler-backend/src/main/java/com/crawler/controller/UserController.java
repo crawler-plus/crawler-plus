@@ -241,9 +241,19 @@ public class UserController {
         // 验证token
         checkToken.checkToken(te);
         BaseEntity be = new BaseEntity();
-        userService.updateUser(sysUser);
-        be.setContent("修改用户成功");
-        be.setMsgCode(Const.MESSAGE_CODE_OK);
+        // 得到用户信息
+        SysUser sysUserByUserId = userService.getSysUserByUserId(sysUser.getId());
+        // 得到最新版本信息
+        int versionId = sysUserByUserId.getVersion();
+        // 如果两次的version不相等
+        if(versionId != sysUser.getVersion()) {
+            be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+            be.setContent("该用户信息已被其他人修改，请返回重新修改！");
+        }else {
+            userService.updateUser(sysUser);
+            be.setMsgCode(Const.MESSAGE_CODE_OK);
+            be.setContent("修改用户成功");
+        }
         return be;
     }
 
@@ -267,6 +277,32 @@ public class UserController {
         redisTemplate.delete("loginToken_" + String.valueOf(userId) + "_" + te.getToken());
         be.setContent("用户退出");
         be.setMsgCode(Const.MESSAGE_CODE_OK);
+        return be;
+    }
+
+    /**
+     * 判断用户是否存在
+     */
+    @ApiOperation(value="判断用户是否存在", notes="判断用户是否存在")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @GetMapping(path = "/checkUserExists/{id}")
+    public BaseEntity checkUserExists(@PathVariable("id") int userId, TokenEntity te) {
+        // 验证token
+        checkToken.checkToken(te);
+        SysUser sysUser = new SysUser();
+        sysUser.setId(userId);
+        int userCount = userService.checkUserExists(sysUser);
+        BaseEntity be = new BaseEntity();
+        // 如果用户不存在
+        if(userCount < 1) {
+            be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+            be.setContent("该用户已被删除！");
+        }else {
+            be.setMsgCode(Const.MESSAGE_CODE_OK);
+        }
         return be;
     }
 

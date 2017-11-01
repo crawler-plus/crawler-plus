@@ -109,4 +109,10 @@ public class RoleServiceImpl implements RoleService {
             roleMapper.addSysRoleMenu(sysRoleMenus);
         }
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int checkRoleExists(SysRole sysRole) {
+        return roleMapper.checkRoleExists(sysRole);
+    }
 }

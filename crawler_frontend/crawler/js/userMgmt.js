@@ -73,6 +73,34 @@ var userMgmt = function () {
             });
     }
 
+    /**
+     * 判断用户是否存在
+     * @param id
+     * @private
+     */
+    var _checkUserExists = function (id, callback) {
+        var signOptions = {
+            formID : null,
+            isFormData : false
+        };
+        var ajaxOptions = {
+            url: comm.url + 'user/checkUserExists/' + id,
+            method : 'GET'
+        };
+        dataRequest.requestSend(
+            signOptions,
+            ajaxOptions,
+            function (data) {
+                if(data.msgCode === '400') {
+                    toastr.error(data.content);
+                    _refreshCurrentTable();
+                }else {
+                    callback();
+                }
+            }
+        );
+    }
+
     return {
         /**
          * 表格列格式化
@@ -101,45 +129,53 @@ var userMgmt = function () {
              * @param index 行索引
              */
             "click .view": function (e, value, row, index) {
-                var params = {
-                    userId: row.id
-                };
-                commonUtil.openUrlInIframe("查看用户信息", commonUtil.buildUrlParam("crawler/userDetail.html", params));
+                var id = row.id;
+                _checkUserExists(id, function () {
+                    var params = {
+                        userId: id
+                    };
+                    commonUtil.openUrlInIframe("查看用户信息", commonUtil.buildUrlParam("crawler/userDetail.html", params));
+                });
             },
             "click .update": function (e, value, row, index) {
-                var params = {
-                    userId: row.id
-                };
-                commonUtil.openUrlInIframe("修改用户信息", commonUtil.buildUrlParam("crawler/userUpdate.html", params));
+                var id = row.id;
+                _checkUserExists(id, function () {
+                    var params = {
+                        userId: id
+                    };
+                    commonUtil.openUrlInIframe("修改用户信息", commonUtil.buildUrlParam("crawler/userUpdate.html", params));
+                });
             },
             "click .delete": function (e, value, row, index) {
-                layer.confirm('确定要删除吗？', {
-                    btn: ['是','否'] //按钮
-                }, function(){
-                    var id = row.id;
-                    var signOptions = {
-                        formID : null,
-                        isFormData : false
-                    };
-                    var ajaxOptions = {
-                        url: comm.url + 'user/delete/' + id,
-                        method : 'DELETE'
-                    };
-                    dataRequest.requestSend(
-                        signOptions,
-                        ajaxOptions,
-                        function (data) {
-                            layer.closeAll();
-                            if(data.msgCode === '400') {
-                                toastr.error(data.content);
-                            }else {
-                                toastr.success(data.content);
+                var id = row.id;
+                _checkUserExists(id, function () {
+                    layer.confirm('确定要删除吗？', {
+                        btn: ['是','否'] //按钮
+                    }, function(){
+                        var signOptions = {
+                            formID : null,
+                            isFormData : false
+                        };
+                        var ajaxOptions = {
+                            url: comm.url + 'user/delete/' + id,
+                            method : 'DELETE'
+                        };
+                        dataRequest.requestSend(
+                            signOptions,
+                            ajaxOptions,
+                            function (data) {
+                                layer.closeAll();
+                                if(data.msgCode === '400') {
+                                    toastr.error(data.content);
+                                }else {
+                                    toastr.success(data.content);
+                                }
+                                _refreshCurrentTable();
                             }
-                            _refreshCurrentTable();
-                        }
-                    );
-                }, function(){
-                    layer.closeAll();
+                        );
+                    }, function(){
+                        layer.closeAll();
+                    });
                 });
             }
         },

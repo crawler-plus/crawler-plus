@@ -68,6 +68,7 @@
             <if test='remark != null and remark != "" '>
                 remark,
             </if>
+                version,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             NULL,
@@ -77,6 +78,7 @@
             <if test='remark != null and remark != "" '>
                 #{remark, jdbcType=VARCHAR},
             </if>
+                1,
         </trim>
     </insert>
 
@@ -92,7 +94,8 @@
         SELECT
         id AS id,
         role_name AS roleName,
-        remark AS remark
+        remark AS remark,
+        version AS version
         FROM sys_role
         WHERE id = #{id, jdbcType=INTEGER}
     </select>
@@ -110,8 +113,19 @@
             <if test='remark != null and remark != "" '>
                 remark = #{remark, jdbcType=VARCHAR},
             </if>
+                version = version + 1,
         </trim>
         WHERE id = #{id, jdbcType=INTEGER}
     </update>
+
+    <select id="checkRoleExists" resultType="int" parameterType="com.crawler.domain.SysRole">
+        SELECT
+        COUNT(1) FROM sys_role
+        <trim prefix="where" suffixOverrides="AND">
+            <if test='id != 0'>
+                id = #{id, jdbcType=INTEGER} AND
+            </if>
+        </trim>
+    </select>
 
 </mapper>

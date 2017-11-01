@@ -22,7 +22,7 @@ var roleUpdate = function () {
                 var roleInfo = content.roleInfo;
                 $("#roleName").val(roleInfo.roleName);
                 $("#remark").val(roleInfo.remark);
-
+                $("#version").val(roleInfo.version);
                 // 得到菜单树形列表
                 var treeJson = content.menuTreeInfo;
                 // 得到角色关联的菜单IDs
@@ -66,37 +66,71 @@ var roleUpdate = function () {
                 }
             },
             submitHandler: function () {
-                // 放置角色菜单的数组
-                var checkedArr = [];
-                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-                var nodes = treeObj.getCheckedNodes(true);
-                if(nodes.length) {
-                    for(var i = 0; i < nodes.length; i ++) {
-                        checkedArr.push(nodes[i].id);
+                _checkRoleExists(roleId, function () {
+                    // 放置角色菜单的数组
+                    var checkedArr = [];
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    var nodes = treeObj.getCheckedNodes(true);
+                    if(nodes.length) {
+                        for(var i = 0; i < nodes.length; i ++) {
+                            checkedArr.push(nodes[i].id);
+                        }
                     }
-                }
-                var checkedArrStr = checkedArr.join(",");
-                $("#roleMenuStr").val(checkedArrStr);
-                $("#roleId").val(roleId);
-                commonUtil.showLoadingMessage();
-                // 通过表单验证
-                var signOptions = {
-                    formID : 'roleUpdateForm',
-                    isFormData : true
-                };
-                var ajaxOptions = {
-                    url: comm.url + 'role/updateRole',
-                    method : 'PUT'
-                };
-                dataRequest.requestSend(
-                    signOptions,
-                    ajaxOptions,
-                    function (data) {
-                        commonUtil.closeTab();
-                    }
-                );
+                    var checkedArrStr = checkedArr.join(",");
+                    $("#roleMenuStr").val(checkedArrStr);
+                    $("#roleId").val(roleId);
+                    commonUtil.showLoadingMessage();
+                    // 通过表单验证
+                    var signOptions = {
+                        formID : 'roleUpdateForm',
+                        isFormData : true
+                    };
+                    var ajaxOptions = {
+                        url: comm.url + 'role/updateRole',
+                        method : 'PUT'
+                    };
+                    dataRequest.requestSend(
+                        signOptions,
+                        ajaxOptions,
+                        function (data) {
+                            layer.closeAll();
+                            if(data.msgCode === '400') {
+                                toastr.error(data.content);
+                            }else {
+                                commonUtil.closeTab();
+                            }
+                        }
+                    );
+                });
             }
         });
+    }
+
+    /**
+     * 判断角色是否存在
+     * @param id
+     * @private
+     */
+    var _checkRoleExists = function (id, callback) {
+        var signOptions = {
+            formID : null,
+            isFormData : false
+        };
+        var ajaxOptions = {
+            url: comm.url + 'role/checkRoleExists/' + id,
+            method : 'GET'
+        };
+        dataRequest.requestSend(
+            signOptions,
+            ajaxOptions,
+            function (data) {
+                if(data.msgCode === '400') {
+                    toastr.error(data.content);
+                }else {
+                    callback();
+                }
+            }
+        );
     }
 
     return {

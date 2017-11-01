@@ -72,6 +72,34 @@ var roleMgmt = function () {
         });
     }
 
+    /**
+     * 判断角色是否存在
+     * @param id
+     * @private
+     */
+    var _checkRoleExists = function (id, callback) {
+        var signOptions = {
+            formID : null,
+            isFormData : false
+        };
+        var ajaxOptions = {
+            url: comm.url + 'role/checkRoleExists/' + id,
+            method : 'GET'
+        };
+        dataRequest.requestSend(
+            signOptions,
+            ajaxOptions,
+            function (data) {
+                if(data.msgCode === '400') {
+                    toastr.error(data.content);
+                    _refreshCurrentTable();
+                }else {
+                    callback();
+                }
+            }
+        );
+    }
+
     return {
         /**
          * 表格列格式化
@@ -100,45 +128,53 @@ var roleMgmt = function () {
              * @param index 行索引
              */
             "click .view": function (e, value, row, index) {
-                var params = {
-                    roleId: row.id
-                };
-                commonUtil.openUrlInIframe("查看角色信息", commonUtil.buildUrlParam("crawler/roleDetail.html", params));
+                var id = row.id;
+                _checkRoleExists(id, function () {
+                    var params = {
+                        roleId: id
+                    };
+                    commonUtil.openUrlInIframe("查看角色信息", commonUtil.buildUrlParam("crawler/roleDetail.html", params));
+                });
             },
             "click .update": function (e, value, row, index) {
-                var params = {
-                    roleId: row.id
-                };
-                commonUtil.openUrlInIframe("修改角色信息", commonUtil.buildUrlParam("crawler/roleUpdate.html", params));
+                var id = row.id;
+                _checkRoleExists(id, function () {
+                    var params = {
+                        roleId: id
+                    };
+                    commonUtil.openUrlInIframe("修改角色信息", commonUtil.buildUrlParam("crawler/roleUpdate.html", params));
+                });
             },
             "click .delete": function (e, value, row, index) {
-                layer.confirm('确定要删除吗？', {
-                    btn: ['是','否'] //按钮
-                }, function(){
-                    var id = row.id;
-                    var signOptions = {
-                        formID : null,
-                        isFormData : false
-                    };
-                    var ajaxOptions = {
-                        url: comm.url + 'role/delete/' + id,
-                        method : 'DELETE'
-                    };
-                    dataRequest.requestSend(
-                        signOptions,
-                        ajaxOptions,
-                        function (data) {
-                            layer.closeAll();
-                            if(data.msgCode === '400') {
-                                toastr.error(data.content);
-                            }else {
-                                toastr.success(data.content);
+                var id = row.id;
+                _checkRoleExists(id, function () {
+                    layer.confirm('确定要删除吗？', {
+                        btn: ['是','否'] //按钮
+                    }, function(){
+                        var signOptions = {
+                            formID : null,
+                            isFormData : false
+                        };
+                        var ajaxOptions = {
+                            url: comm.url + 'role/delete/' + id,
+                            method : 'DELETE'
+                        };
+                        dataRequest.requestSend(
+                            signOptions,
+                            ajaxOptions,
+                            function (data) {
+                                layer.closeAll();
+                                if(data.msgCode === '400') {
+                                    toastr.error(data.content);
+                                }else {
+                                    toastr.success(data.content);
+                                }
+                                _refreshCurrentTable();
                             }
-                            _refreshCurrentTable();
-                        }
-                    );
-                }, function(){
-                    layer.closeAll();
+                        );
+                    }, function(){
+                        layer.closeAll();
+                    });
                 });
             }
         },

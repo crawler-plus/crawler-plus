@@ -20,6 +20,9 @@ public class SysRole extends BaseEntity {
     // 角色菜单字符串，用逗号分割
     private String roleMenuStr;
 
+    // sys_role表中的版本号（乐观锁）
+    private int version;
+
     public int getId() {
         return id;
     }
@@ -58,5 +61,13 @@ public class SysRole extends BaseEntity {
 
     public void setRoleMenuStr(String roleMenuStr) {
         this.roleMenuStr = roleMenuStr;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

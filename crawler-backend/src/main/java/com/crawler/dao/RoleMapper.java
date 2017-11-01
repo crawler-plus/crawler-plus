@@ -88,4 +88,11 @@ public interface RoleMapper {
      * @param sysRole
      */
     void roleUpdate(SysRole sysRole);
+
+    /**
+     * 判断角色是否存在
+     * @param sysRole
+     * @return
+     */
+    int checkRoleExists(SysRole sysRole);
 }

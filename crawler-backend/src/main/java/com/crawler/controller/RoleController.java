@@ -185,9 +185,45 @@ public class RoleController {
         // 验证token
         checkToken.checkToken(t);
         BaseEntity be = new BaseEntity();
-        roleService.updateRole(sysRole);
-        be.setContent("修改系统角色成功");
-        be.setMsgCode(Const.MESSAGE_CODE_OK);
+        // 得到角色信息
+        SysRole sysRoleByRoleId = roleService.getRoleByRoleId(sysRole.getId());
+        // 得到最新版本信息
+        int versionId = sysRoleByRoleId.getVersion();
+        // 如果两次的version不相等
+        if(versionId != sysRole.getVersion()) {
+            be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+            be.setContent("该角色信息已被其他人修改，请返回重新修改！");
+        }else {
+            roleService.updateRole(sysRole);
+            be.setContent("修改系统角色成功");
+            be.setMsgCode(Const.MESSAGE_CODE_OK);
+        }
+        return be;
+    }
+
+    /**
+     * 判断角色是否存在
+     */
+    @ApiOperation(value="判断角色是否存在", notes="判断角色是否存在")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    })
+    @GetMapping(path = "/checkRoleExists/{id}")
+    public BaseEntity checkRoleExists(@PathVariable("id") int roleId, TokenEntity t) {
+        // 验证token
+        checkToken.checkToken(t);
+        SysRole sysRole = new SysRole();
+        sysRole.setId(roleId);
+        int roleCount = roleService.checkRoleExists(sysRole);
+        BaseEntity be = new BaseEntity();
+        // 如果角色不存在
+        if(roleCount < 1) {
+            be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+            be.setContent("该角色已被删除！");
+        }else {
+            be.setMsgCode(Const.MESSAGE_CODE_OK);
+        }
         return be;
     }
 

@@ -21,6 +21,7 @@ var userUpdate = function () {
                 $("#loginAccount").val(data.content.loginAccount);
                 $("#name").val(data.content.name);
                 $("#password").val(data.content.password);
+                $("#version").val(data.content.version);
             }
         );
 
@@ -69,38 +70,72 @@ var userUpdate = function () {
                 }
             },
             submitHandler: function () {
-                // 放置用户角色的数组
-                var checkedArr = [];
-                var $checkbox = $(":checkbox");
-                $checkbox.each(function (index, obj) {
-                    var currentObj = $(obj);
-                    if(currentObj.parent("div").hasClass("checked")) {
-                        checkedArr.push(currentObj.val());
-                    }
+                _checkUserExists(userId, function () {
+                    // 放置用户角色的数组
+                    var checkedArr = [];
+                    var $checkbox = $(":checkbox");
+                    $checkbox.each(function (index, obj) {
+                        var currentObj = $(obj);
+                        if(currentObj.parent("div").hasClass("checked")) {
+                            checkedArr.push(currentObj.val());
+                        }
+                    });
+                    var checkedArrStr = checkedArr.join(",");
+                    $("#userRoleStr").val(checkedArrStr);
+                    $("#userId").val(userId);
+                    commonUtil.showLoadingMessage();
+                    // 通过表单验证
+                    var signOptions = {
+                        formID : 'userUpdate',
+                        isFormData : true
+                    };
+                    var ajaxOptions = {
+                        url: comm.url + 'user/updateUser',
+                        method : 'PUT'
+                    };
+                    dataRequest.requestSend(
+                        signOptions,
+                        ajaxOptions,
+                        function (data) {
+                            layer.closeAll();
+                            if(data.msgCode === '400') {
+                                toastr.error(data.content);
+                            }else {
+                                commonUtil.closeTab();
+                            }
+                        }
+                    );
                 });
-                var checkedArrStr = checkedArr.join(",");
-                $("#userRoleStr").val(checkedArrStr);
-                $("#userId").val(userId);
-                commonUtil.showLoadingMessage();
-                // 通过表单验证
-                var signOptions = {
-                    formID : 'userUpdate',
-                    isFormData : true
-                };
-                var ajaxOptions = {
-                    url: comm.url + 'user/updateUser',
-                    method : 'PUT'
-                };
-                dataRequest.requestSend(
-                    signOptions,
-                    ajaxOptions,
-                    function (data) {
-                        commonUtil.closeTab();
-                    }
-                );
             }
         });
 
+    }
+
+    /**
+     * 判断用户是否存在
+     * @param id
+     * @private
+     */
+    var _checkUserExists = function (id, callback) {
+        var signOptions = {
+            formID : null,
+            isFormData : false
+        };
+        var ajaxOptions = {
+            url: comm.url + 'user/checkUserExists/' + id,
+            method : 'GET'
+        };
+        dataRequest.requestSend(
+            signOptions,
+            ajaxOptions,
+            function (data) {
+                if(data.msgCode === '400') {
+                    toastr.error(data.content);
+                }else {
+                    callback();
+                }
+            }
+        );
     }
 
     return {
