@@ -89,9 +89,9 @@ public class UserController {
                 });
                 // 将用户信息最为token记录到redis中
                 String userToken = "user" + UUID.randomUUID().toString().replace("-", "");
-                redisConfiguration.valueOperations(redisTemplate).set(String.valueOf(sysUserByloginAccount.getId()), userToken);
+                redisConfiguration.valueOperations(redisTemplate).set("loginToken_" + String.valueOf(sysUserByloginAccount.getId()) + "_" + userToken, userToken);
                 // 设置默认过期时间为30分钟
-                redisTemplate.expire(String.valueOf(sysUserByloginAccount.getId()), 30, TimeUnit.MINUTES);
+                redisTemplate.expire("loginToken_" + String.valueOf(sysUserByloginAccount.getId()) + "_" + userToken, 30, TimeUnit.MINUTES);
                 // 往系统log表中添加一条记录
                 SysLog sysLog = new SysLog();
                 sysLog.setLoginAccount(sysUser.getLoginAccount());
@@ -256,7 +256,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping(path = "/logout/{id}")
-    public BaseEntity logout(@PathVariable("id") int userId) {
+    public BaseEntity logout(@PathVariable("id") int userId, TokenEntity te) {
         BaseEntity be = new BaseEntity();
         SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
         // 往系统log表中添加一条记录
@@ -264,7 +264,7 @@ public class UserController {
         sysLog.setLoginAccount(sysUserByUserId.getLoginAccount());
         sysLog.setTypeId(2);
         logService.logAdd(sysLog);
-        redisTemplate.delete(String.valueOf(userId));
+        redisTemplate.delete("loginToken_" + String.valueOf(userId) + "_" + te.getToken());
         be.setContent("用户退出");
         be.setMsgCode(Const.MESSAGE_CODE_OK);
         return be;

@@ -24,11 +24,11 @@ public class CheckToken {
     public void checkToken(TokenEntity te) {
         String uid = te.getUid();
         String token = te.getToken();
-        if(StringUtils.isEmpty(uid) || StringUtils.isEmpty(token) || !token.equals(redisConfiguration.valueOperations(redisTemplate).get(te.getUid()))) {
+        if(StringUtils.isEmpty(uid) || StringUtils.isEmpty(token) || !token.equals(redisConfiguration.valueOperations(redisTemplate).get("loginToken_" + te.getUid() + "_" + token))) {
             throw new TokenInvalidException("invalid token");
         }
         // 刷新默认过期时间为30分钟
-        redisTemplate.expire(String.valueOf(te.getUid()), 30, TimeUnit.MINUTES);
+        redisTemplate.expire("loginToken_" + String.valueOf(te.getUid()) + "_" + token, 30, TimeUnit.MINUTES);
     }
 
 }
