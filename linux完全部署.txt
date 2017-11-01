@@ -183,3 +183,20 @@ root     16832     1  0 23:15 ?        00:00:00 /usr/sbin/vsftpd /etc/vsftpd/vsf
 root     16834  1016  0 23:16 pts/0    00:00:00 grep --color=auto vsftpd
 输出上面的证明启动vsftpd成功
 最后需要修改防火墙配置，将21端口开放，修改方式上面已经有介绍，不做过多介绍。
+
+升级linux内核
+1、导入key
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+2、安装elrepo的yum源
+rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+3、安装内核
+yum --enablerepo=elrepo-kernel install  kernel-ml-devel kernel-ml
+4、查看默认启动顺序
+awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
+默认启动的顺序是从0开始，新内核是从头插入（目前位置在0，而4.4.4的是在1），所以需要选择0。
+grub2-set-default 0
+reboot
+5、删除旧的内核
+yum remove kernel
+6、查看当前内核
+uname -r  当前内核是：4.13.10-1.el7.elrepo.x86_64
