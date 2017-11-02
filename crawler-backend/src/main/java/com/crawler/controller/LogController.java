@@ -1,6 +1,5 @@
 package com.crawler.controller;
 
-import com.crawler.components.CheckToken;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysLog;
@@ -28,9 +27,6 @@ public class LogController {
     @Autowired
     private LogService logService;
 
-    @Autowired
-    private CheckToken checkToken;
-
     /**
      * 系统log查询
      */
@@ -41,8 +37,6 @@ public class LogController {
     })
     @GetMapping("/queryAll")
     public BaseEntity queryAll(SysLog sysLog, TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         int logCount = logService.getLogCount(sysLog);
         // 分页查询
 		PageHelper.startPage(sysLog.getPage(),sysLog.getLimit());
@@ -61,8 +55,6 @@ public class LogController {
     @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     @DeleteMapping(path = "/delete")
     public BaseEntity delete(TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         logService.delete();
         BaseEntity be = new BaseEntity();
         be.setMsgCode(Const.MESSAGE_CODE_OK);

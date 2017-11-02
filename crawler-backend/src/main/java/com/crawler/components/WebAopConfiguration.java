@@ -1,5 +1,6 @@
 package com.crawler.components;
 
+import com.crawler.domain.TokenEntity;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -8,7 +9,9 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -21,6 +24,9 @@ import java.util.Arrays;
 @Component
 @Aspect
 public class WebAopConfiguration {
+
+    @Autowired
+    private CheckToken checkToken;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -48,9 +54,20 @@ public class WebAopConfiguration {
      */
     @Around("webLog()")
     public Object doAroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        // 获得方法的所有参数
+        Object[] args = proceedingJoinPoint.getArgs();
+        if(!ObjectUtils.isEmpty(args)) {
+            for(Object o : args) {
+                if(o instanceof TokenEntity) {
+                    TokenEntity t = (TokenEntity)o;
+                    // 验证token
+                    checkToken.checkToken(t);
+                }
+            }
+        }
         String methodName = proceedingJoinPoint.getSignature().getName();
         long timeStart = System.currentTimeMillis();
-        Object obj = proceedingJoinPoint.proceed();
+        Object obj = proceedingJoinPoint.proceed(args);
         if(logger.isWarnEnabled()) {
             logger.warn("环绕通知的目标方法名：" + methodName);
             logger.warn(methodName + "方法执行时间为：" + String.valueOf(System.currentTimeMillis() - timeStart) + "ms");

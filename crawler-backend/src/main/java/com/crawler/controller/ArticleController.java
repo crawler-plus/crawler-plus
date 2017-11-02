@@ -1,6 +1,5 @@
 package com.crawler.controller;
 
-import com.crawler.components.CheckToken;
 import com.crawler.components.RedisConfiguration;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
@@ -34,9 +33,6 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@Autowired
-	private CheckToken checkToken;
-
-	@Autowired
 	private RedisConfiguration redisConfiguration;
 
 	@Autowired
@@ -49,8 +45,6 @@ public class ArticleController {
 	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/cron")
 	public void cron(TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		this.articleService.cronjob();
 	}
 	
@@ -64,8 +58,6 @@ public class ArticleController {
 	})
 	@PostMapping("/saveTemplateConfig")
 	public BaseEntity saveTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		te.setId(UUID.randomUUID().toString().replace("-", ""));
 		articleService.saveTemplateConfig(te);
 		BaseEntity be = new BaseEntity();
@@ -84,8 +76,6 @@ public class ArticleController {
 	})
 	@PutMapping("/editTemplateConfig")
 	public BaseEntity editTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		BaseEntity be = new BaseEntity();
 		// 得到用户信息
 		TemplateConfig templateConfig = articleService.getTemplateConfig(te.getId());
@@ -113,8 +103,6 @@ public class ArticleController {
 	})
 	@DeleteMapping(path = "/removeTemplateConfig/{id}")
 	public BaseEntity removeTemplateConfig(@PathVariable("id") String id, TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		articleService.removeTemplateConfig(id);
 		BaseEntity be = new BaseEntity();
 		be.setMsgCode(Const.MESSAGE_CODE_OK);
@@ -129,8 +117,6 @@ public class ArticleController {
 	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/listAllTemplateConfig")
 	public BaseEntity listAllTemplateConfig(TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		BaseEntity be = new BaseEntity();
 		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig();
 		be.setContent(templateConfigs);
@@ -148,8 +134,6 @@ public class ArticleController {
 	})
 	@GetMapping(path = "/getTemplateConfig/{id}")
 	public BaseEntity getTemplateConfig(@PathVariable("id") String id, TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		BaseEntity be = new BaseEntity();
 		TemplateConfig templateConfig = articleService.getTemplateConfig(id);
 		be.setContent(templateConfig);
@@ -164,8 +148,6 @@ public class ArticleController {
 	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/listAllCrawlerContents")
 	public BaseEntity listAllCrawlerContents(TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		List<CrawlerContent> contents = null;
 		// 从redis中获取文章
 		String crawlerContent = (String)redisConfiguration.valueOperations(redisTemplate).get("crawlerContent");
@@ -196,8 +178,6 @@ public class ArticleController {
 	})
 	@GetMapping(path = "/getCrawlerContent/{id}")
 	public BaseEntity getCrawlerContent(@PathVariable("id") String id, TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		BaseEntity be = new BaseEntity();
 		CrawlerContent crawlerContent = articleService.getCrawlerContent(id);
 		be.setContent(crawlerContent);
@@ -212,8 +192,6 @@ public class ArticleController {
 	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/executeCron")
 	public BaseEntity executeCron(TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		BaseEntity be = new BaseEntity();
 		// 检查系统是否正在运行定时任务，爬取文章，如下条件成立，说明当前没有线程运行定时任务
 		if(StringUtils.isEmpty((String)redisConfiguration.valueOperations(redisTemplate).get("systemCron"))
@@ -245,8 +223,6 @@ public class ArticleController {
 	})
 	@GetMapping(path = "/checkTemplateConfigExists/{id}")
 	public BaseEntity checkTemplateConfigExists(@PathVariable("id") String templateConfigId, TokenEntity t) {
-		// 验证token
-		checkToken.checkToken(t);
 		TemplateConfig templateConfig = new TemplateConfig();
 		templateConfig.setId(templateConfigId);
 		int templateConfigCount = articleService.checkTemplateConfigExists(templateConfig);

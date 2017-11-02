@@ -1,6 +1,5 @@
 package com.crawler.controller;
 
-import com.crawler.components.CheckToken;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysRole;
@@ -32,9 +31,6 @@ public class RoleController {
     @Autowired
     private MenuService menuService;
 
-    @Autowired
-    private CheckToken checkToken;
-
     /**
      * 查询系统角色
      */
@@ -45,8 +41,6 @@ public class RoleController {
     })
     @GetMapping("/queryAll")
     public BaseEntity queryAll(SysRole sysRole, TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         int roleCount =  roleService.getRolesListCount(sysRole);
         // 分页查询
         PageHelper.startPage(sysRole.getPage(),sysRole.getLimit());
@@ -65,8 +59,6 @@ public class RoleController {
     @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     @GetMapping("/queryAllRolesWithoutCondition")
     public BaseEntity queryAllRolesWithoutCondition(TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         SysRole sysRole = new SysRole();
         List<SysRole> sysRoles = roleService.listAll(sysRole);
         BaseEntity be = new BaseEntity();
@@ -85,8 +77,6 @@ public class RoleController {
     })
     @DeleteMapping(path = "/delete/{id}")
     public BaseEntity delete(@PathVariable("id") int roleId, TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         BaseEntity be = new BaseEntity();
         int countByRoleId = roleService.getUserReferencesCountByRoleId(roleId);
         // 当前角色已经被引用，不能删除
@@ -108,8 +98,6 @@ public class RoleController {
     @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     @GetMapping("/initMenuTree")
     public BaseEntity initMenuTree(TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         List<TreeNode> menuList = menuService.getMenuTreeList();
         BaseEntity be = new BaseEntity();
         be.setContent(menuList);
@@ -127,8 +115,6 @@ public class RoleController {
     })
     @PostMapping(path = "/addRole")
     public BaseEntity addRole(SysRole sysRole, TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         BaseEntity be = new BaseEntity();
         // 判断角色名称是否存在
         int roleNameExists = roleService.checkRoleNameExists(sysRole);
@@ -154,8 +140,6 @@ public class RoleController {
     })
     @GetMapping(path = "/getRoleInfoById/{id}")
     public BaseEntity getRoleInfoById(@PathVariable("id") int roleId, TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         BaseEntity be = new BaseEntity();
         // 获得角色信息
         SysRole roleByRoleId = roleService.getRoleByRoleId(roleId);
@@ -182,8 +166,6 @@ public class RoleController {
     })
     @PutMapping(path = "/updateRole")
     public BaseEntity updateUser(SysRole sysRole, TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         BaseEntity be = new BaseEntity();
         // 得到角色信息
         SysRole sysRoleByRoleId = roleService.getRoleByRoleId(sysRole.getId());
@@ -211,8 +193,6 @@ public class RoleController {
     })
     @GetMapping(path = "/checkRoleExists/{id}")
     public BaseEntity checkRoleExists(@PathVariable("id") int roleId, TokenEntity t) {
-        // 验证token
-        checkToken.checkToken(t);
         SysRole sysRole = new SysRole();
         sysRole.setId(roleId);
         int roleCount = roleService.checkRoleExists(sysRole);

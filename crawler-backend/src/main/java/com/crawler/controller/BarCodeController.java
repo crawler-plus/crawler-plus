@@ -1,6 +1,5 @@
 package com.crawler.controller;
 
-import com.crawler.components.CheckToken;
 import com.crawler.constant.Const;
 import com.crawler.domain.BarCodeEntity;
 import com.crawler.domain.BaseEntity;
@@ -14,7 +13,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,9 +28,6 @@ import java.util.Map;
 @RequestMapping("/barCode")
 public class BarCodeController {
 
-	@Autowired
-	private CheckToken checkToken;
-
 	@ApiOperation(value="根据条形码查商品信息", notes="根据条形码查商品信息")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "code", value = "条形码", required = true, dataType = "String"),
@@ -40,8 +35,6 @@ public class BarCodeController {
 	})
 	@GetMapping(path = "/barCode/{code}")
 	public BaseEntity barCode(@PathVariable("code") String code, TokenEntity t) throws CrawlerException {
-		// 验证token
-		checkToken.checkToken(t);
 		BaseEntity be = new BaseEntity();
 		TransferEntity te = new TransferEntity();
 		te.setUrl("http://www.liantu.com/tiaoma/query.php");

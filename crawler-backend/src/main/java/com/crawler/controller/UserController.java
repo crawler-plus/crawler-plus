@@ -1,6 +1,5 @@
 package com.crawler.controller;
 
-import com.crawler.components.CheckToken;
 import com.crawler.components.CrawlerProperties;
 import com.crawler.components.RedisConfiguration;
 import com.crawler.constant.Const;
@@ -48,9 +47,6 @@ public class UserController {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
-
-    @Autowired
-    private CheckToken checkToken;
 
     /**
      * 用户登录
@@ -124,9 +120,7 @@ public class UserController {
     })
     @GetMapping("/queryAll")
     public BaseEntity queryAll(SysUser sysUser, TokenEntity te) {
-        // 验证token
-        checkToken.checkToken(te);
-        int userCount =  userService.getUsersListCount(sysUser);
+        int userCount = userService.getUsersListCount(sysUser);
         // 分页查询
 		PageHelper.startPage(sysUser.getPage(),sysUser.getLimit());
         List<SysUser> sysUsers = userService.listAll(sysUser);
@@ -147,8 +141,6 @@ public class UserController {
     })
     @DeleteMapping(path = "/delete/{id}")
     public BaseEntity delete(@PathVariable("id") int userId, TokenEntity te) {
-        // 验证token
-        checkToken.checkToken(te);
         BaseEntity be = new BaseEntity();
         SysUser sysUser = userService.getSysUserByUserId(userId);
         // 如果是管理员，不允许删除，否则系统中一个用户都没有了
@@ -173,8 +165,6 @@ public class UserController {
     })
     @GetMapping(path = "/queryUser/{id}")
     public BaseEntity queryUser(@PathVariable("id") int userId, TokenEntity te) {
-        // 验证token
-        checkToken.checkToken(te);
         SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
         BaseEntity be = new BaseEntity();
         be.setContent(sysUserByUserId);
@@ -192,8 +182,6 @@ public class UserController {
     })
     @GetMapping(path = "/getRoleByUserId/{id}")
     public BaseEntity getRoleByUserId(@PathVariable("id") int userId, TokenEntity te) {
-        // 验证token
-        checkToken.checkToken(te);
         List<SysRole> roleByUserId = roleService.getRoleByUserId(userId);
         BaseEntity be = new BaseEntity();
         be.setContent(roleByUserId);
@@ -211,8 +199,6 @@ public class UserController {
     })
     @PostMapping(path = "/addUser")
     public BaseEntity addUser(SysUser sysUser, TokenEntity te) {
-        // 验证token
-        checkToken.checkToken(te);
         BaseEntity be = new BaseEntity();
         // 判断用户是否存在
         int userExists = userService.checkUserExists(sysUser);
@@ -238,8 +224,6 @@ public class UserController {
     })
     @PutMapping(path = "/updateUser")
     public BaseEntity updateUser(SysUser sysUser, TokenEntity te) {
-        // 验证token
-        checkToken.checkToken(te);
         BaseEntity be = new BaseEntity();
         // 得到用户信息
         SysUser sysUserByUserId = userService.getSysUserByUserId(sysUser.getId());
@@ -290,8 +274,6 @@ public class UserController {
     })
     @GetMapping(path = "/checkUserExists/{id}")
     public BaseEntity checkUserExists(@PathVariable("id") int userId, TokenEntity te) {
-        // 验证token
-        checkToken.checkToken(te);
         SysUser sysUser = new SysUser();
         sysUser.setId(userId);
         int userCount = userService.checkUserExists(sysUser);
