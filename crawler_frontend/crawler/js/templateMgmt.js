@@ -36,6 +36,9 @@ var templateMgmt = function () {
                     ajaxOptions,
                     function (data) {
                         layer.closeAll();
+                        if(data.msgCode === '400') {
+                            layer.msg(data.content, {icon: 5});
+                        }
                     }
                 );
             }, function(){

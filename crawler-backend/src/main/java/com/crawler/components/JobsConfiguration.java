@@ -29,12 +29,19 @@ public class JobsConfiguration {
     @Autowired
     private CrawlerProperties crawlerProperties;
 
+    @Autowired
+    private RedisConfiguration redisConfiguration;
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     // 每隔4个小时定时跑一次定时任务，根据网站配置模版抓取网页信息
     @Scheduled(cron = "0 0 10,14,18 * * ?")
     public void cronJob() {
+        // 当网站正在运行模版定时任务的时候，向redis中写入值
+        redisConfiguration.valueOperations(redisTemplate).set("systemCron", "running");
     	this.articleService.cronjob();
+    	// 当网站运行模版定时任务结束后，将值从redis中移除
+        redisTemplate.delete("systemCron");
     }
 
     /**

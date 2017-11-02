@@ -8,15 +8,15 @@
 vi /etc/sysconfig/network-scripts/ifcfg-ens33
 BOOTPROTO=static
 ONBOOT=yes
-IPADDR=192.168.3.120
+IPADDR=192.168.1.120
 NETMASK=255.255.255.0
 GATEWAY=192.168.3.1
 DNS1=192.168.3.1
 保存退出之后reboot
 
 之后vmvare网络适配器采用桥接模式即可
-用root用户登录系统后ifconfig 命令，确认ip地址为上面配置的192.168.3.120，之后的操作采用XSHELL工具即可操作远程服务器
-ssh 192.168.3.120
+用root用户登录系统后ifconfig 命令，确认ip地址为上面配置的192.168.1.120，之后的操作采用XSHELL工具即可操作远程服务器
+ssh 192.168.1.120
 
 更新yum源
 mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
@@ -123,7 +123,7 @@ root     16338  1016  0 22:42 pts/0    00:00:00 grep --color=auto nginx
 重启nginx:sbin/nginx -s reload
 最后需要修改防火墙配置，将80端口和8888端口开放，修改方式上面已经有介绍，不做过多介绍。
 在浏览器上输入：
-http://192.168.3.120查看是否生效
+http://192.168.1.120查看是否生效
 
 安装mysql
 首先卸载centOS7中默认安装的mariadb

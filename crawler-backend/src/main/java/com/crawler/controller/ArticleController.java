@@ -214,12 +214,24 @@ public class ArticleController {
 	public BaseEntity executeCron(TokenEntity t) {
 		// 验证token
 		checkToken.checkToken(t);
-		this.articleService.cronjob();
-		// 将redis中的crawlerContent删除
-		redisTemplate.delete("crawlerContent");
 		BaseEntity be = new BaseEntity();
-		be.setContent("执行爬取...");
-		be.setMsgCode(Const.MESSAGE_CODE_OK);
+		// 检查系统是否正在运行定时任务，爬取文章，如下条件成立，说明当前没有线程运行定时任务
+		if(StringUtils.isEmpty((String)redisConfiguration.valueOperations(redisTemplate).get("systemCron"))
+				&& StringUtils.isEmpty((String)redisConfiguration.valueOperations(redisTemplate).get("businessCron"))) {
+			// 向redis中赋值
+			redisConfiguration.valueOperations(redisTemplate).set("businessCron", "running");
+			// 执行爬取任务
+			this.articleService.cronjob();
+			// 执行完爬取任务后将business的key给删掉
+			redisTemplate.delete("businessCron");
+			// 将redis中的crawlerContent删除
+			redisTemplate.delete("crawlerContent");
+			be.setContent("执行爬取...");
+			be.setMsgCode(Const.MESSAGE_CODE_OK);
+		}else {
+			be.setContent("系统中有其他线程正在爬取文章，请稍后重试！");
+			be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+		}
 		return be;
 	}
 
