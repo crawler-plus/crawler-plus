@@ -86,10 +86,20 @@ public class ArticleController {
 	public BaseEntity editTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
 		// 验证token
 		checkToken.checkToken(t);
-		articleService.editTemplateConfig(te);
 		BaseEntity be = new BaseEntity();
-		be.setMsgCode(Const.MESSAGE_CODE_OK);
-		be.setContent("修改文章配置成功");
+		// 得到用户信息
+		TemplateConfig templateConfig = articleService.getTemplateConfig(te.getId());
+		// 得到最新版本信息
+		int versionId = templateConfig.getVersion();
+		// 如果两次的version不相等
+		if(versionId != te.getVersion()) {
+			be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+			be.setContent("该文章配置信息已被其他人修改，请返回重新修改！");
+		}else {
+			articleService.editTemplateConfig(te);
+			be.setMsgCode(Const.MESSAGE_CODE_OK);
+			be.setContent("修改文章配置成功");
+		}
 		return be;
 	}
 

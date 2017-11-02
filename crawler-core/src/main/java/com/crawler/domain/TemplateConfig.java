@@ -24,6 +24,8 @@ public class TemplateConfig {
     @NotBlank(message = "{contentPattern.not.null}")
     private String contentPattern; // 子页面内容pattern
 
+    private int version; // 版本号（乐观锁）
+
     public String getId() {
         return id;
     }
@@ -70,5 +72,13 @@ public class TemplateConfig {
 
     public void setContentPattern(String contentPattern) {
         this.contentPattern = contentPattern;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

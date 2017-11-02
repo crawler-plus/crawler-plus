@@ -24,6 +24,7 @@ var editTemplate = function () {
                 $("#titlePattern").val(pPata.titlePattern);
                 $("#timePattern").val(pPata.timePattern);
                 $("#contentPattern").val(pPata.contentPattern);
+                $("#version").val(pPata.version);
             }
         );
 
@@ -60,7 +61,11 @@ var editTemplate = function () {
                         signOptions,
                         ajaxOptions,
                         function (data) {
-                            commonUtil.closeTab();
+                            if(data.msgCode === '400') {
+                                toastr.error(data.content);
+                            }else {
+                                commonUtil.closeTab();
+                            }
                         }
                     );
                 });

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50527
 File Encoding         : 65001
 
-Date: 2017-11-01 14:43:26
+Date: 2017-11-02 08:58:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -138,7 +138,7 @@ CREATE TABLE `sys_log` (
   `execute_time` datetime DEFAULT NULL COMMENT '执行时间',
   `type_id` int(11) DEFAULT NULL COMMENT '类型（1：登录系统，2：登出系统）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sys_log
@@ -185,6 +185,9 @@ INSERT INTO `sys_log` VALUES ('47', 'lisi', '2017-11-01 14:36:18', '1');
 INSERT INTO `sys_log` VALUES ('48', 'lisi', '2017-11-01 14:39:31', '1');
 INSERT INTO `sys_log` VALUES ('49', 'lisi', '2017-11-01 14:39:41', '1');
 INSERT INTO `sys_log` VALUES ('50', 'lisi', '2017-11-01 14:41:08', '1');
+INSERT INTO `sys_log` VALUES ('51', 'lisi', '2017-11-02 08:54:14', '1');
+INSERT INTO `sys_log` VALUES ('52', 'lisi', '2017-11-02 08:54:26', '1');
+INSERT INTO `sys_log` VALUES ('53', 'lisi', '2017-11-02 08:57:28', '1');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -326,11 +329,12 @@ CREATE TABLE `template_config` (
   `title_pattern` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `time_pattern` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `content_pattern` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `version` int(11) DEFAULT NULL COMMENT '乐观锁（版本号）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of template_config
 -- ----------------------------
-INSERT INTO `template_config` VALUES ('4aafe7ebe6a949d294c5483c81cef361', 'http://sports.sina.com.cn/nba/', '.news-list-b', '#j_title', '.article-a__time', '#artibody');
-INSERT INTO `template_config` VALUES ('4aafe7ebe6a949d294c5483c81cef362', 'http://sports.sina.com.cn/csl/', '.blk13', '#j_title', '.article-a__time', '#artibody');
+INSERT INTO `template_config` VALUES ('4aafe7ebe6a949d294c5483c81cef361', 'http://sports.sina.com.cn/nba/', '.news-list-b', '#j_title', '.article-a__time', '#artibody', '1');
+INSERT INTO `template_config` VALUES ('4aafe7ebe6a949d294c5483c81cef362', 'http://sports.sina.com.cn/csl/', '.blk13', '#j_title', '.article-a__time', '#artibody', '1');

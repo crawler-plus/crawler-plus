@@ -23,6 +23,7 @@
             <if test='contentPattern != null and contentPattern != "" '>
                 content_pattern,
             </if>
+                version,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test='id != null and id != "" '>
@@ -43,6 +44,7 @@
             <if test='contentPattern != null and contentPattern != "" '>
                 #{contentPattern, jdbcType=VARCHAR},
             </if>
+                1,
         </trim>
     </insert>
 
@@ -64,6 +66,7 @@
             <if test='contentPattern != null and contentPattern != "" '>
                 content_pattern = #{contentPattern, jdbcType=VARCHAR},
             </if>
+                version = version + 1,
         </trim>
         WHERE id = #{id, jdbcType=VARCHAR}
     </update>
@@ -89,7 +92,8 @@
         first_level_pattern   as firstLevelPattern,
         title_pattern         as titlePattern,
         time_pattern          as timePattern,
-        content_pattern       as contentPattern
+        content_pattern       as contentPattern,
+        version               as version
         FROM template_config
         WHERE id = #{id, jdbcType=VARCHAR}
     </select>
