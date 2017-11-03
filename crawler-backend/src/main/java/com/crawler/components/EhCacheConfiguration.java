@@ -14,7 +14,7 @@ import org.springframework.core.io.ClassPathResource;
 @Configuration
 @EnableCaching
 @ConditionalOnProperty(prefix = "crawler", name = "useEhCache", havingValue = "true")
-public class CacheConfiguration {
+public class EhCacheConfiguration {
 
     /**
      *  ehcache 主要的管理器

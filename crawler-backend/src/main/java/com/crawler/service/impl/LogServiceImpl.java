@@ -22,11 +22,13 @@ public class LogServiceImpl implements LogService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<SysLog> listAll(SysLog sysLog) {
         return logMapper.listAll(sysLog);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public int getLogCount(SysLog sysLog) {
         return logMapper.getLogCount(sysLog);
     }

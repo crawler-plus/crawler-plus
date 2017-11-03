@@ -80,7 +80,6 @@ public class ArticleServiceImpl implements ArticleService {
 	
 	@Override
 	public void cronjob() {
-
         // 得到当前所有配置列表信息
         List<TemplateConfig> templateConfigs = listAllTemplateConfig();
         // 如果模版信息不为空
@@ -182,6 +181,7 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
     @Override
+    @Transactional(readOnly = true)
     public int checkTemplateConfigExists(TemplateConfig templateConfig) {
         return articleMapper.checkTemplateConfigExists(templateConfig);
     }
