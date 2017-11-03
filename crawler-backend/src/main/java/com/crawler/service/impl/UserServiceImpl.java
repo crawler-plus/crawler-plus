@@ -69,18 +69,7 @@ public class UserServiceImpl implements UserService {
         userMapper.userAdd(sysUser);
         // 得到用户选择的角色
         String userRoleStr = sysUser.getUserRoleStr();
-        // 如果用户角色列表不为空
-        if(!StringUtils.isEmpty(userRoleStr)) {
-            List<SysUserRole> sysUserRoles = new ArrayList<>();
-            String[] split = userRoleStr.split(",");
-            for (String s : split) {
-                SysUserRole sysUserRole = new SysUserRole();
-                sysUserRole.setUserId(sysUser.getId());
-                sysUserRole.setRoleId(Integer.parseInt(s));
-                sysUserRoles.add(sysUserRole);
-            }
-            userMapper.addSysUserRole(sysUserRoles);
-        }
+        addSysUserRole(userRoleStr, sysUser);
     }
 
     @Override
@@ -95,6 +84,14 @@ public class UserServiceImpl implements UserService {
         // 最后如果用户选择了角色，像用户角色表中增加数据
         // 得到用户选择的角色
         String userRoleStr = sysUser.getUserRoleStr();
+        addSysUserRole(userRoleStr, sysUser);
+    }
+
+    /**
+     * 通过用户角色字符串增加用户角色列表
+     * @param userRoleStr
+     */
+    private void addSysUserRole(String userRoleStr, SysUser sysUser) {
         // 如果用户角色列表不为空
         if(!StringUtils.isEmpty(userRoleStr)) {
             List<SysUserRole> sysUserRoles = new ArrayList<>();

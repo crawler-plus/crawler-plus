@@ -1,5 +1,8 @@
 package com.crawler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
@@ -8,7 +11,14 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @EnableEurekaServer
 public class CrawlerEurekaServerApplication {
 
+	private static final Logger logger = LoggerFactory.getLogger(CrawlerEurekaServerApplication.class);
+
 	public static void main(String[] args) {
-		SpringApplication.run(CrawlerEurekaServerApplication.class, args);
+		SpringApplication application = new SpringApplication(CrawlerEurekaServerApplication.class);
+		application.setBannerMode(Banner.Mode.OFF);
+		application.run(args);
+		if(logger.isWarnEnabled()) {
+			logger.warn("--------------CrawlerEurekaServer project starts----------------");
+		}
 	}
 }
