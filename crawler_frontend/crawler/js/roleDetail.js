@@ -30,7 +30,7 @@ var roleDetail = function () {
                 var setting = {
                     check: {
                         enable: true,
-                        nocheckInherit: false
+                        chkboxType:  { "Y": "p", "N": "p" }
                     },
                     data: {
                         simpleData: {
@@ -47,7 +47,7 @@ var roleDetail = function () {
                 for(var i = 0; i < nodes.length; i ++) {
                     // 判断当前节点是否在这个角色对应的菜单列表中，如果是，就选中
                     var currentId = nodes[i].id;
-                    if($.inArray(currentId, roleRelatedMenuIds) > 0) {
+                    if($.inArray(currentId, roleRelatedMenuIds) > -1) {
                         treeObj.checkNode(nodes[i], true, true);
                     }
                     // 所有节点都不可点击
