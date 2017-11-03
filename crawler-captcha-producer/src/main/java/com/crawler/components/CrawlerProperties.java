@@ -1,4 +1,4 @@
-package com.crawler.cproducer.components;
+package com.crawler.components;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

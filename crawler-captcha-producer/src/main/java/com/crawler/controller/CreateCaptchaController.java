@@ -1,8 +1,8 @@
-package com.crawler.cproducer.controller;
+package com.crawler.controller;
 
+import com.crawler.components.CrawlerProperties;
+import com.crawler.components.RedisConfiguration;
 import com.crawler.constant.Const;
-import com.crawler.cproducer.components.CrawlerProperties;
-import com.crawler.cproducer.components.RedisConfiguration;
 import com.crawler.domain.BaseEntity;
 import com.crawler.util.FtpUtils;
 import com.google.code.kaptcha.Producer;

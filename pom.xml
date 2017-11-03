@@ -22,6 +22,7 @@
         <module>crawler-backend</module>
         <module>crawler-eureka-server</module>
         <module>crawler-captcha-producer</module>
+        <module>crawler-cache</module>
     </modules>
 
     <parent>
@@ -65,6 +66,11 @@
             <dependency>
                 <groupId>com.crawler</groupId>
                 <artifactId>crawler-core</artifactId>
+                <version>${crawler.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.crawler</groupId>
+                <artifactId>crawler-cache</artifactId>
                 <version>${crawler.version}</version>
             </dependency>
             <dependency>
