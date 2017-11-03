@@ -1,6 +1,6 @@
 var comm = {
     url : 'http://127.0.0.1:8088/'
-}
+};
 
 var commonUtil = function () {
 
@@ -17,7 +17,7 @@ var commonUtil = function () {
         "httpCode403": "服务器找不到请求的资源",
         "httpCode301": "请求的网页已永久移动到新位置",
         "httpCode302": "服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求"
-    }
+    };
 
     /**
      * 根据Code，匹配httpcode字典返回错误文字
@@ -63,7 +63,7 @@ var commonUtil = function () {
         }
         return result;
 
-    }
+    };
 
     /**
      * 优化bootstrap初始化
@@ -129,7 +129,7 @@ var commonUtil = function () {
         }
 
         element.bootstrapTable(option);
-    }
+    };
 
     /**
      * 对根据object的key值对Array进行排序
@@ -142,7 +142,7 @@ var commonUtil = function () {
         return function (a, b) {
             return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
         }
-    }
+    };
 
     /**
      * 获取url中的参数
@@ -154,7 +154,7 @@ var commonUtil = function () {
         var r = window.location.search.substr(1).match(reg);  //匹配目标参数
         if (r != null) return unescape(r[2]);
         return null; //返回参数值
-    }
+    };
 
     /**
      * 构造带参数url
@@ -172,7 +172,7 @@ var commonUtil = function () {
             }
         }
         return url;
-    }
+    };
 
     /**
      * 打开layer
@@ -184,7 +184,7 @@ var commonUtil = function () {
     var _layerOpen = function (title, url) {
         var height = "90%";
         var width = "800px";
-        var endFunction = function(){}
+        var endFunction = function(){};
 
         if (arguments[2]) {
             width = arguments[2];
@@ -207,7 +207,7 @@ var commonUtil = function () {
             content: url, //iframe的url,
             end: endFunction
         });
-    }
+    };
 
     /**
      * 在Iframe中打开新页面
@@ -217,7 +217,7 @@ var commonUtil = function () {
      */
     var _openUrlInIframe = function (title,dataUrl) {
         window.parent.contabs.openTab(title,dataUrl);
-    }
+    };
 
     /**
      * 关闭tab页
@@ -225,7 +225,7 @@ var commonUtil = function () {
      */
     var closeTab=function () {
         window.parent.contabs.closeActiveTab();
-    }
+    };
 
     /**
      * 禁用所有表单项
@@ -234,7 +234,7 @@ var commonUtil = function () {
     var _disableForm = function (formElement) {
         formElement.find("input[type!='hidden']").attr("readonly", "true");
         formElement.find("select").attr("disabled", "true");
-    }
+    };
 
     /**
      * 删除所有error样式
@@ -242,7 +242,7 @@ var commonUtil = function () {
      */
     var _removeError = function (formElement) {
         formElement.find("input.error").removeClass("error");
-    }
+    };
 
     /**
      * 启用所有按钮
@@ -250,7 +250,7 @@ var commonUtil = function () {
      */
     var _enableBtn = function (formElement) {
         formElement.find("button").removeAttr("disabled");
-    }
+    };
 
     /**
      * 禁用所有按钮
@@ -258,7 +258,7 @@ var commonUtil = function () {
      */
     var _disableBtn = function (formElement) {
         formElement.find("button").attr("disabled", "disabled");
-    }
+    };
 
     var _showLoadingMessage = function () {
         layer.msg('拼命抓取中,请稍候......', {
@@ -266,15 +266,15 @@ var commonUtil = function () {
             ,shade: 0.01
             ,time: 1000 * 3600 // 1 hour
         });
-    }
+    };
 
     var _getAccessToken = function () {
         return sessionStorage.getItem("token");
-    }
+    };
 
     var _getUserId = function () {
         return sessionStorage.getItem("userId");
-    }
+    };
 
 
     return {

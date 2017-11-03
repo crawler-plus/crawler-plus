@@ -32,7 +32,7 @@ var userAdd = function () {
 
             }
         );
-    }
+    };
 
     var init = function () {
 
@@ -83,7 +83,7 @@ var userAdd = function () {
                 );
             }
         });
-    }
+    };
 
     return {
         init: init

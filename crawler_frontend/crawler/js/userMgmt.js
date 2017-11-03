@@ -38,7 +38,7 @@ var userMgmt = function () {
                 }
             }
         });
-    }
+    };
 
     /**
      * 按钮事件绑定
@@ -58,7 +58,7 @@ var userMgmt = function () {
             };
             commonUtil.openUrlInIframe("新增用户信息", commonUtil.buildUrlParam("crawler/userAdd.html", params));
         });
-    }
+    };
 
 
     var _refreshCurrentTable = function () {
@@ -71,7 +71,7 @@ var userMgmt = function () {
                     name: queryObject.name
                 }
             });
-    }
+    };
 
     /**
      * 判断用户是否存在
@@ -99,7 +99,7 @@ var userMgmt = function () {
                 }
             }
         );
-    }
+    };
 
     return {
         /**
@@ -197,4 +197,4 @@ var userMgmt = function () {
  */
 $(function () {
     userMgmt.init();
-})
+});

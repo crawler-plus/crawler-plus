@@ -66,7 +66,6 @@ public class DateUtil {
 		try {
 			return sdf.parse(sdf.format(new Date()));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -102,9 +101,5 @@ public class DateUtil {
 	
 	public static String getTMSTodayDatetime() {
 		return formatDateTime("yyyy-MM-dd HH:mm:ss");
-	}
-	public static void main(String[] args) throws ParseException {
-
-System.out.println(getTMSTodayDatetime());
 	}
 }

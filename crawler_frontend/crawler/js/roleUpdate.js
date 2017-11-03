@@ -54,7 +54,7 @@ var roleUpdate = function () {
 
             }
         );
-    }
+    };
 
     var init = function () {
 
@@ -105,7 +105,7 @@ var roleUpdate = function () {
                 });
             }
         });
-    }
+    };
 
     /**
      * 判断角色是否存在
@@ -132,7 +132,7 @@ var roleUpdate = function () {
                 }
             }
         );
-    }
+    };
 
     return {
         init: init

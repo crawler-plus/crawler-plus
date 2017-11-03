@@ -45,7 +45,7 @@ var templateMgmt = function () {
                 layer.closeAll();
             });
         });
-    }
+    };
 
     /**
      * 列出所有文章模版
@@ -80,7 +80,7 @@ var templateMgmt = function () {
                                 "titlePattern": eachData.titlePattern,
                                 "timePattern": eachData.timePattern,
                                 "contentPattern": eachData.contentPattern
-                            }
+                            };
                             //匹配json内容
                             var html = template(json);
                             $("#resultRow").append(html);
@@ -136,13 +136,13 @@ var templateMgmt = function () {
 
             }
         );
-    }
+    };
 
     var init = function () {
        // 调用后台接口，查询当前全部的模版
         listAllTemplate();
         registerBtn();
-    }
+    };
 
     /**
      * 判断文章配置是否存在
@@ -171,7 +171,7 @@ var templateMgmt = function () {
                 }
             }
         );
-    }
+    };
 
     return {
         init: init

@@ -20,7 +20,7 @@ var articleSearchDetail = function () {
                 fecthData(data);
             }
         );
-    }
+    };
 
     // 获取数据
     var fecthData = function (data) {
@@ -32,7 +32,7 @@ var articleSearchDetail = function () {
         var html = template(data.content);
         //输入模板
         $("#dataRow").html(html);
-    }
+    };
 
     return {
         init: init

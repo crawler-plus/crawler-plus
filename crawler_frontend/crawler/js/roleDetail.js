@@ -55,11 +55,11 @@ var roleDetail = function () {
                 }
             }
         );
-    }
+    };
 
     var init = function () {
         fetchData();
-    }
+    };
 
     return {
         init: init

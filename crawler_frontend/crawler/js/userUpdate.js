@@ -55,7 +55,7 @@ var userUpdate = function () {
             }
         );
 
-    }
+    };
 
     var init = function () {
         fetchData();
@@ -109,7 +109,7 @@ var userUpdate = function () {
             }
         });
 
-    }
+    };
 
     /**
      * 判断用户是否存在
@@ -136,7 +136,7 @@ var userUpdate = function () {
                 }
             }
         );
-    }
+    };
 
     return {
         init: init

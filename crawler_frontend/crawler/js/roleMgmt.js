@@ -38,7 +38,7 @@ var roleMgmt = function () {
                 }
             }
         });
-    }
+    };
 
     /**
      * 按钮事件绑定
@@ -58,7 +58,7 @@ var roleMgmt = function () {
             };
             commonUtil.openUrlInIframe("新增角色信息", commonUtil.buildUrlParam("crawler/roleAdd.html", params));
         });
-    }
+    };
 
     var _refreshCurrentTable = function () {
         // 重置查询条件
@@ -70,7 +70,7 @@ var roleMgmt = function () {
                 roleName: queryObject.roleName
             }
         });
-    }
+    };
 
     /**
      * 判断角色是否存在
@@ -98,7 +98,7 @@ var roleMgmt = function () {
                 }
             }
         );
-    }
+    };
 
     return {
         /**
@@ -195,4 +195,4 @@ var roleMgmt = function () {
  */
 $(function () {
     roleMgmt.init();
-})
+});

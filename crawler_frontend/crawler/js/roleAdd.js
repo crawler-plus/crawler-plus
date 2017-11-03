@@ -33,7 +33,7 @@ var roleAdd = function () {
 
             }
         );
-    }
+    };
 
     var init = function () {
 
@@ -81,7 +81,7 @@ var roleAdd = function () {
                 );
             }
         });
-    }
+    };
 
     return {
         init: init

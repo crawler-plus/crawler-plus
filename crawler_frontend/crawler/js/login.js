@@ -11,7 +11,7 @@ var login = function () {
         }).on("mouseout", function () {
             $(this).css("cursor", "");
         });
-    }
+    };
 
     // 加载验证码
     var create_captcha = function () {
@@ -41,7 +41,7 @@ var login = function () {
                 }
             }
         );
-    }
+    };
 
     var init = function () {
         btn_init();
@@ -94,7 +94,7 @@ var login = function () {
                 );
             }
         });
-    }
+    };
 
     return {
         init: init

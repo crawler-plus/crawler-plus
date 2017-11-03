@@ -5,7 +5,7 @@ var dataRequest = function() {
 	 */
 	var _serializeFormArray = function(formID) {
 		return $("#" + formID).serializeArray();
-	}
+	};
 
     /**
      * 序列化form数据
@@ -13,7 +13,7 @@ var dataRequest = function() {
      */
     var _serializeForm = function(formID) {
         return $("#" + formID).serialize();
-    }
+    };
 
 	/**
 	 * ajax 公用封装
@@ -74,7 +74,7 @@ var dataRequest = function() {
 			}
         }).always(function () {
         });
-	}
+	};
 
 	/**
 	 * 提交AJAX,与服务器数据交互 (不过验签服务器)
@@ -90,7 +90,7 @@ var dataRequest = function() {
 			ajaxOptions.data = _serializeFormArray(signOptions.formID);
 		}
 		_ajaxWrapper(signOptions, ajaxOptions, ajaxSuccCallback, ajaxFailedCallback);
-	}
+	};
 
 	return {
 		requestSend:_requestSendWithOutSign

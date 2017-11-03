@@ -71,7 +71,7 @@ var editTemplate = function () {
                 });
             }
         });
-    }
+    };
 
     /**
      * 判断文章配置是否存在
@@ -99,7 +99,7 @@ var editTemplate = function () {
                 }
             }
         );
-    }
+    };
 
     return {
         init: init

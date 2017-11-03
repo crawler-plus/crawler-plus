@@ -23,7 +23,7 @@ var articleSearch = function () {
             //输入模板
             $("#dataRow").append(html);
         }
-    }
+    };
 
     var init = function () {
         commonUtil.showLoadingMessage();
@@ -57,7 +57,7 @@ var articleSearch = function () {
 
             }
         );
-    }
+    };
 
     return {
         init: init

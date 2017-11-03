@@ -13,7 +13,7 @@ var formSearch = function () {
                 $("#excludeLinkStr").prop("disabled", false);
             }
         })
-    }
+    };
 
     // 获取数据
     var fecthData = function (data) {
@@ -50,7 +50,7 @@ var formSearch = function () {
             //输入模板
             $("#dataRow").append(html);
         }
-    }
+    };
 
     var init = function () {
         determineState();
@@ -114,7 +114,7 @@ var formSearch = function () {
                 );
             }
         });
-    }
+    };
 
     return {
         init: init

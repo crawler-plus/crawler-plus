@@ -39,7 +39,7 @@ var addTemplate = function () {
                 );
             }
         });
-    }
+    };
 
     return {
         init: init

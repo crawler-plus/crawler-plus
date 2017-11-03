@@ -19,7 +19,7 @@ var barCodeSearch = function () {
         var html = template(content);
         //输入模板
         $("#dataRow").append(html);
-    }
+    };
 
     var init = function () {
         $("#barCodeForm").validate({
@@ -54,7 +54,7 @@ var barCodeSearch = function () {
                 );
             }
         });
-    }
+    };
 
     return {
         init: init

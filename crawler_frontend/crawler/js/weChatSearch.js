@@ -23,7 +23,7 @@ var barCodeSearch = function () {
             //输入模板
             $("#dataRow").append(html);
         }
-    }
+    };
 
     var init = function () {
         $("#weChatForm").validate({
@@ -52,7 +52,7 @@ var barCodeSearch = function () {
                         var content = data.content;
                         if('300' === msgCode) {
                             toastr.error(content);
-                            return;
+
                         }else {
                             fecthData(data);
                         }
@@ -60,7 +60,7 @@ var barCodeSearch = function () {
                 );
             }
         });
-    }
+    };
 
     return {
         init: init

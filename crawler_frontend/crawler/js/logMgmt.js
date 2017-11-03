@@ -31,7 +31,7 @@ var logMgmt = function () {
                 }
             }
         });
-    }
+    };
 
     /**
      * 按钮事件绑定
@@ -73,7 +73,7 @@ var logMgmt = function () {
                 layer.closeAll();
             });
         });
-    }
+    };
 
 
     var _refreshCurrentTable = function () {
@@ -86,7 +86,7 @@ var logMgmt = function () {
                     loginAccount: queryObject.loginAccount
                 }
             });
-    }
+    };
 
     return {
         /**
@@ -105,4 +105,4 @@ var logMgmt = function () {
  */
 $(function () {
     logMgmt.init();
-})
+});

@@ -53,11 +53,11 @@ var userDetail = function () {
             }
         );
 
-    }
+    };
 
     var init = function () {
         fetchData();
-    }
+    };
 
     return {
         init: init
