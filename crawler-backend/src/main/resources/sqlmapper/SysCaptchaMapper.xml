@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.crawler.dao.SysCaptchaMapper" >
 
-    <insert id="roleAdd" parameterType="com.crawler.domain.SysCaptcha">
+    <insert id="addSysCaptcha" parameterType="com.crawler.domain.SysCaptcha">
         INSERT INTO sys_captcha
         <trim prefix="(" suffix=")" suffixOverrides="," >
               id,

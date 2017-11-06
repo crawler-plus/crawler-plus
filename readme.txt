@@ -71,6 +71,11 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 并将crawler-captcha-producer和crawler-eureka-server工程中的application.yml相应的host和port修改正确************
 3.建议生产环境下采用jar包运行，打jar包命令：clean package
 4.需要有Redis环境，Nginx环境，vsftpd环境
+5.如需使用验证码需要在如下地方修改：
+1）crawler-backend工程中的application.yml中useCaptcha改成true
+2）crawler_frontend工程中的commonm/commonUtil.js中useCaptcha改成true
+3）按顺序启动crawler-eureka-server，crawler-captcha-producer，crawler-backend这三个工程
+6）如不需使用验证码只需要启动crawler-backend一个工程
 
 前端：
 1. 运行crawler_frontend下的login.html

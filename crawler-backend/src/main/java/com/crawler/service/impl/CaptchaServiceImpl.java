@@ -14,6 +14,7 @@ public class CaptchaServiceImpl implements CaptchaService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
     private SysCaptchaMapper sysCaptchaMapper;
 
     public BaseEntity createCaptcha() {

@@ -146,7 +146,10 @@ public class ArticleController {
 	 * 列出所有查询出的文章
 	 */
 	@ApiOperation(value="列出所有查询出的文章", notes="列出所有查询出的文章")
-	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", required = true, dataType = "CrawlerContent"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
 	@GetMapping("/listAllCrawlerContents")
 	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, TokenEntity t) {
 		int crawlerContentSize = articleService.getCrawlerContentSize();
