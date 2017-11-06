@@ -84,4 +84,10 @@ public interface ArticleService {
      * @return
      */
     int checkTemplateConfigExists(TemplateConfig templateConfig);
+
+    /**
+     * 得到文章数量
+     * @return
+     */
+    int getCrawlerContentSize();
 }

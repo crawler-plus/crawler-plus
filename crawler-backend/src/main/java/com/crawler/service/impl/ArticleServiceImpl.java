@@ -185,4 +185,10 @@ public class ArticleServiceImpl implements ArticleService {
     public int checkTemplateConfigExists(TemplateConfig templateConfig) {
         return articleMapper.checkTemplateConfigExists(templateConfig);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public int getCrawlerContentSize() {
+        return articleMapper.getCrawlerContentSize();
+    }
 }

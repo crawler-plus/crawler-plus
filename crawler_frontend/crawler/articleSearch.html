@@ -8,45 +8,61 @@
     <meta name="description" content="">
     <link rel="shortcut icon" href="favicon.ico">
     <link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="../css/font-awesome.css?v=4.4.0" rel="stylesheet">
-    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
     <link href="../css/style.css?v=4.1.0" rel="stylesheet">
     <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <style>
+        table td{
+            word-break: keep-all;white-space:nowrap;
+        }
+    </style>
 </head>
 <body class="gray-bg">
-    <div class="wrapper wrapper-content  animated fadeInRight blog">
-        <ul class="sortable-list connectList agile-list" id="dataRow">
-        </ul>
-    </div>
-
-    <script id="resultScript" type="text/x-handlebars-template">
-        <li class="warning-element">
-            <span class="btn-link">
-                搜索结果
-            </span>
-        </li>
-    </script>
-
-    <script id="handleBarScript" type="text/x-handlebars-template">
-        <li class="warning-element">
-            <span class="btn-link">
-            </span>
-            <div class="agile-detail">
-                <div class="eachArticle" title="{{id}}"><b>标题：</b>{{title}}</div><br>
-                <div class="eachArticle" title="{{id}}"><b>文章来源：</b>{{url}}</div><br>
-                <div class="eachArticle" title="{{id}}"><b>获取时间：</b>{{insertTime}}</div><br>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div class="example-wrap">
+                        <form class="form-horizontal" id="queryForm">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <h2>文章查询列表</h2>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary" id="queryBtn">查询</button>
+                            </div>
+                        </form>
+                        <div class="example">
+                            <table id="articleList" data-height="550"  data-mobile-responsive="false">
+                                <thead>
+                                <tr>
+                                    <th data-field="id" data-visible data-card-visible>文章id</th>
+                                    <th data-field="title" data-width="200">标题</th>
+                                    <th data-field="url" data-width="200">文章来源</th>
+                                    <th data-field="insertTime" data-width="200">获取时间</th>
+                                    <th data-field="" data-align="center" data-width="200" data-formatter="articleSearch.actionFormatter" data-events="articleSearch.actionEvents" nowrap>操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </li>
-    </script>
-
-    <script src="../js/jquery.min.js?v=2.1.4"></script>
-    <script src="../js/bootstrap.min.js?v=3.3.6"></script>
-    <script src="../js/jquery.goup.min.js"></script>
-    <script src="../js/handlebars.js"></script>
-    <script src="../js/plugins/toastr/toastr.min.js"></script>
-    <script src="../js/plugins/layer/layer.min.js"></script>
-    <script src="../common/dataRequest.js"></script>
-    <script src="../common/commonUtil.js"></script>
-    <script src="js/articleSearch.js"></script>
+        </div>
+    </div>
+</div>
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/plugins/toastr/toastr.min.js"></script>
+<script src="../js/plugins/layer/layer.min.js"></script>
+<script src="../common/dataRequest.js"></script>
+<script src="../common/commonUtil.js"></script>
+<script src="js/articleSearch.js"></script>
 </body>
 </html>

@@ -1,78 +1,101 @@
 var articleSearch = function () {
+    // bootstrap表格
+    var bootstrapTableEl = $("#articleList");
+    // 查询按钮
+    var queryBtnEl = $("#queryBtn");
+    // 用户查询url
+    var userQueryUrl= comm.url + "article/listAllCrawlerContents";
+    //  浏览按钮
+    var viewBtnEl = '<a class="view ml10 btn btn-sm btn-primary" href="javascript:void(0)" title="查看">查看</a>';
 
-    // 获取数据
-    var fecthData = function (data) {
-        $("#dataRow").html("");
-        var content = data.content;
-        // 用jquery获取模板
-        var tpl = $("#resultScript").html();
-        //预编译模板
-        var template = Handlebars.compile(tpl);
-        //匹配json内容
-        var html = template({});
-        $("#dataRow").append(html);
-        // 用jquery获取模板
-        var tpl = $("#handleBarScript").html();
-        //预编译模板
-        var template = Handlebars.compile(tpl);
-        for(var i = 0; i < content.length; i ++) {
-            var eachContent = content[i];
-            var json = {"id": eachContent.id, "title" : eachContent.title, "insertTime" : eachContent.insertTime, "url" : eachContent.url};
-            //匹配json内容
-            var html = template(json);
-            //输入模板
-            $("#dataRow").append(html);
-        }
+    /**
+     * 表格信息初始化
+     * @private
+     */
+    var _tableInit = function () {
+        // 初始化表格
+        commonUtil.bootstrapTable(bootstrapTableEl, {
+            url: userQueryUrl,
+            queryParams: function (params) {
+                return {
+                    // 后台分页参数（不需要修改，也不要删除！）
+                    limit: params.limit,
+                    offset: params.offset,
+                    sortOrder: params.order,
+                    page: params.offset / params.limit + 1
+                }
+            }
+        });
     };
 
-    var init = function () {
-        commonUtil.showLoadingMessage();
-        // 通过表单验证
-        var signOptions = {
-            formID : null,
-            isFormData : false
-        };
-        var ajaxOptions = {
-            url: comm.url + 'article/listAllCrawlerContents',
-            method : 'GET'
-        };
-        dataRequest.requestSend(
-            signOptions,
-            ajaxOptions,
-            function (data) {
-                layer.closeAll();
-                fecthData(data);
-                /**
-                 * 查询文章详情
-                 */
-                $("div[class=eachArticle]").on('click', function () {
-                    var that = $(this);
-                    var id = that.prop("title");
-                    // 新选项卡打开
-                    var params = {
-                        id:  id
-                    };
-                    commonUtil.openUrlInIframe("文章详情", commonUtil.buildUrlParam("crawler/articleSearchDetail.html", params));
-                });
+    /**
+     * 按钮事件绑定
+     * @private
+     */
+    var _btnEvent = function () {
+        // 点击查询按钮
+        queryBtnEl.on("click", function () {
+            _refreshCurrentTable();
+        });
+    };
 
-            }
-        );
+
+    var _refreshCurrentTable = function () {
+        // 刷新表格
+        bootstrapTableEl.bootstrapTable("refresh", {
+            url: userQueryUrl
+        });
     };
 
     return {
-        init: init
+        /**
+         * 表格列格式化
+         * @param value 列值
+         * @param row 行值
+         * @param index index
+         * @returns {string}
+         */
+        actionFormatter: function (value, row, index) {
+            var actionArr = [];
+            actionArr.push(viewBtnEl);
+            return actionArr.length > 0 ? actionArr.join(' ') : "-";
+        },
+
+        /**
+         * 表格事件
+         */
+        actionEvents: {
+            /**
+             * 点击事件
+             * @param e     jqEvent
+             * @param value 单元格值
+             * @param row   行对象
+             * @param index 行索引
+             */
+            "click .view": function (e, value, row, index) {
+                var id = row.id;
+                var params = {
+                    id: id
+                };
+                commonUtil.openUrlInIframe("文章详情", commonUtil.buildUrlParam("crawler/articleSearchDetail.html", params));
+            }
+        },
+
+        /**
+         * 页面初始化
+         */
+        init: function () {
+            _btnEvent();
+            _tableInit();
+        },
+        refreshCurrentTable: _refreshCurrentTable
     }
 }();
+
+
+/**
+ * dom加载完成
+ */
 $(function () {
-
     articleSearch.init();
-
-    // 滚到页面顶部滚动条初始化
-    $.goup({
-        trigger: 100,
-        bottomOffset: 50,
-        locationOffset: 10,
-        title: '回顶部',
-        titleAsText: true
-    });
 });

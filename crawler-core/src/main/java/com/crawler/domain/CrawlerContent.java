@@ -3,7 +3,7 @@ package com.crawler.domain;
 /**
  * 文章爬虫entity
  */
-public class CrawlerContent {
+public class CrawlerContent extends BaseEntity {
 
     private String id; // 文章id
 

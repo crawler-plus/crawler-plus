@@ -5,6 +5,7 @@ import com.crawler.constant.Const;
 import com.crawler.domain.*;
 import com.crawler.service.api.ArticleService;
 import com.crawler.service.api.SysLockService;
+import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -147,7 +148,10 @@ public class ArticleController {
 	@ApiOperation(value="列出所有查询出的文章", notes="列出所有查询出的文章")
 	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/listAllCrawlerContents")
-	public BaseEntity listAllCrawlerContents(TokenEntity t) {
+	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, TokenEntity t) {
+		int crawlerContentSize = articleService.getCrawlerContentSize();
+		// 分页查询
+		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
 		List<CrawlerContent> contents = null;
 		// 如果开启redis服务支持
 		if(crawlerProperties.isUseRedisCache()) {
@@ -168,7 +172,8 @@ public class ArticleController {
 			contents = articleService.listAllCrawlerContents();
 		}
 		BaseEntity be = new BaseEntity();
-		be.setContent(contents);
+		be.setTotal(crawlerContentSize);
+		be.setRows(contents);
 		be.setMsgCode(Const.MESSAGE_CODE_OK);
 		return be;
 	}
