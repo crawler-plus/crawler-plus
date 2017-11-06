@@ -8,11 +8,6 @@ crawler:
 spring:
   application:
     name: captcha-service
-  redis:
-    database: 0
-    host: 192.168.1.120
-    port: 6379
-    password: redis
 
 eureka:
   client:

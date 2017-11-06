@@ -1,5 +1,6 @@
 var comm = {
-    url : 'http://127.0.0.1:8088/'
+    url : 'http://127.0.0.1:8088/',
+    useCaptcha: false
 };
 
 var commonUtil = function () {
@@ -276,6 +277,9 @@ var commonUtil = function () {
         return sessionStorage.getItem("userId");
     };
 
+    var _getTimestamp = function () {
+        return sessionStorage.getItem("timestamp");
+    };
 
     return {
         getHttpMessage: function (e) {
@@ -294,7 +298,8 @@ var commonUtil = function () {
         disableBtn: _disableBtn,
         showLoadingMessage: _showLoadingMessage,
         getAccessToken: _getAccessToken,
-        getUserId: _getUserId
+        getUserId: _getUserId,
+        getTimestamp: _getTimestamp
     }
 }();
 $(function () {

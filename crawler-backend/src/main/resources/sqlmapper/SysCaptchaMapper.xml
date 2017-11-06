@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crawler.dao.SysCaptchaMapper" >
+
+    <insert id="roleAdd" parameterType="com.crawler.domain.SysCaptcha">
+        INSERT INTO sys_captcha
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+              id,
+            <if test='captcha != null and captcha != "" '>
+              captcha,
+            </if>
+              create_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+                NULL,
+            <if test='captcha != null and captcha != "" '>
+                #{captcha, jdbcType=VARCHAR},
+            </if>
+                NOW(),
+        </trim>
+    </insert>
+
+    <select id="listAllSysCaptcha" resultType="java.lang.String">
+        SELECT captcha AS captcha FROM sys_captcha
+    </select>
+
+    <delete id="clearAllSysCaptchas">
+        DELETE FROM sys_captcha
+    </delete>
+
+</mapper>

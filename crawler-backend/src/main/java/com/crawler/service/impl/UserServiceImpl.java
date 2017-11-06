@@ -1,18 +1,22 @@
 package com.crawler.service.impl;
 
 import com.crawler.components.CrawlerProperties;
+import com.crawler.dao.LogMapper;
+import com.crawler.dao.MenuMapper;
 import com.crawler.dao.UserMapper;
-import com.crawler.domain.SysUser;
-import com.crawler.domain.SysUserRole;
+import com.crawler.domain.*;
 import com.crawler.service.api.UserService;
 import com.crawler.util.MD5Utils;
+import com.crawler.util.TokenUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -20,6 +24,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private MenuMapper menuMapper;
+
+    @Autowired
+    private LogMapper logMapper;
 
     @Autowired
     private CrawlerProperties crawlerProperties;
@@ -104,5 +114,46 @@ public class UserServiceImpl implements UserService {
             }
             userMapper.addSysUserRole(sysUserRoles);
         }
+    }
+
+    @Override
+    public Map<String, Object> canLogin(SysUser sysUser) {
+        // 最终返回的数据
+        Map<String, Object> infoMap = new HashMap<>();
+        String password = MD5Utils.toMD5String(sysUser.getPassword(), crawlerProperties.getMd5Salt());
+        sysUser.setPassword(password);
+        int exists = this.checkUserExists(sysUser);
+        // 如果用户存在
+        if(exists > 0) {
+            // 得到用户信息
+            SysUser sysUserByloginAccount = this.getSysUserByloginAccount(sysUser.getLoginAccount());
+            // 得到用户对应的菜单信息
+            List<SysMenu> menuList = menuMapper.getMenuList(sysUserByloginAccount.getId());
+            List<List<SysMenu>> sList = new ArrayList<>();
+            menuList.stream().forEach(t -> {
+                // 如果是一个根节点
+                if(t.getMenuParentId() == 0) {
+                    List<SysMenu> smList = new ArrayList<>();
+                    smList.add(t);
+                    sList.add(smList);
+                }
+                // 如果是上一个根节点的子节点
+                else {
+                    sList.get(sList.size() - 1).add(t);
+                }
+            });
+            // 生成用户token
+            TokenEntity userToken = TokenUtils.createUserToken(String.valueOf(sysUserByloginAccount.getId()), 0, crawlerProperties.getUserTokenKey());
+            // 往系统log表中添加一条记录
+            SysLog sysLog = new SysLog();
+            sysLog.setLoginAccount(sysUser.getLoginAccount());
+            sysLog.setTypeId(1);
+            logMapper.logAdd(sysLog);
+            infoMap.put("userInfo", sysUserByloginAccount);
+            infoMap.put("menuInfo", sList);
+            infoMap.put("token", userToken.getToken());
+            infoMap.put("timestamp", userToken.getTimestamp());
+        }
+        return infoMap;
     }
 }

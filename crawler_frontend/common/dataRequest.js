@@ -25,7 +25,7 @@ var dataRequest = function() {
 	 */
 	var _ajaxWrapper=function(signOptions, ajaxOptions, ajaxSuccCallback, ajaxFailedCallback) {
         var ajaxURL = ajaxOptions.url;
-        ajaxURL = ajaxURL + "?uid=" + commonUtil.getUserId() + "&token=" + commonUtil.getAccessToken();
+        ajaxURL = ajaxURL + "?uid=" + commonUtil.getUserId() + "&token=" + commonUtil.getAccessToken() + "&timestamp=" + commonUtil.getTimestamp();
 		if(!signOptions.isFormData && !signOptions.isUploadReq) {
 			ajaxOptions.headers= {
 				'Accept': 'application/json',
@@ -58,7 +58,11 @@ var dataRequest = function() {
         	}
 			// 证明无权限
 			if(error.status === 401) {
-				location.href = '../login.html';
+                if(ajaxURL.indexOf("user/logout") > -1) {
+                    location.href = 'login.html';
+				}else {
+                    location.href = '../login.html';
+				}
 			}
 			// 参数错误
 			else if(error.status === 400) {

@@ -3,6 +3,7 @@ package com.crawler.service.api;
 import com.crawler.domain.SysUser;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户Service
@@ -61,4 +62,6 @@ public interface UserService {
      * @param sysUser
      */
     void updateUser(SysUser sysUser);
+
+    Map<String, Object> canLogin(SysUser sysUser);
 }

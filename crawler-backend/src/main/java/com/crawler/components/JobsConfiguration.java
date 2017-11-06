@@ -1,13 +1,15 @@
 package com.crawler.components;
 
+import com.crawler.domain.SysLock;
 import com.crawler.service.api.ArticleService;
+import com.crawler.service.api.SysCaptchaService;
+import com.crawler.service.api.SysLockService;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -24,33 +26,36 @@ public class JobsConfiguration {
     private ArticleService articleService;
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private SysLockService sysLockService;
+
+    @Autowired
+    private SysCaptchaService sysCaptchaService;
 
     @Autowired
     private CrawlerProperties crawlerProperties;
-
-    @Autowired
-    private RedisConfiguration redisConfiguration;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     // 每隔4个小时定时跑一次定时任务，根据网站配置模版抓取网页信息
     @Scheduled(cron = "0 0 10,14,18 * * ?")
     public void cronJob() {
-        // 当网站正在运行模版定时任务的时候，向redis中写入值
-        redisConfiguration.valueOperations(redisTemplate).set("systemCron", "running");
+        // 当网站正在运行模版定时任务的时候，向数据库中写入值
+        SysLock sysLock = new SysLock();
+        sysLock.setSystemCron("1");
+        sysLockService.updateSysLock(sysLock);
     	this.articleService.cronjob();
-    	// 当网站运行模版定时任务结束后，将值从redis中移除
-        redisTemplate.delete("systemCron");
+    	// 当网站运行模版定时任务结束后，将值从数据库中移除
+        sysLock.setSystemCron("0");
+        sysLockService.updateSysLock(sysLock);
     }
 
     /**
-     * 清除redis中的验证码,每天2点和14点定时清理
+     * 清除数据库中的验证码,每天2点和14点定时清理
      */
     @Scheduled(cron = "0 0 2,14 * * ?")
     public void clearRedisCaptcha() {
-        redisTemplate.delete("captchaSet");
-    }
+        sysCaptchaService.clearAllSysCaptchas();
+}
 
     /**
      * 清除ftp服务器上的验证码图片,每天2点和14点定时清理

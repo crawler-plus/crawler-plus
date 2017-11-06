@@ -1,25 +1,19 @@
 package com.crawler.controller;
 
-import com.crawler.components.RedisConfiguration;
+import com.crawler.components.CrawlerProperties;
 import com.crawler.constant.Const;
-import com.crawler.domain.BaseEntity;
-import com.crawler.domain.CrawlerContent;
-import com.crawler.domain.TemplateConfig;
-import com.crawler.domain.TokenEntity;
+import com.crawler.domain.*;
 import com.crawler.service.api.ArticleService;
-import com.crawler.util.JsonUtils;
+import com.crawler.service.api.SysLockService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 文章Controller
@@ -33,10 +27,16 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@Autowired
-	private RedisConfiguration redisConfiguration;
+	private SysLockService sysLockService;
+
+//	@Autowired
+//	private RedisConfiguration redisConfiguration;
+//
+//	@Autowired
+//	private RedisTemplate<String, Object> redisTemplate;
 
 	@Autowired
-	private RedisTemplate<String, Object> redisTemplate;
+	private CrawlerProperties crawlerProperties;
 
 	/**
 	 * 执行cron
@@ -149,18 +149,23 @@ public class ArticleController {
 	@GetMapping("/listAllCrawlerContents")
 	public BaseEntity listAllCrawlerContents(TokenEntity t) {
 		List<CrawlerContent> contents = null;
-		// 从redis中获取文章
-		String crawlerContent = (String)redisConfiguration.valueOperations(redisTemplate).get("crawlerContent");
-		// 如果redis中的文章列表为空
-		if(StringUtils.isEmpty(crawlerContent)) {
+		// 如果开启redis服务支持
+		if(crawlerProperties.isUseRedisCache()) {
+			// 从redis中获取文章
+			/*String crawlerContent = (String)redisConfiguration.valueOperations(redisTemplate).get("crawlerContent");
+			// 如果redis中的文章列表为空
+			if(StringUtils.isEmpty(crawlerContent)) {
+				contents = articleService.listAllCrawlerContents();
+				// 把文章列表序列化到redis
+				String crawlerJson = JsonUtils.objectToJson(contents);
+				redisConfiguration.valueOperations(redisTemplate).set("crawlerContent", crawlerJson);
+				// 设置过期时间为4h
+				redisTemplate.expire("crawlerContent", 4, TimeUnit.HOURS);
+			}else { // 从redis中取出文章列表
+				contents = JsonUtils.jsonToList(crawlerContent, CrawlerContent.class);
+			}*/
+		}else {
 			contents = articleService.listAllCrawlerContents();
-			// 把文章列表序列化到redis
-			String crawlerJson = JsonUtils.objectToJson(contents);
-			redisConfiguration.valueOperations(redisTemplate).set("crawlerContent", crawlerJson);
-			// 设置过期时间为4h
-			redisTemplate.expire("crawlerContent", 4, TimeUnit.HOURS);
-		}else { // 从redis中取出文章列表
-			contents = JsonUtils.jsonToList(crawlerContent, CrawlerContent.class);
 		}
 		BaseEntity be = new BaseEntity();
 		be.setContent(contents);
@@ -194,16 +199,19 @@ public class ArticleController {
 	public BaseEntity executeCron(TokenEntity t) {
 		BaseEntity be = new BaseEntity();
 		// 检查系统是否正在运行定时任务，爬取文章，如下条件成立，说明当前没有线程运行定时任务
-		if(StringUtils.isEmpty((String)redisConfiguration.valueOperations(redisTemplate).get("systemCron"))
-				&& StringUtils.isEmpty((String)redisConfiguration.valueOperations(redisTemplate).get("businessCron"))) {
-			// 向redis中赋值
-			redisConfiguration.valueOperations(redisTemplate).set("businessCron", "running");
+		SysLock checkLock = sysLockService.getSysLock();
+		if("0".equals(checkLock.getBusinessCron()) && "0".equals(checkLock.getSystemCron())) {
+			// 向数据库中赋值
+			SysLock sysLock = new SysLock();
+			sysLock.setBusinessCron("1");
+			sysLockService.updateSysLock(sysLock);
 			// 执行爬取任务
 			this.articleService.cronjob();
-			// 执行完爬取任务后将business的key给删掉
-			redisTemplate.delete("businessCron");
+			// 讲businesscron设置为0
+			sysLock.setBusinessCron("0");
+			sysLockService.updateSysLock(sysLock);
 			// 将redis中的crawlerContent删除
-			redisTemplate.delete("crawlerContent");
+//			redisTemplate.delete("crawlerContent");
 			be.setContent("执行爬取...");
 			be.setMsgCode(Const.MESSAGE_CODE_OK);
 		}else {

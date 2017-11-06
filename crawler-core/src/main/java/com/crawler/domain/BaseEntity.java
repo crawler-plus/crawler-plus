@@ -19,6 +19,8 @@ public class BaseEntity {
 
     private Object rows;
 
+    private String captchaCode;
+
     public String getMsgCode() {
         return msgCode;
     }
@@ -73,5 +75,13 @@ public class BaseEntity {
 
     public void setRows(Object rows) {
         this.rows = rows;
+    }
+
+    public String getCaptchaCode() {
+        return captchaCode;
+    }
+
+    public void setCaptchaCode(String captchaCode) {
+        this.captchaCode = captchaCode;
     }
 }

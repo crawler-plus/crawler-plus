@@ -1,24 +1,21 @@
 package com.crawler.controller;
 
 import com.crawler.components.CrawlerProperties;
-import com.crawler.components.RedisConfiguration;
 import com.crawler.constant.Const;
 import com.crawler.domain.*;
 import com.crawler.service.api.LogService;
-import com.crawler.service.api.MenuService;
 import com.crawler.service.api.RoleService;
+import com.crawler.service.api.SysCaptchaService;
 import com.crawler.service.api.UserService;
-import com.crawler.util.MD5Utils;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户Controller
@@ -31,22 +28,16 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private MenuService menuService;
-
-    @Autowired
     private RoleService roleService;
 
     @Autowired
     private LogService logService;
 
     @Autowired
+    private SysCaptchaService sysCaptchaService;
+
+    @Autowired
     private CrawlerProperties crawlerProperties;
-
-    @Autowired
-    private RedisConfiguration redisConfiguration;
-
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 用户登录
@@ -56,56 +47,41 @@ public class UserController {
     @PostMapping("/login")
     public BaseEntity login(SysUser sysUser) {
         BaseEntity be = new BaseEntity();
-        // 判断验证码是否正确
-        String captcha = sysUser.getCaptcha();
-        // 如果验证码正确
-        if(redisConfiguration.setOperations(redisTemplate).isMember("captchaSet", captcha.toLowerCase())) {
-            String password = MD5Utils.toMD5String(sysUser.getPassword(), crawlerProperties.getMd5Salt());
-            sysUser.setPassword(password);
-            int exists = userService.checkUserExists(sysUser);
-            // 如果用户存在
-            if(exists > 0) {
-                // 得到用户信息
-                SysUser sysUserByloginAccount = userService.getSysUserByloginAccount(sysUser.getLoginAccount());
-                // 得到用户对应的菜单信息
-                List<SysMenu> menuList = menuService.getMenuList(sysUserByloginAccount.getId());
-                Map<String, Object> infoMap = new HashMap<>();
-                List<List<SysMenu>> sList = new ArrayList<>();
-                menuList.stream().forEach(t -> {
-                    // 如果是一个根节点
-                    if(t.getMenuParentId() == 0) {
-                        List<SysMenu> smList = new ArrayList<>();
-                        smList.add(t);
-                        sList.add(smList);
-                    }
-                    // 如果是上一个根节点的子节点
-                    else {
-                        sList.get(sList.size() - 1).add(t);
-                    }
-                });
-                // 将用户信息最为token记录到redis中
-                String userToken = "user" + UUID.randomUUID().toString().replace("-", "");
-                redisConfiguration.valueOperations(redisTemplate).set("loginToken_" + String.valueOf(sysUserByloginAccount.getId()) + "_" + userToken, userToken);
-                // 设置默认过期时间为30分钟
-                redisTemplate.expire("loginToken_" + String.valueOf(sysUserByloginAccount.getId()) + "_" + userToken, 30, TimeUnit.MINUTES);
-                // 往系统log表中添加一条记录
-                SysLog sysLog = new SysLog();
-                sysLog.setLoginAccount(sysUser.getLoginAccount());
-                sysLog.setTypeId(1);
-                logService.logAdd(sysLog);
-                infoMap.put("userInfo", sysUserByloginAccount);
-                infoMap.put("menuInfo", sList);
-                infoMap.put("token", userToken);
-                be.setContent(infoMap);
-                be.setMsgCode(Const.MESSAGE_CODE_OK);
-            }else {
-                be.setMsgCode(Const.MESSAGE_CODE_ERROR);
-                be.setContent("用户名或密码错误，请重试");
+        boolean useCaptcha = crawlerProperties.isUseCaptcha();
+        // 验证码是否通过
+        boolean captchaAccess = false;
+        // 如果配置了需要验证码登录
+        if(useCaptcha) {
+            List<String> sysCaptchas = sysCaptchaService.listAllSysCaptcha();
+            // 判断验证码是否正确
+            String captcha = sysUser.getCaptcha();
+            // 如果验证码正确
+            if(sysCaptchas.contains(captcha.toLowerCase())) {
+                captchaAccess = true;
+            }
+            else {
+                captchaAccess = false;
             }
         }
+        // 如果没有配置验证码登录
         else {
+            captchaAccess = true;
+        }
+        // 如果验证码没有通过
+        if(!captchaAccess) {
             be.setMsgCode(Const.MESSAGE_CODE_ERROR);
             be.setContent("验证码错误，请重新输入");
+        }
+        // 如果验证码通过
+        else {
+            Map<String, Object> infoMap = userService.canLogin(sysUser);
+            if(infoMap.isEmpty()) {
+                be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+                be.setContent("用户名或密码错误，请重试");
+            }else {
+                be.setContent(infoMap);
+                be.setMsgCode(Const.MESSAGE_CODE_OK);
+            }
         }
         return be;
     }
@@ -258,7 +234,6 @@ public class UserController {
         sysLog.setLoginAccount(sysUserByUserId.getLoginAccount());
         sysLog.setTypeId(2);
         logService.logAdd(sysLog);
-        redisTemplate.delete("loginToken_" + String.valueOf(userId) + "_" + te.getToken());
         be.setContent("用户退出");
         be.setMsgCode(Const.MESSAGE_CODE_OK);
         return be;

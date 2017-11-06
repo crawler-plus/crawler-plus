@@ -31,6 +31,15 @@ public class CrawlerProperties {
     // vsftpd-nginx默认port
     private String captchaFtpServerPort;
 
+    // 是否使用验证码
+    private boolean useCaptcha;
+
+    // 用户token生成密钥
+    private String userTokenKey;
+
+    // 是否使用redis缓存
+    private boolean useRedisCache;
+
     public String getMd5Salt() {
         return md5Salt;
     }
@@ -85,5 +94,29 @@ public class CrawlerProperties {
 
     public void setCaptchaFtpServerPort(String captchaFtpServerPort) {
         this.captchaFtpServerPort = captchaFtpServerPort;
+    }
+
+    public boolean isUseCaptcha() {
+        return useCaptcha;
+    }
+
+    public void setUseCaptcha(boolean useCaptcha) {
+        this.useCaptcha = useCaptcha;
+    }
+
+    public String getUserTokenKey() {
+        return userTokenKey;
+    }
+
+    public void setUserTokenKey(String userTokenKey) {
+        this.userTokenKey = userTokenKey;
+    }
+
+    public boolean isUseRedisCache() {
+        return useRedisCache;
+    }
+
+    public void setUseRedisCache(boolean useRedisCache) {
+        this.useRedisCache = useRedisCache;
     }
 }

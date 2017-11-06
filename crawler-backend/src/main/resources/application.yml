@@ -7,6 +7,9 @@ crawler:
   captchaFtpServerPassword: ftpuser # vsftpd默认密码
   captchaFtpServerUrl: /usr/local/img # vsftpd图片存放路径
   useEhCache: false #是否使用ehcache
+  useCaptcha: false #是否使用验证码
+  userTokenKey: crawler_key #用户token生成密钥
+  useRedisCache: false #是否使用redis数据库缓存
 
 spring:
   application:

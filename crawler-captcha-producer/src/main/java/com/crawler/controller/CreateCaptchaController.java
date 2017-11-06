@@ -1,7 +1,6 @@
 package com.crawler.controller;
 
 import com.crawler.components.CrawlerProperties;
-import com.crawler.components.RedisConfiguration;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
 import com.crawler.util.FtpUtils;
@@ -10,7 +9,6 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,12 +28,6 @@ public class CreateCaptchaController {
     @Autowired
     private CrawlerProperties crawlerProperties;
 
-    @Autowired
-    private RedisConfiguration redisConfiguration;
-
-    @Autowired
-    protected RedisTemplate<String, Object> redisTemplate;
-
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @GetMapping("/create")
@@ -48,8 +40,7 @@ public class CreateCaptchaController {
         BufferedImage bi = captchaProducer.createImage(capText);
         // 转化为小写字母
         capText = capText.toLowerCase();
-        // 将验证码字符串写入redis
-        redisConfiguration.setOperations(redisTemplate).add("captchaSet", capText);
+        be.setCaptchaCode(capText);
         ByteArrayOutputStream os = null;
         try {
             os = new ByteArrayOutputStream();
