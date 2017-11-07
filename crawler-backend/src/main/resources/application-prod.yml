@@ -23,6 +23,6 @@ spring:
       testOnReturn: false #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能
       poolPreparedStatements: false #是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。
       maxPoolPreparedStatementPerConnectionSize: 20 #打开PSCache，并且指定每个连接上PSCache的大小
-      filters: stat,wall
+      filters: stat
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       useGlobalDataSourceStat: true

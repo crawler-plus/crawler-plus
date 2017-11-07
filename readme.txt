@@ -61,7 +61,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 运行步骤：
 
 后端：
-1.将crawler_backend目录下的spider.sql导入mysql数据库中
+1.将crawler_backend目录下的resources/db/migrations下的最后一个V版本的spider.sql导入mysql数据库中，（也可以省略该步骤，因为系统中已经集成flyway）
 2.运行crawler-eureka-server中的CrawlerEurekaServerApplication.java开启Eureka注册微服务
 3.运行crawler-captcha-producer中的CrawlerCaptchaProducerApplication.java开启验证码生产者，注册到Eureka服务中
 4.运行crawler-backend中的CrawlerApplication.java开启后台服务
