@@ -56,12 +56,7 @@ public class UserController {
             // 判断验证码是否正确
             String captcha = sysUser.getCaptcha();
             // 如果验证码正确
-            if(sysCaptchas.contains(captcha.toLowerCase())) {
-                captchaAccess = true;
-            }
-            else {
-                captchaAccess = false;
-            }
+            captchaAccess = sysCaptchas.contains(captcha.toLowerCase());
         }
         // 如果没有配置验证码登录
         else {
