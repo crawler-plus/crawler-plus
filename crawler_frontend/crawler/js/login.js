@@ -84,7 +84,7 @@ var login = function () {
                             layer.msg(data.content, {icon: 5});
                         }else {
                             // 将用户信息和用户权限信息转为字符串存在sessionStorage中
-                            sessionStorage.setItem("userPermissions", JSON.stringify(data.content.menuInfo));
+                            sessionStorage.setItem("userPermissions", data.content.menuInfo);
                             sessionStorage.setItem("userName", data.content.userInfo.loginAccount);
                             sessionStorage.setItem("userId", data.content.userInfo.id);
                             sessionStorage.setItem("token", data.content.token);

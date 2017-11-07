@@ -3,6 +3,7 @@ package com.crawler.components;
 import com.crawler.domain.TokenEntity;
 import com.crawler.exception.TokenInvalidException;
 import com.crawler.util.TokenUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,22 +19,19 @@ public class CheckToken {
     public void checkToken(TokenEntity te) {
         // token不合法标识
         boolean tokenInvalidFlag = false;
-        // 得到前台传过来的用户id
-        String uid = te.getUid();
-        // 得到前台传过来的sign
-        String token = te.getToken();
-        // 得到前台传过来的时间
-        long timestamp = Long.parseLong(te.getTimestamp());
-        long now = System.currentTimeMillis();
-        // 得到30分钟的millis
-        long halfHourMillis = 1000 * 60 * 30;
-        // 如果token超过30分钟
-        if(now - timestamp > halfHourMillis) {
+        if(StringUtils.isEmpty(te.getUid()) || StringUtils.isEmpty(te.getTimestamp()) || StringUtils.isEmpty(te.getToken())) {
             tokenInvalidFlag = true;
         }else {
-            TokenEntity tokenEntity = TokenUtils.createUserToken(uid, timestamp, crawlerProperties.getUserTokenKey());
-            if(!tokenEntity.getToken().equals(token)) {
+            TokenEntity tokenEntity = TokenUtils.createUserToken(te.getUid(), Long.parseLong(te.getTimestamp()), crawlerProperties.getUserTokenKey());
+            if(!StringUtils.equals(tokenEntity.getToken(), te.getToken())) {
                 tokenInvalidFlag = true;
+            }else {
+                long now = System.currentTimeMillis();
+                // 得到3H的millis
+                long threeHoursMillis = 1000 * 3600 * 3;
+                if(now - Long.parseLong(te.getTimestamp()) > threeHoursMillis) {
+                    tokenInvalidFlag = true;
+                }
             }
         }
         // 如果token不合法

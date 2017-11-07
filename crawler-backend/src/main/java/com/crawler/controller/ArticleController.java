@@ -30,12 +30,6 @@ public class ArticleController {
 	@Autowired
 	private SysLockService sysLockService;
 
-//	@Autowired
-//	private RedisConfiguration redisConfiguration;
-//
-//	@Autowired
-//	private RedisTemplate<String, Object> redisTemplate;
-
 	@Autowired
 	private CrawlerProperties crawlerProperties;
 
@@ -158,19 +152,7 @@ public class ArticleController {
 		List<CrawlerContent> contents = null;
 		// 如果开启redis服务支持
 		if(crawlerProperties.isUseRedisCache()) {
-			// 从redis中获取文章
-			/*String crawlerContent = (String)redisConfiguration.valueOperations(redisTemplate).get("crawlerContent");
-			// 如果redis中的文章列表为空
-			if(StringUtils.isEmpty(crawlerContent)) {
-				contents = articleService.listAllCrawlerContents();
-				// 把文章列表序列化到redis
-				String crawlerJson = JsonUtils.objectToJson(contents);
-				redisConfiguration.valueOperations(redisTemplate).set("crawlerContent", crawlerJson);
-				// 设置过期时间为4h
-				redisTemplate.expire("crawlerContent", 4, TimeUnit.HOURS);
-			}else { // 从redis中取出文章列表
-				contents = JsonUtils.jsonToList(crawlerContent, CrawlerContent.class);
-			}*/
+			// TO BE CONTINUED
 		}else {
 			contents = articleService.listAllCrawlerContents();
 		}
@@ -215,11 +197,9 @@ public class ArticleController {
 			sysLockService.updateSysLock(sysLock);
 			// 执行爬取任务
 			this.articleService.cronjob();
-			// 讲businesscron设置为0
+			// 将businessCron设置为0
 			sysLock.setBusinessCron("0");
 			sysLockService.updateSysLock(sysLock);
-			// 将redis中的crawlerContent删除
-//			redisTemplate.delete("crawlerContent");
 			be.setContent("执行爬取...");
 			be.setMsgCode(Const.MESSAGE_CODE_OK);
 		}else {

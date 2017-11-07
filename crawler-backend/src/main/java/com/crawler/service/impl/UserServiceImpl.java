@@ -6,6 +6,7 @@ import com.crawler.dao.MenuMapper;
 import com.crawler.dao.UserMapper;
 import com.crawler.domain.*;
 import com.crawler.service.api.UserService;
+import com.crawler.util.JsonUtils;
 import com.crawler.util.MD5Utils;
 import com.crawler.util.TokenUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -150,7 +151,7 @@ public class UserServiceImpl implements UserService {
             sysLog.setTypeId(1);
             logMapper.logAdd(sysLog);
             infoMap.put("userInfo", sysUserByloginAccount);
-            infoMap.put("menuInfo", sList);
+            infoMap.put("menuInfo", JsonUtils.objectToJson(sList));
             infoMap.put("token", userToken.getToken());
             infoMap.put("timestamp", userToken.getTimestamp());
         }
