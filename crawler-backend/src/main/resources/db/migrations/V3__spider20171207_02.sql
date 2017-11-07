@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50527
 File Encoding         : 65001
 
-Date: 2017-11-07 15:34:58
+Date: 2017-11-07 15:49:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -269,31 +269,6 @@ INSERT INTO `crawler_content` VALUES ('714', 'e54e11765ed24f88a28477072d32c4d9',
 INSERT INTO `crawler_content` VALUES ('715', 'e329b99d2d124c3692890214bb75569c', 'http://sports.sina.com.cn/china/j/2017-11-07/doc-ifynnnsc8502422.shtml', '揠苗助长的U23？他们打脸质疑：下赛季还踢主力', '2017年11月07日13:47', '<figure class=\"article-a__figure\" layout-mt-e> \n <img src=\"http://n.sinaimg.cn/sports/transform/20171023/x6K6-fymzqse2966370.jpg\"> \n <figcaption class=\"article-a__figcaption\">\n  点兵U23\n </figcaption> \n</figure> \n<link rel=\"stylesheet\" href=\"http://news.sina.com.cn/css/268/2011/1110/17/weibo-all.css\"> \n<p>　　来源：&nbsp;肆客足球App　　</p> \n<p>　　距离1月6日足协颁布U23新政已经过去一个赛季时间，不去评判U23政策的初衷与如今成效，2017中超大幕落下时，我们的脑海里，的确有不少年轻小将的身影令人或欣喜，或唏嘘，或感动，或无言。</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/mfzR-fynmzun0746638.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　我将从两个维度对中超U23球员来一番“沙场秋点兵”。&nbsp;</p> \n<p>　　据悉2018赛季中超U23政策将会升级，U23球员至少每队每场比赛有1名在场上，一线队注册至少6名U23球员，其中至少2名U21球员。到那时，我们希望“沙场”上的年轻面孔比今日更为普遍，更希望的是，终有一天，U23球员成为主流，而非现象，此番盘点、总结失去意义。&nbsp;</p> \n<p>　　<strong>[冷眼观出场时间：后场球员成U23出场大户 前场球员仍是麦田守望者]</strong></p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/-yUy-fynmzrs7689427.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　传统意识里，中后场球员往往大器晚成，需要时间来磨砺，方能占据主力。但中超外援当道，前锋几乎全被洋将把守，因而留给U23球员一展头角、坐稳主力的也自然以中后场为主了。</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/gif_image/20171107/5ZbV-fynnnsc8498903.gif\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　需要着重提一下的便是上榜的头把交椅，来自富力的20岁小将黄政宇。178CM的身高，地道的广州仔，富力三中卫中的拖后将，少年老成的冷静踢法，斯托的爱将，昔日的恒大球童，借用富力副董黄盛华之评价“没有U23政策，他亦是球队主力。”</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/gif_image/20171107/UgvK-fynmzun0746642.gif\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　而身体条件与之形成鲜明对比的刘奕鸣，则在国家队和俱乐部双战线上都怒刷存在感：高大不失敏捷的权健小将，在U23亚洲杯预选赛上，发挥了定海神针之作用；而初来乍到的中超第一年，他即帮助东家夺联赛季军进军亚冠，他与权敬源组成的双高中卫防线，相得益彰，来年亚冠，值得期待。</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/gif_image/20171107/OgF0-fynmzrs7689436.gif\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　而榜单中的其他后场少俊也都各自展现能力：“中超坎特”闵俊麟对阵苏宁时的世界波足以入选赛季十大；何超、高准翼已成为里皮国家队座上宾；“建业三杰”龙成、胡靖航、钟晋宝令豫军成为U23出场时间最为慷慨的俱乐部。</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/dyaH-fynnnsc8498928.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　而在位置竞争激烈的前锋位置，胡靖航、南松、巴顿都以全面和能动见长，勤勉、能跑、位置适应性强，有突破和传球能力，让他们在国产前锋几乎绝迹中超的恶劣局面下，都获得了场均超67分钟的出场时间，而这一数据已经超过了国产前锋的平均出场时间。 他们赢得了更多的上场时间，但这个年纪，还只能成为外援们的僚机，譬如胡靖航之于巴索戈，南松之于费尔南多，巴顿之于索里亚诺。 如果你问我未来的武磊、郜林、肖智在哪里？我想桂宏、杨立瑜、车世伟、叶尔凡、高天意还有很长的路要走。&nbsp;</p> \n<p align=\"center\">　　<strong>[热眼观贡献数据：根宝、鲁能青训见成果 U23敢为建业搏保级]</strong></p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/27RE-fynnnsc8498959.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/Z9Hj-fynnnsc8499020.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　放在半年前，让我们对U23射手王来个大预测，恐怕没有人会对郑达伦青眼有加，上港弃将、仅1900万的身价，转折却是在历史首次的天津德比。这个家在鞍山的小个子，从辽宁到上海，如困倦无处落脚的栖鸟，终于在卡纳瓦罗指点下迸发异样战力。</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/gif_image/20171107/9ZkS-fynmzun0746656.gif\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　而久负盛名的韦世豪租借回国，虽只有3球3助攻，但其打硬仗的能力有目共睹，俱乐部、国家队两条战线他都让球迷无法忘记。</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/gif_image/20171107/-DcW-fynmzrs7689481.gif\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　而钟晋宝、胡靖航各入3球的雪中送炭，成为建业保级路上的重要保障。虽然贾秀全已经卸任，但他留下的遗产依然让俱乐部受用本赛季乃至未来几个赛季。</p> \n<p align=\"center\">　　<strong>[如果没有那次醉驾 最佳新人可能是他？]</strong></p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/qLZo-fynmzun0746664.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　如果没有那次醉驾，以张修维场均55分钟的出场时间，赛季结束跻身U23出场时间前十，毫无疑问。如果没有那次轻狂，这位国青的正印10号，也曾在与死敌日本队的技术对抗中不落下风，又岂甘郑达伦、韦世豪、胡靖航人后？</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/gif_image/20171107/KWe7-fynnnsc8499226.gif\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　我更愿意把这次的醉驾事件看成是他足球乃至职业生涯上的一次中考：倘若他醉驾致人伤亡，那么可能他不仅面临囹圄之灾，还将遭遇足球生涯的终结。不幸之万幸，他并非罪不可赦，亦有机会重返绿茵场。</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/6qHR-fynmzun0746680.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　曾记得郝海东曾在曼谷亚运会因朝助理裁判方向啐口水而被亚足联禁赛一整年，禁赛期满的郝海东并未因此消沉和沉沦，复出之后依然大杀四方，并成为米卢国家队的中锋不二人选。</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/gif_image/20171107/7LYZ-fynmzrs7689532.gif\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/JJhV-fynmzuk3964412.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　172CM左右的身高，瘦弱的身躯，均衡的左右脚能力，坚韧的体能与意志品质（《<em>权健队内体测，95小将张修维战胜维特塞尔</em>》），前场多面手的10号本能，让中超莫德里奇的称号不胫而走。在卡帅年轻风暴引领中，乐山小将也在900多分钟的出场时间里表现了不俗潜质。</p> \n<p>　　他瘦削似早年张稀哲，亦有陈涛出道之从容，在关键一传上更类蒿俊闵讲究直接，从少时比赛便展露10号气质举重如轻，卓尔不群。讲真，同辈球员中，特点各不相同，类型多种多样，但具备10号气质，勿论94之后，90-94这一批球员中，亦难能可贵。</p> \n<p>　　我记得肆客部落曾经有人这样问道：郑智之后，谁能承担起国足中场核心的重任？有人提及了蒿俊闵、张稀哲、吴曦。但我想给张修维投一票。如果张修维能够浴火重生，那么，将是权健之幸，国足之幸。</p> \n<p align=\"center\">　　<strong>[结语： the &nbsp;show must go on！]</strong></p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/gMq5-fynnnsc8499410.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　如果没有足够的时间来输出稳定表现，这些U23球员永远不可能踢出来，我们已经耳闻了很多85-87年龄段球员在各色访谈节目中“抱怨”后生们难当大任，主力位置难被撼动。</p> \n<figure class=\"article-a__figure\">\n <img src=\"http://n.sinaimg.cn/sports/crawl/20171107/pprG-fynnnsc8499430.jpg\" alt=\"\">\n <figcaption class=\"article-a__figcaption\"></figcaption>\n</figure> \n<p>　　但我们还是无法让车轮逆转，这些U23的年轻球员，将会是中国男足下一次冲击世界杯的关键。我们希望有更多、更强的郑达伦、韦世豪，我们希望张修维能够迷途知返，早日成为中国魔笛，我们希望赵奕鸣、黄政宇接过冯潇霆的枪。</p> \n<p>　　谨以皇后乐队的《the show must go on》送给这些日渐成熟的面孔，因为不论中国足球之命运向左还是向右，他们都处在了最好的时代，the show must go on。</p> \n<p>　　希望他们不再成为中超的现象，而是中超的真正未来所在。</p> \n<p>　　来源：&nbsp;肆客足球App</p> \n<div style=\"margin-top:35px;\"> \n</div>', '2017-11-07 14:41:34', '26');
 
 -- ----------------------------
--- Table structure for schema_version
--- ----------------------------
-DROP TABLE IF EXISTS `schema_version`;
-CREATE TABLE `schema_version` (
-  `installed_rank` int(11) NOT NULL,
-  `version` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `type` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
-  `script` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
-  `checksum` int(11) DEFAULT NULL,
-  `installed_by` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `execution_time` int(11) NOT NULL,
-  `success` tinyint(1) NOT NULL,
-  PRIMARY KEY (`installed_rank`),
-  KEY `schema_version_s_idx` (`success`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of schema_version
--- ----------------------------
-INSERT INTO `schema_version` VALUES ('1', '1', 'spider20171207', 'SQL', 'V1__spider20171207.sql', '725595267', 'root', '2017-11-07 14:38:23', '454', '1');
-INSERT INTO `schema_version` VALUES ('2', '2', 'spider20171207 01', 'SQL', 'V2__spider20171207_01.sql', '-2111782235', 'root', '2017-11-07 14:38:24', '465', '1');
-
--- ----------------------------
 -- Table structure for sys_captcha
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_captcha`;
@@ -455,8 +430,8 @@ CREATE TABLE `sys_menu` (
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '1', '#', '1');
-INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', 'http://127.0.0.1:8088/druid/index.html', '1');
-INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', 'http://127.0.0.1:8088/swagger-ui.html', '1');
+INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', '/druid/index.html', '1');
+INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', '/swagger-ui.html', '1');
 INSERT INTO `sys_menu` VALUES ('4', '用户管理', '1', '4', 'crawler/userMgmt.html', '1');
 INSERT INTO `sys_menu` VALUES ('5', '角色管理', '1', '5', 'crawler/roleMgmt.html', '1');
 INSERT INTO `sys_menu` VALUES ('6', '网页爬虫管理', '0', '6', '#', '2');
