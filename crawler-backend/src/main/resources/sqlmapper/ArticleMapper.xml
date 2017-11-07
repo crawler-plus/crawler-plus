@@ -24,6 +24,7 @@
                 content_pattern,
             </if>
                 version,
+                user_id,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test='id != null and id != "" '>
@@ -45,6 +46,7 @@
                 #{contentPattern, jdbcType=VARCHAR},
             </if>
                 1,
+                #{userId, jdbcType=INTEGER},
         </trim>
     </insert>
 
@@ -83,6 +85,7 @@
                 time_pattern          as timePattern,
                 content_pattern       as contentPattern
         FROM template_config
+        WHERE user_id = #{userId}
     </select>
 
     <select id="getTemplateConfig" resultType="com.crawler.domain.TemplateConfig" parameterType="String">
@@ -98,7 +101,7 @@
         WHERE id = #{id, jdbcType=VARCHAR}
     </select>
 
-    <select id="listAllCrawlerContents" resultType="com.crawler.domain.CrawlerContent">
+    <select id="listAllCrawlerContents" resultType="com.crawler.domain.CrawlerContent" parameterType="java.lang.Integer">
         SELECT
         id             as id,
         url            as url,
@@ -107,6 +110,7 @@
         content_body   as contentBody,
         DATE_FORMAT(created, '%Y年%m月%d日 %H:%i:%s') as insertTime
         FROM crawler_content
+        WHERE user_id = #{userId}
         ORDER BY created DESC
     </select>
 
@@ -141,6 +145,7 @@
                 content_body,
             </if>
                 created,
+                user_id,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
                 NULL,
@@ -160,6 +165,7 @@
                 #{contentBody, jdbcType=VARCHAR},
             </if>
                 NOW(),
+                #{userId, jdbcType=INTEGER},
         </trim>
     </insert>
 
@@ -177,11 +183,12 @@
         FROM crawler_content
     </select>
 
-    <select id="isExistUrl" resultType="java.lang.Integer" parameterType="String">
+    <select id="isExistUrl" resultType="java.lang.Integer" parameterType="com.crawler.domain.CrawlerContent">
         SELECT
-        count(url) as cnt
+        COUNT(url) AS cnt
         FROM crawler_content
-        where url= #{url, jdbcType=VARCHAR}
+        WHERE url = #{url, jdbcType=VARCHAR}
+        AND user_id = #{userId, jdbcType=INTEGER}
     </select>
 
     <select id="checkTemplateConfigExists" resultType="int" parameterType="com.crawler.domain.TemplateConfig">
@@ -194,8 +201,15 @@
         </trim>
     </select>
 
-    <select id="getCrawlerContentSize" resultType="int">
-        SELECT COUNT(1) FROM crawler_content
+    <select id="getCrawlerContentSize" resultType="int" parameterType="java.lang.Integer">
+        SELECT COUNT(1) FROM crawler_content WHERE user_id = #{userId}
     </select>
 
+    <delete id="removeTemplateConfigByUserId" parameterType="java.lang.Integer">
+        DELETE FROM template_config WHERE user_id = #{userId, jdbcType=INTEGER}
+    </delete>
+
+    <delete id="removeCrawlerContentByUserId" parameterType="java.lang.Integer">
+        DELETE FROM crawler_content WHERE user_id = #{userId, jdbcType=INTEGER}
+    </delete>
 </mapper>

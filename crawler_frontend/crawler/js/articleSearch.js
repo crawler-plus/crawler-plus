@@ -8,6 +8,7 @@ var articleSearch = function () {
     //  浏览按钮
     var viewBtnEl = '<a class="view ml10 btn btn-sm btn-primary" href="javascript:void(0)" title="查看">查看</a>';
 
+    var queryObject = {};
     /**
      * 表格信息初始化
      * @private
@@ -22,7 +23,9 @@ var articleSearch = function () {
                     limit: params.limit,
                     offset: params.offset,
                     sortOrder: params.order,
-                    page: params.offset / params.limit + 1
+                    page: params.offset / params.limit + 1,
+                    // 查询参数
+                    userId: queryObject.userId
                 }
             }
         });
@@ -41,9 +44,14 @@ var articleSearch = function () {
 
 
     var _refreshCurrentTable = function () {
+        // 查询条件
+        queryObject.userId = commonUtil.getUserId();
         // 刷新表格
         bootstrapTableEl.bootstrapTable("refresh", {
-            url: userQueryUrl
+            url: userQueryUrl,
+            query: {
+                userId: queryObject.userId
+            }
         });
     };
 

@@ -1,6 +1,5 @@
 package com.crawler.components;
 
-import com.crawler.domain.SysLock;
 import com.crawler.service.api.ArticleService;
 import com.crawler.service.api.SysCaptchaService;
 import com.crawler.service.api.SysLockService;
@@ -37,7 +36,8 @@ public class JobsConfiguration {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     // 每隔4个小时定时跑一次定时任务，根据网站配置模版抓取网页信息
-    @Scheduled(cron = "0 0 10,14,18 * * ?")
+    // 取消系统自动爬取文章功能
+    /*@Scheduled(cron = "0 0 10,14,18 * * ?")
     public void cronJob() {
         // 当网站正在运行模版定时任务的时候，向数据库中写入值
         SysLock sysLock = new SysLock();
@@ -47,7 +47,7 @@ public class JobsConfiguration {
     	// 当网站运行模版定时任务结束后，将值从数据库中移除
         sysLock.setSystemCron("0");
         sysLockService.updateSysLock(sysLock);
-    }
+    }*/
 
     /**
      * 清除数据库中的验证码,每天2点和14点定时清理

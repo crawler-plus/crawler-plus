@@ -17,6 +17,8 @@ public class CrawlerContent extends BaseEntity {
 
     private String insertTime; // 文章插入时间
 
+    private int userId; // 关联的用户id
+
     public String getId() {
         return id;
     }
@@ -63,5 +65,13 @@ public class CrawlerContent extends BaseEntity {
 
     public void setInsertTime(String insertTime) {
         this.insertTime = insertTime;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

@@ -52,6 +52,7 @@
         <commons-lang3.version>3.5</commons-lang3.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <commons-net.version>3.6</commons-net.version>
+        <flyway.version>4.0.3</flyway.version>
     </properties>
 
     <dependencyManagement>
@@ -163,6 +164,11 @@
                 <artifactId>commons-net</artifactId>
                 <version>${commons-net.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -184,6 +190,11 @@
                         <target>${java.version}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.flywaydb</groupId>
+                    <artifactId>flyway-maven-plugin</artifactId>
+                    <version>${flyway.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

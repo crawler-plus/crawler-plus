@@ -1,6 +1,7 @@
 package com.crawler.service.impl;
 
 import com.crawler.components.CrawlerProperties;
+import com.crawler.dao.ArticleMapper;
 import com.crawler.dao.LogMapper;
 import com.crawler.dao.MenuMapper;
 import com.crawler.dao.UserMapper;
@@ -31,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private LogMapper logMapper;
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     @Autowired
     private CrawlerProperties crawlerProperties;
@@ -69,6 +73,8 @@ public class UserServiceImpl implements UserService {
     public void delete(int userId) {
         userMapper.deleteUser(userId);
         userMapper.deleteUserRoleMapping(userId);
+        articleMapper.removeCrawlerContentByUserId(userId);
+        articleMapper.removeTemplateConfigByUserId(userId);
     }
 
     @Override

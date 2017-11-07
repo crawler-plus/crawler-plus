@@ -21,6 +21,7 @@ var addTemplate = function () {
             },
             submitHandler: function () {
                 commonUtil.showLoadingMessage();
+                $("#userId").val(commonUtil.getUserId());
                 // 通过表单验证
                 var signOptions = {
                     formID : 'templateForm',

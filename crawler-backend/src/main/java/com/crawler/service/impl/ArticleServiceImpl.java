@@ -40,8 +40,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<TemplateConfig> listAllTemplateConfig() {
-		return articleMapper.listAllTemplateConfig();
+	public List<TemplateConfig> listAllTemplateConfig(int userId) {
+		return articleMapper.listAllTemplateConfig(userId);
 	}
 
 	@Override
@@ -52,8 +52,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<CrawlerContent> listAllCrawlerContents() {
-		return articleMapper.listAllCrawlerContents();
+	public List<CrawlerContent> listAllCrawlerContents(int userId) {
+		return articleMapper.listAllCrawlerContents(userId);
 	}
 
 	@Override
@@ -79,9 +79,9 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 	
 	@Override
-	public void cronjob() {
+	public void cronjob(int userId) {
         // 得到当前所有配置列表信息
-        List<TemplateConfig> templateConfigs = listAllTemplateConfig();
+        List<TemplateConfig> templateConfigs = listAllTemplateConfig(userId);
         // 如果模版信息不为空
         if (!CollectionUtils.isEmpty(templateConfigs)) {
             Map<String, String> reqHeadersMap = new HashMap<>();
@@ -118,7 +118,10 @@ public class ArticleServiceImpl implements ArticleService {
                 }
                 if (!CollectionUtils.isEmpty(crawlerUrl)) {
                     for (String eachUrl : crawlerUrl) {
-                    	if(this.articleMapper.isExistUrl(eachUrl) > 0) {
+                        CrawlerContent contentParam = new CrawlerContent();
+                        contentParam.setUrl(eachUrl);
+                        contentParam.setUserId(userId);
+                    	if(this.articleMapper.isExistUrl(contentParam) > 0) {
                     		continue;
                     	}
                         // 间隔1秒再爬
@@ -172,6 +175,7 @@ public class ArticleServiceImpl implements ArticleService {
                         c.setTitle(title);
                         c.setTime(time);
                         c.setContentBody(body);
+                        c.setUserId(userId);
                         // 改为每次插入单条数据！！！
                         saveCrawlerContent(c);
                     }
@@ -188,7 +192,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = true)
-    public int getCrawlerContentSize() {
-        return articleMapper.getCrawlerContentSize();
+    public int getCrawlerContentSize(int userId) {
+        return articleMapper.getCrawlerContentSize(userId);
     }
 }

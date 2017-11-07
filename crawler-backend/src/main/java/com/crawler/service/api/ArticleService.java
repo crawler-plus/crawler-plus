@@ -32,7 +32,7 @@ public interface ArticleService {
      * 列出所有文章配置
      * @return
      */
-    List<TemplateConfig> listAllTemplateConfig();
+    List<TemplateConfig> listAllTemplateConfig(int userId);
 
     /**
      * 根据id获得文章配置
@@ -45,7 +45,7 @@ public interface ArticleService {
      * 列出所有查询出的文章
      * @return
      */
-    List<CrawlerContent> listAllCrawlerContents();
+    List<CrawlerContent> listAllCrawlerContents(int userId);
 
     /**
      * 根据id获得指定文章
@@ -76,7 +76,7 @@ public interface ArticleService {
     /**
      * 执行爬取
      */
-    void cronjob();
+    void cronjob(int userId);
 
     /**
      * 判断文章配置否存在
@@ -89,5 +89,5 @@ public interface ArticleService {
      * 得到文章数量
      * @return
      */
-    int getCrawlerContentSize();
+    int getCrawlerContentSize(int userId);
 }

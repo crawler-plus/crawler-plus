@@ -70,7 +70,7 @@ var dataRequest = function() {
 			}
 			// 服务器内部错误
 			else if(error.status === 500) {
-				if(ajaxURL.indexOf("captcha/create") > -1 || ajaxURL.indexOf("user/login") > -1) {
+				if(ajaxURL.indexOf("captcha/create") > -1 || ajaxURL.indexOf("user/login") > -1 || ajaxURL.indexOf("user/logout") > -1) {
                     location.href = '500.html';
 				}else {
                     location.href = '../500.html';

@@ -37,10 +37,13 @@ public class ArticleController {
 	 * 执行cron
 	 */
 	@ApiOperation(value="执行cron", notes="执行cron")
-	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
-	@GetMapping("/cron")
-	public void cron(TokenEntity t) {
-		this.articleService.cronjob();
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
+	@GetMapping(path = "/cron/{id}")
+	public void cron(@PathVariable("id") int userId, TokenEntity t) {
+		this.articleService.cronjob(userId);
 	}
 	
 	/**
@@ -109,11 +112,14 @@ public class ArticleController {
 	 * 列出所有文章配置
 	 */
 	@ApiOperation(value="列出所有文章配置", notes="列出所有文章配置")
-	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
-	@GetMapping("/listAllTemplateConfig")
-	public BaseEntity listAllTemplateConfig(TokenEntity t) {
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
+	@GetMapping(path = "/listAllTemplateConfig/{id}")
+	public BaseEntity listAllTemplateConfig(@PathVariable("id") int userId, TokenEntity t) {
 		BaseEntity be = new BaseEntity();
-		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig();
+		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig(userId);
 		be.setContent(templateConfigs);
 		be.setMsgCode(Const.MESSAGE_CODE_OK);
 		return be;
@@ -146,7 +152,7 @@ public class ArticleController {
 	})
 	@GetMapping("/listAllCrawlerContents")
 	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, TokenEntity t) {
-		int crawlerContentSize = articleService.getCrawlerContentSize();
+		int crawlerContentSize = articleService.getCrawlerContentSize(crawlerContent.getUserId());
 		// 分页查询
 		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
 		List<CrawlerContent> contents = null;
@@ -154,7 +160,7 @@ public class ArticleController {
 		if(crawlerProperties.isUseRedisCache()) {
 			// TO BE CONTINUED
 		}else {
-			contents = articleService.listAllCrawlerContents();
+			contents = articleService.listAllCrawlerContents(crawlerContent.getUserId());
 		}
 		BaseEntity be = new BaseEntity();
 		be.setTotal(crawlerContentSize);
@@ -184,9 +190,12 @@ public class ArticleController {
 	 * 执行cron
 	 */
 	@ApiOperation(value="执行cron", notes="执行cron")
-	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
-	@GetMapping("/executeCron")
-	public BaseEntity executeCron(TokenEntity t) {
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	})
+	@GetMapping(path = "/executeCron/{id}")
+	public BaseEntity executeCron(@PathVariable("id") int userId, TokenEntity t) {
 		BaseEntity be = new BaseEntity();
 		// 检查系统是否正在运行定时任务，爬取文章，如下条件成立，说明当前没有线程运行定时任务
 		SysLock checkLock = sysLockService.getSysLock();
@@ -196,7 +205,7 @@ public class ArticleController {
 			sysLock.setBusinessCron("1");
 			sysLockService.updateSysLock(sysLock);
 			// 执行爬取任务
-			this.articleService.cronjob();
+			this.articleService.cronjob(userId);
 			// 将businessCron设置为0
 			sysLock.setBusinessCron("0");
 			sysLockService.updateSysLock(sysLock);
