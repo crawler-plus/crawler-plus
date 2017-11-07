@@ -24,15 +24,15 @@ public class CheckToken {
     public void checkToken(TokenEntity te) {
         // token不合法标识
         boolean tokenInvalidFlag = false;
-        // 首先判断这个用户是否存在
-        SysUser sysUser = new SysUser();
-        sysUser.setId(Integer.parseInt(te.getUid()));
-        int userCount = userService.checkUserExists(sysUser);
-        // 如果用户不存在
-        if(userCount < 1) {
+        if(StringUtils.isEmpty(te.getUid()) || StringUtils.isEmpty(te.getTimestamp()) || StringUtils.isEmpty(te.getToken())) {
             tokenInvalidFlag = true;
         }else {
-            if(StringUtils.isEmpty(te.getUid()) || StringUtils.isEmpty(te.getTimestamp()) || StringUtils.isEmpty(te.getToken())) {
+            // 首先判断这个用户是否存在
+            SysUser sysUser = new SysUser();
+            sysUser.setId(Integer.parseInt(te.getUid()));
+            int userCount = userService.checkUserExists(sysUser);
+            // 如果用户不存在
+            if(userCount < 1) {
                 tokenInvalidFlag = true;
             }else {
                 TokenEntity tokenEntity = TokenUtils.createUserToken(te.getUid(), Long.parseLong(te.getTimestamp()), crawlerProperties.getUserTokenKey());
