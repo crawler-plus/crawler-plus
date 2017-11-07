@@ -1,5 +1,6 @@
 package com.crawler.components;
 
+import com.crawler.domain.SysLock;
 import com.crawler.service.api.ArticleService;
 import com.crawler.service.api.SysCaptchaService;
 import com.crawler.service.api.SysLockService;
@@ -11,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 定时任务
@@ -36,18 +39,22 @@ public class JobsConfiguration {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     // 每隔4个小时定时跑一次定时任务，根据网站配置模版抓取网页信息
-    // 取消系统自动爬取文章功能
-    /*@Scheduled(cron = "0 0 10,14,18 * * ?")
+    @Scheduled(cron = "0 0 10,14,18 * * ?")
     public void cronJob() {
         // 当网站正在运行模版定时任务的时候，向数据库中写入值
         SysLock sysLock = new SysLock();
         sysLock.setSystemCron("1");
         sysLockService.updateSysLock(sysLock);
-    	this.articleService.cronjob();
+        List<Integer> allUserId = articleService.fetchAllUserIdFromTemplateConfig();
+        if(!CollectionUtils.isEmpty(allUserId)) {
+            for (Integer id : allUserId) {
+                this.articleService.cronjob(id);
+            }
+        }
     	// 当网站运行模版定时任务结束后，将值从数据库中移除
         sysLock.setSystemCron("0");
         sysLockService.updateSysLock(sysLock);
-    }*/
+    }
 
     /**
      * 清除数据库中的验证码,每天2点和14点定时清理

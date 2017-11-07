@@ -195,4 +195,10 @@ public class ArticleServiceImpl implements ArticleService {
     public int getCrawlerContentSize(int userId) {
         return articleMapper.getCrawlerContentSize(userId);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Integer> fetchAllUserIdFromTemplateConfig() {
+        return articleMapper.fetchAllUserIdFromTemplateConfig();
+    }
 }

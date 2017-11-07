@@ -90,4 +90,10 @@ public interface ArticleService {
      * @return
      */
     int getCrawlerContentSize(int userId);
+
+    /**
+     * 得到文章配置表里所有不重复的userId
+     * @return
+     */
+    List<Integer> fetchAllUserIdFromTemplateConfig();
 }

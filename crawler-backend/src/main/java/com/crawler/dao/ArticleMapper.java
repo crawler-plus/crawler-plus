@@ -104,4 +104,10 @@ public interface ArticleMapper {
      * @param id
      */
     void removeCrawlerContentByUserId(int id);
+
+    /**
+     * 得到文章配置表里所有不重复的userId
+     * @return
+     */
+    List<Integer> fetchAllUserIdFromTemplateConfig();
 }

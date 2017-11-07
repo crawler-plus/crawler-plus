@@ -212,4 +212,9 @@
     <delete id="removeCrawlerContentByUserId" parameterType="java.lang.Integer">
         DELETE FROM crawler_content WHERE user_id = #{userId, jdbcType=INTEGER}
     </delete>
+
+    <select id="fetchAllUserIdFromTemplateConfig" resultType="java.lang.Integer">
+        SELECT DISTINCT user_id FROM template_config
+    </select>
+
 </mapper>
