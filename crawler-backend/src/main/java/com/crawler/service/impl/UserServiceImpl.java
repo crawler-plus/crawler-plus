@@ -95,13 +95,16 @@ public class UserServiceImpl implements UserService {
         sysUser.setPassword(password);
         // 首先更新用户表
         userMapper.userUpdate(sysUser);
-        // 然后将用户角色表中数据根据用户id清空
-        int userId = sysUser.getId();
-        userMapper.deleteUserRoleMapping(userId);
-        // 最后如果用户选择了角色，像用户角色表中增加数据
-        // 得到用户选择的角色
-        String userRoleStr = sysUser.getUserRoleStr();
-        addSysUserRole(userRoleStr, sysUser);
+        // 如果不是简单需改用户信息
+        if(sysUser.getSimpleUpdate() == 0) {
+            // 然后将用户角色表中数据根据用户id清空
+            int userId = sysUser.getId();
+            userMapper.deleteUserRoleMapping(userId);
+            // 最后如果用户选择了角色，像用户角色表中增加数据
+            // 得到用户选择的角色
+            String userRoleStr = sysUser.getUserRoleStr();
+            addSysUserRole(userRoleStr, sysUser);
+        }
     }
 
     /**

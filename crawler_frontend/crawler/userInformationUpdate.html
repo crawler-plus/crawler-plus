@@ -16,14 +16,8 @@
 </head>
 <body class="gray-bg">
 <div class="ibox-content">
-    <h1>用户修改</h1>
-    <form class="form-horizontal m-t" id="userUpdate">
-        <div class="form-group">
-            <label class="col-sm-3 control-label">用户登录帐号：</label>
-            <div class="col-sm-8">
-                <input id="loginAccount" name="loginAccount" type="text" class="form-control" readonly>
-            </div>
-        </div>
+    <h1>用户信息修改</h1>
+    <form class="form-horizontal m-t" id="userInformationUpdate">
         <div class="form-group">
             <label class="col-sm-3 control-label">用户昵称：</label>
             <div class="col-sm-8">
@@ -36,16 +30,9 @@
                 <input id="password" name="password" type="password" class="form-control" >
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">分配用户角色：</label>
-            <div class="col-sm-8" id="checkbox-area">
-            </div>
-        </div>
         <input type="hidden" name="id" id="userId">
         <input type="hidden" name="version" id="version">
-        <input type="hidden" name="userRoleStr" id="userRoleStr">
-        <input type="hidden" name="simpleUpdate" value="0">
-
+        <input type="hidden" name="simpleUpdate" value="1">
         <div class="form-group">
             <div class="col-sm-4 col-sm-offset-3">
                 <button class="btn btn-primary" type="submit">提交</button>
@@ -54,25 +41,15 @@
     </form>
 </div>
 
-    <script id="handleBarScript" type="text/x-handlebars-template">
-        <div class="checkbox i-checks">
-            <label>
-                <input type="checkbox" value="{{id}}" {{#if isRefByUser}}checked{{/if}}> <i></i> {{roleName}}
-            </label>
-        </div>
-    </script>
-
     <script src="../js/jquery.min.js?v=2.1.4"></script>
     <script src="../js/bootstrap.min.js?v=3.3.6"></script>
     <script src="../js/plugins/validate/jquery.validate.min.js"></script>
     <script src="../js/plugins/validate/messages_zh.min.js"></script>
-    <script src="../js/jquery.goup.min.js"></script>
-    <script src="../js/handlebars.js"></script>
     <script src="../js/plugins/toastr/toastr.min.js"></script>
     <script src="../js/plugins/layer/layer.min.js"></script>
     <script src="../js/plugins/iCheck/icheck.min.js"></script>
     <script src="../common/dataRequest.js"></script>
     <script src="../common/commonUtil.js"></script>
-    <script src="js/userUpdate.js"></script>
+    <script src="js/userInformationUpdate.js"></script>
 </body>
 </html>

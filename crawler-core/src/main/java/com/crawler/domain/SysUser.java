@@ -26,6 +26,9 @@ public class SysUser extends BaseEntity {
     // sys_user表的版本号（乐观锁）
     private int version;
 
+    // 是否简单修改用户信息（如果来自用户管理，为0代表否，如果来自自服务管理，为1代表是）
+    private int simpleUpdate;
+
     public int getId() {
         return id;
     }
@@ -80,5 +83,13 @@ public class SysUser extends BaseEntity {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public int getSimpleUpdate() {
+        return simpleUpdate;
+    }
+
+    public void setSimpleUpdate(int simpleUpdate) {
+        this.simpleUpdate = simpleUpdate;
     }
 }
