@@ -3,6 +3,7 @@ package com.crawler.components;
 import com.crawler.constant.Const;
 import com.crawler.domain.BaseEntity;
 import com.crawler.exception.CrawlerException;
+import com.crawler.exception.PermissionInvalidException;
 import com.crawler.exception.TokenInvalidException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,12 +44,29 @@ public class GlobalDefaultExceptionHandler {
      */
     @ExceptionHandler(TokenInvalidException.class)
     @ResponseStatus(value= HttpStatus.UNAUTHORIZED, reason="token invalid")
-    public BaseEntity tokenInvalidException(TokenInvalidException e) {
+    public BaseEntity tokenInvalidExceptionHandler(TokenInvalidException e) {
         if(logger.isWarnEnabled()) {
             logger.warn(e.getMessage());
         }
         BaseEntity be = new BaseEntity();
         be.setMsgCode(Const.MESSAGE_CODE_INVALID_TOKEN);
+        be.setContent("发生异常，异常信息为:" + e.getMessage());
+        return be;
+    }
+
+    /**
+     * PermissionInvalidException异常页面控制
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(PermissionInvalidException.class)
+    @ResponseStatus(value= HttpStatus.FORBIDDEN, reason="permission invalid")
+    public BaseEntity permissionInvalidExceptionHandler(PermissionInvalidException e) {
+        if(logger.isWarnEnabled()) {
+            logger.warn(e.getMessage());
+        }
+        BaseEntity be = new BaseEntity();
+        be.setMsgCode(Const.MESSAGE_CODE_NO_ACCESS_PERMISSION);
         be.setContent("发生异常，异常信息为:" + e.getMessage());
         return be;
     }

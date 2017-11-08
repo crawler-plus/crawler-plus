@@ -2,7 +2,7 @@ package com.crawler.components;
 
 import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.SysMenu;
-import com.crawler.exception.TokenInvalidException;
+import com.crawler.exception.PermissionInvalidException;
 import com.crawler.service.api.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -79,7 +79,7 @@ public class CheckPermissions {
         availableMenuList.retainAll(permissionsList);
         // 表明这个用户没有注解中标明的权限
         if(availableMenuList.isEmpty()) {
-            throw new TokenInvalidException("invalid token");
+            throw new PermissionInvalidException("invalid permission");
         }
     }
 }

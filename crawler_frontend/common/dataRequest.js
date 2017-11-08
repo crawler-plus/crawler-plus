@@ -56,7 +56,7 @@ var dataRequest = function() {
 			if(error.statusText === 'error' && error.status !== 500) {
                 layer.msg('请检查网络', {icon: 5});
         	}
-			// 证明无权限
+			// 证明TOKEN不合法
 			if(error.status === 401) {
                 if(ajaxURL.indexOf("user/logout") > -1) {
                     location.href = 'login.html';
@@ -76,6 +76,10 @@ var dataRequest = function() {
                     location.href = '../500.html';
 				}
 			}
+            // 证明用户无操作权限
+            else if(error.status === 403) {
+                location.href = '../login.html';
+            }
         }).always(function () {
         });
 	};
