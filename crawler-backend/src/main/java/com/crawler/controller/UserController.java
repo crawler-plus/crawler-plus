@@ -1,7 +1,9 @@
 package com.crawler.controller;
 
+import com.crawler.annotation.RequirePermissions;
 import com.crawler.components.CrawlerProperties;
 import com.crawler.constant.Const;
+import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.*;
 import com.crawler.service.api.LogService;
 import com.crawler.service.api.RoleService;
@@ -90,6 +92,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping("/queryAll")
+    @RequirePermissions(value = PermissionsConst.USER_MGMT)
     public BaseEntity queryAll(SysUser sysUser, TokenEntity te) {
         int userCount = userService.getUsersListCount(sysUser);
         // 分页查询
@@ -111,6 +114,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @DeleteMapping(path = "/delete/{id}")
+    @RequirePermissions(value = PermissionsConst.USER_MGMT)
     public BaseEntity delete(@PathVariable("id") int userId, TokenEntity te) {
         BaseEntity be = new BaseEntity();
         SysUser sysUser = userService.getSysUserByUserId(userId);
@@ -135,6 +139,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping(path = "/queryUser/{id}")
+    @RequirePermissions(value = {PermissionsConst.USER_MGMT, PermissionsConst.SELF_INFO_UPDATE})
     public BaseEntity queryUser(@PathVariable("id") int userId, TokenEntity te) {
         SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
         BaseEntity be = new BaseEntity();
@@ -152,6 +157,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping(path = "/getRoleByUserId/{id}")
+    @RequirePermissions(value = PermissionsConst.USER_MGMT)
     public BaseEntity getRoleByUserId(@PathVariable("id") int userId, TokenEntity te) {
         List<SysRole> roleByUserId = roleService.getRoleByUserId(userId);
         BaseEntity be = new BaseEntity();
@@ -169,6 +175,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @PostMapping(path = "/addUser")
+    @RequirePermissions(value = PermissionsConst.USER_MGMT)
     public BaseEntity addUser(SysUser sysUser, TokenEntity te) {
         BaseEntity be = new BaseEntity();
         // 判断用户是否存在
@@ -194,6 +201,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @PutMapping(path = "/updateUser")
+    @RequirePermissions(value = {PermissionsConst.USER_MGMT, PermissionsConst.SELF_INFO_UPDATE})
     public BaseEntity updateUser(SysUser sysUser, TokenEntity te) {
         BaseEntity be = new BaseEntity();
         // 得到用户信息

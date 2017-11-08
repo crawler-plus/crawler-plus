@@ -1,6 +1,8 @@
 package com.crawler.controller;
 
+import com.crawler.annotation.RequirePermissions;
 import com.crawler.constant.Const;
+import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
@@ -36,6 +38,7 @@ public class WeChatController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/weChat/{weChatTitle}")
+	@RequirePermissions(value = PermissionsConst.WECHAT_PUBLIC_SEARCH)
 	public BaseEntity barCode(@PathVariable("weChatTitle") String weChatTitle, TokenEntity t) throws CrawlerException {
 		BaseEntity be = new BaseEntity();
 		TransferEntity te = new TransferEntity();

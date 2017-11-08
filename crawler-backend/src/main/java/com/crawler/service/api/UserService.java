@@ -63,5 +63,10 @@ public interface UserService {
      */
     void updateUser(SysUser sysUser);
 
+    /**
+     * 判断用户是否可以登录
+     * @param sysUser
+     * @return
+     */
     Map<String, Object> canLogin(SysUser sysUser);
 }

@@ -1,6 +1,8 @@
 package com.crawler.controller;
 
+import com.crawler.annotation.RequirePermissions;
 import com.crawler.constant.Const;
+import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
@@ -34,6 +36,7 @@ public class CrawlerController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@PostMapping("/crawler")
+	@RequirePermissions(value = PermissionsConst.NET_CRAWLER_SEARCH)
 	public BaseEntity crawler(@RequestBody TransferEntity te, TokenEntity t) throws CrawlerException {
 		Map<String, String> reqHeadersMap = new HashMap<>();
 		reqHeadersMap.put("Accept", "*/*");

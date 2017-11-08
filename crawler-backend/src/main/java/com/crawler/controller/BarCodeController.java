@@ -1,6 +1,8 @@
 package com.crawler.controller;
 
+import com.crawler.annotation.RequirePermissions;
 import com.crawler.constant.Const;
+import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.BarCodeEntity;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.TokenEntity;
@@ -34,6 +36,7 @@ public class BarCodeController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/barCode/{code}")
+	@RequirePermissions(value = PermissionsConst.QRCODE_SEARCH)
 	public BaseEntity barCode(@PathVariable("code") String code, TokenEntity t) throws CrawlerException {
 		BaseEntity be = new BaseEntity();
 		TransferEntity te = new TransferEntity();

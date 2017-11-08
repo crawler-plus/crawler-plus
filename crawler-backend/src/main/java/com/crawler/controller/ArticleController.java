@@ -1,7 +1,9 @@
 package com.crawler.controller;
 
+import com.crawler.annotation.RequirePermissions;
 import com.crawler.components.CrawlerProperties;
 import com.crawler.constant.Const;
+import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.*;
 import com.crawler.service.api.ArticleService;
 import com.crawler.service.api.SysLockService;
@@ -42,6 +44,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/cron/{id}")
+	@RequirePermissions(value = PermissionsConst.TEMPLATE_MGMT)
 	public void cron(@PathVariable("id") int userId, TokenEntity t) {
 		this.articleService.cronjob(userId);
 	}
@@ -55,6 +58,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@PostMapping("/saveTemplateConfig")
+	@RequirePermissions(value = PermissionsConst.TEMPLATE_MGMT)
 	public BaseEntity saveTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
 		te.setId(UUID.randomUUID().toString().replace("-", ""));
 		articleService.saveTemplateConfig(te);
@@ -73,6 +77,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@PutMapping("/editTemplateConfig")
+	@RequirePermissions(value = PermissionsConst.TEMPLATE_MGMT)
 	public BaseEntity editTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
 		BaseEntity be = new BaseEntity();
 		// 得到用户信息
@@ -100,6 +105,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@DeleteMapping(path = "/removeTemplateConfig/{id}")
+	@RequirePermissions(value = PermissionsConst.TEMPLATE_MGMT)
 	public BaseEntity removeTemplateConfig(@PathVariable("id") String id, TokenEntity t) {
 		articleService.removeTemplateConfig(id);
 		BaseEntity be = new BaseEntity();
@@ -117,6 +123,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/listAllTemplateConfig/{id}")
+	@RequirePermissions(value = PermissionsConst.TEMPLATE_MGMT)
 	public BaseEntity listAllTemplateConfig(@PathVariable("id") int userId, TokenEntity t) {
 		BaseEntity be = new BaseEntity();
 		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig(userId);
@@ -134,6 +141,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/getTemplateConfig/{id}")
+	@RequirePermissions(value = PermissionsConst.TEMPLATE_MGMT)
 	public BaseEntity getTemplateConfig(@PathVariable("id") String id, TokenEntity t) {
 		BaseEntity be = new BaseEntity();
 		TemplateConfig templateConfig = articleService.getTemplateConfig(id);
@@ -151,6 +159,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping("/listAllCrawlerContents")
+	@RequirePermissions(value = PermissionsConst.CRAWLER_CONTENT_SEARCH)
 	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, TokenEntity t) {
 		int crawlerContentSize = articleService.getCrawlerContentSize(crawlerContent.getUserId());
 		// 分页查询
@@ -178,6 +187,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/getCrawlerContent/{id}")
+	@RequirePermissions(value = PermissionsConst.CRAWLER_CONTENT_SEARCH)
 	public BaseEntity getCrawlerContent(@PathVariable("id") String id, TokenEntity t) {
 		BaseEntity be = new BaseEntity();
 		CrawlerContent crawlerContent = articleService.getCrawlerContent(id);
@@ -195,6 +205,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/executeCron/{id}")
+	@RequirePermissions(value = PermissionsConst.TEMPLATE_MGMT)
 	public BaseEntity executeCron(@PathVariable("id") int userId, TokenEntity t) {
 		BaseEntity be = new BaseEntity();
 		// 检查系统是否正在运行定时任务，爬取文章，如下条件成立，说明当前没有线程运行定时任务
@@ -227,6 +238,7 @@ public class ArticleController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/checkTemplateConfigExists/{id}")
+	@RequirePermissions(value = PermissionsConst.TEMPLATE_MGMT)
 	public BaseEntity checkTemplateConfigExists(@PathVariable("id") String templateConfigId, TokenEntity t) {
 		TemplateConfig templateConfig = new TemplateConfig();
 		templateConfig.setId(templateConfigId);

@@ -1,5 +1,6 @@
 package com.crawler.components;
 
+import com.crawler.annotation.RequirePermissions;
 import com.crawler.domain.TokenEntity;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -7,6 +8,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 /**
@@ -27,6 +30,9 @@ public class WebAopConfiguration {
 
     @Autowired
     private CheckToken checkToken;
+
+    @Autowired
+    private CheckPermissions checkPermissions;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -54,18 +60,32 @@ public class WebAopConfiguration {
      */
     @Around("webLog()")
     public Object doAroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        // 用户id
+        String uid = "";
         // 获得方法的所有参数
         Object[] args = proceedingJoinPoint.getArgs();
         if(!ObjectUtils.isEmpty(args)) {
             for(Object o : args) {
                 if(o instanceof TokenEntity) {
                     TokenEntity t = (TokenEntity)o;
+                    uid = t.getUid();
                     // 验证token
                     checkToken.checkToken(t);
                 }
             }
         }
+        Class<?> classTarget = proceedingJoinPoint.getTarget().getClass();
+        Class<?>[] par = ((MethodSignature)proceedingJoinPoint.getSignature()).getParameterTypes();
+        // 得到方法名
         String methodName = proceedingJoinPoint.getSignature().getName();
+        Method objMethod=classTarget.getMethod(methodName, par);
+        RequirePermissions requirePermissions = objMethod.getAnnotation(RequirePermissions.class);
+        if(null != requirePermissions) {
+            // 得到权限字符串的值
+            String[] values = requirePermissions.value();
+            // 验证该用户是否有这个字符串所代表的权限
+            checkPermissions.checkPermissions(uid, values);
+        }
         long timeStart = System.currentTimeMillis();
         Object obj = proceedingJoinPoint.proceed(args);
         if(logger.isWarnEnabled()) {

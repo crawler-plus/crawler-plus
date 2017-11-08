@@ -1,6 +1,8 @@
 package com.crawler.controller;
 
+import com.crawler.annotation.RequirePermissions;
 import com.crawler.constant.Const;
+import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysLog;
 import com.crawler.domain.TokenEntity;
@@ -36,6 +38,7 @@ public class LogController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping("/queryAll")
+    @RequirePermissions(value = PermissionsConst.LOG_MGMT)
     public BaseEntity queryAll(SysLog sysLog, TokenEntity t) {
         int logCount = logService.getLogCount(sysLog);
         // 分页查询
@@ -54,6 +57,7 @@ public class LogController {
     @ApiOperation(value="系统log删除", notes="系统log删除")
     @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     @DeleteMapping(path = "/delete")
+    @RequirePermissions(value = PermissionsConst.LOG_MGMT)
     public BaseEntity delete(TokenEntity t) {
         logService.delete();
         BaseEntity be = new BaseEntity();

@@ -1,6 +1,8 @@
 package com.crawler.controller;
 
+import com.crawler.annotation.RequirePermissions;
 import com.crawler.constant.Const;
+import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysRole;
 import com.crawler.domain.TokenEntity;
@@ -40,6 +42,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping("/queryAll")
+    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
     public BaseEntity queryAll(SysRole sysRole, TokenEntity t) {
         int roleCount =  roleService.getRolesListCount(sysRole);
         // 分页查询
@@ -58,6 +61,7 @@ public class RoleController {
     @ApiOperation(value="查询系统角色(不带条件)", notes="查询系统角色(不带条件)")
     @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     @GetMapping("/queryAllRolesWithoutCondition")
+    @RequirePermissions(value = PermissionsConst.USER_MGMT)
     public BaseEntity queryAllRolesWithoutCondition(TokenEntity t) {
         SysRole sysRole = new SysRole();
         List<SysRole> sysRoles = roleService.listAll(sysRole);
@@ -76,6 +80,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @DeleteMapping(path = "/delete/{id}")
+    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
     public BaseEntity delete(@PathVariable("id") int roleId, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         int countByRoleId = roleService.getUserReferencesCountByRoleId(roleId);
@@ -97,6 +102,7 @@ public class RoleController {
     @ApiOperation(value="初始化菜单树形节点", notes="初始化菜单树形节点")
     @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     @GetMapping("/initMenuTree")
+    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
     public BaseEntity initMenuTree(TokenEntity t) {
         List<TreeNode> menuList = menuService.getMenuTreeList();
         BaseEntity be = new BaseEntity();
@@ -114,6 +120,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @PostMapping(path = "/addRole")
+    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
     public BaseEntity addRole(SysRole sysRole, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         // 判断角色名称是否存在
@@ -139,6 +146,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping(path = "/getRoleInfoById/{id}")
+    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
     public BaseEntity getRoleInfoById(@PathVariable("id") int roleId, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         // 获得角色信息
@@ -165,6 +173,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @PutMapping(path = "/updateRole")
+    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
     public BaseEntity updateUser(SysRole sysRole, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         // 得到角色信息
@@ -192,6 +201,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping(path = "/checkRoleExists/{id}")
+    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
     public BaseEntity checkRoleExists(@PathVariable("id") int roleId, TokenEntity t) {
         SysRole sysRole = new SysRole();
         sysRole.setId(roleId);
