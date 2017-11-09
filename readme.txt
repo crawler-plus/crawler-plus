@@ -68,6 +68,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 2.运行crawler-eureka-server中的CrawlerEurekaServerApplication.java开启Eureka注册微服务
 3.运行crawler-captcha-producer中的CrawlerCaptchaProducerApplication.java开启验证码生产者，注册到Eureka服务中
 4.运行crawler-backend中的CrawlerApplication.java开启后台服务
+5.备注：导出mysql数据库脚本命令：mysqldump -uroot -proot spider > spider.sql
 
 注意：
 ************生产环境下请将crawler-backend中的application.yml中的active: dev改成active: prod， 并且将application-prod.yml中的server.address，server.port和mysql链接地址改正确，

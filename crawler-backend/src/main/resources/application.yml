@@ -65,7 +65,6 @@ flyway:
   sql-migration-suffix: .sql
   encoding: UTF-8
 
-
 eureka:
   client:
     service-url:
