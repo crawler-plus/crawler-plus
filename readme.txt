@@ -28,7 +28,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 
 后端：
 
-1. SpringBoot 1.5.7.RELEASE
+1. SpringBoot 1.5.8.RELEASE
 2. SpringCloud Dalston.SR4
 3. MyBatis 3.4.5
 4. Spring 4.3.11.RELEASE
