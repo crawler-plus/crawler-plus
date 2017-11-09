@@ -65,7 +65,14 @@ flyway:
   sql-migration-suffix: .sql
   encoding: UTF-8
 
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:1000/eureka/
+    enabled: false #禁止作为eureka的客户端（如需要注册到eureka服务器，要设置为true）
+
+management:
+  health:
+    defaults:
+      enabled: false
