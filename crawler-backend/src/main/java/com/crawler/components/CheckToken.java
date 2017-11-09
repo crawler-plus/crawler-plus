@@ -1,6 +1,7 @@
 package com.crawler.components;
 
 import com.crawler.domain.TokenEntity;
+import com.crawler.exception.SecurityException;
 import com.crawler.util.TokenUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

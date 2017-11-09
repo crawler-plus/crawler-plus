@@ -2,6 +2,7 @@ package com.crawler.components;
 
 import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.SysMenu;
+import com.crawler.exception.SecurityException;
 import com.crawler.service.api.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
