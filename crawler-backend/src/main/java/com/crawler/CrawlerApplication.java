@@ -16,7 +16,7 @@ public class CrawlerApplication {
 		application.setBannerMode(Banner.Mode.OFF);
 		application.run(args);
 		if(logger.isWarnEnabled()) {
-			logger.warn("--------------springboot project starts----------------");
+			logger.warn("--------------crawler-backend project starts----------------");
 		}
 	}
 }

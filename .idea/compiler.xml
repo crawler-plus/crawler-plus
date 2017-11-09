@@ -9,6 +9,7 @@
         <module name="crawler-backend" />
         <module name="crawler-cache" />
         <module name="crawler-captcha-producer" />
+        <module name="crawler-config-server" />
         <module name="crawler-configserver" />
         <module name="crawler-core" />
         <module name="crawler-eureka-server" />
@@ -18,6 +19,7 @@
       <module name="crawler-backend" target="1.8" />
       <module name="crawler-cache" target="1.8" />
       <module name="crawler-captcha-producer" target="1.8" />
+      <module name="crawler-config-server" target="1.8" />
       <module name="crawler-configserver" target="1.8" />
       <module name="crawler-core" target="1.8" />
       <module name="crawler-eureka-server" target="1.8" />

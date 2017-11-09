@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/crawler-backend/crawler-backend.iml" filepath="$PROJECT_DIR$/crawler-backend/crawler-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-cache/crawler-cache.iml" filepath="$PROJECT_DIR$/crawler-cache/crawler-cache.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-captcha-producer/crawler-captcha-producer.iml" filepath="$PROJECT_DIR$/crawler-captcha-producer/crawler-captcha-producer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/crawler-configserver/crawler-configserver.iml" filepath="$PROJECT_DIR$/crawler-configserver/crawler-configserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crawler-config-server/crawler-config-server.iml" filepath="$PROJECT_DIR$/crawler-config-server/crawler-config-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-core/crawler-core.iml" filepath="$PROJECT_DIR$/crawler-core/crawler-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-eureka-server/crawler-eureka-server.iml" filepath="$PROJECT_DIR$/crawler-eureka-server/crawler-eureka-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-plus.iml" filepath="$PROJECT_DIR$/crawler-plus.iml" />

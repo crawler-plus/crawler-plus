@@ -5,7 +5,7 @@
     <file url="file://$PROJECT_DIR$/crawler-backend" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-cache" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-captcha-producer" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/crawler-configserver" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crawler-config-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-eureka-server" charset="UTF-8" />
   </component>

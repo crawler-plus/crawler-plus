@@ -9,16 +9,16 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 
 @SpringBootApplication
 @EnableConfigServer
-public class CrawlerConfigserverApplication {
+public class CrawlerConfigServerApplication {
 
-	private static final Logger logger = LoggerFactory.getLogger(CrawlerConfigserverApplication.class);
+	private static final Logger logger = LoggerFactory.getLogger(CrawlerConfigServerApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication application = new SpringApplication(CrawlerConfigserverApplication.class);
+		SpringApplication application = new SpringApplication(CrawlerConfigServerApplication.class);
 		application.setBannerMode(Banner.Mode.OFF);
 		application.run(args);
 		if(logger.isWarnEnabled()) {
-			logger.warn("--------------springboot project starts----------------");
+			logger.warn("--------------crawler-config-server project starts----------------");
 		}
 	}
 }
