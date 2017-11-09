@@ -4,3 +4,8 @@ spring:
 
 logging:
   config: classpath:logback-eureka-server.xml
+
+management:
+  health:
+    defaults:
+      enabled: false

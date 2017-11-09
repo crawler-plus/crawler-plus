@@ -2,7 +2,6 @@ package com.crawler.components;
 
 import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.SysMenu;
-import com.crawler.exception.PermissionInvalidException;
 import com.crawler.service.api.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,7 +27,7 @@ public class CheckPermissions {
      */
     public void checkPermissions(String uid, String[] permissionValue) {
         // 存储权限列表
-        List<Integer> permissionsList = new ArrayList<Integer>();
+        List<Integer> permissionsList = new ArrayList<>();
         String pStr = Arrays.toString(permissionValue);
         // 用户管理权限
         if(pStr.contains(PermissionsConst.USER_MGMT)) {
@@ -79,7 +78,7 @@ public class CheckPermissions {
         availableMenuList.retainAll(permissionsList);
         // 表明这个用户没有注解中标明的权限
         if(availableMenuList.isEmpty()) {
-            throw new PermissionInvalidException("invalid permission");
+            throw new SecurityException("invalid permission");
         }
     }
 }
