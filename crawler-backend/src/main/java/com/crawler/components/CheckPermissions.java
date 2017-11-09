@@ -78,7 +78,7 @@ public class CheckPermissions {
         availableMenuList.retainAll(permissionsList);
         // 表明这个用户没有注解中标明的权限
         if(availableMenuList.isEmpty()) {
-            throw new SecurityException("invalid permission");
+            throw new SecurityException("insecurity access");
         }
     }
 }

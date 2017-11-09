@@ -35,7 +35,7 @@ public class CheckToken {
         }
         // 如果token不合法
         if(tokenInvalidFlag) {
-            throw new SecurityException("invalid token");
+            throw new SecurityException("insecurity access");
         }
     }
 }

@@ -41,7 +41,7 @@ public class GlobalDefaultExceptionHandler {
      * @return
      */
     @ExceptionHandler(SecurityException.class)
-    @ResponseStatus(value= HttpStatus.UNAUTHORIZED, reason="security invalid")
+    @ResponseStatus(value= HttpStatus.UNAUTHORIZED, reason="insecurity access")
     public BaseEntity securityExceptionHandler(SecurityException e) {
         if(logger.isWarnEnabled()) {
             logger.warn(e.getMessage());
