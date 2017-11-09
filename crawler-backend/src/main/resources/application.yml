@@ -13,7 +13,7 @@ crawler:
 
 spring:
   application:
-    name: crawler
+    name: crawler-backend
   profiles:
     active: dev
   jackson:
