@@ -34,20 +34,6 @@ public class ArticleController {
 
 	@Autowired
 	private CrawlerProperties crawlerProperties;
-
-	/**
-	 * 执行cron
-	 */
-	@ApiOperation(value="执行cron", notes="执行cron")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
-	})
-	@GetMapping(path = "/cron/{id}")
-	@RequirePermissions(value = PermissionsConst.TEMPLATE_MGMT)
-	public void cron(@PathVariable("id") int userId, TokenEntity t) {
-		this.articleService.cronjob(userId);
-	}
 	
 	/**
 	 * 保存文章配置
