@@ -80,7 +80,6 @@ var roleUpdate = function () {
                     var checkedArrStr = checkedArr.join(",");
                     $("#roleMenuStr").val(checkedArrStr);
                     $("#roleId").val(roleId);
-                    commonUtil.showLoadingMessage();
                     // 通过表单验证
                     var signOptions = {
                         formID : 'roleUpdateForm',
@@ -94,7 +93,6 @@ var roleUpdate = function () {
                         signOptions,
                         ajaxOptions,
                         function (data) {
-                            layer.closeAll();
                             if(data.msgCode === '400') {
                                 toastr.error(data.content);
                             }else {

@@ -16,7 +16,6 @@ var editTemplate = function () {
             signOptions,
             ajaxOptions,
             function (data) {
-                layer.closeAll();
                 var pPata = data.content;
                 $("#id").val(pPata.id);
                 $("#url").val(pPata.url);

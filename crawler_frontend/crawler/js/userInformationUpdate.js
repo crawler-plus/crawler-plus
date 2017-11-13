@@ -39,7 +39,6 @@ var userInformationUpdate = function () {
             },
             submitHandler: function () {
                 $("#userId").val(userId);
-                commonUtil.showLoadingMessage();
                 // 通过表单验证
                 var signOptions = {
                     formID : 'userInformationUpdate',
@@ -53,7 +52,6 @@ var userInformationUpdate = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
                         if(data.msgCode === '400') {
                             toastr.error(data.content);
                         }else {

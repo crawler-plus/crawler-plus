@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/crawler-captcha-producer/pom.xml" />
         <option value="$PROJECT_DIR$/crawler-cache/pom.xml" />
         <option value="$PROJECT_DIR$/crawler-configserver/pom.xml" />
+        <option value="$PROJECT_DIR$/crawler-config-server/pom.xml" />
       </list>
     </option>
   </component>

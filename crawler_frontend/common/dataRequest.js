@@ -48,7 +48,9 @@ var dataRequest = function() {
             ajaxOpts.processData = false;
             ajaxOpts.contentType = false;
 		}
+        commonUtil.showLoadingMessage();
 		$.ajax(ajaxOpts).done(function(data){
+            layer.closeAll();
             ajaxSuccCallback(data);
 		}).fail(function (error, status) {
             layer.closeAll();

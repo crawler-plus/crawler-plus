@@ -83,7 +83,6 @@ var userUpdate = function () {
                     var checkedArrStr = checkedArr.join(",");
                     $("#userRoleStr").val(checkedArrStr);
                     $("#userId").val(userId);
-                    commonUtil.showLoadingMessage();
                     // 通过表单验证
                     var signOptions = {
                         formID : 'userUpdate',
@@ -97,7 +96,6 @@ var userUpdate = function () {
                         signOptions,
                         ajaxOptions,
                         function (data) {
-                            layer.closeAll();
                             if(data.msgCode === '400') {
                                 toastr.error(data.content);
                             }else {

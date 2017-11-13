@@ -21,8 +21,6 @@ var templateMgmt = function () {
             layer.confirm('确定要执行爬取任务吗？', {
                 btn: ['是','否'] //按钮
             }, function(){
-                layer.closeAll();
-                commonUtil.showLoadingMessage();
                 var signOptions = {
                     formID : null,
                     isFormData : false
@@ -35,7 +33,6 @@ var templateMgmt = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
                         if(data.msgCode === '400') {
                             layer.msg(data.content, {icon: 5});
                         }
@@ -52,7 +49,6 @@ var templateMgmt = function () {
      */
     var listAllTemplate = function () {
         $("#resultRow").empty();
-        commonUtil.showLoadingMessage();
         var signOptions = {
             formID : null,
             isFormData : false
@@ -65,7 +61,6 @@ var templateMgmt = function () {
             signOptions,
             ajaxOptions,
             function (data) {
-                layer.closeAll();
                     var dataLen = data.content.length;
                     if(dataLen > 0) {
                         var tpl = $("#resultScript").html();
@@ -109,7 +104,6 @@ var templateMgmt = function () {
                                 signOptions,
                                 ajaxOptions,
                                 function (data) {
-                                    layer.closeAll();
                                     listAllTemplate();
                                 }
                             );

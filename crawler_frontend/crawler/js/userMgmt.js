@@ -164,7 +164,6 @@ var userMgmt = function () {
                             signOptions,
                             ajaxOptions,
                             function (data) {
-                                layer.closeAll();
                                 if(data.msgCode === '400') {
                                     toastr.error(data.content);
                                 }else {

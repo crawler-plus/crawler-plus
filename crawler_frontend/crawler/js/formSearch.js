@@ -69,7 +69,6 @@ var formSearch = function () {
                 }
             },
             submitHandler: function () {
-                commonUtil.showLoadingMessage();
                 // 通过表单验证
                 var url = $("#url").val(); // 得到url的值
                 var pattern = $("#pattern").val(); // 得到正则表达式的值
@@ -103,7 +102,6 @@ var formSearch = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
                         var msgCode = data.msgCode;
                         if('400' === msgCode) {
                             toastr.error(data.content);

@@ -29,7 +29,6 @@ var barCodeSearch = function () {
                 }
             },
             submitHandler: function () {
-                commonUtil.showLoadingMessage();
                 // 通过表单验证
                 var signOptions = {
                     formID : null,
@@ -43,7 +42,6 @@ var barCodeSearch = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
                         var msgCode = data.msgCode;
                         if('400' === msgCode) {
                             toastr.error('查不到商品数据！');

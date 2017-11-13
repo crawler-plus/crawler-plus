@@ -57,7 +57,6 @@ var roleAdd = function () {
                 }
                 var checkedArrStr = checkedArr.join(",");
                 $("#roleMenuStr").val(checkedArrStr);
-                commonUtil.showLoadingMessage();
                 // 通过表单验证
                 var signOptions = {
                     formID : 'roleAddForm',
@@ -71,7 +70,6 @@ var roleAdd = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
                         if(data.msgCode === '400') {
                             toastr.error(data.content);
                         }else {

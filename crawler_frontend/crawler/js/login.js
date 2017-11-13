@@ -33,7 +33,6 @@ var login = function () {
             signOptions,
             ajaxOptions,
             function (data) {
-                layer.closeAll();
                 if(data.msgCode === '400') {
                     layer.msg('加载验证码失败', {icon: 5});
                 }else {
@@ -65,7 +64,6 @@ var login = function () {
                 }
             },
             submitHandler: function () {
-                commonUtil.showLoadingMessage();
                 // 通过表单验证
                 var signOptions = {
                     formID : 'loginForm',
@@ -79,7 +77,6 @@ var login = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        layer.closeAll();
                         if(data.msgCode === '400') {
                             layer.msg(data.content, {icon: 5});
                         }else {
