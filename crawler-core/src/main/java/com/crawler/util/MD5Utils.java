@@ -23,7 +23,9 @@ public class MD5Utils {
         // 加密后的字符串
         String newStr = null;
         try {
-            newStr = base64en.encode(md5.digest(afterStr.getBytes("utf-8")));
+            if (md5 != null) {
+                newStr = base64en.encode(md5.digest(afterStr.getBytes("utf-8")));
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

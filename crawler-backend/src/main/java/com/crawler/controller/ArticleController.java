@@ -1,7 +1,6 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.components.CrawlerProperties;
 import com.crawler.constant.Const;
 import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.*;
@@ -32,9 +31,6 @@ public class ArticleController {
 	@Autowired
 	private SysLockService sysLockService;
 
-	@Autowired
-	private CrawlerProperties crawlerProperties;
-	
 	/**
 	 * 保存文章配置
 	 */

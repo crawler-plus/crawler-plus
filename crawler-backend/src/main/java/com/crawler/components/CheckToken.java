@@ -21,7 +21,7 @@ public class CheckToken {
     @Autowired
     private UserService userService;
 
-    public void checkToken(TokenEntity te) {
+    void checkToken(TokenEntity te) {
         // token不合法标识
         boolean tokenInvalidFlag = false;
         if(StringUtils.isEmpty(te.getUid()) || StringUtils.isEmpty(te.getTimestamp()) || StringUtils.isEmpty(te.getToken())) {

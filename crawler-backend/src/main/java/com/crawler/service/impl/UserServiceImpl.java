@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
             // 得到用户对应的菜单信息
             List<SysMenu> menuList = menuMapper.getMenuList(sysUserByloginAccount.getId());
             List<List<SysMenu>> sList = new ArrayList<>();
-            menuList.stream().forEach(t -> {
+            menuList.forEach(t -> {
                 // 如果是一个根节点
                 if(t.getMenuParentId() == 0) {
                     List<SysMenu> smList = new ArrayList<>();

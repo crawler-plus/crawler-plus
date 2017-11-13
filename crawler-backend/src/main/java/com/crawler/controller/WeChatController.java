@@ -68,7 +68,7 @@ public class WeChatController {
 				// 得到能查询出来得页数（没登录状态下最多能查出10页）
 				int totalSearchSize = pageEles.select("a").size();
 				// 得到所有待爬取得页面url
-				List<String> urlList = new ArrayList<String>();
+				List<String> urlList = new ArrayList<>();
 				for(int i = 1; i <= totalSearchSize; i ++) {
 					String url = "http://weixin.sogou.com/weixin?type=1&query=" + weChatTitle + "&ie=utf8&s_from=input&page=" + i;
 					urlList.add(url);
@@ -81,8 +81,7 @@ public class WeChatController {
 					Document urlDoc = JsoupUtils.getUrlDocument(te, reqHeadersMap, null);
 					Elements targetEles = urlDoc.select("a[uigs^=account_name_]");
 					// 得到标题
-					for(int i = 0; i < targetEles.size(); i ++) {
-						Element eachE = targetEles.get(i);
+					for(Element eachE : targetEles) {
 						String title = eachE.text();
 						String url = eachE.attr("href").replace("amp;", "");
 						WeChatOfficialAccounts wc = new WeChatOfficialAccounts();

@@ -7,6 +7,7 @@ import com.crawler.domain.TransferEntity;
 import com.crawler.service.api.ArticleService;
 import com.crawler.util.JsoupUtils;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,7 +101,7 @@ public class ArticleServiceImpl implements ArticleService {
                 te.setPattern(tc.getFirstLevelPattern());
                 te.setHttpMethod("GET");
                 // 先查询是否能找到记录
-                Elements elements = null;
+                Elements elements;
                 try {
                     // 得到匹配的所有的区域
                     elements = JsoupUtils.getUrlContentsByPattern(te, reqHeadersMap, null);
@@ -112,8 +113,8 @@ public class ArticleServiceImpl implements ArticleService {
                 Elements aLink = elements.select("a");
                 int size = aLink.size();
                 if(size == 0) continue;
-                for (int j = 0; j < size; j++) {
-                    String link = aLink.get(j).attr("href");
+                for (Element anALink : aLink) {
+                    String link = anALink.attr("href");
                     crawlerUrl.add(link);
                 }
                 if (!CollectionUtils.isEmpty(crawlerUrl)) {
@@ -130,7 +131,7 @@ public class ArticleServiceImpl implements ArticleService {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        Document d = null;
+                        Document d;
                         // 构造其他参数信息
                         TransferEntity t = new TransferEntity();
                         t.setUrl(eachUrl);
@@ -150,7 +151,7 @@ public class ArticleServiceImpl implements ArticleService {
                         	timeIndex = Integer.parseInt(timeExps[1])-1;
                         	if(timeIndex < 0) timeIndex = 0;
                         }
-                        String time = "";
+                        String time;
                         // 得到标题元素
                         Elements titleE = d.select(tc.getTitlePattern());
                         // 证明是无效链接，继续下次循环

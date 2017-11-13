@@ -19,7 +19,7 @@ public class JsoupUtils {
      */
     public static Document getUrlDocument(TransferEntity te, Map<String, String> reqHeadersMap, Map<String, String> postParamsMap) throws Exception {
         Connection conn = Jsoup.connect(te.getUrl());
-        Document docData = null;
+        Document docData;
         // 设置请求头信息
         if(!CollectionUtils.isEmpty(reqHeadersMap)) {
             conn.headers(reqHeadersMap);
@@ -46,7 +46,7 @@ public class JsoupUtils {
      */
     public static Elements getUrlContentsByPattern(TransferEntity te, Map<String, String> reqHeadersMap, Map<String, String> postParamsMap) throws Exception {
             Connection conn = Jsoup.connect(te.getUrl());
-            Document docData = null;
+            Document docData;
             // 设置请求头信息
             if(!CollectionUtils.isEmpty(reqHeadersMap)) {
                 conn.headers(reqHeadersMap);
@@ -71,7 +71,7 @@ public class JsoupUtils {
                     Elements aElements = e.select("a");
                     for(Element aElement : aElements) {
                         // a标签的href属性中不含有目标字符串，删除a标签
-                        if(aElement.attr("href").indexOf(te.getExcludeLinkStr()) == -1) {
+                        if(!aElement.attr("href").contains(te.getExcludeLinkStr())) {
                             aElement.remove();
                         }
                     }

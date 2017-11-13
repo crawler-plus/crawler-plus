@@ -95,7 +95,9 @@ public class HttpClientUtil {
 			e.printStackTrace();
 		} finally {
 			try {
-				response.close();
+				if (response != null) {
+					response.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -126,12 +128,13 @@ public class HttpClientUtil {
 			e.printStackTrace();
 		} finally {
 			try {
-				response.close();
+				if (response != null) {
+					response.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return resultString;
 	}
 }

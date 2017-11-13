@@ -26,7 +26,7 @@ public class CheckPermissions {
      * @param uid
      * @param permissionValue
      */
-    public void checkPermissions(String uid, String[] permissionValue) {
+    void checkPermissions(String uid, String[] permissionValue) {
         // 存储权限列表
         List<Integer> permissionsList = new ArrayList<>();
         String pStr = Arrays.toString(permissionValue);

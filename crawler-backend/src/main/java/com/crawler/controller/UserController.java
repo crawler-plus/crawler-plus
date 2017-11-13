@@ -51,7 +51,7 @@ public class UserController {
         BaseEntity be = new BaseEntity();
         boolean useCaptcha = crawlerProperties.isUseCaptcha();
         // 验证码是否通过
-        boolean captchaAccess = false;
+        boolean captchaAccess;
         // 如果配置了需要验证码登录
         if(useCaptcha) {
             List<String> sysCaptchas = sysCaptchaService.listAllSysCaptcha();

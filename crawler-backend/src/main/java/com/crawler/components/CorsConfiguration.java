@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * 跨域配置
  */
 @Configuration
-public class CorsConfiguration extends WebMvcConfigurerAdapter {
+public class CORSConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {

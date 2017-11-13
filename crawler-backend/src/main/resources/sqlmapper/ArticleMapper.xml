@@ -78,37 +78,37 @@
     </delete>
 
     <select id="listAllTemplateConfig" resultType="com.crawler.domain.TemplateConfig">
-        SELECT id                    as id,
-                url                   as url,
-                first_level_pattern   as firstLevelPattern,
-                title_pattern         as titlePattern,
-                time_pattern          as timePattern,
-                content_pattern       as contentPattern
+        SELECT id                    AS id,
+                url                   AS url,
+                first_level_pattern   AS firstLevelPattern,
+                title_pattern         AS titlePattern,
+                time_pattern          AS timePattern,
+                content_pattern       AS contentPattern
         FROM template_config
         WHERE user_id = #{userId}
     </select>
 
     <select id="getTemplateConfig" resultType="com.crawler.domain.TemplateConfig" parameterType="String">
         SELECT
-        id                    as id,
-        url                   as url,
-        first_level_pattern   as firstLevelPattern,
-        title_pattern         as titlePattern,
-        time_pattern          as timePattern,
-        content_pattern       as contentPattern,
-        version               as version
+        id                    AS id,
+        url                   AS url,
+        first_level_pattern   AS firstLevelPattern,
+        title_pattern         AS titlePattern,
+        time_pattern          AS timePattern,
+        content_pattern       AS contentPattern,
+        version               AS version
         FROM template_config
         WHERE id = #{id, jdbcType=VARCHAR}
     </select>
 
     <select id="listAllCrawlerContents" resultType="com.crawler.domain.CrawlerContent" parameterType="java.lang.Integer">
         SELECT
-        id             as id,
-        url            as url,
-        title          as title,
-        time          as time,
-        content_body   as contentBody,
-        DATE_FORMAT(created, '%Y年%m月%d日 %H:%i:%s') as insertTime
+        id             AS id,
+        url            AS url,
+        title          AS title,
+        time          AS time,
+        content_body   AS contentBody,
+        DATE_FORMAT(created, '%Y年%m月%d日 %H:%i:%s') AS insertTime
         FROM crawler_content
         WHERE user_id = #{userId}
         ORDER BY created DESC
@@ -116,11 +116,11 @@
 
     <select id="getCrawlerContent" resultType="com.crawler.domain.CrawlerContent" parameterType="String">
         SELECT
-        id             as id,
-        url            as url,
-        title          as title,
-        time          as time,
-        content_body   as contentBody
+        id             AS id,
+        url            AS url,
+        title          AS title,
+        time          AS time,
+        content_body   AS contentBody
         FROM crawler_content
         WHERE id = #{id, jdbcType=VARCHAR}
     </select>
@@ -179,7 +179,7 @@
 
     <select id="fetchAllArticleUrls" resultType="java.lang.String">
         SELECT
-        url            as url
+        url            AS url
         FROM crawler_content
     </select>
 
