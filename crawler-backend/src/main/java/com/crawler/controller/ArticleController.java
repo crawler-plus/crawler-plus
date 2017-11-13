@@ -150,13 +150,7 @@ public class ArticleController {
 		int crawlerContentSize = articleService.getCrawlerContentSize(crawlerContent.getUserId());
 		// 分页查询
 		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
-		List<CrawlerContent> contents = null;
-		// 如果开启redis服务支持
-		if(crawlerProperties.isUseRedisCache()) {
-			// TO BE CONTINUED
-		}else {
-			contents = articleService.listAllCrawlerContents(crawlerContent.getUserId());
-		}
+		List<CrawlerContent> contents = articleService.listAllCrawlerContents(crawlerContent.getUserId());
 		BaseEntity be = new BaseEntity();
 		be.setTotal(crawlerContentSize);
 		be.setRows(contents);

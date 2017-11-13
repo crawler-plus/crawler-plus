@@ -32,6 +32,7 @@ spring:
     host: 192.168.1.120
     port: 6379
     password: redis
+    timeout: 10 #配置默认超时时间10ms
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   aop:
