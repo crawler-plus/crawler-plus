@@ -23,6 +23,7 @@
         <module>crawler-eureka-server</module>
         <module>crawler-captcha-producer</module>
         <module>crawler-cache</module>
+        <module>crawler-config-server</module>
     </modules>
 
     <parent>
@@ -46,7 +47,7 @@
         <joda-time.version>2.9.9</joda-time.version>
         <commons-io.version>1.3.2</commons-io.version>
         <poi.version>3.17</poi.version>
-        <jsoup.version>1.10.3</jsoup.version>
+        <jsoup.version>1.11.1</jsoup.version>
         <httpclient.version>4.5.3</httpclient.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <kaptcha.version>2.3.2</kaptcha.version>
@@ -156,6 +157,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <repositories>
+        <repository>
+            <id>ali maven</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 
     <build>
         <pluginManagement>
