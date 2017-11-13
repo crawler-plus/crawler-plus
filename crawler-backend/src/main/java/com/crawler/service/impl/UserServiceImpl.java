@@ -159,11 +159,21 @@ public class UserServiceImpl implements UserService {
             sysLog.setLoginAccount(sysUser.getLoginAccount());
             sysLog.setTypeId(1);
             logMapper.logAdd(sysLog);
+            // 将用户表中的token字段更新
+            SysUser updateTokenParam = new SysUser();
+            updateTokenParam.setId(sysUserByloginAccount.getId());
+            updateTokenParam.setLoginToken(userToken.getToken());
+            updateUserToken(updateTokenParam);
             infoMap.put("userInfo", sysUserByloginAccount);
             infoMap.put("menuInfo", JsonUtils.objectToJson(sList));
             infoMap.put("token", userToken.getToken());
             infoMap.put("timestamp", userToken.getTimestamp());
         }
         return infoMap;
+    }
+
+    @Override
+    public void updateUserToken(SysUser sysUser) {
+        userMapper.updateUserToken(sysUser);
     }
 }

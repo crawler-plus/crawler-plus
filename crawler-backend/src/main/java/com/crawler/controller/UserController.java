@@ -237,6 +237,11 @@ public class UserController {
         sysLog.setLoginAccount(sysUserByUserId.getLoginAccount());
         sysLog.setTypeId(2);
         logService.logAdd(sysLog);
+        // 将用户表中的token字段更新
+        SysUser updateTokenParam = new SysUser();
+        updateTokenParam.setId(userId);
+        updateTokenParam.setLoginToken("");
+        userService.updateUserToken(updateTokenParam);
         be.setContent("用户退出");
         be.setMsgCode(Const.MESSAGE_CODE_OK);
         return be;

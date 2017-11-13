@@ -69,4 +69,10 @@ public interface UserService {
      * @return
      */
     Map<String, Object> canLogin(SysUser sysUser);
+
+    /**
+     * 更新用户token
+     * @param sysUser
+     */
+    void updateUserToken(SysUser sysUser);
 }
