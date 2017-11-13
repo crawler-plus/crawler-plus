@@ -34,7 +34,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 4. Spring 4.3.11.RELEASE
 5. Hibernate-validator 5.3.5
 6. Swagger2
-7. Jsoup 1.10.3
+7. Jsoup 1.11.1
 8. Ehcache 2.10.4
 9. Spring-scheduled
 10. Druid 1.1.5
@@ -64,22 +64,22 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 
 后端：
 1.本地创建spider数据库
-1.将crawler_backend目录下的resources/db/migrations下的最后一个V版本的spider.sql导入mysql数据库中，（也可以省略该步骤，因为系统中已经集成flyway）
-2.运行crawler-eureka-server中的CrawlerEurekaServerApplication.java开启Eureka注册微服务
-3.运行crawler-captcha-producer中的CrawlerCaptchaProducerApplication.java开启验证码生产者，注册到Eureka服务中
-4.运行crawler-backend中的CrawlerApplication.java开启后台服务
-5.备注：导出mysql数据库脚本命令：mysqldump -uroot -proot spider > spider.sql
+2.将crawler_backend目录下的resources/db/migrations下的最后一个V版本的spider.sql导入mysql数据库中，（也可以省略该步骤，因为系统中已经集成flyway）
+3.运行crawler-eureka-server中的CrawlerEurekaServerApplication.java开启Eureka注册微服务
+4.运行crawler-captcha-producer中的CrawlerCaptchaProducerApplication.java开启验证码生产者，注册到Eureka服务中
+5.运行crawler-backend中的CrawlerApplication.java开启后台服务
+备注：导出mysql数据库脚本命令：mysqldump -uroot -proot spider > spider.sql
 
 注意：
 ************生产环境下请将crawler-backend中的bootstrap.yml中的active: dev改成active: prod， 并且将application-prod.yml中的server.address，server.port和mysql链接地址改正确，
 并将crawler-captcha-producer和crawler-eureka-server工程中的application.yml相应的host和port修改正确************
-3.建议生产环境下采用jar包运行，打jar包命令：clean package
-4.完整功能需要有Redis环境，Nginx环境，vsftpd环境
-5.如需使用验证码需要在如下地方修改：
+1.建议生产环境下采用jar包运行，打jar包命令：clean package
+2.完整功能需要有Redis环境，Nginx环境，vsftpd环境
+3.如需使用验证码需要在如下地方修改：
 1）crawler-backend工程中的application.yml中useCaptcha改成true
 2）crawler_frontend工程中的common/commonUtil.js中useCaptcha改成true
 3）按顺序启动crawler-config-server，crawler-eureka-server，crawler-captcha-producer，crawler-backend这四个工程
-6）如不需使用验证码只需要按顺序启动crawler-config-server，crawler-backend二个工程
+4.如不需使用验证码只需要按顺序启动crawler-config-server，crawler-backend二个工程
 
 前端：
 1. 运行crawler_frontend下的login.html
