@@ -2,5 +2,5 @@ spring:
   cloud:
     config:
       label: master
-      profile: dev
+      profile: dafault
       uri: http://localhost:18888/

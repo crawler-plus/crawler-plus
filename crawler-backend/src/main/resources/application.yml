@@ -16,21 +16,26 @@ spring:
     name: crawler-backend
   profiles:
     active: dev
+  mail:
+    host: smtp.qq.com
+    username: 110@qq.com
+    password: 123456
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+  redis:
+    database: 0
+    host: 192.168.1.120
+    port: 6379
+    password: redis
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   aop:
     proxy-target-class: true
-  mail:
-        host: smtp.qq.com
-        username: 110@qq.com
-        password: 123456
-        properties:
-          mail:
-            smtp:
-              auth: true
-              starttls:
-                enable: true
-                required: true
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
@@ -38,14 +43,17 @@ spring:
     encoding: UTF-8
     content-type: text/html
     cache: false
-  redis:
-    database: 0
-    host: 192.168.1.120
-    port: 6379
-    password: redis
 
-logging:
-  config: classpath:logback-crawler.xml
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka/
+    enabled: false #禁止作为eureka的客户端（如需要注册到eureka服务器，要设置为true）
+
+management:
+  health:
+    defaults:
+      enabled: false
 
 mybatis:
   mapperLocations: classpath:sqlmapper/*.xml
@@ -65,13 +73,5 @@ flyway:
   sql-migration-suffix: .sql
   encoding: UTF-8
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:1000/eureka/
-    enabled: false #禁止作为eureka的客户端（如需要注册到eureka服务器，要设置为true）
-
-management:
-  health:
-    defaults:
-      enabled: false
+logging:
+  config: classpath:logback-crawler.xml
