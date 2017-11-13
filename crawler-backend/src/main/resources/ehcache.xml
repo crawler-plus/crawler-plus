@@ -1,10 +1,24 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ehcache.xsd">
+
+    <diskStore path="java.io.tmpdir/tmp_ehcache"></diskStore>
+
+    <!-- 如果指定的缓存策略没有找到，就用这个默认的缓存策略-->
     <defaultCache
             eternal="false"
             maxElementsInMemory="1000"
             overflowToDisk="false"
             diskPersistent="false"
             timeToIdleSeconds="0"
-            timeToLiveSeconds="600"
+            timeToLiveSeconds="0"
+            memoryStoreEvictionPolicy="LRU" />
+
+    <cache
+            name="local"
+            eternal="false"
+            maxElementsInMemory="1000"
+            overflowToDisk="false"
+            diskPersistent="false"
+            timeToIdleSeconds="0"
+            timeToLiveSeconds="0"
             memoryStoreEvictionPolicy="LRU" />
 </ehcache>
