@@ -17,7 +17,7 @@ public class DruidConfiguration {
     public ServletRegistrationBean druidServlet() {
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         //是否能够重置数据.
-        servletRegistrationBean.addInitParameter("resetEnable","false");
+        servletRegistrationBean.addInitParameter("resetEnable", "true");
         return servletRegistrationBean;
     }
 
