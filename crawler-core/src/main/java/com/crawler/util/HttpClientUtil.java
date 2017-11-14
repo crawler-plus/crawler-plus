@@ -53,9 +53,7 @@ public class HttpClientUtil {
 				resultString = EntityUtils.toString(response.getEntity(), "GBK");
 			}
 		} catch (Exception e) {
-			if(logger.isWarnEnabled()) {
-				logger.warn(e.getMessage());
-			}
+			LoggerUtils.printExceptionLogger(logger, e);
 		} finally {
 			closeResource(response, httpclient);
 		}
@@ -88,9 +86,7 @@ public class HttpClientUtil {
 			response = httpClient.execute(httpPost);
 			resultString = EntityUtils.toString(response.getEntity(), "utf-8");
 		} catch (Exception e) {
-			if(logger.isWarnEnabled()) {
-				logger.warn(e.getMessage());
-			}
+			LoggerUtils.printExceptionLogger(logger, e);
 		} finally {
 			closeResource(response, httpClient);
 		}
@@ -106,9 +102,7 @@ public class HttpClientUtil {
 				httpclient.close();
 			}
 		} catch (IOException e) {
-			if(logger.isWarnEnabled()) {
-				logger.warn(e.getMessage());
-			}
+			LoggerUtils.printExceptionLogger(logger, e);
 		}
 	}
 
@@ -131,9 +125,7 @@ public class HttpClientUtil {
 			response = httpClient.execute(httpPost);
 			resultString = EntityUtils.toString(response.getEntity(), "utf-8");
 		} catch (Exception e) {
-			if(logger.isWarnEnabled()) {
-				logger.warn(e.getMessage());
-			}
+			LoggerUtils.printExceptionLogger(logger, e);
 		} finally {
 			closeResource(response, httpClient);
 		}

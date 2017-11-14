@@ -1,5 +1,6 @@
 package com.crawler;
 
+import com.crawler.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
@@ -17,8 +18,6 @@ public class CrawlerConfigServerApplication {
 		SpringApplication application = new SpringApplication(CrawlerConfigServerApplication.class);
 		application.setBannerMode(Banner.Mode.OFF);
 		application.run(args);
-		if(logger.isWarnEnabled()) {
-			logger.warn("--------------crawler-config-server project starts----------------");
-		}
+		LoggerUtils.printLogger(logger, "--------------crawler-config-server project starts----------------");
 	}
 }

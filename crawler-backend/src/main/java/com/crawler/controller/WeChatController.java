@@ -1,8 +1,8 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.Const;
 import com.crawler.constant.PermissionsConst;
+import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
@@ -91,7 +91,7 @@ public class WeChatController {
 					}
 				}
 				// 业务message
-				be.setMsgCode(Const.MESSAGE_CODE_OK);
+				be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 				be.setContent(wcoa);
 			}
 		} catch (Exception e) {

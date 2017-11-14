@@ -1,5 +1,6 @@
 package com.crawler;
 
+import com.crawler.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
@@ -15,8 +16,6 @@ public class CrawlerApplication {
 		SpringApplication application = new SpringApplication(CrawlerApplication.class);
 		application.setBannerMode(Banner.Mode.OFF);
 		application.run(args);
-		if(logger.isWarnEnabled()) {
-			logger.warn("--------------crawler-backend project starts----------------");
-		}
+		LoggerUtils.printLogger(logger, "--------------crawler-backend project starts----------------");
 	}
 }

@@ -28,17 +28,13 @@ public class FtpUtils {
             ftpClient.storeFile(fileName, is);
             ftpClient.logout();
         }catch (Exception e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn(e.getMessage());
-            }
+            LoggerUtils.printExceptionLogger(logger, e);
         }finally {
             IOUtils.closeQuietly(is);
             try {
                 ftpClient.disconnect();
             } catch (IOException e) {
-                if(logger.isWarnEnabled()) {
-                    logger.warn(e.getMessage());
-                }
+                LoggerUtils.printExceptionLogger(logger, e);
             }
         }
     }

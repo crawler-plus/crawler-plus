@@ -1,8 +1,8 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.Const;
 import com.crawler.constant.PermissionsConst;
+import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysLog;
 import com.crawler.domain.TokenEntity;
@@ -47,7 +47,7 @@ public class LogController {
         BaseEntity be = new BaseEntity();
         be.setTotal(logCount);
         be.setRows(sysLogs);
-        be.setMsgCode(Const.MESSAGE_CODE_OK);
+        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -61,7 +61,7 @@ public class LogController {
     public BaseEntity delete(TokenEntity t) {
         logService.delete();
         BaseEntity be = new BaseEntity();
-        be.setMsgCode(Const.MESSAGE_CODE_OK);
+        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         be.setContent("删除系统log成功");
         return be;
     }

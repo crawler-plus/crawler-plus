@@ -1,9 +1,10 @@
 package com.crawler.controller;
 
 import com.crawler.components.CrawlerProperties;
-import com.crawler.constant.Const;
+import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.util.FtpUtils;
+import com.crawler.util.LoggerUtils;
 import com.google.code.kaptcha.Producer;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -51,14 +52,12 @@ public class CreateCaptchaController {
                     crawlerProperties.getCaptchaFtpServerPassword(),
                     crawlerProperties.getCaptchaFtpServerUrl(),
                     inputStream, imgName);
-            be.setMsgCode(Const.MESSAGE_CODE_OK);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
             // 设置图片地址
             be.setContent("http://" + crawlerProperties.getCaptchaFtpServerHost() + ":" + crawlerProperties.getCaptchaFtpServerPort() + "/" + imgName);
         } catch (Exception e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn("验证码生成失败，原因：" + e.getMessage());
-            }
-            be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+            LoggerUtils.printExceptionLogger(logger, e);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
             // 设置图片地址
             be.setContent("");
         }finally {

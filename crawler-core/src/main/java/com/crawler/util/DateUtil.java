@@ -70,9 +70,7 @@ public class DateUtil {
 		try {
 			return sdf.parse(sdf.format(new Date()));
 		} catch (ParseException e) {
-			if(logger.isWarnEnabled()) {
-				logger.warn(e.getMessage());
-			}
+			LoggerUtils.printExceptionLogger(logger, e);
 		}
 		return null;
 	}

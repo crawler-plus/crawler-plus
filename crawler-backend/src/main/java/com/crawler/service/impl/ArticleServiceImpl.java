@@ -6,6 +6,7 @@ import com.crawler.domain.TemplateConfig;
 import com.crawler.domain.TransferEntity;
 import com.crawler.service.api.ArticleService;
 import com.crawler.util.JsoupUtils;
+import com.crawler.util.LoggerUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -110,9 +111,7 @@ public class ArticleServiceImpl implements ArticleService {
                     // 得到匹配的所有的区域
                     elements = JsoupUtils.getUrlContentsByPattern(te, reqHeadersMap, null);
                 } catch (Exception e) {
-                    if(logger.isWarnEnabled()) {
-                        logger.warn(e.getMessage());
-                    }
+                    LoggerUtils.printExceptionLogger(logger, e);
                     // 继续下次循环
                     continue;
                 }
@@ -135,9 +134,7 @@ public class ArticleServiceImpl implements ArticleService {
                         try {
                             TimeUnit.SECONDS.sleep(1);
                         } catch (InterruptedException e) {
-                            if(logger.isWarnEnabled()) {
-                                logger.warn(e.getMessage());
-                            }
+                            LoggerUtils.printExceptionLogger(logger, e);
                         }
                         Document d;
                         // 构造其他参数信息
@@ -147,9 +144,7 @@ public class ArticleServiceImpl implements ArticleService {
                         try {
                             d = JsoupUtils.getUrlDocument(t, reqHeadersMap, null);
                         } catch (Exception e) {
-                            if(logger.isWarnEnabled()) {
-                                logger.warn(e.getMessage());
-                            }
+                            LoggerUtils.printExceptionLogger(logger, e);
                             // 继续下次循环
                             continue;
                         }

@@ -1,8 +1,6 @@
 package com.crawler.components;
 
 import com.crawler.service.api.MenuService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class CrawlerCommandLineRunner implements CommandLineRunner {
-
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private MenuService menuService;
@@ -27,10 +23,6 @@ public class CrawlerCommandLineRunner implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        if(logger.isWarnEnabled()) {
-            logger.warn("serverAddress:" + serverAddress);
-            logger.warn("serverPort:" + serverPort);
-        }
         menuService.updateUrl("http://" + serverAddress + ":" + serverPort);
     }
 }

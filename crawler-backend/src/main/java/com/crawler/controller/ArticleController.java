@@ -1,8 +1,8 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.Const;
 import com.crawler.constant.PermissionsConst;
+import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.*;
 import com.crawler.service.api.ArticleService;
 import com.crawler.service.api.SysLockService;
@@ -45,7 +45,7 @@ public class ArticleController {
 		te.setId(UUID.randomUUID().toString().replace("-", ""));
 		articleService.saveTemplateConfig(te);
 		BaseEntity be = new BaseEntity();
-		be.setMsgCode(Const.MESSAGE_CODE_OK);
+		be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 		be.setContent("保存文章配置成功");
 		return be;
 	}
@@ -68,11 +68,11 @@ public class ArticleController {
 		int versionId = templateConfig.getVersion();
 		// 如果两次的version不相等
 		if(versionId != te.getVersion()) {
-			be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+			be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
 			be.setContent("该文章配置信息已被其他人修改，请返回重新修改！");
 		}else {
 			articleService.editTemplateConfig(te);
-			be.setMsgCode(Const.MESSAGE_CODE_OK);
+			be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 			be.setContent("修改文章配置成功");
 		}
 		return be;
@@ -91,7 +91,7 @@ public class ArticleController {
 	public BaseEntity removeTemplateConfig(@PathVariable("id") String id, TokenEntity t) {
 		articleService.removeTemplateConfig(id);
 		BaseEntity be = new BaseEntity();
-		be.setMsgCode(Const.MESSAGE_CODE_OK);
+		be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 		be.setContent("删除文章配置成功");
 		return be;
 	}
@@ -110,7 +110,7 @@ public class ArticleController {
 		BaseEntity be = new BaseEntity();
 		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig(userId);
 		be.setContent(templateConfigs);
-		be.setMsgCode(Const.MESSAGE_CODE_OK);
+		be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 		return be;
 	}
 
@@ -128,7 +128,7 @@ public class ArticleController {
 		BaseEntity be = new BaseEntity();
 		TemplateConfig templateConfig = articleService.getTemplateConfig(id);
 		be.setContent(templateConfig);
-		be.setMsgCode(Const.MESSAGE_CODE_OK);
+		be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 		return be;
 	}
 
@@ -150,7 +150,7 @@ public class ArticleController {
 		BaseEntity be = new BaseEntity();
 		be.setTotal(crawlerContentSize);
 		be.setRows(contents);
-		be.setMsgCode(Const.MESSAGE_CODE_OK);
+		be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 		return be;
 	}
 
@@ -168,7 +168,7 @@ public class ArticleController {
 		BaseEntity be = new BaseEntity();
 		CrawlerContent crawlerContent = articleService.getCrawlerContent(id);
 		be.setContent(crawlerContent);
-		be.setMsgCode(Const.MESSAGE_CODE_OK);
+		be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 		return be;
 	}
 
@@ -197,10 +197,10 @@ public class ArticleController {
 			sysLock.setBusinessCron("0");
 			sysLockService.updateSysLock(sysLock);
 			be.setContent("执行爬取...");
-			be.setMsgCode(Const.MESSAGE_CODE_OK);
+			be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 		}else {
 			be.setContent("系统中有其他线程正在爬取文章，请稍后重试！");
-			be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+			be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
 		}
 		return be;
 	}
@@ -222,10 +222,10 @@ public class ArticleController {
 		BaseEntity be = new BaseEntity();
 		// 如果文章配置不存在
 		if(templateConfigCount < 1) {
-			be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+			be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
 			be.setContent("该文章配置已被删除！");
 		}else {
-			be.setMsgCode(Const.MESSAGE_CODE_OK);
+			be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 		}
 		return be;
 	}

@@ -1,6 +1,7 @@
 package com.crawler.components;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.crawler.util.LoggerUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -70,9 +71,7 @@ public class DruidDataSourceConfiguration {
         try {
             dataSource.setFilters("stat");
         } catch (SQLException e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn(e.getMessage());
-            }
+            LoggerUtils.printExceptionLogger(logger, e);
         }
         return dataSource;
     }

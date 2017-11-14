@@ -1,8 +1,8 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.Const;
 import com.crawler.constant.PermissionsConst;
+import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysRole;
 import com.crawler.domain.TokenEntity;
@@ -51,7 +51,7 @@ public class RoleController {
         BaseEntity be = new BaseEntity();
         be.setTotal(roleCount);
         be.setRows(sysRoles);
-        be.setMsgCode(Const.MESSAGE_CODE_OK);
+        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -67,7 +67,7 @@ public class RoleController {
         List<SysRole> sysRoles = roleService.listAll(sysRole);
         BaseEntity be = new BaseEntity();
         be.setContent(sysRoles);
-        be.setMsgCode(Const.MESSAGE_CODE_OK);
+        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -87,11 +87,11 @@ public class RoleController {
         // 当前角色已经被引用，不能删除
         if(countByRoleId > 0) {
             be.setContent("当前角色已经被引用，不能删除");
-            be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
         }else {
             roleService.delete(roleId);
             be.setContent("删除角色成功");
-            be.setMsgCode(Const.MESSAGE_CODE_OK);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         }
         return be;
     }
@@ -107,7 +107,7 @@ public class RoleController {
         List<TreeNode> menuList = menuService.getMenuTreeList();
         BaseEntity be = new BaseEntity();
         be.setContent(menuList);
-        be.setMsgCode(Const.MESSAGE_CODE_OK);
+        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -128,11 +128,11 @@ public class RoleController {
         // 如果角色名称存在
         if(roleNameExists > 0) {
             be.setContent("该角色名称存在，请换一个角色名称试试");
-            be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
         }else {
             roleService.addRole(sysRole);
             be.setContent("新增角色成功");
-            be.setMsgCode(Const.MESSAGE_CODE_OK);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         }
         return be;
     }
@@ -160,7 +160,7 @@ public class RoleController {
         infoMap.put("menuTreeInfo", menuList);
         infoMap.put("roleRelatedMenuIds", availableMenus);
         be.setContent(infoMap);
-        be.setMsgCode(Const.MESSAGE_CODE_OK);
+        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -182,12 +182,12 @@ public class RoleController {
         int versionId = sysRoleByRoleId.getVersion();
         // 如果两次的version不相等
         if(versionId != sysRole.getVersion()) {
-            be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
             be.setContent("该角色信息已被其他人修改，请返回重新修改！");
         }else {
             roleService.updateRole(sysRole);
             be.setContent("修改系统角色成功");
-            be.setMsgCode(Const.MESSAGE_CODE_OK);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         }
         return be;
     }
@@ -209,10 +209,10 @@ public class RoleController {
         BaseEntity be = new BaseEntity();
         // 如果角色不存在
         if(roleCount < 1) {
-            be.setMsgCode(Const.MESSAGE_CODE_ERROR);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
             be.setContent("该角色已被删除！");
         }else {
-            be.setMsgCode(Const.MESSAGE_CODE_OK);
+            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
         }
         return be;
     }

@@ -21,9 +21,7 @@ public class MD5Utils {
         try {
             md5 = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn(e.getMessage());
-            }
+            LoggerUtils.printExceptionLogger(logger, e);
         }
         BASE64Encoder base64en = new BASE64Encoder();
         // 加密后的字符串
@@ -33,9 +31,7 @@ public class MD5Utils {
                 newStr = base64en.encode(md5.digest(afterStr.getBytes("utf-8")));
             }
         } catch (UnsupportedEncodingException e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn(e.getMessage());
-            }
+            LoggerUtils.printExceptionLogger(logger, e);
         }
         return newStr;
     }

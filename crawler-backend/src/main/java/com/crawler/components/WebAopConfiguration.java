@@ -2,6 +2,7 @@ package com.crawler.components;
 
 import com.crawler.annotation.RequirePermissions;
 import com.crawler.domain.TokenEntity;
+import com.crawler.util.LoggerUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -45,14 +46,11 @@ public class WebAopConfiguration {
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
-        if(logger.isDebugEnabled()) {
-            // 记录下请求内容
-            logger.info("URL : " + request.getRequestURL().toString());
-            logger.info("HTTP_METHOD : " + request.getMethod());
-            logger.info("IP : " + request.getRemoteAddr());
-            logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-            logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
-        }
+        LoggerUtils.printDebugLogger(logger, "URL : " + request.getRequestURL().toString());
+        LoggerUtils.printDebugLogger(logger, "HTTP_METHOD : " + request.getMethod());
+        LoggerUtils.printDebugLogger(logger, "IP : " + request.getRemoteAddr());
+        LoggerUtils.printDebugLogger(logger, "CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+        LoggerUtils.printDebugLogger(logger, "ARGS : " + Arrays.toString(joinPoint.getArgs()));
     }
 
     /**
@@ -88,10 +86,8 @@ public class WebAopConfiguration {
         }
         long timeStart = System.currentTimeMillis();
         Object obj = proceedingJoinPoint.proceed(args);
-        if(logger.isWarnEnabled()) {
-            logger.warn("环绕通知的目标方法名：" + methodName);
-            logger.warn(methodName + "方法执行时间为：" + String.valueOf(System.currentTimeMillis() - timeStart) + "ms");
-        }
+        LoggerUtils.printLogger(logger, "环绕通知的目标方法名：" + methodName);
+        LoggerUtils.printLogger(logger, "方法执行时间为：" + String.valueOf(System.currentTimeMillis() - timeStart) + "ms");
         return obj;
     }
 }

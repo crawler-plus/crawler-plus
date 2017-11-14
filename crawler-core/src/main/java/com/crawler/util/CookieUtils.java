@@ -53,9 +53,7 @@ public final class CookieUtils {
                 }
             }
         } catch (UnsupportedEncodingException e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn(e.getMessage());
-            }
+            LoggerUtils.printExceptionLogger(logger, e);
         }
         return retValue;
     }
@@ -81,9 +79,7 @@ public final class CookieUtils {
                 }
             }
         } catch (UnsupportedEncodingException e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn(e.getMessage());
-            }
+            LoggerUtils.printExceptionLogger(logger, e);
         }
         return retValue;
     }
@@ -161,9 +157,7 @@ public final class CookieUtils {
             cookie.setPath("/");
             response.addCookie(cookie);
         } catch (Exception e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn(e.getMessage());
-            }
+            LoggerUtils.printExceptionLogger(logger, e);
         }
     }
 
@@ -192,9 +186,7 @@ public final class CookieUtils {
             cookie.setPath("/");
             response.addCookie(cookie);
         } catch (Exception e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn(e.getMessage());
-            }
+            LoggerUtils.printExceptionLogger(logger, e);
         }
     }
 

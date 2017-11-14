@@ -4,6 +4,7 @@ import com.crawler.domain.SysLock;
 import com.crawler.service.api.ArticleService;
 import com.crawler.service.api.SysCaptchaService;
 import com.crawler.service.api.SysLockService;
+import com.crawler.util.LoggerUtils;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.slf4j.Logger;
@@ -80,16 +81,12 @@ public class JobsConfiguration {
             }
             ftpClient.logout();
         }catch (Exception e) {
-            if(logger.isWarnEnabled()) {
-                logger.warn(e.getMessage());
-            }
+            LoggerUtils.printExceptionLogger(logger, e);
         }finally {
             try {
                 ftpClient.disconnect();
             } catch (IOException e) {
-                if(logger.isWarnEnabled()) {
-                    logger.warn(e.getMessage());
-                }
+                LoggerUtils.printExceptionLogger(logger, e);
             }
         }
     }

@@ -1,9 +1,10 @@
 package com.crawler.components;
 
-import com.crawler.constant.Const;
+import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.exception.CrawlerException;
 import com.crawler.exception.SecurityException;
+import com.crawler.util.LoggerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,12 +28,10 @@ public class GlobalDefaultExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR, reason="server error")
     public BaseEntity runtimeExceptionHandler(RuntimeException e) {
-        if(logger.isWarnEnabled()) {
-            logger.warn(e.getMessage());
-        }
+        LoggerUtils.printExceptionLogger(logger, e);
         BaseEntity be = new BaseEntity();
-        be.setMsgCode(Const.MESSAGE_CODE_ERROR);
-        be.setContent("发生异常，异常信息为:" + e.getMessage());
+        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+        be.setContent("发生系统异常，异常信息为:" + e.getMessage());
         return be;
     }
 
@@ -44,12 +43,10 @@ public class GlobalDefaultExceptionHandler {
     @ExceptionHandler(SecurityException.class)
     @ResponseStatus(value= HttpStatus.UNAUTHORIZED, reason="insecurity access")
     public BaseEntity securityExceptionHandler(SecurityException e) {
-        if(logger.isWarnEnabled()) {
-            logger.warn(e.getMessage());
-        }
+        LoggerUtils.printExceptionLogger(logger, e);
         BaseEntity be = new BaseEntity();
-        be.setMsgCode(Const.MESSAGE_CODE_SECURITY_INVALID);
-        be.setContent("发生异常，异常信息为:" + e.getMessage());
+        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_SECURITY_INVALID.getCode());
+        be.setContent("发生权限异常，异常信息为:" + e.getMessage());
         return be;
     }
 
@@ -60,12 +57,10 @@ public class GlobalDefaultExceptionHandler {
      */
     @ExceptionHandler(CrawlerException.class)
     public BaseEntity exceptionHandler(CrawlerException e) {
-        if(logger.isWarnEnabled()) {
-            logger.warn("发生异常，异常信息为:" + e.getMessage());
-        }
+        LoggerUtils.printExceptionLogger(logger, e);
         BaseEntity be = new BaseEntity();
-        be.setMsgCode(Const.MESSAGE_CODE_ERROR);
-        be.setContent("发生异常，异常信息为:" + e.getMessage());
+        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+        be.setContent("发生业务异常，异常信息为:" + e.getMessage());
         return be;
     }
 

@@ -1,8 +1,8 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.Const;
 import com.crawler.constant.PermissionsConst;
+import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BarCodeEntity;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.TokenEntity;
@@ -59,7 +59,7 @@ public class BarCodeController {
 			Element bodyEle = urlDocument.body();
 			String jsonStr = bodyEle.text();
 			BarCodeEntity bce = JsonUtils.jsonToPojo(jsonStr, BarCodeEntity.class);
-			be.setMsgCode(Const.MESSAGE_CODE_OK);
+			be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
 			be.setContent(bce);
 		} catch (Exception e) {
 			throw new CrawlerException(e);
