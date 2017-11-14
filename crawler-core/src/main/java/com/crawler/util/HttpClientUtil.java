@@ -12,6 +12,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URI;
@@ -21,11 +23,11 @@ import java.util.Map;
 
 public class HttpClientUtil {
 
-	public static String doGet(String url, Map<String, String> param, Map<String, String> headers) {
+	private static final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
 
+	public static String doGet(String url, Map<String, String> param, Map<String, String> headers) {
 		// 创建Httpclient对象
 		CloseableHttpClient httpclient = HttpClients.createDefault();
-
 		String resultString = "";
 		CloseableHttpResponse response = null;
 		try {
@@ -37,7 +39,6 @@ public class HttpClientUtil {
 				}
 			}
 			URI uri = builder.build();
-
 			// 创建http GET请求
 			HttpGet httpGet = new HttpGet(uri);
 			if(null != headers) {
@@ -52,16 +53,11 @@ public class HttpClientUtil {
 				resultString = EntityUtils.toString(response.getEntity(), "GBK");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (response != null) {
-					response.close();
-				}
-				httpclient.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+			if(logger.isWarnEnabled()) {
+				logger.warn(e.getMessage());
 			}
+		} finally {
+			closeResource(response, httpclient);
 		}
 		return resultString;
 	}
@@ -92,18 +88,28 @@ public class HttpClientUtil {
 			response = httpClient.execute(httpPost);
 			resultString = EntityUtils.toString(response.getEntity(), "utf-8");
 		} catch (Exception e) {
-			e.printStackTrace();
+			if(logger.isWarnEnabled()) {
+				logger.warn(e.getMessage());
+			}
 		} finally {
-			try {
-				if (response != null) {
-					response.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			closeResource(response, httpClient);
+		}
+		return resultString;
+	}
+
+	private static void closeResource(CloseableHttpResponse response, CloseableHttpClient httpclient) {
+		try {
+			if (response != null) {
+				response.close();
+			}
+			if (httpclient != null) {
+				httpclient.close();
+			}
+		} catch (IOException e) {
+			if(logger.isWarnEnabled()) {
+				logger.warn(e.getMessage());
 			}
 		}
-
-		return resultString;
 	}
 
 	public static String doPost(String url) {
@@ -125,15 +131,11 @@ public class HttpClientUtil {
 			response = httpClient.execute(httpPost);
 			resultString = EntityUtils.toString(response.getEntity(), "utf-8");
 		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (response != null) {
-					response.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			if(logger.isWarnEnabled()) {
+				logger.warn(e.getMessage());
 			}
+		} finally {
+			closeResource(response, httpClient);
 		}
 		return resultString;
 	}

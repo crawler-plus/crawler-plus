@@ -1,12 +1,16 @@
 package com.crawler.util;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtil {
+
+	private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
 
 	/**
 	 * 时间戳生成audit no
@@ -66,7 +70,9 @@ public class DateUtil {
 		try {
 			return sdf.parse(sdf.format(new Date()));
 		} catch (ParseException e) {
-			e.printStackTrace();
+			if(logger.isWarnEnabled()) {
+				logger.warn(e.getMessage());
+			}
 		}
 		return null;
 	}

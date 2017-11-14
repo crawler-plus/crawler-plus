@@ -3,6 +3,8 @@ package com.crawler.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -10,6 +12,8 @@ public class JsonUtils {
 
     // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
     /**
      * 将对象转换成json字符串。
@@ -22,7 +26,9 @@ public class JsonUtils {
     	try {
             return MAPPER.writeValueAsString(data);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+            if(logger.isWarnEnabled()) {
+                logger.warn(e.getMessage());
+            }
 		}
     	return null;
     }
@@ -38,7 +44,9 @@ public class JsonUtils {
         try {
             return MAPPER.readValue(jsonData, beanType);
         } catch (Exception e) {
-        	e.printStackTrace();
+            if(logger.isWarnEnabled()) {
+                logger.warn(e.getMessage());
+            }
         }
         return null;
     }
@@ -56,7 +64,9 @@ public class JsonUtils {
     	try {
             return MAPPER.readValue(jsonData, javaType);
 		} catch (Exception e) {
-			e.printStackTrace();
+            if(logger.isWarnEnabled()) {
+                logger.warn(e.getMessage());
+            }
 		}
     	return null;
     }

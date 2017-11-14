@@ -9,6 +9,8 @@ import com.crawler.util.JsoupUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +25,8 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
 	private ArticleMapper articleMapper;
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Override
 	public void saveTemplateConfig(TemplateConfig tc) {
@@ -106,7 +110,9 @@ public class ArticleServiceImpl implements ArticleService {
                     // 得到匹配的所有的区域
                     elements = JsoupUtils.getUrlContentsByPattern(te, reqHeadersMap, null);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    if(logger.isWarnEnabled()) {
+                        logger.warn(e.getMessage());
+                    }
                     // 继续下次循环
                     continue;
                 }
@@ -129,7 +135,9 @@ public class ArticleServiceImpl implements ArticleService {
                         try {
                             TimeUnit.SECONDS.sleep(1);
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            if(logger.isWarnEnabled()) {
+                                logger.warn(e.getMessage());
+                            }
                         }
                         Document d;
                         // 构造其他参数信息
@@ -139,7 +147,9 @@ public class ArticleServiceImpl implements ArticleService {
                         try {
                             d = JsoupUtils.getUrlDocument(t, reqHeadersMap, null);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            if(logger.isWarnEnabled()) {
+                                logger.warn(e.getMessage());
+                            }
                             // 继续下次循环
                             continue;
                         }

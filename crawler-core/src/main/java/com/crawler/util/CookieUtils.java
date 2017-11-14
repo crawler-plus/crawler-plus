@@ -1,5 +1,8 @@
 package com.crawler.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +14,8 @@ import java.net.URLEncoder;
  * Cookie 工具类
  */
 public final class CookieUtils {
+
+    private static final Logger logger = LoggerFactory.getLogger(CookieUtils.class);
 
     /**
      * 得到Cookie的值, 不编码
@@ -48,7 +53,9 @@ public final class CookieUtils {
                 }
             }
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            if(logger.isWarnEnabled()) {
+                logger.warn(e.getMessage());
+            }
         }
         return retValue;
     }
@@ -74,7 +81,9 @@ public final class CookieUtils {
                 }
             }
         } catch (UnsupportedEncodingException e) {
-        	 e.printStackTrace();
+            if(logger.isWarnEnabled()) {
+                logger.warn(e.getMessage());
+            }
         }
         return retValue;
     }
@@ -152,7 +161,9 @@ public final class CookieUtils {
             cookie.setPath("/");
             response.addCookie(cookie);
         } catch (Exception e) {
-        	 e.printStackTrace();
+            if(logger.isWarnEnabled()) {
+                logger.warn(e.getMessage());
+            }
         }
     }
 
@@ -181,7 +192,9 @@ public final class CookieUtils {
             cookie.setPath("/");
             response.addCookie(cookie);
         } catch (Exception e) {
-        	 e.printStackTrace();
+            if(logger.isWarnEnabled()) {
+                logger.warn(e.getMessage());
+            }
         }
     }
 
