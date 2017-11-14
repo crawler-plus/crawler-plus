@@ -242,5 +242,6 @@
     <orderEntry type="library" name="Maven: org.sonatype.plexus:plexus-cipher:1.4" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:1.5.15" level="project" />
     <orderEntry type="library" name="Maven: org.flywaydb:flyway-core:4.2.0" level="project" />
+    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:2.7.3" level="project" />
   </component>
 </module>

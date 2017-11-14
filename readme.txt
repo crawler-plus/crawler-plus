@@ -33,13 +33,14 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 3. MyBatis 3.4.5
 4. Spring 4.3.11.RELEASE
 5. Hibernate-validator 5.3.5
-6. Swagger2
+6. Swagger 2.7.0
 7. Jsoup 1.11.1
 8. Ehcache 2.10.4
 9. Spring-scheduled
 10. Druid 1.1.5
-11. Redis(缓存服务器)
-12. Nginx + Vsftpd (图片服务器)
+11. Hikari-CP 2.7.3
+12. Redis(缓存服务器)
+13. Nginx + Vsftpd (图片服务器)
 ......
 
 项目特点：
@@ -58,6 +59,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 12. 登录验证码支持
 13. 前后端交互基于token模式校验用户身份
 14. 加入二次验证用户权限机制，使用独创的@RequirePermissions注解，防止用户越权访问没有权限的API
+15. 支持双数据源配置，分别使用druid和hikari-cp数据库连接池管理这连个数据源
 ......
 
 运行步骤：

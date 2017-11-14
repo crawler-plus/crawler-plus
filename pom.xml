@@ -54,6 +54,7 @@
         <commons-net.version>3.6</commons-net.version>
         <flyway.version>4.2.0</flyway.version>
         <hutool.version>3.2.0</hutool.version>
+        <hikaricp.version>2.7.3</hikaricp.version>
     </properties>
 
     <dependencyManagement>
@@ -154,6 +155,11 @@
                 <groupId>com.xiaoleilu</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${hikaricp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
