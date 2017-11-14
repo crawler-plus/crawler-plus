@@ -492,8 +492,8 @@ CREATE TABLE `sys_menu` (
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '1', '#', '1');
-INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', 'http://127.0.0.1:8088/druid/index.html', '1');
-INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', 'http://127.0.0.1:8088/swagger-ui.html', '1');
+INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', '/druid/index.html', '1');
+INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', '/swagger-ui.html', '1');
 INSERT INTO `sys_menu` VALUES ('4', '用户管理', '1', '4', 'crawler/userMgmt.html', '1');
 INSERT INTO `sys_menu` VALUES ('5', '角色管理', '1', '5', 'crawler/roleMgmt.html', '1');
 INSERT INTO `sys_menu` VALUES ('6', '网页爬虫管理', '0', '6', '#', '2');
