@@ -30,7 +30,7 @@ public class DruidDataSourceConfiguration {
     static final String PACKAGE = "com.crawler.dao";
 
     // 精确到 master mabatis xml目录，以便跟其他数据源隔离
-    static final String MAPPER_LOCATION = "classpath:sqlmapper/*.xml";
+    private static final String MAPPER_LOCATION = "classpath:sqlmapper/*.xml";
 
     @Value("${master.datasource.url}")
     private String url;
