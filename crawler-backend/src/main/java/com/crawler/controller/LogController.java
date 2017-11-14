@@ -1,8 +1,6 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.PermissionsConst;
-import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysLog;
 import com.crawler.domain.TokenEntity;
@@ -18,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import static com.crawler.constant.PermissionsConst.LOG_MGMT;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 
 /**
  * Log Controller
@@ -38,7 +39,7 @@ public class LogController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping("/queryAll")
-    @RequirePermissions(value = PermissionsConst.LOG_MGMT)
+    @RequirePermissions(value = LOG_MGMT)
     public BaseEntity queryAll(SysLog sysLog, TokenEntity t) {
         int logCount = logService.getLogCount(sysLog);
         // 分页查询
@@ -47,7 +48,7 @@ public class LogController {
         BaseEntity be = new BaseEntity();
         be.setTotal(logCount);
         be.setRows(sysLogs);
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -57,11 +58,11 @@ public class LogController {
     @ApiOperation(value="系统log删除", notes="系统log删除")
     @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     @DeleteMapping(path = "/delete")
-    @RequirePermissions(value = PermissionsConst.LOG_MGMT)
+    @RequirePermissions(value = LOG_MGMT)
     public BaseEntity delete(TokenEntity t) {
         logService.delete();
         BaseEntity be = new BaseEntity();
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         be.setContent("删除系统log成功");
         return be;
     }

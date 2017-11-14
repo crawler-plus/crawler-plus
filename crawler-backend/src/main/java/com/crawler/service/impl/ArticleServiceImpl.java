@@ -163,8 +163,6 @@ public class ArticleServiceImpl implements ArticleService {
                         if (titleE.size() == 0) continue;
                         // 得到时间元素
                         Elements timeE = d.select(timeExp);
-                        // 证明是无效链接，继续下次循环
-                        //if (timeE.size() == 0) continue;
                         // 得到内容元素
                         Elements bodyE = d.select(tc.getContentPattern());
                         // 证明是无效链接，继续下次循环

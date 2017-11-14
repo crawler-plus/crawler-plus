@@ -1,6 +1,5 @@
 package com.crawler.components;
 
-import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.exception.CrawlerException;
 import com.crawler.exception.SecurityException;
@@ -11,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_ERROR;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_SECURITY_INVALID;
 
 /**
  * 全局异常处理Controller
@@ -30,7 +32,7 @@ public class GlobalDefaultExceptionHandler {
     public BaseEntity runtimeExceptionHandler(RuntimeException e) {
         LoggerUtils.printExceptionLogger(logger, e);
         BaseEntity be = new BaseEntity();
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+        be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
         be.setContent("发生系统异常，异常信息为:" + e.getMessage());
         return be;
     }
@@ -45,7 +47,7 @@ public class GlobalDefaultExceptionHandler {
     public BaseEntity securityExceptionHandler(SecurityException e) {
         LoggerUtils.printExceptionLogger(logger, e);
         BaseEntity be = new BaseEntity();
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_SECURITY_INVALID.getCode());
+        be.setMsgCode(MESSAGE_CODE_SECURITY_INVALID.getCode());
         be.setContent("发生权限异常，异常信息为:" + e.getMessage());
         return be;
     }
@@ -59,7 +61,7 @@ public class GlobalDefaultExceptionHandler {
     public BaseEntity exceptionHandler(CrawlerException e) {
         LoggerUtils.printExceptionLogger(logger, e);
         BaseEntity be = new BaseEntity();
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+        be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
         be.setContent("发生业务异常，异常信息为:" + e.getMessage());
         return be;
     }

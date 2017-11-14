@@ -1,6 +1,5 @@
 package com.crawler.components;
 
-import com.crawler.constant.PermissionsConst;
 import com.crawler.domain.SysMenu;
 import com.crawler.exception.SecurityException;
 import com.crawler.service.api.MenuService;
@@ -11,6 +10,8 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.crawler.constant.PermissionsConst.*;
 
 /**
  * 验证用户权限公共类
@@ -31,39 +32,39 @@ public class CheckPermissions {
         List<Integer> permissionsList = new ArrayList<>();
         String pStr = Arrays.toString(permissionValue);
         // 用户管理权限
-        if(pStr.contains(PermissionsConst.USER_MGMT)) {
+        if(pStr.contains(USER_MGMT)) {
             permissionsList.add(4);
         }
         // 角色管理权限
-        if(pStr.contains(PermissionsConst.ROLE_MGMT)) {
+        if(pStr.contains(ROLE_MGMT)) {
             permissionsList.add(5);
         }
         // 系统日志管理权限
-        if(pStr.contains(PermissionsConst.LOG_MGMT)) {
+        if(pStr.contains(LOG_MGMT)) {
             permissionsList.add(13);
         }
         // 网页爬虫查询权限
-        if(pStr.contains(PermissionsConst.NET_CRAWLER_SEARCH)) {
+        if(pStr.contains(NET_CRAWLER_SEARCH)) {
             permissionsList.add(7);
         }
         // 二维码信息查询权限
-        if(pStr.contains(PermissionsConst.QRCODE_SEARCH)) {
+        if(pStr.contains(QRCODE_SEARCH)) {
             permissionsList.add(8);
         }
         // 微信公众号查询权限
-        if(pStr.contains(PermissionsConst.WECHAT_PUBLIC_SEARCH)) {
+        if(pStr.contains(WECHAT_PUBLIC_SEARCH)) {
             permissionsList.add(9);
         }
         // 网站模版管理权限
-        if(pStr.contains(PermissionsConst.TEMPLATE_MGMT)) {
+        if(pStr.contains(TEMPLATE_MGMT)) {
             permissionsList.add(11);
         }
         // 文章查询权限
-        if(pStr.contains(PermissionsConst.CRAWLER_CONTENT_SEARCH)) {
+        if(pStr.contains(CRAWLER_CONTENT_SEARCH)) {
             permissionsList.add(12);
         }
         // 自服务管理-用户信息修改权限
-        if(pStr.contains(PermissionsConst.SELF_INFO_UPDATE)) {
+        if(pStr.contains(SELF_INFO_UPDATE)) {
             permissionsList.add(15);
         }
         // 根据用户id得到某个用户的权限

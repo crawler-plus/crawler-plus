@@ -1,6 +1,5 @@
 package com.crawler.controller;
 
-import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.exception.CrawlerException;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +15,8 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 
 /**
  * 发送邮件Controller
@@ -43,7 +44,7 @@ public class EmailController {
         message.setText("测试邮件内容");
         mailSender.send(message);
         BaseEntity be = new BaseEntity();
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         be.setContent("发送简单邮件成功");
         return be;
     }
@@ -70,7 +71,7 @@ public class EmailController {
         }
         // 发送邮件
         mailSender.send(mailMessage);
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         be.setContent("发送模版邮件成功");
         return be;
     }

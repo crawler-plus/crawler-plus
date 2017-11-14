@@ -1,8 +1,6 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.PermissionsConst;
-import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BarCodeEntity;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.TokenEntity;
@@ -23,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.crawler.constant.PermissionsConst.QRCODE_SEARCH;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
+
 /**
  * 条形码Controller
  */
@@ -36,7 +37,7 @@ public class BarCodeController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/barCode/{code}")
-	@RequirePermissions(value = PermissionsConst.QRCODE_SEARCH)
+	@RequirePermissions(value = QRCODE_SEARCH)
 	public BaseEntity barCode(@PathVariable("code") String code, TokenEntity t) throws CrawlerException {
 		BaseEntity be = new BaseEntity();
 		TransferEntity te = new TransferEntity();
@@ -59,7 +60,7 @@ public class BarCodeController {
 			Element bodyEle = urlDocument.body();
 			String jsonStr = bodyEle.text();
 			BarCodeEntity bce = JsonUtils.jsonToPojo(jsonStr, BarCodeEntity.class);
-			be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+			be.setMsgCode(MESSAGE_CODE_OK.getCode());
 			be.setContent(bce);
 		} catch (Exception e) {
 			throw new CrawlerException(e);

@@ -1,8 +1,6 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.PermissionsConst;
-import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
@@ -25,6 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.crawler.constant.PermissionsConst.WECHAT_PUBLIC_SEARCH;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
+
 /**
  * 微信公众号搜索Controller
  */
@@ -38,7 +39,7 @@ public class WeChatController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/weChat/{weChatTitle}")
-	@RequirePermissions(value = PermissionsConst.WECHAT_PUBLIC_SEARCH)
+	@RequirePermissions(value = WECHAT_PUBLIC_SEARCH)
 	public BaseEntity barCode(@PathVariable("weChatTitle") String weChatTitle, TokenEntity t) throws CrawlerException {
 		BaseEntity be = new BaseEntity();
 		TransferEntity te = new TransferEntity();
@@ -91,7 +92,7 @@ public class WeChatController {
 					}
 				}
 				// 业务message
-				be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+				be.setMsgCode(MESSAGE_CODE_OK.getCode());
 				be.setContent(wcoa);
 			}
 		} catch (Exception e) {

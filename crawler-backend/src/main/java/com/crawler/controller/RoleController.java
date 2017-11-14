@@ -1,8 +1,6 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.PermissionsConst;
-import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysRole;
 import com.crawler.domain.TokenEntity;
@@ -19,6 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.crawler.constant.PermissionsConst.ROLE_MGMT;
+import static com.crawler.constant.PermissionsConst.USER_MGMT;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_ERROR;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 
 /**
  * 角色Controller
@@ -42,7 +45,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping("/queryAll")
-    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
+    @RequirePermissions(value = ROLE_MGMT)
     public BaseEntity queryAll(SysRole sysRole, TokenEntity t) {
         int roleCount =  roleService.getRolesListCount(sysRole);
         // 分页查询
@@ -51,7 +54,7 @@ public class RoleController {
         BaseEntity be = new BaseEntity();
         be.setTotal(roleCount);
         be.setRows(sysRoles);
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -61,13 +64,13 @@ public class RoleController {
     @ApiOperation(value="查询系统角色(不带条件)", notes="查询系统角色(不带条件)")
     @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     @GetMapping("/queryAllRolesWithoutCondition")
-    @RequirePermissions(value = PermissionsConst.USER_MGMT)
+    @RequirePermissions(value = USER_MGMT)
     public BaseEntity queryAllRolesWithoutCondition(TokenEntity t) {
         SysRole sysRole = new SysRole();
         List<SysRole> sysRoles = roleService.listAll(sysRole);
         BaseEntity be = new BaseEntity();
         be.setContent(sysRoles);
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -80,18 +83,18 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @DeleteMapping(path = "/delete/{id}")
-    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
+    @RequirePermissions(value = ROLE_MGMT)
     public BaseEntity delete(@PathVariable("id") int roleId, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         int countByRoleId = roleService.getUserReferencesCountByRoleId(roleId);
         // 当前角色已经被引用，不能删除
         if(countByRoleId > 0) {
             be.setContent("当前角色已经被引用，不能删除");
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
         }else {
             roleService.delete(roleId);
             be.setContent("删除角色成功");
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+            be.setMsgCode(MESSAGE_CODE_OK.getCode());
         }
         return be;
     }
@@ -102,12 +105,12 @@ public class RoleController {
     @ApiOperation(value="初始化菜单树形节点", notes="初始化菜单树形节点")
     @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     @GetMapping("/initMenuTree")
-    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
+    @RequirePermissions(value = ROLE_MGMT)
     public BaseEntity initMenuTree(TokenEntity t) {
         List<TreeNode> menuList = menuService.getMenuTreeList();
         BaseEntity be = new BaseEntity();
         be.setContent(menuList);
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -120,7 +123,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @PostMapping(path = "/addRole")
-    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
+    @RequirePermissions(value = ROLE_MGMT)
     public BaseEntity addRole(SysRole sysRole, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         // 判断角色名称是否存在
@@ -128,11 +131,11 @@ public class RoleController {
         // 如果角色名称存在
         if(roleNameExists > 0) {
             be.setContent("该角色名称存在，请换一个角色名称试试");
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
         }else {
             roleService.addRole(sysRole);
             be.setContent("新增角色成功");
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+            be.setMsgCode(MESSAGE_CODE_OK.getCode());
         }
         return be;
     }
@@ -146,7 +149,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping(path = "/getRoleInfoById/{id}")
-    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
+    @RequirePermissions(value = ROLE_MGMT)
     public BaseEntity getRoleInfoById(@PathVariable("id") int roleId, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         // 获得角色信息
@@ -160,7 +163,7 @@ public class RoleController {
         infoMap.put("menuTreeInfo", menuList);
         infoMap.put("roleRelatedMenuIds", availableMenus);
         be.setContent(infoMap);
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -173,7 +176,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @PutMapping(path = "/updateRole")
-    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
+    @RequirePermissions(value = ROLE_MGMT)
     public BaseEntity updateUser(SysRole sysRole, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         // 得到角色信息
@@ -182,12 +185,12 @@ public class RoleController {
         int versionId = sysRoleByRoleId.getVersion();
         // 如果两次的version不相等
         if(versionId != sysRole.getVersion()) {
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
             be.setContent("该角色信息已被其他人修改，请返回重新修改！");
         }else {
             roleService.updateRole(sysRole);
             be.setContent("修改系统角色成功");
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+            be.setMsgCode(MESSAGE_CODE_OK.getCode());
         }
         return be;
     }
@@ -201,7 +204,7 @@ public class RoleController {
             @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping(path = "/checkRoleExists/{id}")
-    @RequirePermissions(value = PermissionsConst.ROLE_MGMT)
+    @RequirePermissions(value = ROLE_MGMT)
     public BaseEntity checkRoleExists(@PathVariable("id") int roleId, TokenEntity t) {
         SysRole sysRole = new SysRole();
         sysRole.setId(roleId);
@@ -209,10 +212,10 @@ public class RoleController {
         BaseEntity be = new BaseEntity();
         // 如果角色不存在
         if(roleCount < 1) {
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
             be.setContent("该角色已被删除！");
         }else {
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+            be.setMsgCode(MESSAGE_CODE_OK.getCode());
         }
         return be;
     }

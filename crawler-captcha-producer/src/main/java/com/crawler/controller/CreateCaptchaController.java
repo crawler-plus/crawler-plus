@@ -1,7 +1,6 @@
 package com.crawler.controller;
 
 import com.crawler.components.CrawlerProperties;
-import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.util.FtpUtils;
 import com.crawler.util.LoggerUtils;
@@ -19,6 +18,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.UUID;
+
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_ERROR;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 
 @RestController
 public class CreateCaptchaController {
@@ -52,12 +54,12 @@ public class CreateCaptchaController {
                     crawlerProperties.getCaptchaFtpServerPassword(),
                     crawlerProperties.getCaptchaFtpServerUrl(),
                     inputStream, imgName);
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+            be.setMsgCode(MESSAGE_CODE_OK.getCode());
             // 设置图片地址
             be.setContent("http://" + crawlerProperties.getCaptchaFtpServerHost() + ":" + crawlerProperties.getCaptchaFtpServerPort() + "/" + imgName);
         } catch (Exception e) {
             LoggerUtils.printExceptionLogger(logger, e);
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
             // 设置图片地址
             be.setContent("");
         }finally {

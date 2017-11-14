@@ -194,8 +194,7 @@ public final class CookieUtils {
      * 得到cookie的域名
      */
     private static final String getDomainName(HttpServletRequest request) {
-        String domainName = null;
-
+        String domainName;
         String serverName = request.getRequestURL().toString();
         if (serverName == null || serverName.equals("")) {
             domainName = "";
@@ -216,7 +215,6 @@ public final class CookieUtils {
                 domainName = serverName;
             }
         }
-
         if (domainName != null && domainName.indexOf(":") > 0) {
             String[] ary = domainName.split("\\:");
             domainName = ary[0];

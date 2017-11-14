@@ -24,25 +24,31 @@ public class CheckToken {
     void checkToken(TokenEntity te) {
         // token不合法标识
         boolean tokenInvalidFlag = false;
-        if(StringUtils.isEmpty(te.getUid()) || StringUtils.isEmpty(te.getTimestamp()) || StringUtils.isEmpty(te.getToken())) {
+        // 用户id
+        String uid = te.getUid();
+        // 时间戳
+        String timeStamp = te.getTimestamp();
+        // token
+        String token = te.getToken();
+        if(StringUtils.isEmpty(uid) || StringUtils.isEmpty(timeStamp) || StringUtils.isEmpty(token)) {
             tokenInvalidFlag = true;
         }else {
-            TokenEntity tokenEntity = TokenUtils.createUserToken(te.getUid(), Long.parseLong(te.getTimestamp()), crawlerProperties.getUserTokenKey());
-            if(!StringUtils.equals(tokenEntity.getToken(), te.getToken())) {
+            TokenEntity tokenEntity = TokenUtils.createUserToken(uid, Long.parseLong(timeStamp), crawlerProperties.getUserTokenKey());
+            if(!StringUtils.equals(tokenEntity.getToken(), token)) {
                 tokenInvalidFlag = true;
             }else {
                 // 判断用户是否已经退出系统
-                SysUser sysUserByUserId = userService.getSysUserByUserId(Integer.parseInt(te.getUid()));
-                String token = sysUserByUserId.getLoginToken();
+                SysUser sysUserByUserId = userService.getSysUserByUserId(Integer.parseInt(uid));
+                String userToken = sysUserByUserId.getLoginToken();
                 // 如果用户token已被删除
-                if(!StringUtils.equals(token, te.getToken())) {
+                if(!StringUtils.equals(userToken, token)) {
                     tokenInvalidFlag = true;
                 }else {
                     long now = System.currentTimeMillis();
                     // 得到3H的millis
                     long threeHoursMillis = 1000 * 3600 * 3;
                     // token有效期只有3小时，过期自动失效
-                    if(now - Long.parseLong(te.getTimestamp()) > threeHoursMillis) {
+                    if(now - Long.parseLong(timeStamp) > threeHoursMillis) {
                         tokenInvalidFlag = true;
                     }
                 }

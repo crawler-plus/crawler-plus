@@ -2,8 +2,6 @@ package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
 import com.crawler.components.CrawlerProperties;
-import com.crawler.constant.PermissionsConst;
-import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.*;
 import com.crawler.service.api.LogService;
 import com.crawler.service.api.RoleService;
@@ -18,6 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+
+import static com.crawler.constant.PermissionsConst.SELF_INFO_UPDATE;
+import static com.crawler.constant.PermissionsConst.USER_MGMT;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_ERROR;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 
 /**
  * 用户Controller
@@ -66,18 +69,18 @@ public class UserController {
         }
         // 如果验证码没有通过
         if(!captchaAccess) {
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
             be.setContent("验证码错误，请重新输入");
         }
         // 如果验证码通过
         else {
             Map<String, Object> infoMap = userService.canLogin(sysUser);
             if(infoMap.isEmpty()) {
-                be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+                be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
                 be.setContent("用户名或密码错误，请重试");
             }else {
                 be.setContent(infoMap);
-                be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+                be.setMsgCode(MESSAGE_CODE_OK.getCode());
             }
         }
         return be;
@@ -92,7 +95,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping("/queryAll")
-    @RequirePermissions(value = PermissionsConst.USER_MGMT)
+    @RequirePermissions(value = USER_MGMT)
     public BaseEntity queryAll(SysUser sysUser, TokenEntity te) {
         int userCount = userService.getUsersListCount(sysUser);
         // 分页查询
@@ -101,7 +104,7 @@ public class UserController {
         BaseEntity be = new BaseEntity();
         be.setTotal(userCount);
         be.setRows(sysUsers);
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -114,18 +117,18 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @DeleteMapping(path = "/delete/{id}")
-    @RequirePermissions(value = PermissionsConst.USER_MGMT)
+    @RequirePermissions(value = USER_MGMT)
     public BaseEntity delete(@PathVariable("id") int userId, TokenEntity te) {
         BaseEntity be = new BaseEntity();
         SysUser sysUser = userService.getSysUserByUserId(userId);
         // 如果是管理员，不允许删除，否则系统中一个用户都没有了
         if("admin".equals(sysUser.getLoginAccount())) {
             be.setContent("系统管理员不允许删除");
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
         }else {
             userService.delete(userId);
             be.setContent("删除用户成功");
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+            be.setMsgCode(MESSAGE_CODE_OK.getCode());
         }
         return be;
     }
@@ -139,12 +142,12 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping(path = "/queryUser/{id}")
-    @RequirePermissions(value = {PermissionsConst.USER_MGMT, PermissionsConst.SELF_INFO_UPDATE})
+    @RequirePermissions(value = {USER_MGMT, SELF_INFO_UPDATE})
     public BaseEntity queryUser(@PathVariable("id") int userId, TokenEntity te) {
         SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
         BaseEntity be = new BaseEntity();
         be.setContent(sysUserByUserId);
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -157,12 +160,12 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @GetMapping(path = "/getRoleByUserId/{id}")
-    @RequirePermissions(value = PermissionsConst.USER_MGMT)
+    @RequirePermissions(value = USER_MGMT)
     public BaseEntity getRoleByUserId(@PathVariable("id") int userId, TokenEntity te) {
         List<SysRole> roleByUserId = roleService.getRoleByUserId(userId);
         BaseEntity be = new BaseEntity();
         be.setContent(roleByUserId);
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -175,7 +178,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @PostMapping(path = "/addUser")
-    @RequirePermissions(value = PermissionsConst.USER_MGMT)
+    @RequirePermissions(value = USER_MGMT)
     public BaseEntity addUser(SysUser sysUser, TokenEntity te) {
         BaseEntity be = new BaseEntity();
         // 判断用户是否存在
@@ -183,11 +186,11 @@ public class UserController {
         // 如果用户存在
         if(userExists > 0) {
             be.setContent("该用户登录帐号已经存在，请换个登录帐号试试");
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
         }else {
             userService.addUser(sysUser);
             be.setContent("新增用户成功");
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+            be.setMsgCode(MESSAGE_CODE_OK.getCode());
         }
         return be;
     }
@@ -201,7 +204,7 @@ public class UserController {
             @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
     })
     @PutMapping(path = "/updateUser")
-    @RequirePermissions(value = {PermissionsConst.USER_MGMT, PermissionsConst.SELF_INFO_UPDATE})
+    @RequirePermissions(value = {USER_MGMT, SELF_INFO_UPDATE})
     public BaseEntity updateUser(SysUser sysUser, TokenEntity te) {
         BaseEntity be = new BaseEntity();
         // 得到用户信息
@@ -210,11 +213,11 @@ public class UserController {
         int versionId = sysUserByUserId.getVersion();
         // 如果两次的version不相等
         if(versionId != sysUser.getVersion()) {
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
             be.setContent("该用户信息已被其他人修改，请返回重新修改！");
         }else {
             userService.updateUser(sysUser);
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+            be.setMsgCode(MESSAGE_CODE_OK.getCode());
             be.setContent("修改用户成功");
         }
         return be;
@@ -243,7 +246,7 @@ public class UserController {
         updateTokenParam.setLoginToken("");
         userService.updateUserToken(updateTokenParam);
         be.setContent("用户退出");
-        be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+        be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
     }
 
@@ -263,10 +266,10 @@ public class UserController {
         BaseEntity be = new BaseEntity();
         // 如果用户不存在
         if(userCount < 1) {
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_ERROR.getCode());
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
             be.setContent("该用户已被删除！");
         }else {
-            be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+            be.setMsgCode(MESSAGE_CODE_OK.getCode());
         }
         return be;
     }

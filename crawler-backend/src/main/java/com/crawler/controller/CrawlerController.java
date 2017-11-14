@@ -1,8 +1,6 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.constant.PermissionsConst;
-import com.crawler.constant.ResponseCodeConst;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
@@ -23,6 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.crawler.constant.PermissionsConst.NET_CRAWLER_SEARCH;
+import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
+
 /**
  * 简单爬取网站Controller
  */
@@ -36,7 +37,7 @@ public class CrawlerController {
 			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@PostMapping("/crawler")
-	@RequirePermissions(value = PermissionsConst.NET_CRAWLER_SEARCH)
+	@RequirePermissions(value = NET_CRAWLER_SEARCH)
 	public BaseEntity crawler(@RequestBody TransferEntity te, TokenEntity t) throws CrawlerException {
 		Map<String, String> reqHeadersMap = new HashMap<>();
 		reqHeadersMap.put("Accept", "*/*");
@@ -63,7 +64,7 @@ public class CrawlerController {
 				be.setContent(contentList.toArray());
 			}
 		}
-		be.setMsgCode(ResponseCodeConst.MESSAGE_CODE_OK.getCode());
+		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		return be;
 	}
 
