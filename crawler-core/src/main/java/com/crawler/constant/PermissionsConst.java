@@ -31,4 +31,7 @@ public class PermissionsConst {
 
     // 自服务管理-用户信息修改权限
     public static final String SELF_INFO_UPDATE = "SELF_INFO_UPDATE";
+
+    // 页眉页脚管理权限
+    public static final String HEADER_FOOTER_CONTENT = "HEADER_FOOTER_CONTENT";
 }

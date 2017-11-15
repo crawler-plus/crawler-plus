@@ -67,6 +67,10 @@ public class CheckPermissions {
         if(pStr.contains(SELF_INFO_UPDATE)) {
             permissionsList.add(15);
         }
+        // 页眉页脚管理权限
+        if(pStr.contains(HEADER_FOOTER_CONTENT)) {
+            permissionsList.add(16);
+        }
         // 根据用户id得到某个用户的权限
         List<SysMenu> menuList = menuService.getMenuList(Integer.parseInt(uid));
         // 装这个用户可以访问的菜单id列表

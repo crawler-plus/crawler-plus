@@ -65,7 +65,7 @@ public class ArticleController {
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	public BaseEntity editTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
 		BaseEntity be = new BaseEntity();
-		// 得到用户信息
+		// 得到文章配置信息
 		TemplateConfig templateConfig = articleService.getTemplateConfig(te.getId());
 		// 得到最新版本信息
 		int versionId = templateConfig.getVersion();
