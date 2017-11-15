@@ -11,7 +11,9 @@ import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,7 +52,7 @@ public class UserController {
     @ApiOperation(value="用户登录", notes="用户登录")
     @ApiImplicitParam(name = "sysUser", value = "系统用户entity", dataType = "SysUser")
     @PostMapping("/login")
-    public BaseEntity login(SysUser sysUser) {
+    public BaseEntity login(@Validated({SysUser.Second.class}) SysUser sysUser) {
         BaseEntity be = new BaseEntity();
         boolean useCaptcha = crawlerProperties.isUseCaptcha();
         // 验证码是否通过
@@ -60,6 +62,10 @@ public class UserController {
             List<String> sysCaptchas = sysCaptchaService.listAllSysCaptcha();
             // 判断验证码是否正确
             String captcha = sysUser.getCaptcha();
+            // 处理验证码前台传过来是空的情况
+            if(StringUtils.isEmpty(captcha)) {
+                captcha = "";
+            }
             // 如果验证码正确
             captchaAccess = sysCaptchas.contains(captcha.toLowerCase());
         }
@@ -179,7 +185,7 @@ public class UserController {
     })
     @PostMapping(path = "/addUser")
     @RequirePermissions(value = USER_MGMT)
-    public BaseEntity addUser(SysUser sysUser, TokenEntity te) {
+    public BaseEntity addUser(@Validated({SysUser.First.class}) SysUser sysUser, TokenEntity te) {
         BaseEntity be = new BaseEntity();
         // 判断用户是否存在
         int userExists = userService.checkUserExists(sysUser);
@@ -205,7 +211,7 @@ public class UserController {
     })
     @PutMapping(path = "/updateUser")
     @RequirePermissions(value = {USER_MGMT, SELF_INFO_UPDATE})
-    public BaseEntity updateUser(SysUser sysUser, TokenEntity te) {
+    public BaseEntity updateUser(@Validated({SysUser.Third.class})SysUser sysUser, TokenEntity te) {
         BaseEntity be = new BaseEntity();
         // 得到用户信息
         SysUser sysUserByUserId = userService.getSysUserByUserId(sysUser.getId());

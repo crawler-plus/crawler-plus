@@ -1,5 +1,7 @@
 package com.crawler.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 用户entity
  */
@@ -9,12 +11,15 @@ public class SysUser extends BaseEntity {
     private int id;
 
     // 登录名称
+    @NotBlank(message = "{sysUser.loginAccount.not.null}", groups = {First.class, Second.class})
     private String loginAccount;
 
     // 用户姓名
+    @NotBlank(message = "{sysUser.name.not.null}", groups = {First.class, Third.class})
     private String name;
 
     // 密码
+    @NotBlank(message = "{sysUser.password.not.null}", groups = {Second.class, Third.class})
     private String password;
 
     // 用户角色字符串，用逗号分割
@@ -31,6 +36,12 @@ public class SysUser extends BaseEntity {
 
     // 登录token
     private String loginToken;
+
+    public interface First {}
+
+    public interface Second {}
+
+    public interface Third {}
 
     public int getId() {
         return id;

@@ -1,5 +1,7 @@
 package com.crawler.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 角色entity
  */
@@ -9,6 +11,7 @@ public class SysRole extends BaseEntity {
     private int id;
 
     // 角色名称
+    @NotBlank(message = "{sysRole.roleName.not.null}")
     private String roleName;
 
     // 备注

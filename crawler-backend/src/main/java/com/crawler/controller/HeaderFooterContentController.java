@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 import static com.crawler.constant.PermissionsConst.HEADER_FOOTER_CONTENT;
 import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_ERROR;
 import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
@@ -54,7 +56,7 @@ public class HeaderFooterContentController {
 	})
 	@PutMapping("/edit")
 	@RequirePermissions(value = HEADER_FOOTER_CONTENT)
-	public BaseEntity editTemplateConfig(SysHeaderFooterContent sysHeaderFooterContent, TokenEntity t) {
+	public BaseEntity editTemplateConfig(@Valid SysHeaderFooterContent sysHeaderFooterContent, TokenEntity t) {
 		BaseEntity be = new BaseEntity();
 		// 得到页眉页脚信息
 		SysHeaderFooterContent sysFhc = headerFooterContentService.getHeaderFooterContent();

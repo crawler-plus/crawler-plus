@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -124,7 +125,7 @@ public class RoleController {
     })
     @PostMapping(path = "/addRole")
     @RequirePermissions(value = ROLE_MGMT)
-    public BaseEntity addRole(SysRole sysRole, TokenEntity t) {
+    public BaseEntity addRole(@Valid SysRole sysRole, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         // 判断角色名称是否存在
         int roleNameExists = roleService.checkRoleNameExists(sysRole);
@@ -177,7 +178,7 @@ public class RoleController {
     })
     @PutMapping(path = "/updateRole")
     @RequirePermissions(value = ROLE_MGMT)
-    public BaseEntity updateUser(SysRole sysRole, TokenEntity t) {
+    public BaseEntity updateUser(@Valid SysRole sysRole, TokenEntity t) {
         BaseEntity be = new BaseEntity();
         // 得到角色信息
         SysRole sysRoleByRoleId = roleService.getRoleByRoleId(sysRole.getId());
