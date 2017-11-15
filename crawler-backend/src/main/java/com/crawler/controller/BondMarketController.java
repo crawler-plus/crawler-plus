@@ -40,7 +40,7 @@ public class BondMarketController {
 	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	@GetMapping("/craw")
 	@RequirePermissions(value = BOND_MARKET)
-	public BaseEntity crawBondMarket(TokenEntity t) throws CrawlerException {
+	public BaseEntity crawBondMarket(TokenEntity t) {
 		BaseEntity be = new BaseEntity();
 		bondMarketService.crawBondMarket();
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -54,11 +54,11 @@ public class BondMarketController {
 	@ApiOperation(value="用户债券市场内容", notes="用户债券市场内容")
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "bondMarket", value = "债券市场entity", required = true, dataType = "BondMarket"),
-			@ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
 	})
 	@GetMapping("/queryAll")
 	@RequirePermissions(value = BOND_MARKET)
-	public BaseEntity queryAll(BondMarket bondMarket, TokenEntity te) {
+	public BaseEntity queryAll(BondMarket bondMarket, TokenEntity t) {
 		int bondMarketCount = bondMarketService.getBondMarketListCount();
 		// 分页查询
 		PageHelper.startPage(bondMarket.getPage(),bondMarket.getLimit());
