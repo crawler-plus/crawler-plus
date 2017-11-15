@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="../css/style.css?v=4.1.0" rel="stylesheet">
+    <link href="../css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <style>
+        table td{
+            word-break: keep-all;white-space:nowrap;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox float-e-margins">
+        <div class="ibox-content">
+            <div class="row row-lg">
+                <div class="col-sm-12">
+                    <div class="example-wrap">
+                        <form class="form-horizontal" id="queryForm">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary" id="queryBtn">查询</button>
+                            </div>
+                        </form>
+                        <div class="example">
+                            <div class="btn-group hidden-xs" id="menuTableToolbar" role="group">
+                                <button type="button" class="btn btn-outline btn-default" id="craw">
+                                    爬取债券市场数据
+                                </button>
+                            </div>
+                            <table id="bondMarketList" data-height="400"  data-mobile-responsive="false">
+                                <thead>
+                                <tr>
+                                    <th data-field="code" data-width="200">证券代码</th>
+                                    <th data-field="abbre" data-width="200">证券简称</th>
+                                    <th data-field="title" data-width="200">公告标题</th>
+                                    <th data-field="category" data-width="200">证券类别</th>
+                                    <th data-field="publishDate" data-width="200">公告时间</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../js/jquery.min.js?v=2.1.4"></script>
+<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="../js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+<script src="../js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
+<script src="../js/plugins/toastr/toastr.min.js"></script>
+<script src="../js/plugins/layer/layer.min.js"></script>
+<script src="../common/dataRequest.js"></script>
+<script src="../common/commonUtil.js"></script>
+<script src="js/bondMarketSearch.js"></script>
+</body>
+</html>

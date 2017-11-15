@@ -34,4 +34,7 @@ public class PermissionsConst {
 
     // 页眉页脚管理权限
     public static final String HEADER_FOOTER_CONTENT = "HEADER_FOOTER_CONTENT";
+
+    // 债券市场查询权限
+    public static final String BOND_MARKET = "BOND_MARKET";
 }

@@ -71,6 +71,10 @@ public class CheckPermissions {
         if(pStr.contains(HEADER_FOOTER_CONTENT)) {
             permissionsList.add(16);
         }
+        // 债券市场查询权限
+        if(pStr.contains(BOND_MARKET)) {
+            permissionsList.add(17);
+        }
         // 根据用户id得到某个用户的权限
         List<SysMenu> menuList = menuService.getMenuList(Integer.parseInt(uid));
         // 装这个用户可以访问的菜单id列表

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crawler.dao.BondMarketMapper" >
+
+    <insert id="saveBondMarket" parameterType="com.crawler.domain.BondMarket">
+        INSERT INTO bond_market
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test='id != null and id != "" '>
+                id,
+            </if>
+            <if test='code != null and code != "" '>
+                code,
+            </if>
+            <if test='abbre != null and abbre != "" '>
+                abbre,
+            </if>
+            <if test='title != null and title != "" '>
+                title,
+            </if>
+            <if test='category != null and category != "" '>
+                category,
+            </if>
+            <if test='publishDate != null and publishDate != "" '>
+                publish_date,
+            </if>
+                create_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test='id != null and id != "" '>
+                #{id, jdbcType=VARCHAR},
+            </if>
+            <if test='code != null and code != "" '>
+                #{code, jdbcType=VARCHAR},
+            </if>
+            <if test='abbre != null and abbre != "" '>
+                #{abbre, jdbcType=VARCHAR},
+            </if>
+            <if test='title != null and title != "" '>
+                #{title, jdbcType=VARCHAR},
+            </if>
+            <if test='category != null and category != "" '>
+                #{category, jdbcType=VARCHAR},
+            </if>
+            <if test='publishDate != null and publishDate != "" '>
+                #{publishDate, jdbcType=VARCHAR},
+            </if>
+                NOW(),
+        </trim>
+    </insert>
+
+    <select id="fetchAllIdsFromBondMarket" resultType="java.lang.String">
+        SELECT id FROM bond_market
+    </select>
+
+    <select id="listAll" resultType="com.crawler.domain.BondMarket">
+        SELECT
+        id AS id,
+        code AS code,
+        abbre AS abbre,
+        title AS title,
+        category AS category,
+        publish_date AS publishDate
+        FROM bond_market
+        ORDER BY id DESC
+    </select>
+
+    <select id="getBondMarketListCount" resultType="int">
+        SELECT
+        COUNT(1)
+        FROM bond_market
+    </select>
+
+</mapper>

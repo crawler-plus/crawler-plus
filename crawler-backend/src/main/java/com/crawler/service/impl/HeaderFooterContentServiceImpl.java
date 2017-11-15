@@ -15,6 +15,7 @@ public class HeaderFooterContentServiceImpl implements HeaderFooterContentServic
 	private HeaderFooterContentMapper headerFooterContentMapper;
 
     @Override
+    @Transactional(readOnly = true)
     public SysHeaderFooterContent getHeaderFooterContent() {
         return headerFooterContentMapper.getHeaderFooterContent();
     }
