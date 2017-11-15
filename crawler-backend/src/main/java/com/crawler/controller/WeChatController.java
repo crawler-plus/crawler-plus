@@ -35,7 +35,7 @@ public class WeChatController {
 
 	@ApiOperation(value="根据微信公众号名称搜索微信公众号", notes="根据微信公众号名称搜索微信公众号")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "weChatTitle", value = "微信公众号名称", dataType = "String"),
+			@ApiImplicitParam(name = "weChatTitle", value = "微信公众号名称", required = true, dataType = "String"),
 			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/weChat/{weChatTitle}")

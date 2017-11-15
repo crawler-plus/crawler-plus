@@ -79,7 +79,7 @@ public class RoleController {
      */
     @ApiOperation(value="删除角色", notes="删除角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", value = "系统角色id", dataType = "int"),
+            @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @DeleteMapping(path = "/delete/{id}")
@@ -145,7 +145,7 @@ public class RoleController {
      */
     @ApiOperation(value="查询单个系统角色信息", notes="查询单个系统角色信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", value = "系统角色Id", dataType = "int"),
+            @ApiImplicitParam(name = "roleId", value = "系统角色Id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/getRoleInfoById/{id}")
@@ -200,7 +200,7 @@ public class RoleController {
      */
     @ApiOperation(value="判断角色是否存在", notes="判断角色是否存在")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", value = "系统角色id", dataType = "int"),
+            @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/checkRoleExists/{id}")

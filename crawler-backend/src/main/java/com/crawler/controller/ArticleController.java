@@ -86,7 +86,7 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="根据id删除文章配置", notes="根据id删除文章配置")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "文章配置id", dataType = "String"),
+			@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String"),
 			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@DeleteMapping(path = "/removeTemplateConfig/{id}")
@@ -104,7 +104,7 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="列出所有文章配置", notes="列出所有文章配置")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
 			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/listAllTemplateConfig/{id}")
@@ -122,7 +122,7 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="根据id获得文章配置", notes="根据id获得文章配置")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "文章配置id", dataType = "String"),
+			@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String"),
 			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/getTemplateConfig/{id}")
@@ -162,7 +162,7 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="根据id获得指定文章", notes="根据id获得指定文章")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "文章id", dataType = "String"),
+			@ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "String"),
 			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/getCrawlerContent/{id}")
@@ -180,7 +180,7 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="执行cron", notes="执行cron")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
 			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/executeCron/{id}")
@@ -213,7 +213,7 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="判断文章配置是否存在", notes="判断文章配置是否存在")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "templateConfigId", value = "文章配置id", dataType = "String"),
+			@ApiImplicitParam(name = "templateConfigId", value = "文章配置id", required = true, dataType = "String"),
 			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/checkTemplateConfigExists/{id}")

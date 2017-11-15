@@ -113,7 +113,7 @@ public class UserController {
      */
     @ApiOperation(value="删除用户", notes="删除用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+            @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @DeleteMapping(path = "/delete/{id}")
@@ -138,7 +138,7 @@ public class UserController {
      */
     @ApiOperation(value="查询单个用户信息", notes="查询单个用户信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户Id", dataType = "int"),
+            @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/queryUser/{id}")
@@ -156,7 +156,7 @@ public class UserController {
      */
     @ApiOperation(value="查询单个用户的角色", notes="查询单个用户的角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户Id", dataType = "int"),
+            @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/getRoleByUserId/{id}")
@@ -228,7 +228,7 @@ public class UserController {
      */
     @ApiOperation(value="用户退出", notes="用户退出")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+            @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/logout/{id}")
@@ -255,7 +255,7 @@ public class UserController {
      */
     @ApiOperation(value="判断用户是否存在", notes="判断用户是否存在")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+            @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
             @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/checkUserExists/{id}")
