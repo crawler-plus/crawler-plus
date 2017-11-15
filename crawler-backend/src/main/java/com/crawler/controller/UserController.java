@@ -48,7 +48,7 @@ public class UserController {
      * 用户登录
      */
     @ApiOperation(value="用户登录", notes="用户登录")
-    @ApiImplicitParam(name = "sysUser", value = "系统用户entity", required = true, dataType = "SysUser")
+    @ApiImplicitParam(name = "sysUser", value = "系统用户entity", dataType = "SysUser")
     @PostMapping("/login")
     public BaseEntity login(SysUser sysUser) {
         BaseEntity be = new BaseEntity();
@@ -91,8 +91,8 @@ public class UserController {
      */
     @ApiOperation(value="查询所有用户", notes="查询所有用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "sysUser", value = "系统用户entity", required = true, dataType = "SysUser"),
-            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "sysUser", value = "系统用户entity", dataType = "SysUser"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping("/queryAll")
     @RequirePermissions(value = USER_MGMT)
@@ -113,8 +113,8 @@ public class UserController {
      */
     @ApiOperation(value="删除用户", notes="删除用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @DeleteMapping(path = "/delete/{id}")
     @RequirePermissions(value = USER_MGMT)
@@ -138,8 +138,8 @@ public class UserController {
      */
     @ApiOperation(value="查询单个用户信息", notes="查询单个用户信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "userId", value = "用户Id", dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/queryUser/{id}")
     @RequirePermissions(value = {USER_MGMT, SELF_INFO_UPDATE})
@@ -156,8 +156,8 @@ public class UserController {
      */
     @ApiOperation(value="查询单个用户的角色", notes="查询单个用户的角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "userId", value = "用户Id", dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/getRoleByUserId/{id}")
     @RequirePermissions(value = USER_MGMT)
@@ -174,8 +174,8 @@ public class UserController {
      */
     @ApiOperation(value="添加系统用户", notes="添加系统用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", required = true, dataType = "SysUser"),
-            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", dataType = "SysUser"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @PostMapping(path = "/addUser")
     @RequirePermissions(value = USER_MGMT)
@@ -200,8 +200,8 @@ public class UserController {
      */
     @ApiOperation(value="修改系统用户", notes="修改系统用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", required = true, dataType = "SysUser"),
-            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", dataType = "SysUser"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @PutMapping(path = "/updateUser")
     @RequirePermissions(value = {USER_MGMT, SELF_INFO_UPDATE})
@@ -228,8 +228,8 @@ public class UserController {
      */
     @ApiOperation(value="用户退出", notes="用户退出")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/logout/{id}")
     public BaseEntity logout(@PathVariable("id") int userId, TokenEntity te) {
@@ -255,8 +255,8 @@ public class UserController {
      */
     @ApiOperation(value="判断用户是否存在", notes="判断用户是否存在")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "te", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+            @ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/checkUserExists/{id}")
     public BaseEntity checkUserExists(@PathVariable("id") int userId, TokenEntity te) {

@@ -41,8 +41,8 @@ public class RoleController {
      */
     @ApiOperation(value="查询所有系统角色", notes="查询所有系统角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "sysRole", value = "系统角色entity", required = true, dataType = "SysRole"),
-            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "sysRole", value = "系统角色entity", dataType = "SysRole"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping("/queryAll")
     @RequirePermissions(value = ROLE_MGMT)
@@ -62,7 +62,7 @@ public class RoleController {
      * 查询系统角色(不带条件)
      */
     @ApiOperation(value="查询系统角色(不带条件)", notes="查询系统角色(不带条件)")
-    @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     @GetMapping("/queryAllRolesWithoutCondition")
     @RequirePermissions(value = USER_MGMT)
     public BaseEntity queryAllRolesWithoutCondition(TokenEntity t) {
@@ -79,8 +79,8 @@ public class RoleController {
      */
     @ApiOperation(value="删除角色", notes="删除角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "roleId", value = "系统角色id", dataType = "int"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @DeleteMapping(path = "/delete/{id}")
     @RequirePermissions(value = ROLE_MGMT)
@@ -103,7 +103,7 @@ public class RoleController {
      * 初始化菜单树形节点
      */
     @ApiOperation(value="初始化菜单树形节点", notes="初始化菜单树形节点")
-    @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     @GetMapping("/initMenuTree")
     @RequirePermissions(value = ROLE_MGMT)
     public BaseEntity initMenuTree(TokenEntity t) {
@@ -119,8 +119,8 @@ public class RoleController {
      */
     @ApiOperation(value="添加系统角色", notes="添加系统角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "addRole", value = "系统角色Entity", required = true, dataType = "SysRole"),
-            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "addRole", value = "系统角色Entity", dataType = "SysRole"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @PostMapping(path = "/addRole")
     @RequirePermissions(value = ROLE_MGMT)
@@ -145,8 +145,8 @@ public class RoleController {
      */
     @ApiOperation(value="查询单个系统角色信息", notes="查询单个系统角色信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", value = "系统角色Id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "roleId", value = "系统角色Id", dataType = "int"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/getRoleInfoById/{id}")
     @RequirePermissions(value = ROLE_MGMT)
@@ -172,8 +172,8 @@ public class RoleController {
      */
     @ApiOperation(value="修改系统角色", notes="修改系统角色")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "sysRole", value = "系统角色Entity", required = true, dataType = "SysRole"),
-            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "sysRole", value = "系统角色Entity", dataType = "SysRole"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @PutMapping(path = "/updateRole")
     @RequirePermissions(value = ROLE_MGMT)
@@ -200,8 +200,8 @@ public class RoleController {
      */
     @ApiOperation(value="判断角色是否存在", notes="判断角色是否存在")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int"),
-            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "roleId", value = "系统角色id", dataType = "int"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping(path = "/checkRoleExists/{id}")
     @RequirePermissions(value = ROLE_MGMT)

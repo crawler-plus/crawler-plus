@@ -35,8 +35,8 @@ public class LogController {
      */
     @ApiOperation(value="系统log查询", notes="系统log查询")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "sysLog", value = "系统Log Entity", required = true, dataType = "SysLog"),
-            @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+            @ApiImplicitParam(name = "sysLog", value = "系统Log Entity", dataType = "SysLog"),
+            @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     })
     @GetMapping("/queryAll")
     @RequirePermissions(value = LOG_MGMT)
@@ -56,7 +56,7 @@ public class LogController {
      * 系统log删除
      */
     @ApiOperation(value="系统log删除", notes="系统log删除")
-    @ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+    @ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
     @DeleteMapping(path = "/delete")
     @RequirePermissions(value = LOG_MGMT)
     public BaseEntity delete(TokenEntity t) {

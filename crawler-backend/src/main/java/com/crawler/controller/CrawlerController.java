@@ -33,8 +33,8 @@ public class CrawlerController {
 
 	@ApiOperation(value="根据参数爬取网站内容", notes="根据参数爬取网站内容")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "te", value = "传递的参数Entity", required = true, dataType = "TransferEntity"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "te", value = "传递的参数Entity", dataType = "TransferEntity"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@PostMapping("/crawler")
 	@RequirePermissions(value = NET_CRAWLER_SEARCH)

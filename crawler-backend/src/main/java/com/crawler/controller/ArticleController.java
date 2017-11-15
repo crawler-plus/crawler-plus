@@ -39,8 +39,8 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="保存文章配置", notes="保存文章配置")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "te", value = "文章配置entity", required = true, dataType = "TemplateConfig"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "te", value = "文章配置entity", dataType = "TemplateConfig"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@PostMapping("/saveTemplateConfig")
 	@RequirePermissions(value = TEMPLATE_MGMT)
@@ -58,8 +58,8 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="修改文章配置", notes="修改文章配置")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "te", value = "文章配置entity", required = true, dataType = "TemplateConfig"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "te", value = "文章配置entity", dataType = "TemplateConfig"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@PutMapping("/editTemplateConfig")
 	@RequirePermissions(value = TEMPLATE_MGMT)
@@ -86,8 +86,8 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="根据id删除文章配置", notes="根据id删除文章配置")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "id", value = "文章配置id", dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@DeleteMapping(path = "/removeTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
@@ -104,8 +104,8 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="列出所有文章配置", notes="列出所有文章配置")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/listAllTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
@@ -122,8 +122,8 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="根据id获得文章配置", notes="根据id获得文章配置")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "id", value = "文章配置id", dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/getTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
@@ -140,8 +140,8 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="列出所有查询出的文章", notes="列出所有查询出的文章")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", required = true, dataType = "CrawlerContent"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", dataType = "CrawlerContent"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping("/listAllCrawlerContents")
 	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
@@ -162,8 +162,8 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="根据id获得指定文章", notes="根据id获得指定文章")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "id", value = "文章id", dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/getCrawlerContent/{id}")
 	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
@@ -180,8 +180,8 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="执行cron", notes="执行cron")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "userId", value = "系统用户id", dataType = "int"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/executeCron/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
@@ -213,8 +213,8 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="判断文章配置是否存在", notes="判断文章配置是否存在")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "templateConfigId", value = "文章配置id", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "templateConfigId", value = "文章配置id", dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/checkTemplateConfigExists/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)

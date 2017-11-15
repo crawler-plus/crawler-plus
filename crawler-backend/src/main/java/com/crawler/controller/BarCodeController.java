@@ -33,8 +33,8 @@ public class BarCodeController {
 
 	@ApiOperation(value="根据条形码查商品信息", notes="根据条形码查商品信息")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "code", value = "条形码", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "code", value = "条形码", dataType = "String"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping(path = "/barCode/{code}")
 	@RequirePermissions(value = QRCODE_SEARCH)

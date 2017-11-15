@@ -33,7 +33,7 @@ public class HeaderFooterContentController {
 	 * 获得页眉页脚内容
 	 */
 	@ApiOperation(value="获得页眉页脚内容", notes="获得页眉页脚内容")
-	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	@GetMapping("/get")
 	@RequirePermissions(value = HEADER_FOOTER_CONTENT)
 	public BaseEntity getTemplateConfig(TokenEntity t) {
@@ -49,8 +49,8 @@ public class HeaderFooterContentController {
 	 */
 	@ApiOperation(value="修改页眉页脚内容", notes="修改页眉页脚内容")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "sysHeaderFooterContent", value = "页眉页脚entity", required = true, dataType = "SysHeaderFooterContent"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "sysHeaderFooterContent", value = "页眉页脚entity", dataType = "SysHeaderFooterContent"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@PutMapping("/edit")
 	@RequirePermissions(value = HEADER_FOOTER_CONTENT)

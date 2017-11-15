@@ -37,7 +37,7 @@ public class BondMarketController {
 	 * @throws CrawlerException
 	 */
 	@ApiOperation(value="爬取债券市场内容", notes="爬取债券市场内容")
-	@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+	@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	@GetMapping("/craw")
 	@RequirePermissions(value = BOND_MARKET)
 	public BaseEntity crawBondMarket(TokenEntity t) {
@@ -53,8 +53,8 @@ public class BondMarketController {
 	 */
 	@ApiOperation(value="用户债券市场内容", notes="用户债券市场内容")
 	@ApiImplicitParams({
-			@ApiImplicitParam(name = "bondMarket", value = "债券市场entity", required = true, dataType = "BondMarket"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", required = true, dataType = "TokenEntity")
+			@ApiImplicitParam(name = "bondMarket", value = "债券市场entity", dataType = "BondMarket"),
+			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	})
 	@GetMapping("/queryAll")
 	@RequirePermissions(value = BOND_MARKET)
