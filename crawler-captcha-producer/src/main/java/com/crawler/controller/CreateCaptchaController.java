@@ -4,7 +4,8 @@ import com.crawler.components.CrawlerProperties;
 import com.crawler.domain.BaseEntity;
 import com.crawler.util.FtpUtils;
 import com.crawler.util.LoggerUtils;
-import com.google.code.kaptcha.Producer;
+import com.xiaoleilu.hutool.captcha.CaptchaUtil;
+import com.xiaoleilu.hutool.captcha.LineCaptcha;
 import com.xiaoleilu.hutool.io.IoUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +27,6 @@ import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 public class CreateCaptchaController {
 
     @Autowired
-    private Producer captchaProducer;
-
-    @Autowired
     private CrawlerProperties crawlerProperties;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -38,11 +36,9 @@ public class CreateCaptchaController {
         BaseEntity be = new BaseEntity();
         // 生成验证码图片的名称
         String imgName = UUID.randomUUID().toString().replace("-", "") + ".png";
-        // create the text for the image
-        String capText = captchaProducer.createText();
-        BufferedImage bi = captchaProducer.createImage(capText);
-        // 转化为小写字母
-        capText = capText.toLowerCase();
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(125, 70);
+        String capText = lineCaptcha.getCode();
+        BufferedImage bi = lineCaptcha.getImage();
         be.setCaptchaCode(capText);
         ByteArrayOutputStream os = null;
         try {
