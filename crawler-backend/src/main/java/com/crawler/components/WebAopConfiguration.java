@@ -3,6 +3,7 @@ package com.crawler.components;
 import com.crawler.annotation.RequirePermissions;
 import com.crawler.domain.TokenEntity;
 import com.crawler.util.LoggerUtils;
+import com.xiaoleilu.hutool.date.SystemClock;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -84,10 +85,10 @@ public class WebAopConfiguration {
             // 验证该用户是否有这个字符串所代表的权限
             checkPermissions.checkPermissions(uid, values);
         }
-        long timeStart = System.currentTimeMillis();
+        long timeStart = SystemClock.now();
         Object obj = proceedingJoinPoint.proceed(args);
         LoggerUtils.printLogger(logger, "环绕通知的目标方法名：" + methodName);
-        LoggerUtils.printLogger(logger, "方法执行时间为：" + String.valueOf(System.currentTimeMillis() - timeStart) + "ms");
+        LoggerUtils.printLogger(logger, "方法执行时间为：" + String.valueOf(SystemClock.now() - timeStart) + "ms");
         return obj;
     }
 }

@@ -5,7 +5,7 @@ import com.crawler.domain.BaseEntity;
 import com.crawler.util.FtpUtils;
 import com.crawler.util.LoggerUtils;
 import com.google.code.kaptcha.Producer;
-import org.apache.commons.io.IOUtils;
+import com.xiaoleilu.hutool.io.IoUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class CreateCaptchaController {
             // 设置图片地址
             be.setContent("");
         }finally {
-            IOUtils.closeQuietly(os);
+            IoUtil.close(os);
         }
         return be;
     }

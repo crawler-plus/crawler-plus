@@ -1,6 +1,6 @@
 package com.crawler.util;
 
-import org.apache.commons.io.IOUtils;
+import com.xiaoleilu.hutool.io.IoUtil;
 import org.apache.commons.net.ftp.FTPClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class FtpUtils {
         }catch (Exception e) {
             LoggerUtils.printExceptionLogger(logger, e);
         }finally {
-            IOUtils.closeQuietly(is);
+            IoUtil.close(is);
             try {
                 ftpClient.disconnect();
             } catch (IOException e) {

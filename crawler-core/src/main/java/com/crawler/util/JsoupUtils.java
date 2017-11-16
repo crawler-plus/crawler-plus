@@ -1,13 +1,13 @@
 package com.crawler.util;
 
 import com.crawler.domain.TransferEntity;
+import com.xiaoleilu.hutool.util.CollectionUtil;
+import com.xiaoleilu.hutool.util.StrUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
@@ -21,15 +21,15 @@ public class JsoupUtils {
         Connection conn = Jsoup.connect(te.getUrl());
         Document docData;
         // 设置请求头信息
-        if(!CollectionUtils.isEmpty(reqHeadersMap)) {
+        if(CollectionUtil.isNotEmpty(reqHeadersMap)) {
             conn.headers(reqHeadersMap);
         }
         // 设置代理信息
-        if(!StringUtils.isEmpty(te.getProxyIp())) {
+        if(StrUtil.isNotEmpty(te.getProxyIp())) {
             conn.proxy(te.getProxyIp(), te.getProxyPort());
         }
         // 设置请求体信息
-        if(!CollectionUtils.isEmpty(postParamsMap)) {
+        if(CollectionUtil.isNotEmpty(postParamsMap)) {
             conn.data(postParamsMap);
         }
         if("post".equals(te.getHttpMethod().toLowerCase())) {
@@ -48,15 +48,15 @@ public class JsoupUtils {
             Connection conn = Jsoup.connect(te.getUrl());
             Document docData;
             // 设置请求头信息
-            if(!CollectionUtils.isEmpty(reqHeadersMap)) {
+            if(CollectionUtil.isNotEmpty(reqHeadersMap)) {
                 conn.headers(reqHeadersMap);
             }
             // 设置代理信息
-            if(!StringUtils.isEmpty(te.getProxyIp())) {
+            if(StrUtil.isNotEmpty(te.getProxyIp())) {
                 conn.proxy(te.getProxyIp(), te.getProxyPort());
             }
             // 设置请求体信息
-            if(!CollectionUtils.isEmpty(postParamsMap)) {
+            if(CollectionUtil.isNotEmpty(postParamsMap)) {
                 conn.data(postParamsMap);
             }
             if("post".equals(te.getHttpMethod().toLowerCase())) {

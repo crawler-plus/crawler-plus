@@ -6,8 +6,8 @@ import com.crawler.domain.BaseEntity;
 import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
 import com.crawler.exception.CrawlerException;
-import com.crawler.util.JsonUtils;
 import com.crawler.util.JsoupUtils;
+import com.xiaoleilu.hutool.json.JSONUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -59,7 +59,7 @@ public class BarCodeController {
 			Document urlDocument = JsoupUtils.getUrlDocument(te, reqHeadersMap, postParamsMap);
 			Element bodyEle = urlDocument.body();
 			String jsonStr = bodyEle.text();
-			BarCodeEntity bce = JsonUtils.jsonToPojo(jsonStr, BarCodeEntity.class);
+			BarCodeEntity bce = JSONUtil.toBean(jsonStr, BarCodeEntity.class);
 			be.setMsgCode(MESSAGE_CODE_OK.getCode());
 			be.setContent(bce);
 		} catch (Exception e) {

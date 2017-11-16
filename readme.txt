@@ -32,7 +32,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 1. SpringBoot 1.5.8.RELEASE
 2. SpringCloud Dalston.SR4
 3. MyBatis 3.4.5
-4. Spring 4.3.11.RELEASE
+4. Spring 4.3.12.RELEASE
 5. Hibernate-validator 5.3.5
 6. Swagger 2.7.0
 7. Jsoup 1.11.1
@@ -61,6 +61,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 13. 前后端交互基于token模式校验用户身份
 14. 加入二次验证用户权限机制，使用独创的@RequirePermissions注解，防止用户越权访问没有权限的API
 15. 支持双数据源配置，分别使用druid和hikari-cp数据库连接池管理这连个数据源
+16. 系统集成hutool工具包，简化常见的工具类操作
 ......
 
 运行步骤：

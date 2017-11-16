@@ -3,9 +3,9 @@ package com.crawler.service.impl;
 import com.crawler.dao.BondMarketMapper;
 import com.crawler.domain.BondMarket;
 import com.crawler.service.api.BondMarketService;
-import com.crawler.util.DownloadFileUtil;
-import com.crawler.util.HttpClientUtil;
 import com.crawler.util.LoggerUtils;
+import com.xiaoleilu.hutool.http.HttpUtil;
+import com.xiaoleilu.hutool.io.FileUtil;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -17,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -41,7 +42,8 @@ public class BondMarketServiceImpl implements BondMarketService {
 
     @Override
     public void crawBondMarket() {
-        String jsonContent = HttpClientUtil.doPost("http://www.cninfo.com.cn/cninfo-new/disclosure/szse_latest");
+        HashMap<String, Object> paramMap = new HashMap<>();
+        String jsonContent = HttpUtil.post("http://www.cninfo.com.cn/cninfo-new/disclosure/szse_latest", paramMap);
         // 解析返回的json数据
         try {
             // 得到最外层的json数据
@@ -95,7 +97,7 @@ public class BondMarketServiceImpl implements BondMarketService {
                             String downloadUrl = "http://www.cninfo.com.cn/cninfo-new/disclosure/szse/download/" + numId + "?announceTime=" + dateStamp;
                             String downloadPdfName = announcementId + "-" + announcementTitle + ".pdf";
                             // 下载pdf
-                            DownloadFileUtil.crawPdf(downloadUrl, downloadPdfName);
+                            HttpUtil.downloadFile(downloadUrl, FileUtil.file(downloadPdfName));
                         }
                     }
                 }

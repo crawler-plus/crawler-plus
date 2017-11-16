@@ -87,7 +87,7 @@ public class CheckPermissions {
         // 求交集
         availableMenuList.retainAll(permissionsList);
         // 表明这个用户没有注解中标明的权限
-        if(availableMenuList.isEmpty()) {
+        if(CollectionUtils.isEmpty(availableMenuList)) {
             throw new SecurityException("insecurity access");
         }
     }

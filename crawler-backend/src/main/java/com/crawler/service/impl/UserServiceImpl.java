@@ -7,13 +7,13 @@ import com.crawler.dao.MenuMapper;
 import com.crawler.dao.UserMapper;
 import com.crawler.domain.*;
 import com.crawler.service.api.UserService;
-import com.crawler.util.JsonUtils;
-import com.crawler.util.MD5Utils;
 import com.crawler.util.TokenUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.xiaoleilu.hutool.crypto.SecureUtil;
+import com.xiaoleilu.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(SysUser sysUser) {
         // 默认密码：123456
-        String password = MD5Utils.toMD5String(crawlerProperties.getDefaultPassword(), crawlerProperties.getMd5Salt());
+        String password = SecureUtil.md5(crawlerProperties.getDefaultPassword() + crawlerProperties.getMd5Salt());
         sysUser.setPassword(password);
         // 首先向用户表中新增一条数据
         userMapper.userAdd(sysUser);
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(SysUser sysUser) {
-        String password = MD5Utils.toMD5String(sysUser.getPassword(), crawlerProperties.getMd5Salt());
+        String password = SecureUtil.md5(sysUser.getPassword() + crawlerProperties.getMd5Salt());
         sysUser.setPassword(password);
         // 首先更新用户表
         userMapper.userUpdate(sysUser);
@@ -130,7 +130,7 @@ public class UserServiceImpl implements UserService {
     public Map<String, Object> canLogin(SysUser sysUser) {
         // 最终返回的数据
         Map<String, Object> infoMap = new HashMap<>();
-        String password = MD5Utils.toMD5String(sysUser.getPassword(), crawlerProperties.getMd5Salt());
+        String password = SecureUtil.md5(sysUser.getPassword() + crawlerProperties.getMd5Salt());
         sysUser.setPassword(password);
         int exists = this.checkUserExists(sysUser);
         // 如果用户存在
@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
             updateTokenParam.setLoginToken(userToken.getToken());
             updateUserToken(updateTokenParam);
             infoMap.put("userInfo", sysUserByloginAccount);
-            infoMap.put("menuInfo", JsonUtils.objectToJson(sList));
+            infoMap.put("menuInfo", JSONUtil.toJsonStr(sList));
             infoMap.put("token", userToken.getToken());
             infoMap.put("timestamp", userToken.getTimestamp());
         }
