@@ -96,7 +96,8 @@ var roleUpdate = function () {
                             if(data.msgCode === '400') {
                                 toastr.error(data.content);
                             }else {
-                                commonUtil.closeTab();
+                                parent.roleMgmt.refreshCurrentTable();
+                                parent.layer.closeAll();
                             }
                         }
                     );

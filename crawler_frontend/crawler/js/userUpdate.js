@@ -99,7 +99,8 @@ var userUpdate = function () {
                             if(data.msgCode === '400') {
                                 toastr.error(data.content);
                             }else {
-                                commonUtil.closeTab();
+                                parent.userMgmt.refreshCurrentTable();
+                                parent.layer.closeAll();
                             }
                         }
                     );

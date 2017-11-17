@@ -56,7 +56,7 @@ var userMgmt = function () {
             var params = {
                 action: "add"
             };
-            commonUtil.openUrlInIframe("新增用户信息", commonUtil.buildUrlParam("crawler/userAdd.html", params));
+            commonUtil.layerOpen("新增用户信息", commonUtil.buildUrlParam("../crawler/userAdd.html", params));
         });
     };
 
@@ -134,7 +134,7 @@ var userMgmt = function () {
                     var params = {
                         userId: id
                     };
-                    commonUtil.openUrlInIframe("查看用户信息", commonUtil.buildUrlParam("crawler/userDetail.html", params));
+                    commonUtil.layerOpen("查看用户信息", commonUtil.buildUrlParam("../crawler/userDetail.html", params));
                 });
             },
             "click .update": function (e, value, row, index) {
@@ -143,7 +143,7 @@ var userMgmt = function () {
                     var params = {
                         userId: id
                     };
-                    commonUtil.openUrlInIframe("修改用户信息", commonUtil.buildUrlParam("crawler/userUpdate.html", params));
+                    commonUtil.layerOpen("修改用户信息", commonUtil.buildUrlParam("../crawler/userUpdate.html", params));
                 });
             },
             "click .delete": function (e, value, row, index) {

@@ -56,7 +56,7 @@ var roleMgmt = function () {
             var params = {
                 action: "add"
             };
-            commonUtil.openUrlInIframe("新增角色信息", commonUtil.buildUrlParam("crawler/roleAdd.html", params));
+            commonUtil.layerOpen("新增角色信息", commonUtil.buildUrlParam("../crawler/roleAdd.html", params));
         });
     };
 
@@ -133,7 +133,7 @@ var roleMgmt = function () {
                     var params = {
                         roleId: id
                     };
-                    commonUtil.openUrlInIframe("查看角色信息", commonUtil.buildUrlParam("crawler/roleDetail.html", params));
+                    commonUtil.layerOpen("查看角色信息", commonUtil.buildUrlParam("../crawler/roleDetail.html", params));
                 });
             },
             "click .update": function (e, value, row, index) {
@@ -142,7 +142,7 @@ var roleMgmt = function () {
                     var params = {
                         roleId: id
                     };
-                    commonUtil.openUrlInIframe("修改角色信息", commonUtil.buildUrlParam("crawler/roleUpdate.html", params));
+                    commonUtil.layerOpen("修改角色信息", commonUtil.buildUrlParam("../crawler/roleUpdate.html", params));
                 });
             },
             "click .delete": function (e, value, row, index) {
@@ -184,7 +184,8 @@ var roleMgmt = function () {
         init: function () {
             _btnEvent();
             _tableInit();
-        }
+        },
+        refreshCurrentTable: _refreshCurrentTable
     }
 }();
 
