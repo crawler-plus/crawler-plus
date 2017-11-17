@@ -30,19 +30,19 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 后端：
 -------------------------
 1. SpringIO Brussels-SR5
-1. SpringBoot 1.5.7.RELEASE
-2. SpringCloud Dalston.SR4
-3. MyBatis 3.4.5
-4. Spring 4.3.11.RELEASE
-5. Hibernate-validator 5.3.5
-6. Swagger 2.7.0
-7. Jsoup 1.11.1
-8. Ehcache 2.10.4
-9. Spring-scheduled
-10. Druid 1.1.5
-11. Hikari-CP 2.7.3
-12. Redis(缓存服务器)
-13. Nginx + Vsftpd (图片服务器)
+2. SpringBoot 1.5.7.RELEASE
+3. SpringCloud Dalston.SR4
+4. MyBatis 3.4.5
+5. Spring 4.3.11.RELEASE
+6. Hibernate-validator 5.3.5
+7. Swagger 2.7.0
+8. Jsoup 1.11.1
+9. Ehcache 2.10.4
+10. Spring-scheduled
+11. Druid 1.1.5
+12. Hikari-CP 2.7.3
+13. Redis(缓存服务器)
+14. Nginx + Vsftpd (图片服务器)
 ......
 
 项目特点：
