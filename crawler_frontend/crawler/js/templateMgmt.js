@@ -48,7 +48,7 @@ var templateMgmt = function () {
      * 列出所有文章模版
      */
     var listAllTemplate = function () {
-        $("#resultRow").empty();
+        $(".eachResultRow").remove();
         var signOptions = {
             formID : null,
             isFormData : false
@@ -78,7 +78,15 @@ var templateMgmt = function () {
                             };
                             //匹配json内容
                             var html = template(json);
-                            $("#resultRow").append(html);
+                            // 保证一行只装3条数据
+                            if(i % 3 === 0) {
+                                var rTpl = $("#eachResultRowScript").html();
+                                //预编译模板
+                                var rTemplate = Handlebars.compile(rTpl);
+                                var rHtml = rTemplate({});
+                                $(".parentDiv").append(rHtml);
+                            }
+                            $(".parentDiv").find(".eachResultRow").last().append(html);
                         }
                     }
 

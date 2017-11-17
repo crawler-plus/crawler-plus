@@ -12,15 +12,17 @@
     <link href="../css/style.css?v=4.1.0" rel="stylesheet">
 </head>
 <body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="wrapper wrapper-content animated fadeInRight parentDiv">
         <button class="btn-danger btn" id="addTemplateBtn">新增模版</button>
         <button class="btn-danger btn" id="refreshTemplateBtn">刷新模版</button>
         <button class="btn-danger btn" id="executeCron">执行爬取任务</button>
         <br>
-        <div class="row" id="resultRow">
-        </div>
     </div>
 
+    <script id="eachResultRowScript" type="text/x-handlebars-template">
+        <div class="row eachResultRow">
+        </div>
+    </script>
     <script id="resultScript" type="text/x-handlebars-template">
         <div class="col-sm-4">
             <div class="contact-box">
