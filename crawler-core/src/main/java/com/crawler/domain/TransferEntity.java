@@ -1,7 +1,7 @@
 package com.crawler.domain;
 
 /**
- * 传递的参数entity
+ * JSOUP传递的参数entity
  */
 public class TransferEntity {
 
