@@ -63,7 +63,8 @@ var editTemplate = function () {
                             if(data.msgCode === '400') {
                                 toastr.error(data.content);
                             }else {
-                                commonUtil.closeTab();
+                                parent.templateMgmt.refreshAll();
+                                parent.layer.closeAll();
                             }
                         }
                     );

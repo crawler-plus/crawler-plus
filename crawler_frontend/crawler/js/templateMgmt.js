@@ -9,11 +9,11 @@ var templateMgmt = function () {
             // 新选项卡打开
             var params = {
             };
-            commonUtil.openUrlInIframe("添加模版", commonUtil.buildUrlParam("crawler/addTemplate.html", params));
+            commonUtil.layerOpen("添加模版", commonUtil.buildUrlParam("../crawler/addTemplate.html", params));
         });
         // 刷新模版按钮
         $("#refreshTemplateBtn").on('click', function () {
-            listAllTemplate();
+            _refreshAll();
         });
 
         // 执行爬取
@@ -112,7 +112,7 @@ var templateMgmt = function () {
                                 signOptions,
                                 ajaxOptions,
                                 function (data) {
-                                    listAllTemplate();
+                                    _refreshAll();
                                 }
                             );
                         }, function(){
@@ -132,7 +132,7 @@ var templateMgmt = function () {
                         var params = {
                             id:  id
                         };
-                        commonUtil.openUrlInIframe("修改模版", commonUtil.buildUrlParam("crawler/editTemplate.html", params));
+                        commonUtil.layerOpen("修改模版", commonUtil.buildUrlParam("../crawler/editTemplate.html", params));
                     });
                 });
 
@@ -142,7 +142,7 @@ var templateMgmt = function () {
 
     var init = function () {
        // 调用后台接口，查询当前全部的模版
-        listAllTemplate();
+        _refreshAll();
         registerBtn();
     };
 
@@ -166,7 +166,7 @@ var templateMgmt = function () {
             function (data) {
                 if(data.msgCode === '400') {
                     layer.msg(data.content, {icon: 5}, function () {
-                        listAllTemplate();
+                        _refreshAll();
                     });
                 }else {
                     callback();
@@ -175,8 +175,18 @@ var templateMgmt = function () {
         );
     };
 
+    /**
+     * 刷新页面
+     * @private
+     */
+    var _refreshAll = function () {
+        // 调用后台接口，查询当前全部的模版
+        listAllTemplate();
+    }
+
     return {
-        init: init
+        init: init,
+        refreshAll: _refreshAll
     }
 }();
 $(function () {

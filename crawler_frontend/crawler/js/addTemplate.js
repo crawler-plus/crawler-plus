@@ -34,7 +34,8 @@ var addTemplate = function () {
                     signOptions,
                     ajaxOptions,
                     function (data) {
-                        commonUtil.closeTab();
+                        parent.templateMgmt.refreshAll();
+                        parent.layer.closeAll();
                     }
                 );
             }
