@@ -29,8 +29,9 @@
         UPDATE sys_menu SET url = CASE url
             WHEN '/druid/index.html' THEN  CONCAT(#{prefix, jdbcType=VARCHAR}, '/druid/index.html')
             WHEN '/swagger-ui.html' THEN  CONCAT(#{prefix, jdbcType=VARCHAR}, '/swagger-ui.html')
+            WHEN '/hystrix' THEN  CONCAT(#{prefix, jdbcType=VARCHAR}, '/hystrix')
         END
-        WHERE url IN('/druid/index.html', '/swagger-ui.html')
+        WHERE url IN('/druid/index.html', '/swagger-ui.html', '/hystrix')
     </update>
 
 </mapper>
