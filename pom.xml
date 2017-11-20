@@ -42,14 +42,8 @@
         <druid-spring-boot-starter.version>1.1.5</druid-spring-boot-starter.version>
         <pagehelper-spring-boot-starter.version>1.2.3</pagehelper-spring-boot-starter.version>
         <swagger.version>2.7.0</swagger.version>
-        <ehcache.version>2.10.4</ehcache.version>
-        <mysql-connector-java.version>5.1.44</mysql-connector-java.version>
         <jsoup.version>1.11.1</jsoup.version>
-        <commons-net.version>3.6</commons-net.version>
-        <flyway.version>4.2.0</flyway.version>
         <hutool.version>3.2.0</hutool.version>
-        <hikaricp.version>2.7.3</hikaricp.version>
-        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <dependencyManagement>
@@ -97,44 +91,14 @@
                 <version>${swagger.version}</version>
             </dependency>
             <dependency>
-                <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache</artifactId>
-                <version>${ehcache.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${mysql-connector-java.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${jsoup.version}</version>
             </dependency>
             <dependency>
-                <groupId>commons-net</groupId>
-                <artifactId>commons-net</artifactId>
-                <version>${commons-net.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>${flyway.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.xiaoleilu</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.zaxxer</groupId>
-                <artifactId>HikariCP</artifactId>
-                <version>${hikaricp.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -164,11 +128,6 @@
                         <target>${java.version}</target>
                         <encoding>${project.build.sourceEncoding}</encoding>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.flywaydb</groupId>
-                    <artifactId>flyway-maven-plugin</artifactId>
-                    <version>${flyway.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

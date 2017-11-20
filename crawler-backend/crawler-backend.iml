@@ -19,7 +19,7 @@
     <orderEntry type="module" module-name="crawler-core" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.11.1" level="project" />
-    <orderEntry type="library" name="Maven: commons-net:commons-net:3.6" level="project" />
+    <orderEntry type="library" name="Maven: commons-net:commons-net:3.5" level="project" />
     <orderEntry type="library" name="Maven: com.xiaoleilu:hutool-all:3.2.0" level="project" />
     <orderEntry type="module" module-name="crawler-cache" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-redis:1.5.7.RELEASE" level="project" />
@@ -28,6 +28,7 @@
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.13.7.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:4.3.11.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-oxm:4.3.11.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: redis.clients:jedis:2.9.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-pool2:2.4.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.cloud:spring-cloud-starter-eureka:1.3.5.RELEASE" level="project" />
@@ -129,11 +130,11 @@
     <orderEntry type="library" scope="TEST" name="Maven: net.minidev:json-smart:2.2.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.minidev:accessors-smart:1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.ow2.asm:asm:5.0.3" level="project" />
-    <orderEntry type="library" name="Maven: junit:junit:4.12" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.assertj:assertj-core:2.6.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-core:1.10.19" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:2.5.1" level="project" />
-    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-library:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.skyscreamer:jsonassert:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-core:4.3.11.RELEASE" level="project" />
@@ -193,52 +194,7 @@
     <orderEntry type="library" name="Maven: io.springfox:springfox-swagger-ui:2.7.0" level="project" />
     <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache:2.10.4" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.44" level="project" />
-    <orderEntry type="library" name="Maven: org.flywaydb:flyway-maven-plugin:4.2.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-api:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-artifact:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-project:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-settings:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-profile:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-artifact-manager:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: backport-util-concurrent:backport-util-concurrent:3.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-registry:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-interpolation:1.11" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-container-default:1.0-alpha-9-stable-1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-model:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-core:2.2.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.maven.wagon:wagon-file:1.0-beta-6" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-parameter-documenter:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.wagon:wagon-http-lightweight:1.0-beta-6" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.wagon:wagon-http-shared:1.0-beta-6" level="project" />
-    <orderEntry type="library" name="Maven: nekohtml:xercesMinimal:1.9.6.2" level="project" />
-    <orderEntry type="library" name="Maven: nekohtml:nekohtml:1.9.6.2" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.wagon:wagon-http:1.0-beta-6" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.maven.wagon:wagon-webdav-jackrabbit:1.0-beta-6" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.jackrabbit:jackrabbit-webdav:1.5.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.jackrabbit:jackrabbit-jcr-commons:1.5.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: commons-httpclient:commons-httpclient:3.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:slf4j-nop:1.5.3" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:slf4j-jdk14:1.7.25" level="project" />
-    <orderEntry type="library" name="Maven: org.slf4j:jcl-over-slf4j:1.7.25" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.reporting:maven-reporting-api:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.doxia:doxia-sink-api:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.doxia:doxia-logging-api:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.wagon:wagon-provider-api:1.0-beta-6" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-repository-metadata:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-error-diagnostics:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: commons-cli:commons-cli:1.3.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.maven.wagon:wagon-ssh-external:1.0-beta-6" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.wagon:wagon-ssh-common:1.0-beta-6" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-descriptor:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-interactivity-api:1.0-alpha-4" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-monitor:2.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven.wagon:wagon-ssh:1.0-beta-6" level="project" />
-    <orderEntry type="library" name="Maven: com.jcraft:jsch:0.1.54" level="project" />
-    <orderEntry type="library" name="Maven: classworlds:classworlds:1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.sonatype.plexus:plexus-sec-dispatcher:1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.sonatype.plexus:plexus-cipher:1.4" level="project" />
-    <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:1.5.15" level="project" />
-    <orderEntry type="library" name="Maven: org.flywaydb:flyway-core:4.2.0" level="project" />
-    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:2.7.3" level="project" />
+    <orderEntry type="library" name="Maven: org.flywaydb:flyway-core:3.2.1" level="project" />
+    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:2.5.1" level="project" />
   </component>
 </module>

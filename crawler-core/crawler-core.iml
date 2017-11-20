@@ -11,7 +11,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: org.jsoup:jsoup:1.11.1" level="project" />
-    <orderEntry type="library" name="Maven: commons-net:commons-net:3.6" level="project" />
+    <orderEntry type="library" name="Maven: commons-net:commons-net:3.5" level="project" />
     <orderEntry type="library" name="Maven: com.xiaoleilu:hutool-all:3.2.0" level="project" />
   </component>
 </module>
