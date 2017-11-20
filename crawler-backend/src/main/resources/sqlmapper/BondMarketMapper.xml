@@ -24,6 +24,9 @@
                 publish_date,
             </if>
                 create_time,
+            <if test='adjunctUrl != null and adjunctUrl != "" '>
+                adjunct_url,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test='id != null and id != "" '>
@@ -45,6 +48,9 @@
                 #{publishDate, jdbcType=VARCHAR},
             </if>
                 NOW(),
+            <if test='adjunctUrl != null and adjunctUrl != "" '>
+                #{adjunctUrl, jdbcType=VARCHAR},
+            </if>
         </trim>
     </insert>
 
@@ -68,6 +74,19 @@
         SELECT
         COUNT(1)
         FROM bond_market
+    </select>
+
+    <select id="getBondMarketItemById" resultType="com.crawler.domain.BondMarket" parameterType="java.lang.String">
+        SELECT
+        id AS id,
+        code AS code,
+        abbre AS abbre,
+        title AS title,
+        category AS category,
+        publish_date AS publishDate,
+        adjunct_url AS adjunctUrl
+        FROM bond_market
+        WHERE id = #{id, jdbcType=VARCHAR}
     </select>
 
 </mapper>

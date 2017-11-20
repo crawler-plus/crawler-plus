@@ -81,6 +81,8 @@ public class BondMarketServiceImpl implements BondMarketService {
                             // 把发布时间转成yyyy-mm-dd格式的字符串
                             Date d = new Date(announcementTime);
                             String announcementTimeStr = new SimpleDateFormat("yyyy-MM-dd").format(d);
+                            // 得到pdf下载url字符串
+                            String adjunctUrl = eachObject.getString("adjunctUrl");
                             BondMarket bm = new BondMarket();
                             bm.setId(announcementId);
                             bm.setCode(secCode);
@@ -88,9 +90,8 @@ public class BondMarketServiceImpl implements BondMarketService {
                             bm.setTitle(announcementTitle);
                             bm.setCategory(announcementTypeName);
                             bm.setPublishDate(announcementTimeStr);
+                            bm.setAdjunctUrl(adjunctUrl);
                             this.saveBondMarket(bm);
-                            // 得到pdf下载url字符串
-                            String adjunctUrl = eachObject.getString("adjunctUrl");
                             String[] split = adjunctUrl.split("/");
                             String numId = split[2].replace(".PDF", "");
                             String dateStamp = split[1];
@@ -117,5 +118,11 @@ public class BondMarketServiceImpl implements BondMarketService {
     @Transactional(readOnly = true)
     public List<BondMarket> listAll() {
         return bondMarketMapper.listAll();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public BondMarket getBondMarketItemById(String id) {
+        return bondMarketMapper.getBondMarketItemById(id);
     }
 }

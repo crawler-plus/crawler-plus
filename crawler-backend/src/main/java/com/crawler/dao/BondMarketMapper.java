@@ -31,8 +31,14 @@ public interface BondMarketMapper {
 
     /**
      * 债券市场分页查询
-     * @param bondMarket
      * @return
      */
     List<BondMarket> listAll();
+
+    /**
+     * 根据条目id获得债券市场条目信息
+     * @param id
+     * @return
+     */
+    BondMarket getBondMarketItemById(String id);
 }

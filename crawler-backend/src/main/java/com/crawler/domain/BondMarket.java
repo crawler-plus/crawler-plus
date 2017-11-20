@@ -19,6 +19,8 @@ public class BondMarket extends BaseEntity {
 
     private String insertTime; // 插入时间
 
+    private String adjunctUrl; // pdf下载url字符串
+
     public String getId() {
         return id;
     }
@@ -73,5 +75,13 @@ public class BondMarket extends BaseEntity {
 
     public void setInsertTime(String insertTime) {
         this.insertTime = insertTime;
+    }
+
+    public String getAdjunctUrl() {
+        return adjunctUrl;
+    }
+
+    public void setAdjunctUrl(String adjunctUrl) {
+        this.adjunctUrl = adjunctUrl;
     }
 }

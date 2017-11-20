@@ -37,4 +37,11 @@ public interface BondMarketService {
      * @return
      */
     List<BondMarket> listAll();
+
+    /**
+     * 根据条目id获得债券市场条目信息
+     * @param id
+     * @return
+     */
+    BondMarket getBondMarketItemById(String id);
 }
