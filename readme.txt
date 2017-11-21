@@ -72,7 +72,17 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 1.本地创建spider数据库
 2.将crawler_backend目录下的resources/db/migrations下的所有sql文件按照版本号依次导入mysql数据库中，（也可以省略该步骤，因为系统中已经集成flyway）
 3.运行crawler-backend工程下的CrawlerApplication.java
-备注：导出mysql数据库脚本命令：mysqldump -uroot -proot spider > spider.sql
+
+前端：
+---------------------------
+1. 运行crawler_frontend下的login.html
+2. 将crawler_frontend/common/commonUtil.js中的
+var comm = {
+    url : 'http://127.0.0.1:8088/'
+}
+根据自己的后端环境修改正确
+3. 生产环境建议部署Nginx下
+4. 登录默认用户名：admin， 密码：123456（只能看到系统菜单）， 登录名lisi，密码123456（能看到所有菜单）
 
 注意：
 ---------------------------
@@ -85,14 +95,4 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 2）crawler_frontend工程中的common/commonUtil.js中useCaptcha改成true
 3）按顺序启动crawler-config-server，crawler-eureka-server，crawler-captcha-producer，crawler-backend这四个工程
 4.如不需使用验证码只需要按顺序启动crawler-config-server，crawler-backend二个工程
-
-前端：
----------------------------
-1. 运行crawler_frontend下的login.html
-2. 将crawler_frontend/common/commonUtil.js中的
-var comm = {
-    url : 'http://127.0.0.1:8088/'
-}
-根据自己的环境修改正确
-3. 生产环境建议部署Nginx下
-4. 登录默认用户名：admin， 密码：123456（只能看到系统菜单）， 登录名lisi，密码123456（能看到所有菜单）
+备注：导出mysql数据库脚本命令：mysqldump -uroot -proot spider > spider.sql

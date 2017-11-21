@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 /**
- * 启动容器以后，将数据库的sys_menu表中的系统管理和网站监控的host和port设置正确
+ * 启动容器以后，将数据库的sys_menu表中的系统管理、网站监控、服务可用性监控的host和port设置正确
  */
 @Component
 public class CrawlerCommandLineRunner implements CommandLineRunner {
