@@ -77,11 +77,11 @@ public class WebAopConfiguration {
         Class<?>[] par = ((MethodSignature)proceedingJoinPoint.getSignature()).getParameterTypes();
         // 得到方法名
         String methodName = proceedingJoinPoint.getSignature().getName();
-        Method objMethod=classTarget.getMethod(methodName, par);
+        Method objMethod = classTarget.getMethod(methodName, par);
         RequirePermissions requirePermissions = objMethod.getAnnotation(RequirePermissions.class);
         if(null != requirePermissions) {
             // 得到权限字符串的值
-            String[] values = requirePermissions.value();
+            int[] values = requirePermissions.value();
             // 验证该用户是否有这个字符串所代表的权限
             checkPermissions.checkPermissions(uid, values);
         }
