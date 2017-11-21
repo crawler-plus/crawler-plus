@@ -37,8 +37,7 @@ public class HeaderFooterContentController {
 	@GetMapping("/get")
 	@RequirePermissions(value = HEADER_FOOTER_CONTENT)
 	@RequireToken()
-	public BaseEntity getTemplateConfig() {
-		BaseEntity be = new BaseEntity();
+	public BaseEntity getTemplateConfig(BaseEntity be) {
 		SysHeaderFooterContent headerFooterContent = headerFooterContentService.getHeaderFooterContent();
 		be.setContent(headerFooterContent);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -53,8 +52,7 @@ public class HeaderFooterContentController {
 	@PutMapping("/edit")
 	@RequirePermissions(value = HEADER_FOOTER_CONTENT)
 	@RequireToken()
-	public BaseEntity editTemplateConfig(@Valid SysHeaderFooterContent sysHeaderFooterContent) {
-		BaseEntity be = new BaseEntity();
+	public BaseEntity editTemplateConfig(@Valid SysHeaderFooterContent sysHeaderFooterContent, BaseEntity be) {
 		// 得到页眉页脚信息
 		SysHeaderFooterContent sysFhc = headerFooterContentService.getHeaderFooterContent();
 		// 得到最新版本信息

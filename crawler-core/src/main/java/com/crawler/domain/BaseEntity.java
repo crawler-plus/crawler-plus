@@ -3,7 +3,7 @@ package com.crawler.domain;
 /**
  * 返回json对象entity
  */
-public class BaseEntity {
+public class BaseEntity extends TokenEntity {
 
     private String msgCode;
 

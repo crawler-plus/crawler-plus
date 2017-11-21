@@ -37,12 +37,11 @@ public class LogController {
     @GetMapping("/queryAll")
     @RequirePermissions(value = LOG_MGMT)
     @RequireToken()
-    public BaseEntity queryAll(SysLog sysLog) {
+    public BaseEntity queryAll(SysLog sysLog, BaseEntity be) {
         int logCount = logService.getLogCount(sysLog);
         // 分页查询
 		PageHelper.startPage(sysLog.getPage(),sysLog.getLimit());
         List<SysLog> sysLogs = logService.listAll(sysLog);
-        BaseEntity be = new BaseEntity();
         be.setTotal(logCount);
         be.setRows(sysLogs);
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -56,9 +55,8 @@ public class LogController {
     @DeleteMapping(path = "/delete")
     @RequirePermissions(value = LOG_MGMT)
     @RequireToken()
-    public BaseEntity delete() {
+    public BaseEntity delete(BaseEntity be) {
         logService.delete();
-        BaseEntity be = new BaseEntity();
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         be.setContent("删除系统log成功");
         return be;

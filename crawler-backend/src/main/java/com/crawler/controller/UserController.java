@@ -55,8 +55,7 @@ public class UserController {
     @ApiOperation(value="用户登录", notes="用户登录")
     @ApiImplicitParam(name = "sysUser", value = "系统用户entity", dataType = "SysUser")
     @PostMapping("/login")
-    public BaseEntity login(@Validated({SysUser.Second.class}) SysUser sysUser) {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity login(@Validated({SysUser.Second.class}) SysUser sysUser, BaseEntity be) {
         boolean useCaptcha = crawlerProperties.isUseCaptcha();
         // 验证码是否通过
         boolean captchaAccess;
@@ -103,12 +102,11 @@ public class UserController {
     @GetMapping("/queryAll")
     @RequirePermissions(value = USER_MGMT)
     @RequireToken()
-    public BaseEntity queryAll(SysUser sysUser) {
+    public BaseEntity queryAll(SysUser sysUser, BaseEntity be) {
         int userCount = userService.getUsersListCount(sysUser);
         // 分页查询
 		PageHelper.startPage(sysUser.getPage(),sysUser.getLimit());
         List<SysUser> sysUsers = userService.listAll(sysUser);
-        BaseEntity be = new BaseEntity();
         be.setTotal(userCount);
         be.setRows(sysUsers);
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -123,8 +121,7 @@ public class UserController {
     @DeleteMapping(path = "/delete/{id}")
     @RequirePermissions(value = USER_MGMT)
     @RequireToken()
-    public BaseEntity delete(@PathVariable("id") int userId) {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity delete(@PathVariable("id") int userId, BaseEntity be) {
         SysUser sysUser = userService.getSysUserByUserId(userId);
         // 如果是管理员，不允许删除，否则系统中一个用户都没有了
         if("admin".equals(sysUser.getLoginAccount())) {
@@ -146,9 +143,8 @@ public class UserController {
     @GetMapping(path = "/queryUser/{id}")
     @RequirePermissions(value = {USER_MGMT, SELF_INFO_UPDATE})
     @RequireToken()
-    public BaseEntity queryUser(@PathVariable("id") int userId) {
+    public BaseEntity queryUser(@PathVariable("id") int userId, BaseEntity be) {
         SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
-        BaseEntity be = new BaseEntity();
         be.setContent(sysUserByUserId);
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
@@ -162,9 +158,8 @@ public class UserController {
     @GetMapping(path = "/getRoleByUserId/{id}")
     @RequirePermissions(value = USER_MGMT)
     @RequireToken()
-    public BaseEntity getRoleByUserId(@PathVariable("id") int userId) {
+    public BaseEntity getRoleByUserId(@PathVariable("id") int userId, BaseEntity be) {
         List<SysRole> roleByUserId = roleService.getRoleByUserId(userId);
-        BaseEntity be = new BaseEntity();
         be.setContent(roleByUserId);
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
@@ -178,8 +173,7 @@ public class UserController {
     @PostMapping(path = "/addUser")
     @RequirePermissions(value = USER_MGMT)
     @RequireToken()
-    public BaseEntity addUser(@Validated({SysUser.First.class}) SysUser sysUser) {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity addUser(@Validated({SysUser.First.class}) SysUser sysUser, BaseEntity be) {
         // 判断用户是否存在
         int userExists = userService.checkUserExists(sysUser);
         // 如果用户存在
@@ -202,8 +196,7 @@ public class UserController {
     @PutMapping(path = "/updateUser")
     @RequirePermissions(value = {USER_MGMT, SELF_INFO_UPDATE})
     @RequireToken()
-    public BaseEntity updateUser(@Validated({SysUser.Third.class})SysUser sysUser) {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity updateUser(@Validated({SysUser.Third.class})SysUser sysUser, BaseEntity be) {
         // 得到用户信息
         SysUser sysUserByUserId = userService.getSysUserByUserId(sysUser.getId());
         // 得到最新版本信息
@@ -227,8 +220,7 @@ public class UserController {
     @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
     @GetMapping(path = "/logout/{id}")
     @RequireToken()
-    public BaseEntity logout(@PathVariable("id") int userId) {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity logout(@PathVariable("id") int userId, BaseEntity be) {
         SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
         // 往系统log表中添加一条记录
         SysLog sysLog = new SysLog();
@@ -252,11 +244,10 @@ public class UserController {
     @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
     @GetMapping(path = "/checkUserExists/{id}")
     @RequireToken()
-    public BaseEntity checkUserExists(@PathVariable("id") int userId) {
+    public BaseEntity checkUserExists(@PathVariable("id") int userId, BaseEntity be) {
         SysUser sysUser = new SysUser();
         sysUser.setId(userId);
         int userCount = userService.checkUserExists(sysUser);
-        BaseEntity be = new BaseEntity();
         // 如果用户不存在
         if(userCount < 1) {
             be.setMsgCode(MESSAGE_CODE_ERROR.getCode());

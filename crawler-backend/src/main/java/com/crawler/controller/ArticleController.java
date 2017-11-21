@@ -45,10 +45,9 @@ public class ArticleController {
 	@PostMapping("/saveTemplateConfig")
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken()
-	public BaseEntity saveTemplateConfig(@Valid TemplateConfig te) {
+	public BaseEntity saveTemplateConfig(@Valid TemplateConfig te, BaseEntity be) {
 		te.setId(UUID.randomUUID().toString().replace("-", ""));
 		articleService.saveTemplateConfig(te);
-		BaseEntity be = new BaseEntity();
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		be.setContent("保存文章配置成功");
 		return be;
@@ -62,8 +61,7 @@ public class ArticleController {
 	@PutMapping("/editTemplateConfig")
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken()
-	public BaseEntity editTemplateConfig(@Valid TemplateConfig te) {
-		BaseEntity be = new BaseEntity();
+	public BaseEntity editTemplateConfig(@Valid TemplateConfig te, BaseEntity be) {
 		// 得到文章配置信息
 		TemplateConfig templateConfig = articleService.getTemplateConfig(te.getId());
 		// 得到最新版本信息
@@ -88,9 +86,8 @@ public class ArticleController {
 	@DeleteMapping(path = "/removeTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken()
-	public BaseEntity removeTemplateConfig(@PathVariable("id") String id) {
+	public BaseEntity removeTemplateConfig(@PathVariable("id") String id, BaseEntity be) {
 		articleService.removeTemplateConfig(id);
-		BaseEntity be = new BaseEntity();
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		be.setContent("删除文章配置成功");
 		return be;
@@ -104,8 +101,7 @@ public class ArticleController {
 	@GetMapping(path = "/listAllTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken()
-	public BaseEntity listAllTemplateConfig(@PathVariable("id") int userId) {
-		BaseEntity be = new BaseEntity();
+	public BaseEntity listAllTemplateConfig(@PathVariable("id") int userId, BaseEntity be) {
 		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig(userId);
 		be.setContent(templateConfigs);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -120,8 +116,7 @@ public class ArticleController {
 	@GetMapping(path = "/getTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken()
-	public BaseEntity getTemplateConfig(@PathVariable("id") String id) {
-		BaseEntity be = new BaseEntity();
+	public BaseEntity getTemplateConfig(@PathVariable("id") String id, BaseEntity be) {
 		TemplateConfig templateConfig = articleService.getTemplateConfig(id);
 		be.setContent(templateConfig);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -136,12 +131,11 @@ public class ArticleController {
 	@GetMapping("/listAllCrawlerContents")
 	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
 	@RequireToken()
-	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent) {
+	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, BaseEntity be) {
 		int crawlerContentSize = articleService.getCrawlerContentSize(crawlerContent.getUserId());
 		// 分页查询
 		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
 		List<CrawlerContent> contents = articleService.listAllCrawlerContents(crawlerContent.getUserId());
-		BaseEntity be = new BaseEntity();
 		be.setTotal(crawlerContentSize);
 		be.setRows(contents);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -156,8 +150,7 @@ public class ArticleController {
 	@GetMapping(path = "/getCrawlerContent/{id}")
 	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
 	@RequireToken()
-	public BaseEntity getCrawlerContent(@PathVariable("id") String id) {
-		BaseEntity be = new BaseEntity();
+	public BaseEntity getCrawlerContent(@PathVariable("id") String id, BaseEntity be) {
 		CrawlerContent crawlerContent = articleService.getCrawlerContent(id);
 		be.setContent(crawlerContent);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -172,8 +165,7 @@ public class ArticleController {
 	@GetMapping(path = "/executeCron/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken()
-	public BaseEntity executeCron(@PathVariable("id") int userId) {
-		BaseEntity be = new BaseEntity();
+	public BaseEntity executeCron(@PathVariable("id") int userId, BaseEntity be) {
 		// 检查系统是否正在运行定时任务，爬取文章，如下条件成立，说明当前没有线程运行定时任务
 		SysLock checkLock = sysLockService.getSysLock();
 		if("0".equals(checkLock.getBusinessCron()) && "0".equals(checkLock.getSystemCron())) {
@@ -203,11 +195,10 @@ public class ArticleController {
 	@GetMapping(path = "/checkTemplateConfigExists/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken()
-	public BaseEntity checkTemplateConfigExists(@PathVariable("id") String templateConfigId) {
+	public BaseEntity checkTemplateConfigExists(@PathVariable("id") String templateConfigId, BaseEntity be) {
 		TemplateConfig templateConfig = new TemplateConfig();
 		templateConfig.setId(templateConfigId);
 		int templateConfigCount = articleService.checkTemplateConfigExists(templateConfig);
-		BaseEntity be = new BaseEntity();
 		// 如果文章配置不存在
 		if(templateConfigCount < 1) {
 			be.setMsgCode(MESSAGE_CODE_ERROR.getCode());

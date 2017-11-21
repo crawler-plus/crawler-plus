@@ -36,14 +36,13 @@ public class EmailController {
      */
     @ApiOperation(value="发送简单邮件", notes="发送简单邮件")
     @GetMapping("/email")
-    public BaseEntity email() {
+    public BaseEntity email(BaseEntity be) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("110@qq.com");
         message.setTo("120@qq.com");
         message.setSubject("主题：简单邮件");
         message.setText("测试邮件内容");
         mailSender.send(message);
-        BaseEntity be = new BaseEntity();
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         be.setContent("发送简单邮件成功");
         return be;
@@ -54,8 +53,7 @@ public class EmailController {
      */
     @ApiOperation(value="发送模版邮件", notes="发送模版邮件")
     @GetMapping("/sendTemplateEmail")
-    public BaseEntity sendTemplateEmail() throws CrawlerException {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity sendTemplateEmail(BaseEntity be) throws CrawlerException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mailMessage);
         Context con = new Context();

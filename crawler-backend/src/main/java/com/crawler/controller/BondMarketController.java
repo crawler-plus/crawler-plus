@@ -38,8 +38,7 @@ public class BondMarketController {
 	@GetMapping("/craw")
 	@RequirePermissions(value = BOND_MARKET)
 	@RequireToken()
-	public BaseEntity crawBondMarket()  {
-		BaseEntity be = new BaseEntity();
+	public BaseEntity crawBondMarket(BaseEntity be)  {
 		bondMarketService.crawBondMarket();
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		be.setContent("爬取债券市场内容成功！");
@@ -54,12 +53,11 @@ public class BondMarketController {
 	@GetMapping("/queryAll")
 	@RequirePermissions(value = BOND_MARKET)
 	@RequireToken()
-	public BaseEntity queryAll(BondMarket bondMarket) {
+	public BaseEntity queryAll(BondMarket bondMarket, BaseEntity be) {
 		int bondMarketCount = bondMarketService.getBondMarketListCount();
 		// 分页查询
 		PageHelper.startPage(bondMarket.getPage(),bondMarket.getLimit());
 		List<BondMarket> bondMarkets = bondMarketService.listAll();
-		BaseEntity be = new BaseEntity();
 		be.setTotal(bondMarketCount);
 		be.setRows(bondMarkets);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());

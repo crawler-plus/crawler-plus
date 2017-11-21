@@ -36,13 +36,12 @@ public class CrawlerController {
 	@PostMapping("/crawler")
 	@RequirePermissions(value = NET_CRAWLER_SEARCH)
 	@RequireToken()
-	public BaseEntity crawler(@RequestBody TransferEntity te) throws CrawlerException {
+	public BaseEntity crawler(@RequestBody TransferEntity te, BaseEntity be) throws CrawlerException {
 		Map<String, String> reqHeadersMap = Maps.newHashMap();
 		reqHeadersMap.put("Accept", "*/*");
 		reqHeadersMap.put("Accept-Encoding", "gzip, deflate");
 		reqHeadersMap.put("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
 		reqHeadersMap.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0");
-		BaseEntity be = new BaseEntity();
 		Elements contents;
 		try {
 			 contents = JsoupUtils.getUrlContentsByPattern(te, reqHeadersMap, null);

@@ -37,8 +37,7 @@ public class WeChatController {
 	@GetMapping(path = "/weChat/{weChatTitle}")
 	@RequirePermissions(value = WECHAT_PUBLIC_SEARCH)
 	@RequireToken()
-	public BaseEntity barCode(@PathVariable("weChatTitle") String weChatTitle) throws CrawlerException {
-		BaseEntity be = new BaseEntity();
+	public BaseEntity barCode(@PathVariable("weChatTitle") String weChatTitle, BaseEntity be) throws CrawlerException {
 		TransferEntity te = new TransferEntity();
 		te.setUrl("http://weixin.sogou.com/weixin?type=1&query=" + weChatTitle + "&ie=utf8&s_from=input&page=1");
 		te.setHttpMethod("GET");

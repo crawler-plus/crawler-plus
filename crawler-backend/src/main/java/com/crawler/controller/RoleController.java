@@ -44,12 +44,11 @@ public class RoleController {
     @GetMapping("/queryAll")
     @RequirePermissions(value = ROLE_MGMT)
     @RequireToken()
-    public BaseEntity queryAll(SysRole sysRole) {
+    public BaseEntity queryAll(SysRole sysRole, BaseEntity be) {
         int roleCount =  roleService.getRolesListCount(sysRole);
         // 分页查询
         PageHelper.startPage(sysRole.getPage(),sysRole.getLimit());
         List<SysRole> sysRoles = roleService.listAll(sysRole);
-        BaseEntity be = new BaseEntity();
         be.setTotal(roleCount);
         be.setRows(sysRoles);
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -63,10 +62,9 @@ public class RoleController {
     @GetMapping("/queryAllRolesWithoutCondition")
     @RequirePermissions(value = USER_MGMT)
     @RequireToken()
-    public BaseEntity queryAllRolesWithoutCondition() {
+    public BaseEntity queryAllRolesWithoutCondition(BaseEntity be) {
         SysRole sysRole = new SysRole();
         List<SysRole> sysRoles = roleService.listAll(sysRole);
-        BaseEntity be = new BaseEntity();
         be.setContent(sysRoles);
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
@@ -80,8 +78,7 @@ public class RoleController {
     @DeleteMapping(path = "/delete/{id}")
     @RequirePermissions(value = ROLE_MGMT)
     @RequireToken()
-    public BaseEntity delete(@PathVariable("id") int roleId) {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity delete(@PathVariable("id") int roleId, BaseEntity be) {
         int countByRoleId = roleService.getUserReferencesCountByRoleId(roleId);
         // 当前角色已经被引用，不能删除
         if(countByRoleId > 0) {
@@ -102,9 +99,8 @@ public class RoleController {
     @GetMapping("/initMenuTree")
     @RequirePermissions(value = ROLE_MGMT)
     @RequireToken()
-    public BaseEntity initMenuTree() {
+    public BaseEntity initMenuTree(BaseEntity be) {
         List<TreeNode> menuList = menuService.getMenuTreeList();
-        BaseEntity be = new BaseEntity();
         be.setContent(menuList);
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;
@@ -118,8 +114,7 @@ public class RoleController {
     @PostMapping(path = "/addRole")
     @RequirePermissions(value = ROLE_MGMT)
     @RequireToken()
-    public BaseEntity addRole(@Valid SysRole sysRole) {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity addRole(@Valid SysRole sysRole, BaseEntity be) {
         // 判断角色名称是否存在
         int roleNameExists = roleService.checkRoleNameExists(sysRole);
         // 如果角色名称存在
@@ -142,8 +137,7 @@ public class RoleController {
     @GetMapping(path = "/getRoleInfoById/{id}")
     @RequirePermissions(value = ROLE_MGMT)
     @RequireToken()
-    public BaseEntity getRoleInfoById(@PathVariable("id") int roleId) {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity getRoleInfoById(@PathVariable("id") int roleId, BaseEntity be) {
         // 获得角色信息
         SysRole roleByRoleId = roleService.getRoleByRoleId(roleId);
         // 获得树形列表
@@ -167,8 +161,7 @@ public class RoleController {
     @PutMapping(path = "/updateRole")
     @RequirePermissions(value = ROLE_MGMT)
     @RequireToken()
-    public BaseEntity updateUser(@Valid SysRole sysRole) {
-        BaseEntity be = new BaseEntity();
+    public BaseEntity updateUser(@Valid SysRole sysRole, BaseEntity be) {
         // 得到角色信息
         SysRole sysRoleByRoleId = roleService.getRoleByRoleId(sysRole.getId());
         // 得到最新版本信息
@@ -193,11 +186,10 @@ public class RoleController {
     @GetMapping(path = "/checkRoleExists/{id}")
     @RequirePermissions(value = ROLE_MGMT)
     @RequireToken()
-    public BaseEntity checkRoleExists(@PathVariable("id") int roleId) {
+    public BaseEntity checkRoleExists(@PathVariable("id") int roleId, BaseEntity be) {
         SysRole sysRole = new SysRole();
         sysRole.setId(roleId);
         int roleCount = roleService.checkRoleExists(sysRole);
-        BaseEntity be = new BaseEntity();
         // 如果角色不存在
         if(roleCount < 1) {
             be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
