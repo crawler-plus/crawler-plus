@@ -3,11 +3,11 @@ package com.crawler.components;
 import com.crawler.domain.SysMenu;
 import com.crawler.exception.SecurityException;
 import com.crawler.service.api.MenuService;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class CheckPermissions {
      */
     void checkPermissions(String uid, String[] permissionValue) {
         // 存储权限列表
-        List<Integer> permissionsList = new ArrayList<>();
+        List<Integer> permissionsList = Lists.newArrayList();
         String pStr = Arrays.toString(permissionValue);
         // 用户管理权限
         if(pStr.contains(USER_MGMT)) {
@@ -78,7 +78,7 @@ public class CheckPermissions {
         // 根据用户id得到某个用户的权限
         List<SysMenu> menuList = menuService.getMenuList(Integer.parseInt(uid));
         // 装这个用户可以访问的菜单id列表
-        List<Integer> availableMenuList = new ArrayList<>();
+        List<Integer> availableMenuList = Lists.newArrayList();
         if(!CollectionUtils.isEmpty(menuList)) {
             for (SysMenu sysMenu : menuList) {
                 availableMenuList.add(sysMenu.getMenuId());

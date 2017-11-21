@@ -8,6 +8,8 @@ import com.crawler.dao.UserMapper;
 import com.crawler.domain.*;
 import com.crawler.service.api.UserService;
 import com.crawler.util.TokenUtils;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.xiaoleilu.hutool.crypto.SecureUtil;
 import com.xiaoleilu.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService {
     private void addSysUserRole(String userRoleStr, SysUser sysUser) {
         // 如果用户角色列表不为空
         if(!StringUtils.isEmpty(userRoleStr)) {
-            List<SysUserRole> sysUserRoles = new ArrayList<>();
+            List<SysUserRole> sysUserRoles = Lists.newArrayList();
             String[] split = userRoleStr.split(",");
             for (String s : split) {
                 SysUserRole sysUserRole = new SysUserRole();
@@ -129,7 +129,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, Object> canLogin(SysUser sysUser) {
         // 最终返回的数据
-        Map<String, Object> infoMap = new HashMap<>();
+        Map<String, Object> infoMap = Maps.newHashMap();
         String password = SecureUtil.md5(sysUser.getPassword() + crawlerProperties.getMd5Salt());
         sysUser.setPassword(password);
         int exists = this.checkUserExists(sysUser);
@@ -139,11 +139,11 @@ public class UserServiceImpl implements UserService {
             SysUser sysUserByloginAccount = this.getSysUserByloginAccount(sysUser.getLoginAccount());
             // 得到用户对应的菜单信息
             List<SysMenu> menuList = menuMapper.getMenuList(sysUserByloginAccount.getId());
-            List<List<SysMenu>> sList = new ArrayList<>();
+            List<List<SysMenu>> sList = Lists.newArrayList();
             menuList.forEach(t -> {
                 // 如果是一个根节点
                 if(t.getMenuParentId() == 0) {
-                    List<SysMenu> smList = new ArrayList<>();
+                    List<SysMenu> smList = Lists.newArrayList();
                     smList.add(t);
                     sList.add(smList);
                 }

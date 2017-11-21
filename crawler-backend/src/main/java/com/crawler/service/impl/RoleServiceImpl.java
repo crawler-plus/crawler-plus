@@ -4,12 +4,12 @@ import com.crawler.dao.RoleMapper;
 import com.crawler.domain.SysRole;
 import com.crawler.domain.SysRoleMenu;
 import com.crawler.service.api.RoleService;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -63,7 +63,7 @@ public class RoleServiceImpl implements RoleService {
         String roleMenuStr = sysRole.getRoleMenuStr();
         // 如果角色对应的菜单不为空
         if(!StringUtils.isEmpty(roleMenuStr)) {
-            List<SysRoleMenu> sysRoleMenus = new ArrayList<>();
+            List<SysRoleMenu> sysRoleMenus = Lists.newArrayList();
             String[] split = roleMenuStr.split(",");
             for (String s : split) {
                 SysRoleMenu sysRoleMenu = new SysRoleMenu();
@@ -98,7 +98,7 @@ public class RoleServiceImpl implements RoleService {
         String roleMenuStr = sysRole.getRoleMenuStr();
         // 如果角色对应的菜单不为空
         if(!StringUtils.isEmpty(roleMenuStr)) {
-            List<SysRoleMenu> sysRoleMenus = new ArrayList<>();
+            List<SysRoleMenu> sysRoleMenus = Lists.newArrayList();
             String[] split = roleMenuStr.split(",");
             for (String s : split) {
                 SysRoleMenu sysRoleMenu = new SysRoleMenu();

@@ -8,6 +8,7 @@ import com.crawler.domain.TreeNode;
 import com.crawler.service.api.MenuService;
 import com.crawler.service.api.RoleService;
 import com.github.pagehelper.PageHelper;
+import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -15,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -159,7 +159,7 @@ public class RoleController {
         List<TreeNode> menuList = menuService.getMenuTreeList();
         // 获得角色对应的菜单ID列表
         List<Integer> availableMenus = roleService.fetchAllMenuId(roleId);
-        Map<String, Object> infoMap = new HashMap<>();
+        Map<String, Object> infoMap = Maps.newHashMap();
         infoMap.put("roleInfo", roleByRoleId);
         infoMap.put("menuTreeInfo", menuList);
         infoMap.put("roleRelatedMenuIds", availableMenus);

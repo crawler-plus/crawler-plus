@@ -6,6 +6,8 @@ import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
 import com.crawler.exception.CrawlerException;
 import com.crawler.util.JsoupUtils;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -16,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +39,7 @@ public class CrawlerController {
 	@PostMapping("/crawler")
 	@RequirePermissions(value = NET_CRAWLER_SEARCH)
 	public BaseEntity crawler(@RequestBody TransferEntity te, TokenEntity t) throws CrawlerException {
-		Map<String, String> reqHeadersMap = new HashMap<>();
+		Map<String, String> reqHeadersMap = Maps.newHashMap();
 		reqHeadersMap.put("Accept", "*/*");
 		reqHeadersMap.put("Accept-Encoding", "gzip, deflate");
 		reqHeadersMap.put("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
@@ -56,7 +56,7 @@ public class CrawlerController {
 			String text = contents.text();
 			be.setContent(text);
 		}else {
-			List<String> contentList = new ArrayList<>();
+			List<String> contentList = Lists.newArrayList();
 			if(null != contents) {
 				for(Element e : contents) {
 					contentList.add(e.toString());

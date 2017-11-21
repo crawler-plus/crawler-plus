@@ -4,6 +4,7 @@ import com.crawler.dao.BondMarketMapper;
 import com.crawler.domain.BondMarket;
 import com.crawler.service.api.BondMarketService;
 import com.crawler.util.LoggerUtils;
+import com.google.common.collect.Maps;
 import com.xiaoleilu.hutool.http.HttpUtil;
 import com.xiaoleilu.hutool.io.FileUtil;
 import org.json.JSONArray;
@@ -42,7 +43,7 @@ public class BondMarketServiceImpl implements BondMarketService {
 
     @Override
     public void crawBondMarket() {
-        HashMap<String, Object> paramMap = new HashMap<>();
+        HashMap<String, Object> paramMap = Maps.newHashMap();
         String jsonContent = HttpUtil.post("http://www.cninfo.com.cn/cninfo-new/disclosure/szse_latest", paramMap);
         // 解析返回的json数据
         try {

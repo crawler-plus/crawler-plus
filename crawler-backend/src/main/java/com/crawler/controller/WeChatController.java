@@ -7,6 +7,8 @@ import com.crawler.domain.TransferEntity;
 import com.crawler.domain.WeChatOfficialAccounts;
 import com.crawler.exception.CrawlerException;
 import com.crawler.util.JsoupUtils;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -18,8 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +45,7 @@ public class WeChatController {
 		TransferEntity te = new TransferEntity();
 		te.setUrl("http://weixin.sogou.com/weixin?type=1&query=" + weChatTitle + "&ie=utf8&s_from=input&page=1");
 		te.setHttpMethod("GET");
-		Map<String, String> reqHeadersMap = new HashMap<>();
+		Map<String, String> reqHeadersMap = Maps.newHashMap();
 		reqHeadersMap.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
 		reqHeadersMap.put("User-Agent", "Mozilla/5.0 (Windows N" +
 				"T 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36");
@@ -65,11 +65,11 @@ public class WeChatController {
 				be.setContent("对不起，暂时没有您想要的公众号信息，请重试！");
 			}else {
 				// 承装所有公众号信息
-				List<WeChatOfficialAccounts> wcoa = new ArrayList<>();
+				List<WeChatOfficialAccounts> wcoa = Lists.newArrayList();
 				// 得到能查询出来得页数（没登录状态下最多能查出10页）
 				int totalSearchSize = pageEles.select("a").size();
 				// 得到所有待爬取得页面url
-				List<String> urlList = new ArrayList<>();
+				List<String> urlList = Lists.newArrayList();
 				for(int i = 1; i <= totalSearchSize; i ++) {
 					String url = "http://weixin.sogou.com/weixin?type=1&query=" + weChatTitle + "&ie=utf8&s_from=input&page=" + i;
 					urlList.add(url);

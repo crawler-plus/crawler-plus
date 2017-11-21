@@ -7,6 +7,7 @@ import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
 import com.crawler.exception.CrawlerException;
 import com.crawler.util.JsoupUtils;
+import com.google.common.collect.Maps;
 import com.xiaoleilu.hutool.json.JSONUtil;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.crawler.constant.PermissionsConst.QRCODE_SEARCH;
@@ -43,7 +43,7 @@ public class BarCodeController {
 		TransferEntity te = new TransferEntity();
 		te.setUrl("http://www.liantu.com/tiaoma/query.php");
 		te.setHttpMethod("POST");
-		Map<String, String> reqHeadersMap = new HashMap<>();
+		Map<String, String> reqHeadersMap = Maps.newHashMap();
 		reqHeadersMap.put("Host", "www.liantu.com");
 		reqHeadersMap.put("Accept", "*/*");
 		reqHeadersMap.put("X-Requested-With", "XMLHttpRequest");
@@ -53,7 +53,7 @@ public class BarCodeController {
 		reqHeadersMap.put("Referer", "http://www.liantu.com/tiaoma/");
 		reqHeadersMap.put("Accept-Encoding", "gzip, deflate");
 		reqHeadersMap.put("Accept-Language", "zh-CN,zh;q=0.8");
-		Map<String, String> postParamsMap = new HashMap<>();
+		Map<String, String> postParamsMap = Maps.newHashMap();
 		postParamsMap.put("ean", code);
 		try {
 			Document urlDocument = JsoupUtils.getUrlDocument(te, reqHeadersMap, postParamsMap);

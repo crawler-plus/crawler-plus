@@ -7,6 +7,8 @@ import com.crawler.domain.TransferEntity;
 import com.crawler.service.api.ArticleService;
 import com.crawler.util.JsoupUtils;
 import com.crawler.util.LoggerUtils;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -90,14 +94,14 @@ public class ArticleServiceImpl implements ArticleService {
         List<TemplateConfig> templateConfigs = listAllTemplateConfig(userId);
         // 如果模版信息不为空
         if (!CollectionUtils.isEmpty(templateConfigs)) {
-            Map<String, String> reqHeadersMap = new HashMap<>();
+            Map<String, String> reqHeadersMap = Maps.newHashMap();
             reqHeadersMap.put("Accept", "*/*");
             reqHeadersMap.put("Accept-Encoding", "gzip, deflate");
             reqHeadersMap.put("Accept-Language", "zh-CN,zh;q=0.8");
             reqHeadersMap.put("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31");
             for (TemplateConfig tc : templateConfigs) {
                 // 查出的待爬取的url
-                List<String> crawlerUrl = new ArrayList<>();
+                List<String> crawlerUrl = Lists.newArrayList();
                 // 得到一级url
                 String url = tc.getUrl();
                 // 构造其他参数信息
