@@ -71,7 +71,7 @@ public class WebAopConfiguration {
         Method objMethod = classTarget.getMethod(methodName, par);
         RequireToken requireToken = objMethod.getAnnotation(RequireToken.class);
         // 需要验证token
-        if (null != requireToken) {
+        if (!ObjectUtils.isEmpty(requireToken)) {
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             HttpServletRequest request = attributes.getRequest();
             // 得到请求参数
@@ -90,7 +90,7 @@ public class WebAopConfiguration {
             uid = te.getUid();
         }
         RequirePermissions requirePermissions = objMethod.getAnnotation(RequirePermissions.class);
-        if (null != requirePermissions) {
+        if (!ObjectUtils.isEmpty(requirePermissions)) {
             // 得到权限字符串的值
             int[] values = requirePermissions.value();
             // 验证该用户是否有这个字符串所代表的权限

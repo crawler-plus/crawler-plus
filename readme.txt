@@ -60,7 +60,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 10. 采用Spring-scheduled定时去网络抓取新闻数据
 11. 前端封装了一个Ajax通用方法，简化Ajax操作
 12. 登录验证码支持
-13. 前后端交互基于token模式校验用户身份
+13. 前后端交互基于token模式校验用户身份，使用独创的@RequireToken注解结合AOP技术共同校验
 14. 加入二次验证用户权限机制，使用独创的@RequirePermissions注解，防止用户越权访问没有权限的API
 15. 支持双数据源配置，分别使用druid和hikari-cp数据库连接池管理这连个数据源
 16. 系统集成hutool工具包，简化常见的工具类操作

@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,8 +54,8 @@ public class CrawlerController {
 			String text = contents.text();
 			be.setContent(text);
 		}else {
-			List<String> contentList = Lists.newArrayList();
-			if(null != contents) {
+			if(!ObjectUtils.isEmpty(contents)) {
+				List<String> contentList = Lists.newArrayList();
 				for(Element e : contents) {
 					contentList.add(e.toString());
 				}

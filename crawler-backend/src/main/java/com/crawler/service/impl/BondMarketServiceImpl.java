@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -51,11 +52,11 @@ public class BondMarketServiceImpl implements BondMarketService {
             JSONObject json = new JSONObject(jsonContent);
             // 得到核心数据array对象
             JSONArray outArray = json.getJSONArray("classifiedAnnouncements");
-            if(null != outArray) {
+            if(!ObjectUtils.isEmpty(outArray)) {
                 // 循环外层的array对象，得到里面的每个股份公司的数据，也是一个json数组
                 for(int i = 0; i < outArray.length(); i ++) {
                     JSONArray innerArray = outArray.getJSONArray(i);
-                    if(null != innerArray) {
+                    if(!ObjectUtils.isEmpty(innerArray)) {
                         // 循环每一个内层数据
                         for(int j = 0; j < innerArray.length(); j ++) {
                             List<String> allIds = this.fetchAllIdsFromBondMarket();
