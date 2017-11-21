@@ -1,12 +1,15 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
-import com.crawler.domain.*;
+import com.crawler.annotation.RequireToken;
+import com.crawler.domain.BaseEntity;
+import com.crawler.domain.CrawlerContent;
+import com.crawler.domain.SysLock;
+import com.crawler.domain.TemplateConfig;
 import com.crawler.service.api.ArticleService;
 import com.crawler.service.api.SysLockService;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,13 +41,11 @@ public class ArticleController {
 	 * 保存文章配置
 	 */
 	@ApiOperation(value="保存文章配置", notes="保存文章配置")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "te", value = "文章配置entity", dataType = "TemplateConfig"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "te", value = "文章配置entity", dataType = "TemplateConfig")
 	@PostMapping("/saveTemplateConfig")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	public BaseEntity saveTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity saveTemplateConfig(@Valid TemplateConfig te) {
 		te.setId(UUID.randomUUID().toString().replace("-", ""));
 		articleService.saveTemplateConfig(te);
 		BaseEntity be = new BaseEntity();
@@ -57,13 +58,11 @@ public class ArticleController {
 	 * 修改文章配置
 	 */
 	@ApiOperation(value="修改文章配置", notes="修改文章配置")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "te", value = "文章配置entity", dataType = "TemplateConfig"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "te", value = "文章配置entity", dataType = "TemplateConfig")
 	@PutMapping("/editTemplateConfig")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	public BaseEntity editTemplateConfig(@Valid TemplateConfig te, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity editTemplateConfig(@Valid TemplateConfig te) {
 		BaseEntity be = new BaseEntity();
 		// 得到文章配置信息
 		TemplateConfig templateConfig = articleService.getTemplateConfig(te.getId());
@@ -85,13 +84,11 @@ public class ArticleController {
 	 * 根据id删除文章配置
 	 */
 	@ApiOperation(value="根据id删除文章配置", notes="根据id删除文章配置")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String")
 	@DeleteMapping(path = "/removeTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	public BaseEntity removeTemplateConfig(@PathVariable("id") String id, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity removeTemplateConfig(@PathVariable("id") String id) {
 		articleService.removeTemplateConfig(id);
 		BaseEntity be = new BaseEntity();
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -103,13 +100,11 @@ public class ArticleController {
 	 * 列出所有文章配置
 	 */
 	@ApiOperation(value="列出所有文章配置", notes="列出所有文章配置")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
 	@GetMapping(path = "/listAllTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	public BaseEntity listAllTemplateConfig(@PathVariable("id") int userId, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity listAllTemplateConfig(@PathVariable("id") int userId) {
 		BaseEntity be = new BaseEntity();
 		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig(userId);
 		be.setContent(templateConfigs);
@@ -121,13 +116,11 @@ public class ArticleController {
 	 * 根据id获得文章配置
 	 */
 	@ApiOperation(value="根据id获得文章配置", notes="根据id获得文章配置")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String")
 	@GetMapping(path = "/getTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	public BaseEntity getTemplateConfig(@PathVariable("id") String id, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity getTemplateConfig(@PathVariable("id") String id) {
 		BaseEntity be = new BaseEntity();
 		TemplateConfig templateConfig = articleService.getTemplateConfig(id);
 		be.setContent(templateConfig);
@@ -139,13 +132,11 @@ public class ArticleController {
 	 * 列出所有查询出的文章
 	 */
 	@ApiOperation(value="列出所有查询出的文章", notes="列出所有查询出的文章")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", dataType = "CrawlerContent"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", dataType = "CrawlerContent")
 	@GetMapping("/listAllCrawlerContents")
 	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
-	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent) {
 		int crawlerContentSize = articleService.getCrawlerContentSize(crawlerContent.getUserId());
 		// 分页查询
 		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
@@ -161,13 +152,11 @@ public class ArticleController {
 	 * 根据id获得指定文章
 	 */
 	@ApiOperation(value="根据id获得指定文章", notes="根据id获得指定文章")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "String")
 	@GetMapping(path = "/getCrawlerContent/{id}")
 	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
-	public BaseEntity getCrawlerContent(@PathVariable("id") String id, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity getCrawlerContent(@PathVariable("id") String id) {
 		BaseEntity be = new BaseEntity();
 		CrawlerContent crawlerContent = articleService.getCrawlerContent(id);
 		be.setContent(crawlerContent);
@@ -179,13 +168,11 @@ public class ArticleController {
 	 * 执行cron
 	 */
 	@ApiOperation(value="执行cron", notes="执行cron")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
 	@GetMapping(path = "/executeCron/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	public BaseEntity executeCron(@PathVariable("id") int userId, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity executeCron(@PathVariable("id") int userId) {
 		BaseEntity be = new BaseEntity();
 		// 检查系统是否正在运行定时任务，爬取文章，如下条件成立，说明当前没有线程运行定时任务
 		SysLock checkLock = sysLockService.getSysLock();
@@ -212,13 +199,11 @@ public class ArticleController {
 	 * 判断文章配置是否存在
 	 */
 	@ApiOperation(value="判断文章配置是否存在", notes="判断文章配置是否存在")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "templateConfigId", value = "文章配置id", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "templateConfigId", value = "文章配置id", required = true, dataType = "String")
 	@GetMapping(path = "/checkTemplateConfigExists/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	public BaseEntity checkTemplateConfigExists(@PathVariable("id") String templateConfigId, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity checkTemplateConfigExists(@PathVariable("id") String templateConfigId) {
 		TemplateConfig templateConfig = new TemplateConfig();
 		templateConfig.setId(templateConfigId);
 		int templateConfigCount = articleService.checkTemplateConfigExists(templateConfig);

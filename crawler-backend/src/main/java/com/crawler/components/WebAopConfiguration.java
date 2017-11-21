@@ -1,7 +1,9 @@
 package com.crawler.components;
 
 import com.crawler.annotation.RequirePermissions;
+import com.crawler.annotation.RequireToken;
 import com.crawler.domain.TokenEntity;
+import com.crawler.exception.SecurityException;
 import com.crawler.util.LoggerUtils;
 import com.xiaoleilu.hutool.date.SystemClock;
 import org.aspectj.lang.JoinPoint;
@@ -22,6 +24,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * AOP配置
@@ -39,7 +42,7 @@ public class WebAopConfiguration {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Pointcut("execution(* com.crawler.controller.*.*(..))")
-    private void webLog(){
+    private void webLog() {
     }
 
     @Before("webLog()")
@@ -61,32 +64,40 @@ public class WebAopConfiguration {
     public Object doAroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         // 用户id
         String uid = "";
-        // 获得方法的所有参数
-        Object[] args = proceedingJoinPoint.getArgs();
-        if(!ObjectUtils.isEmpty(args)) {
-            for(Object o : args) {
-                if(o instanceof TokenEntity) {
-                    TokenEntity t = (TokenEntity)o;
-                    uid = t.getUid();
-                    // 验证token
-                    checkToken.checkToken(t);
-                }
-            }
-        }
         Class<?> classTarget = proceedingJoinPoint.getTarget().getClass();
-        Class<?>[] par = ((MethodSignature)proceedingJoinPoint.getSignature()).getParameterTypes();
+        Class<?>[] par = ((MethodSignature) proceedingJoinPoint.getSignature()).getParameterTypes();
         // 得到方法名
         String methodName = proceedingJoinPoint.getSignature().getName();
         Method objMethod = classTarget.getMethod(methodName, par);
+        RequireToken requireToken = objMethod.getAnnotation(RequireToken.class);
+        // 需要验证token
+        if (null != requireToken) {
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            HttpServletRequest request = attributes.getRequest();
+            // 得到请求参数
+            Map<String, String[]> parameterMap = request.getParameterMap();
+            if (ObjectUtils.isEmpty(parameterMap.get("uid"))
+                    || ObjectUtils.isEmpty(parameterMap.get("timestamp"))
+                    || ObjectUtils.isEmpty(parameterMap.get("token"))) {
+                throw new SecurityException("insecurity access");
+            }
+            // 设置请求参数
+            TokenEntity te = new TokenEntity();
+            te.setUid(parameterMap.get("uid")[0]);
+            te.setTimestamp(parameterMap.get("timestamp")[0]);
+            te.setToken(parameterMap.get("token")[0]);
+            checkToken.checkToken(te);
+            uid = te.getUid();
+        }
         RequirePermissions requirePermissions = objMethod.getAnnotation(RequirePermissions.class);
-        if(null != requirePermissions) {
+        if (null != requirePermissions) {
             // 得到权限字符串的值
             int[] values = requirePermissions.value();
             // 验证该用户是否有这个字符串所代表的权限
             checkPermissions.checkPermissions(uid, values);
         }
         long timeStart = SystemClock.now();
-        Object obj = proceedingJoinPoint.proceed(args);
+        Object obj = proceedingJoinPoint.proceed();
         LoggerUtils.printLogger(logger, "环绕通知的目标方法名：" + methodName);
         LoggerUtils.printLogger(logger, "方法执行时间为：" + String.valueOf(SystemClock.now() - timeStart) + "ms");
         return obj;

@@ -1,16 +1,15 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
+import com.crawler.annotation.RequireToken;
 import com.crawler.domain.BarCodeEntity;
 import com.crawler.domain.BaseEntity;
-import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
 import com.crawler.exception.CrawlerException;
 import com.crawler.util.JsoupUtils;
 import com.google.common.collect.Maps;
 import com.xiaoleilu.hutool.json.JSONUtil;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -32,13 +31,11 @@ import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 public class BarCodeController {
 
 	@ApiOperation(value="根据条形码查商品信息", notes="根据条形码查商品信息")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "code", value = "条形码", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "code", value = "条形码", required = true, dataType = "String")
 	@GetMapping(path = "/barCode/{code}")
 	@RequirePermissions(value = QRCODE_SEARCH)
-	public BaseEntity barCode(@PathVariable("code") String code, TokenEntity t) throws CrawlerException {
+	@RequireToken()
+	public BaseEntity barCode(@PathVariable("code") String code) throws CrawlerException {
 		BaseEntity be = new BaseEntity();
 		TransferEntity te = new TransferEntity();
 		te.setUrl("http://www.liantu.com/tiaoma/query.php");

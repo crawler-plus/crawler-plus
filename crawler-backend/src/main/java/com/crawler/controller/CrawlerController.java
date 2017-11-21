@@ -1,15 +1,14 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
+import com.crawler.annotation.RequireToken;
 import com.crawler.domain.BaseEntity;
-import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
 import com.crawler.exception.CrawlerException;
 import com.crawler.util.JsoupUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -32,13 +31,11 @@ import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 public class CrawlerController {
 
 	@ApiOperation(value="根据参数爬取网站内容", notes="根据参数爬取网站内容")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "te", value = "传递的参数Entity", dataType = "TransferEntity"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "te", value = "传递的参数Entity", dataType = "TransferEntity")
 	@PostMapping("/crawler")
 	@RequirePermissions(value = NET_CRAWLER_SEARCH)
-	public BaseEntity crawler(@RequestBody TransferEntity te, TokenEntity t) throws CrawlerException {
+	@RequireToken()
+	public BaseEntity crawler(@RequestBody TransferEntity te) throws CrawlerException {
 		Map<String, String> reqHeadersMap = Maps.newHashMap();
 		reqHeadersMap.put("Accept", "*/*");
 		reqHeadersMap.put("Accept-Encoding", "gzip, deflate");

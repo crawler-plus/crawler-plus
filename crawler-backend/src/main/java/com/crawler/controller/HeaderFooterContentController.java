@@ -1,12 +1,11 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
+import com.crawler.annotation.RequireToken;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysHeaderFooterContent;
-import com.crawler.domain.TokenEntity;
 import com.crawler.service.api.HeaderFooterContentService;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,10 +34,10 @@ public class HeaderFooterContentController {
 	 * 获得页眉页脚内容
 	 */
 	@ApiOperation(value="获得页眉页脚内容", notes="获得页眉页脚内容")
-	@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	@GetMapping("/get")
 	@RequirePermissions(value = HEADER_FOOTER_CONTENT)
-	public BaseEntity getTemplateConfig(TokenEntity t) {
+	@RequireToken()
+	public BaseEntity getTemplateConfig() {
 		BaseEntity be = new BaseEntity();
 		SysHeaderFooterContent headerFooterContent = headerFooterContentService.getHeaderFooterContent();
 		be.setContent(headerFooterContent);
@@ -50,13 +49,11 @@ public class HeaderFooterContentController {
 	 * 修改页眉页脚内容
 	 */
 	@ApiOperation(value="修改页眉页脚内容", notes="修改页眉页脚内容")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "sysHeaderFooterContent", value = "页眉页脚entity", dataType = "SysHeaderFooterContent"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "sysHeaderFooterContent", value = "页眉页脚entity", dataType = "SysHeaderFooterContent")
 	@PutMapping("/edit")
 	@RequirePermissions(value = HEADER_FOOTER_CONTENT)
-	public BaseEntity editTemplateConfig(@Valid SysHeaderFooterContent sysHeaderFooterContent, TokenEntity t) {
+	@RequireToken()
+	public BaseEntity editTemplateConfig(@Valid SysHeaderFooterContent sysHeaderFooterContent) {
 		BaseEntity be = new BaseEntity();
 		// 得到页眉页脚信息
 		SysHeaderFooterContent sysFhc = headerFooterContentService.getHeaderFooterContent();

@@ -1,8 +1,8 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
+import com.crawler.annotation.RequireToken;
 import com.crawler.domain.BaseEntity;
-import com.crawler.domain.TokenEntity;
 import com.crawler.domain.TransferEntity;
 import com.crawler.domain.WeChatOfficialAccounts;
 import com.crawler.exception.CrawlerException;
@@ -10,7 +10,6 @@ import com.crawler.util.JsoupUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,13 +33,11 @@ import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 public class WeChatController {
 
 	@ApiOperation(value="根据微信公众号名称搜索微信公众号", notes="根据微信公众号名称搜索微信公众号")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "weChatTitle", value = "微信公众号名称", required = true, dataType = "String"),
-			@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "weChatTitle", value = "微信公众号名称", required = true, dataType = "String")
 	@GetMapping(path = "/weChat/{weChatTitle}")
 	@RequirePermissions(value = WECHAT_PUBLIC_SEARCH)
-	public BaseEntity barCode(@PathVariable("weChatTitle") String weChatTitle, TokenEntity t) throws CrawlerException {
+	@RequireToken()
+	public BaseEntity barCode(@PathVariable("weChatTitle") String weChatTitle) throws CrawlerException {
 		BaseEntity be = new BaseEntity();
 		TransferEntity te = new TransferEntity();
 		te.setUrl("http://weixin.sogou.com/weixin?type=1&query=" + weChatTitle + "&ie=utf8&s_from=input&page=1");

@@ -1,14 +1,13 @@
 package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
+import com.crawler.annotation.RequireToken;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.BondMarket;
-import com.crawler.domain.TokenEntity;
 import com.crawler.exception.CrawlerException;
 import com.crawler.service.api.BondMarketService;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,15 +31,14 @@ public class BondMarketController {
 
 	/**
 	 * 爬取债券市场内容
-	 * @param t
 	 * @return
 	 * @throws CrawlerException
 	 */
 	@ApiOperation(value="爬取债券市场内容", notes="爬取债券市场内容")
-	@ApiImplicitParam(name = "t", value = "Token Entity", dataType = "TokenEntity")
 	@GetMapping("/craw")
 	@RequirePermissions(value = BOND_MARKET)
-	public BaseEntity crawBondMarket(TokenEntity t)  {
+	@RequireToken()
+	public BaseEntity crawBondMarket()  {
 		BaseEntity be = new BaseEntity();
 		bondMarketService.crawBondMarket();
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -52,13 +50,11 @@ public class BondMarketController {
 	 * 用户债券市场内容
 	 */
 	@ApiOperation(value="用户债券市场内容", notes="用户债券市场内容")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "bondMarket", value = "债券市场entity", dataType = "BondMarket"),
-			@ApiImplicitParam(name = "te", value = "Token Entity", dataType = "TokenEntity")
-	})
+	@ApiImplicitParam(name = "bondMarket", value = "债券市场entity", dataType = "BondMarket")
 	@GetMapping("/queryAll")
 	@RequirePermissions(value = BOND_MARKET)
-	public BaseEntity queryAll(BondMarket bondMarket, TokenEntity te) {
+	@RequireToken()
+	public BaseEntity queryAll(BondMarket bondMarket) {
 		int bondMarketCount = bondMarketService.getBondMarketListCount();
 		// 分页查询
 		PageHelper.startPage(bondMarket.getPage(),bondMarket.getLimit());
