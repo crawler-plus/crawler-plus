@@ -83,7 +83,7 @@ var dataRequest = function() {
 	};
 
 	/**
-	 * 提交AJAX,与服务器数据交互 (不过验签服务器)
+	 * 提交AJAX,与服务器数据交互
 	 * @param signOptions
 	 * @param ajaxOptions
 	 * @param ajaxSuccCallback

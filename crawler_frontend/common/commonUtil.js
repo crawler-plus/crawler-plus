@@ -6,67 +6,6 @@ var comm = {
 var commonUtil = function () {
 
     /**
-     * HTMLCODE字典
-     * @type {{httpCode200: string, httpCode500: string, httpCode503: string, httpCode400: string, httpCode401: string, httpCode403: string, httpCode301: string, httpCode302: string}}
-     */
-    var httpCode = {
-        "httpCode200": "服务器已成功处理了请求",
-        "httpCode500": "服务器内部错误",
-        "httpCode503": "服务不可用",
-        "httpCode400": "用户令牌已过期，请重新登陆",
-        "httpCode401": "请求要求身份验证",
-        "httpCode403": "服务器找不到请求的资源",
-        "httpCode301": "请求的网页已永久移动到新位置",
-        "httpCode302": "服务器目前从不同位置的网页响应请求，但请求者应继续使用原有位置来进行以后的请求"
-    };
-
-    /**
-     * 根据Code，匹配httpcode字典返回错误文字
-     * @param code
-     * @returns {{}}
-     * @private
-     */
-    var _getHttpMessage = function (code) {
-        var result = {};
-        switch (String(code)) {
-            case "200":
-                result.message = httpCode.httpCode200;
-                result.code = "200";
-                break;
-            case "500":
-                result.message = httpCode.httpCode500;
-                result.code = "500";
-                break;
-            case "503":
-                result.message = httpCode.httpCode503;
-                result.code = "503";
-                break;
-            case "400":
-                result.message = httpCode.httpCode400;
-                result.code = "400";
-                break;
-            case "401":
-                result.message = httpCode.httpCode401;
-                result.code = "401";
-                break;
-            case "403":
-                result.message = httpCode.httpCode403;
-                result.code = "403";
-                break;
-            case "301":
-                result.message = httpCode.httpCode301;
-                result.code = "301";
-                break;
-            case "302":
-                result.message = httpCode.httpCode302;
-                result.code = "302";
-                break;
-        }
-        return result;
-
-    };
-
-    /**
      * 优化bootstrap初始化
      * @param element
      * @param option
@@ -223,7 +162,7 @@ var commonUtil = function () {
      * 关闭tab页
      * @returns {boolean}
      */
-    var closeTab=function () {
+    var closeTab = function () {
         window.parent.contabs.closeActiveTab();
     };
 
@@ -281,9 +220,6 @@ var commonUtil = function () {
     };
 
     return {
-        getHttpMessage: function (e) {
-            return _getHttpMessage(e)
-        },
         getObjArrayViaSort: _keySort,
         getUrlParam: _getUrlParam,
         bootstrapTable: _bootstrapTable,
