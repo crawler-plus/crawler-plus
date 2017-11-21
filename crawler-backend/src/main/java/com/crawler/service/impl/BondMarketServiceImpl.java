@@ -5,6 +5,7 @@ import com.crawler.domain.BondMarket;
 import com.crawler.service.api.BondMarketService;
 import com.crawler.util.LoggerUtils;
 import com.google.common.collect.Maps;
+import com.xiaoleilu.hutool.date.DateUtil;
 import com.xiaoleilu.hutool.http.HttpUtil;
 import com.xiaoleilu.hutool.io.FileUtil;
 import org.json.JSONArray;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -81,7 +81,7 @@ public class BondMarketServiceImpl implements BondMarketService {
                             long announcementTime = eachObject.getLong("announcementTime");
                             // 把发布时间转成yyyy-mm-dd格式的字符串
                             Date d = new Date(announcementTime);
-                            String announcementTimeStr = new SimpleDateFormat("yyyy-MM-dd").format(d);
+                            String announcementTimeStr = DateUtil.format(d, "yyyy-MM-dd");
                             // 得到pdf下载url字符串
                             String adjunctUrl = eachObject.getString("adjunctUrl");
                             BondMarket bm = new BondMarket();
