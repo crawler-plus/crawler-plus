@@ -7,10 +7,7 @@ import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysLog;
 import com.crawler.domain.SysRole;
 import com.crawler.domain.SysUser;
-import com.crawler.service.api.LogService;
-import com.crawler.service.api.RoleService;
-import com.crawler.service.api.SysCaptchaService;
-import com.crawler.service.api.UserService;
+import com.crawler.service.api.*;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -18,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +45,9 @@ public class UserController {
 
     @Autowired
     private SysCaptchaService sysCaptchaService;
+
+    @Autowired
+    private UserTokenService userTokenService;
 
     @Autowired
     private CrawlerProperties crawlerProperties;
@@ -226,12 +229,15 @@ public class UserController {
         SysLog sysLog = new SysLog();
         sysLog.setLoginAccount(sysUserByUserId.getLoginAccount());
         sysLog.setTypeId(2);
+        // 获得用户ip
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = attributes.getRequest();
+        // 获取ip地址
+        String ip = request.getRemoteAddr();
+        sysLog.setIp(ip);
         logService.logAdd(sysLog);
-        // 将用户表中的token字段更新
-        SysUser updateTokenParam = new SysUser();
-        updateTokenParam.setId(userId);
-        updateTokenParam.setLoginToken("");
-        userService.updateUserToken(updateTokenParam);
+        // 将用户token表中的数据删除
+        userTokenService.deleteByToken(be.getToken());
         be.setContent("用户退出");
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;

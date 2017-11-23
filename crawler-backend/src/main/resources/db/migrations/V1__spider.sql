@@ -1,22 +1,22 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50527
+Source Server         : lo
+Source Server Version : 50717
 Source Host           : localhost:3306
 Source Database       : spider
 
 Target Server Type    : MYSQL
-Target Server Version : 50527
+Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-11-16 09:46:28
+Date: 2017-11-23 17:17:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for bond_market
+-- Table structure for `bond_market`
 -- ----------------------------
 DROP TABLE IF EXISTS `bond_market`;
 CREATE TABLE `bond_market` (
@@ -27,6 +27,7 @@ CREATE TABLE `bond_market` (
   `category` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '类别',
   `publish_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '公告时间',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `adjunct_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'pdf下载url字符串',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -35,7 +36,7 @@ CREATE TABLE `bond_market` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for crawler_content
+-- Table structure for `crawler_content`
 -- ----------------------------
 DROP TABLE IF EXISTS `crawler_content`;
 CREATE TABLE `crawler_content` (
@@ -48,14 +49,14 @@ CREATE TABLE `crawler_content` (
   `created` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL COMMENT '关联的用户id',
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=890 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=936 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of crawler_content
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sys_captcha
+-- Table structure for `sys_captcha`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_captcha`;
 CREATE TABLE `sys_captcha` (
@@ -70,7 +71,7 @@ CREATE TABLE `sys_captcha` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sys_header_footer_content
+-- Table structure for `sys_header_footer_content`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_header_footer_content`;
 CREATE TABLE `sys_header_footer_content` (
@@ -87,7 +88,7 @@ CREATE TABLE `sys_header_footer_content` (
 INSERT INTO `sys_header_footer_content` VALUES ('1', '<div>页眉内容</div>', '<div>页脚内容</div>', '2');
 
 -- ----------------------------
--- Table structure for sys_lock
+-- Table structure for `sys_lock`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_lock`;
 CREATE TABLE `sys_lock` (
@@ -101,7 +102,7 @@ CREATE TABLE `sys_lock` (
 INSERT INTO `sys_lock` VALUES ('0', '0');
 
 -- ----------------------------
--- Table structure for sys_log
+-- Table structure for `sys_log`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
@@ -109,15 +110,16 @@ CREATE TABLE `sys_log` (
   `login_account` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '登录账户',
   `execute_time` datetime DEFAULT NULL COMMENT '执行时间',
   `type_id` int(11) DEFAULT NULL COMMENT '类型（1：登录系统，2：登出系统）',
+  `ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'ip地址',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sys_log
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for sys_menu
+-- Table structure for `sys_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
@@ -128,14 +130,14 @@ CREATE TABLE `sys_menu` (
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'url',
   `group_id` int(11) DEFAULT NULL COMMENT '组id',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '1', '#', '1');
-INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', 'http://127.0.0.1:8088/druid/index.html', '1');
-INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', 'http://127.0.0.1:8088/swagger-ui.html', '1');
+INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', '/druid/index.html', '1');
+INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', '/swagger-ui.html', '1');
 INSERT INTO `sys_menu` VALUES ('4', '用户管理', '1', '4', 'crawler/userMgmt.html', '1');
 INSERT INTO `sys_menu` VALUES ('5', '角色管理', '1', '5', 'crawler/roleMgmt.html', '1');
 INSERT INTO `sys_menu` VALUES ('6', '网页爬虫管理', '0', '6', '#', '2');
@@ -150,9 +152,10 @@ INSERT INTO `sys_menu` VALUES ('14', '自服务管理', '0', '14', '#', '4');
 INSERT INTO `sys_menu` VALUES ('15', '用户信息修改', '14', '15', 'crawler/userInformationUpdate.html', '4');
 INSERT INTO `sys_menu` VALUES ('16', '页眉页脚管理', '1', '16', 'crawler/headerFooterContentMgmt.html', '1');
 INSERT INTO `sys_menu` VALUES ('17', '债券市场查询', '6', '17', 'crawler/bondMarketSearch.html', '2');
+INSERT INTO `sys_menu` VALUES ('18', '服务可用性监控', '1', '18', '/hystrix', '1');
 
 -- ----------------------------
--- Table structure for sys_role
+-- Table structure for `sys_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
@@ -172,7 +175,7 @@ INSERT INTO `sys_role` VALUES ('3', '开发人员', '开发人员角色噶', '2'
 INSERT INTO `sys_role` VALUES ('4', '测试人员', '测试人员角色', '2');
 
 -- ----------------------------
--- Table structure for sys_role_menu
+-- Table structure for `sys_role_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
@@ -221,7 +224,7 @@ INSERT INTO `sys_role_menu` VALUES ('157', '2', '14');
 INSERT INTO `sys_role_menu` VALUES ('158', '2', '15');
 
 -- ----------------------------
--- Table structure for sys_user
+-- Table structure for `sys_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
@@ -230,19 +233,18 @@ CREATE TABLE `sys_user` (
   `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '姓名',
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '用户密码',
   `version` int(11) DEFAULT NULL COMMENT '乐观锁（版本号）',
-  `login_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '登录token',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', 'crawler', 'f74ad5b5c5271f653dbcf5641ca029bd', '2', '');
-INSERT INTO `sys_user` VALUES ('25', 'zhangsan', '张三', 'f74ad5b5c5271f653dbcf5641ca029bd', '13', null);
-INSERT INTO `sys_user` VALUES ('26', 'lisi', '李四', 'f74ad5b5c5271f653dbcf5641ca029bd', '2', 'eyJ1aWQiOiIyNiIsInRva2VuS2V5IjoiY3Jhd2xlcl9rZXkiLCJ0aW1lc3RhbXAiOiIxNTEwNzk2MzkxNTAzIn0=');
+INSERT INTO `sys_user` VALUES ('1', 'admin', 'crawler', 'f74ad5b5c5271f653dbcf5641ca029bd', '2');
+INSERT INTO `sys_user` VALUES ('25', 'zhangsan', '张三', 'f74ad5b5c5271f653dbcf5641ca029bd', '13');
+INSERT INTO `sys_user` VALUES ('26', 'lisi', '李四', 'f74ad5b5c5271f653dbcf5641ca029bd', '2');
 
 -- ----------------------------
--- Table structure for sys_user_role
+-- Table structure for `sys_user_role`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
@@ -266,7 +268,22 @@ INSERT INTO `sys_user_role` VALUES ('77', '25', '4');
 INSERT INTO `sys_user_role` VALUES ('78', '1', '1');
 
 -- ----------------------------
--- Table structure for template_config
+-- Table structure for `sys_user_token`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_token`;
+CREATE TABLE `sys_user_token` (
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户token',
+  `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '登录ip地址',
+  PRIMARY KEY (`user_id`,`token`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of sys_user_token
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `template_config`
 -- ----------------------------
 DROP TABLE IF EXISTS `template_config`;
 CREATE TABLE `template_config` (

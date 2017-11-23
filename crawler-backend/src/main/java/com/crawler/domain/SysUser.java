@@ -34,9 +34,6 @@ public class SysUser extends BaseEntity {
     // 是否简单修改用户信息（如果来自用户管理，为0代表否，如果来自自服务管理，为1代表是）
     private int simpleUpdate;
 
-    // 登录token
-    private String loginToken;
-
     public interface First {}
 
     public interface Second {}
@@ -105,13 +102,5 @@ public class SysUser extends BaseEntity {
 
     public void setSimpleUpdate(int simpleUpdate) {
         this.simpleUpdate = simpleUpdate;
-    }
-
-    public String getLoginToken() {
-        return loginToken;
-    }
-
-    public void setLoginToken(String loginToken) {
-        this.loginToken = loginToken;
     }
 }

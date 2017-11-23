@@ -1,14 +1,19 @@
 package com.crawler.components;
 
-import com.crawler.domain.SysUser;
+import com.crawler.domain.SysUserToken;
 import com.crawler.domain.TokenEntity;
 import com.crawler.exception.SecurityException;
-import com.crawler.service.api.UserService;
+import com.crawler.service.api.UserTokenService;
 import com.crawler.util.TokenUtils;
 import com.xiaoleilu.hutool.date.SystemClock;
 import com.xiaoleilu.hutool.util.StrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 验证token公共类
@@ -20,7 +25,7 @@ public class CheckToken {
     private CrawlerProperties crawlerProperties;
 
     @Autowired
-    private UserService userService;
+    private UserTokenService userTokenService;
 
     void checkToken(TokenEntity te) {
         // token不合法标识
@@ -36,18 +41,29 @@ public class CheckToken {
             tokenInvalidFlag = true;
         }else {
             // 判断用户是否已经退出系统
-            SysUser sysUserByUserId = userService.getSysUserByUserId(Integer.parseInt(uid));
-            String userToken = sysUserByUserId.getLoginToken();
-            // 如果用户token已被删除
-            if(!StrUtil.equals(userToken, token)) {
+            SysUserToken sysUserToken = userTokenService.getByToken(token);
+            // 证明退出系统
+            if(ObjectUtils.isEmpty(sysUserToken)) {
                 tokenInvalidFlag = true;
-            }else {
-                long now = SystemClock.now();
-                // 得到3H的millis
-                long threeHoursMillis = 1000 * 3600 * 3;
-                // token有效期只有3小时，过期自动失效
-                if(now - Long.parseLong(timeStamp) > threeHoursMillis) {
+            }
+            // 判断用户登录ip是不是当前ip
+            else {
+                // 获得用户ip
+                ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+                HttpServletRequest request = attributes.getRequest();
+                // 获取ip地址
+                String ip = request.getRemoteAddr();
+                // 不相等，证明不是本机ip
+                if(!StrUtil.equals(ip, sysUserToken.getIp())) {
                     tokenInvalidFlag = true;
+                }else {
+                    long now = SystemClock.now();
+                    // 得到3H的millis
+                    long threeHoursMillis = 1000 * 3600 * 3;
+                    // token有效期只有3小时，过期自动失效
+                    if(now - Long.parseLong(timeStamp) > threeHoursMillis) {
+                        tokenInvalidFlag = true;
+                    }
                 }
             }
         }

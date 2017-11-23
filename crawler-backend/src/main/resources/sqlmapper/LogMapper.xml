@@ -13,6 +13,9 @@
             <if test='typeId != 0'>
                 type_id,
             </if>
+            <!--<if test='ip != null and ip != "" '>-->
+                <!--ip,-->
+            <!--</if>-->
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
                 NULL,
@@ -23,6 +26,9 @@
             <if test='typeId != 0'>
                 #{typeId, jdbcType=INTEGER}
             </if>
+            <!--<if test='ip != null and ip != "" '>-->
+                <!--#{ip, jdbcType=VARCHAR},-->
+            <!--</if>-->
         </trim>
     </insert>
 
@@ -34,7 +40,8 @@
         (CASE type_id
         WHEN 1 THEN '登录'
         WHEN 2 THEN '登出'
-        END) AS typeName
+        END) AS typeName,
+        ip AS ip
         FROM sys_log
         <if test='loginAccount != null and loginAccount != "" '>
             WHERE login_account LIKE CONCAT("%", #{loginAccount, jdbcType=VARCHAR}, "%")

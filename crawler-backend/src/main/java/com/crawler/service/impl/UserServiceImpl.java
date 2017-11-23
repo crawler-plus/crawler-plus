@@ -1,10 +1,7 @@
 package com.crawler.service.impl;
 
 import com.crawler.components.CrawlerProperties;
-import com.crawler.dao.ArticleMapper;
-import com.crawler.dao.LogMapper;
-import com.crawler.dao.MenuMapper;
-import com.crawler.dao.UserMapper;
+import com.crawler.dao.*;
 import com.crawler.domain.*;
 import com.crawler.service.api.UserService;
 import com.crawler.util.TokenUtils;
@@ -16,7 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
+    private UserTokenMapper userTokenMapper;
 
     @Autowired
     private CrawlerProperties crawlerProperties;
@@ -158,22 +161,23 @@ public class UserServiceImpl implements UserService {
             SysLog sysLog = new SysLog();
             sysLog.setLoginAccount(sysUser.getLoginAccount());
             sysLog.setTypeId(1);
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            HttpServletRequest request = attributes.getRequest();
+            // 获取ip地址
+            String ip = request.getRemoteAddr();
+            sysLog.setIp(ip);
             logMapper.logAdd(sysLog);
             // 将用户表中的token字段更新
-            SysUser updateTokenParam = new SysUser();
-            updateTokenParam.setId(sysUserByloginAccount.getId());
-            updateTokenParam.setLoginToken(userToken.getToken());
-            updateUserToken(updateTokenParam);
+            SysUserToken sysUserToken = new SysUserToken();
+            sysUserToken.setUserId(sysUserByloginAccount.getId());
+            sysUserToken.setToken(userToken.getToken());
+            sysUserToken.setIp(ip);
+            userTokenMapper.tokenAdd(sysUserToken);
             infoMap.put("userInfo", sysUserByloginAccount);
             infoMap.put("menuInfo", JSONUtil.toJsonStr(sList));
             infoMap.put("token", userToken.getToken());
             infoMap.put("timestamp", userToken.getTimestamp());
         }
         return infoMap;
-    }
-
-    @Override
-    public void updateUserToken(SysUser sysUser) {
-        userMapper.updateUserToken(sysUser);
     }
 }

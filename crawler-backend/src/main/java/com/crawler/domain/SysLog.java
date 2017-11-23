@@ -30,6 +30,11 @@ public class SysLog extends BaseEntity {
      */
     private String typeName;
 
+    /**
+     * ip地址
+     */
+    private String ip;
+
     public int getId() {
         return id;
     }
@@ -68,5 +73,13 @@ public class SysLog extends BaseEntity {
 
     public void setTypeName(String typeName) {
         this.typeName = typeName;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

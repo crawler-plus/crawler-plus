@@ -53,8 +53,7 @@
         login_account AS loginAccount,
         name AS name,
         password AS password,
-        version AS version,
-        login_token AS loginToken
+        version AS version
         FROM sys_user
         WHERE id = #{id, jdbcType=INTEGER}
     </select>
@@ -117,16 +116,6 @@
                 password = #{password, jdbcType=VARCHAR},
             </if>
                 version = version + 1,
-        </trim>
-        WHERE id = #{id, jdbcType=INTEGER}
-    </update>
-
-    <update id="updateUserToken" parameterType="com.crawler.domain.SysUser">
-        UPDATE sys_user
-        <trim prefix="set" suffixOverrides=",">
-            <if test='loginToken != null'>
-                login_token = #{loginToken, jdbcType=VARCHAR},
-            </if>
         </trim>
         WHERE id = #{id, jdbcType=INTEGER}
     </update>
