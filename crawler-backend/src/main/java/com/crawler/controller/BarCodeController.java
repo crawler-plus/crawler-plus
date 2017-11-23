@@ -34,7 +34,7 @@ public class BarCodeController {
 	@ApiImplicitParam(name = "code", value = "条形码", required = true, dataType = "String")
 	@GetMapping(path = "/barCode/{code}")
 	@RequirePermissions(value = QRCODE_SEARCH)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity barCode(@PathVariable("code") String code, BaseEntity be) throws CrawlerException {
 		TransferEntity te = new TransferEntity();
 		te.setUrl("http://www.liantu.com/tiaoma/query.php");

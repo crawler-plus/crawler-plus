@@ -37,7 +37,7 @@ public class BondMarketController {
 	@ApiOperation(value="爬取债券市场内容", notes="爬取债券市场内容")
 	@GetMapping("/craw")
 	@RequirePermissions(value = BOND_MARKET)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity crawBondMarket(BaseEntity be)  {
 		bondMarketService.crawBondMarket();
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -52,7 +52,7 @@ public class BondMarketController {
 	@ApiImplicitParam(name = "bondMarket", value = "债券市场entity", dataType = "BondMarket")
 	@GetMapping("/queryAll")
 	@RequirePermissions(value = BOND_MARKET)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity queryAll(BondMarket bondMarket, BaseEntity be) {
 		int bondMarketCount = bondMarketService.getBondMarketListCount();
 		// 分页查询

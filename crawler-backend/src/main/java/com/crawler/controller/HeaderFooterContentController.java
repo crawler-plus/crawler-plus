@@ -36,7 +36,7 @@ public class HeaderFooterContentController {
 	@ApiOperation(value="获得页眉页脚内容", notes="获得页眉页脚内容")
 	@GetMapping("/get")
 	@RequirePermissions(value = HEADER_FOOTER_CONTENT)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity getTemplateConfig(BaseEntity be) {
 		SysHeaderFooterContent headerFooterContent = headerFooterContentService.getHeaderFooterContent();
 		be.setContent(headerFooterContent);
@@ -51,7 +51,7 @@ public class HeaderFooterContentController {
 	@ApiImplicitParam(name = "sysHeaderFooterContent", value = "页眉页脚entity", dataType = "SysHeaderFooterContent")
 	@PutMapping("/edit")
 	@RequirePermissions(value = HEADER_FOOTER_CONTENT)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity editTemplateConfig(@Valid SysHeaderFooterContent sysHeaderFooterContent, BaseEntity be) {
 		// 得到页眉页脚信息
 		SysHeaderFooterContent sysFhc = headerFooterContentService.getHeaderFooterContent();

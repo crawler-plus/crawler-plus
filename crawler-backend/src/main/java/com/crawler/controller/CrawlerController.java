@@ -35,7 +35,7 @@ public class CrawlerController {
 	@ApiImplicitParam(name = "te", value = "传递的参数Entity", dataType = "TransferEntity")
 	@PostMapping("/crawler")
 	@RequirePermissions(value = NET_CRAWLER_SEARCH)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity crawler(@RequestBody TransferEntity te, BaseEntity be) throws CrawlerException {
 		Map<String, String> reqHeadersMap = Maps.newHashMap();
 		reqHeadersMap.put("Accept", "*/*");

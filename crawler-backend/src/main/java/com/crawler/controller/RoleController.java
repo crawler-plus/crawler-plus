@@ -43,7 +43,7 @@ public class RoleController {
     @ApiImplicitParam(name = "sysRole", value = "系统角色entity", dataType = "SysRole")
     @GetMapping("/queryAll")
     @RequirePermissions(value = ROLE_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity queryAll(SysRole sysRole, BaseEntity be) {
         int roleCount =  roleService.getRolesListCount(sysRole);
         // 分页查询
@@ -61,7 +61,7 @@ public class RoleController {
     @ApiOperation(value="查询系统角色(不带条件)", notes="查询系统角色(不带条件)")
     @GetMapping("/queryAllRolesWithoutCondition")
     @RequirePermissions(value = USER_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity queryAllRolesWithoutCondition(BaseEntity be) {
         SysRole sysRole = new SysRole();
         List<SysRole> sysRoles = roleService.listAll(sysRole);
@@ -77,7 +77,7 @@ public class RoleController {
     @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int")
     @DeleteMapping(path = "/delete/{id}")
     @RequirePermissions(value = ROLE_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity delete(@PathVariable("id") int roleId, BaseEntity be) {
         int countByRoleId = roleService.getUserReferencesCountByRoleId(roleId);
         // 当前角色已经被引用，不能删除
@@ -98,7 +98,7 @@ public class RoleController {
     @ApiOperation(value="初始化菜单树形节点", notes="初始化菜单树形节点")
     @GetMapping("/initMenuTree")
     @RequirePermissions(value = ROLE_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity initMenuTree(BaseEntity be) {
         List<TreeNode> menuList = menuService.getMenuTreeList();
         be.setContent(menuList);
@@ -113,7 +113,7 @@ public class RoleController {
     @ApiImplicitParam(name = "addRole", value = "系统角色Entity", dataType = "SysRole")
     @PostMapping(path = "/addRole")
     @RequirePermissions(value = ROLE_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity addRole(@Valid SysRole sysRole, BaseEntity be) {
         // 判断角色名称是否存在
         int roleNameExists = roleService.checkRoleNameExists(sysRole);
@@ -136,7 +136,7 @@ public class RoleController {
     @ApiImplicitParam(name = "roleId", value = "系统角色Id", required = true, dataType = "int")
     @GetMapping(path = "/getRoleInfoById/{id}")
     @RequirePermissions(value = ROLE_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity getRoleInfoById(@PathVariable("id") int roleId, BaseEntity be) {
         // 获得角色信息
         SysRole roleByRoleId = roleService.getRoleByRoleId(roleId);
@@ -160,7 +160,7 @@ public class RoleController {
     @ApiImplicitParam(name = "sysRole", value = "系统角色Entity", dataType = "SysRole")
     @PutMapping(path = "/updateRole")
     @RequirePermissions(value = ROLE_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity updateUser(@Valid SysRole sysRole, BaseEntity be) {
         // 得到角色信息
         SysRole sysRoleByRoleId = roleService.getRoleByRoleId(sysRole.getId());
@@ -185,7 +185,7 @@ public class RoleController {
     @ApiImplicitParam(name = "roleId", value = "系统角色id", required = true, dataType = "int")
     @GetMapping(path = "/checkRoleExists/{id}")
     @RequirePermissions(value = ROLE_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity checkRoleExists(@PathVariable("id") int roleId, BaseEntity be) {
         SysRole sysRole = new SysRole();
         sysRole.setId(roleId);

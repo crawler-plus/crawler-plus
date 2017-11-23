@@ -44,7 +44,7 @@ public class ArticleController {
 	@ApiImplicitParam(name = "te", value = "文章配置entity", dataType = "TemplateConfig")
 	@PostMapping("/saveTemplateConfig")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity saveTemplateConfig(@Valid TemplateConfig te, BaseEntity be) {
 		te.setId(UUID.randomUUID().toString().replace("-", ""));
 		articleService.saveTemplateConfig(te);
@@ -60,7 +60,7 @@ public class ArticleController {
 	@ApiImplicitParam(name = "te", value = "文章配置entity", dataType = "TemplateConfig")
 	@PutMapping("/editTemplateConfig")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity editTemplateConfig(@Valid TemplateConfig te, BaseEntity be) {
 		// 得到文章配置信息
 		TemplateConfig templateConfig = articleService.getTemplateConfig(te.getId());
@@ -85,7 +85,7 @@ public class ArticleController {
 	@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String")
 	@DeleteMapping(path = "/removeTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity removeTemplateConfig(@PathVariable("id") String id, BaseEntity be) {
 		articleService.removeTemplateConfig(id);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -100,7 +100,7 @@ public class ArticleController {
 	@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
 	@GetMapping(path = "/listAllTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity listAllTemplateConfig(@PathVariable("id") int userId, BaseEntity be) {
 		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig(userId);
 		be.setContent(templateConfigs);
@@ -115,7 +115,7 @@ public class ArticleController {
 	@ApiImplicitParam(name = "id", value = "文章配置id", required = true, dataType = "String")
 	@GetMapping(path = "/getTemplateConfig/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity getTemplateConfig(@PathVariable("id") String id, BaseEntity be) {
 		TemplateConfig templateConfig = articleService.getTemplateConfig(id);
 		be.setContent(templateConfig);
@@ -130,7 +130,7 @@ public class ArticleController {
 	@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", dataType = "CrawlerContent")
 	@GetMapping("/listAllCrawlerContents")
 	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, BaseEntity be) {
 		int crawlerContentSize = articleService.getCrawlerContentSize(crawlerContent.getUserId());
 		// 分页查询
@@ -149,7 +149,7 @@ public class ArticleController {
 	@ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "String")
 	@GetMapping(path = "/getCrawlerContent/{id}")
 	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity getCrawlerContent(@PathVariable("id") String id, BaseEntity be) {
 		CrawlerContent crawlerContent = articleService.getCrawlerContent(id);
 		be.setContent(crawlerContent);
@@ -164,7 +164,7 @@ public class ArticleController {
 	@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
 	@GetMapping(path = "/executeCron/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity executeCron(@PathVariable("id") int userId, BaseEntity be) {
 		// 检查系统是否正在运行定时任务，爬取文章，如下条件成立，说明当前没有线程运行定时任务
 		SysLock checkLock = sysLockService.getSysLock();
@@ -194,7 +194,7 @@ public class ArticleController {
 	@ApiImplicitParam(name = "templateConfigId", value = "文章配置id", required = true, dataType = "String")
 	@GetMapping(path = "/checkTemplateConfigExists/{id}")
 	@RequirePermissions(value = TEMPLATE_MGMT)
-	@RequireToken()
+	@RequireToken
 	public BaseEntity checkTemplateConfigExists(@PathVariable("id") String templateConfigId, BaseEntity be) {
 		TemplateConfig templateConfig = new TemplateConfig();
 		templateConfig.setId(templateConfigId);

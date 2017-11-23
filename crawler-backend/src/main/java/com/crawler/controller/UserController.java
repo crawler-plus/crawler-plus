@@ -101,7 +101,7 @@ public class UserController {
     @ApiImplicitParam(name = "sysUser", value = "系统用户entity", dataType = "SysUser")
     @GetMapping("/queryAll")
     @RequirePermissions(value = USER_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity queryAll(SysUser sysUser, BaseEntity be) {
         int userCount = userService.getUsersListCount(sysUser);
         // 分页查询
@@ -120,7 +120,7 @@ public class UserController {
     @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
     @DeleteMapping(path = "/delete/{id}")
     @RequirePermissions(value = USER_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity delete(@PathVariable("id") int userId, BaseEntity be) {
         SysUser sysUser = userService.getSysUserByUserId(userId);
         // 如果是管理员，不允许删除，否则系统中一个用户都没有了
@@ -142,7 +142,7 @@ public class UserController {
     @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int")
     @GetMapping(path = "/queryUser/{id}")
     @RequirePermissions(value = {USER_MGMT, SELF_INFO_UPDATE})
-    @RequireToken()
+    @RequireToken
     public BaseEntity queryUser(@PathVariable("id") int userId, BaseEntity be) {
         SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
         be.setContent(sysUserByUserId);
@@ -157,7 +157,7 @@ public class UserController {
     @ApiImplicitParam(name = "userId", value = "用户Id", required = true, dataType = "int")
     @GetMapping(path = "/getRoleByUserId/{id}")
     @RequirePermissions(value = USER_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity getRoleByUserId(@PathVariable("id") int userId, BaseEntity be) {
         List<SysRole> roleByUserId = roleService.getRoleByUserId(userId);
         be.setContent(roleByUserId);
@@ -172,7 +172,7 @@ public class UserController {
     @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", dataType = "SysUser")
     @PostMapping(path = "/addUser")
     @RequirePermissions(value = USER_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity addUser(@Validated({SysUser.First.class}) SysUser sysUser, BaseEntity be) {
         // 判断用户是否存在
         int userExists = userService.checkUserExists(sysUser);
@@ -195,7 +195,7 @@ public class UserController {
     @ApiImplicitParam(name = "sysUser", value = "系统用户Entity", dataType = "SysUser")
     @PutMapping(path = "/updateUser")
     @RequirePermissions(value = {USER_MGMT, SELF_INFO_UPDATE})
-    @RequireToken()
+    @RequireToken
     public BaseEntity updateUser(@Validated({SysUser.Third.class})SysUser sysUser, BaseEntity be) {
         // 得到用户信息
         SysUser sysUserByUserId = userService.getSysUserByUserId(sysUser.getId());
@@ -219,7 +219,7 @@ public class UserController {
     @ApiOperation(value="用户退出", notes="用户退出")
     @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
     @GetMapping(path = "/logout/{id}")
-    @RequireToken()
+    @RequireToken
     public BaseEntity logout(@PathVariable("id") int userId, BaseEntity be) {
         SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
         // 往系统log表中添加一条记录
@@ -243,7 +243,7 @@ public class UserController {
     @ApiOperation(value="判断用户是否存在", notes="判断用户是否存在")
     @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
     @GetMapping(path = "/checkUserExists/{id}")
-    @RequireToken()
+    @RequireToken
     public BaseEntity checkUserExists(@PathVariable("id") int userId, BaseEntity be) {
         SysUser sysUser = new SysUser();
         sysUser.setId(userId);

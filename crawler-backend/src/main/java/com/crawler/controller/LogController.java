@@ -36,7 +36,7 @@ public class LogController {
     @ApiImplicitParam(name = "sysLog", value = "系统Log Entity", dataType = "SysLog")
     @GetMapping("/queryAll")
     @RequirePermissions(value = LOG_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity queryAll(SysLog sysLog, BaseEntity be) {
         int logCount = logService.getLogCount(sysLog);
         // 分页查询
@@ -54,7 +54,7 @@ public class LogController {
     @ApiOperation(value="系统log删除", notes="系统log删除")
     @DeleteMapping(path = "/delete")
     @RequirePermissions(value = LOG_MGMT)
-    @RequireToken()
+    @RequireToken
     public BaseEntity delete(BaseEntity be) {
         logService.delete();
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
