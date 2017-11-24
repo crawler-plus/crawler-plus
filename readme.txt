@@ -8,9 +8,9 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 2. 角色管理
 3. 系统API管理
 4. 系统监控
-5. 系统log管理（用户登录登出操作监控）
+5. 系统Log管理（用户登录登出操作监控）
 6. 实现了一个简单的爬虫模块，模块中的功能有：爬取简单页面元素，爬取二维码信息，爬取微信公众号标题，
-爬取新闻消息（目前可以爬取热门的NBA和CBA新闻（用户可以新增爬取规则）,爬取债券市场（包括从对应网站下载相应pdf文件到本地））
+爬取新闻消息（目前可以爬取热门的NBA和CBA新闻（用户可以新增爬取规则）,爬取债券市场（包括从对应网站下载相应Pdf文件到本地））
 7. 实现了一个简单的邮件模块，用户根据此模块发送邮件
 8. 页眉页脚管理功能
 9. 服务可用性监控（Hystrix Dashboard）
@@ -62,7 +62,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 12. 登录验证码支持
 13. 前后端交互基于Token模式校验用户身份，使用独创的@RequireToken注解结合AOP技术共同校验
 14. 加入二次验证用户权限机制，使用独创的@RequirePermissions注解，防止用户越权访问没有权限的API
-15. 加入ip地址校验，就算用户窃取token，如果和登录人不是同一个ip，也无法操作
+15. 加入Ip地址校验，就算用户窃取Token，如果和登录人不是同一个Ip，也无法操作
 16. 支持双数据源配置，分别使用Druid和Hikari-CP数据库连接池管理这两个数据源
 17. 系统集成Hutool工具包，简化常见的工具类操作
 ......
@@ -71,7 +71,7 @@ crawler-plus是一款学习型JavaWeb多功能前后端完全分离的管理系�
 ---------------------------
 后端：
 1.本地创建spider数据库
-2.将crawler_backend目录下的resources/db/migrations下的所有Sql文件按照版本号依次导入Mysql数据库中，（也可以省略该步骤，因为系统中已经集成Flyway）
+2.将crawler-backend目录下的resources/db/migrations下的所有Sql文件按照版本号依次导入Mysql数据库中，（也可以省略该步骤，因为系统中已经集成Flyway）
 3.运行crawler-backend工程下的CrawlerApplication.java
 
 前端：
@@ -88,8 +88,8 @@ var comm = {
 注意：
 ---------------------------
 ************生产环境下请将crawler-backend中的application.yml中的active: dev改成active: prod， 并且将application-prod.yml中的server.address，server.port和mysql链接地址改正确，
-并将crawler-captcha-producer和crawler-eureka-server工程中的application.yml相应的host和port修改正确************
-1.建议生产环境下采用jar包运行，打jar包命令：clean package
+并将crawler-captcha-producer和crawler-eureka-server工程中的application.yml相应的host和port修改正确（使用验证码功能前提下）************
+1.建议生产环境下采用Jar包运行，打Jar包命令：clean package
 2.完整功能需要有Redis环境，Nginx环境，Vsftpd环境
 3.如需使用验证码需要在如下地方修改：
 1）crawler-backend工程中的application.yml中useCaptcha改成true
