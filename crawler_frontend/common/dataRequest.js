@@ -38,10 +38,7 @@ var dataRequest = function() {
             data: ajaxOptions.data,
             dataType: "json",
             headers: ajaxOptions.headers,
-            cache: false,
-            xhrFields: {
-                withCredentials: true // 执行跨域名请求
-            },
+            cache: false
         };
 		// 如果为上传文件请求
 		if(signOptions.isUploadReq) {
@@ -91,7 +88,6 @@ var dataRequest = function() {
      * @private
      */
 	var _requestSendWithOutSign = function(signOptions, ajaxOptions, ajaxSuccCallback, ajaxFailedCallback) {
-		jQuery.support.Cors = true; // 浏览器支持跨域访问
         if(signOptions.formID) {
 			ajaxOptions.data = _serializeFormArray(signOptions.formID);
 		}
