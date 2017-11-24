@@ -10,10 +10,6 @@ import com.xiaoleilu.hutool.util.StrUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 验证token公共类
@@ -26,6 +22,9 @@ public class CheckToken {
 
     @Autowired
     private UserTokenService userTokenService;
+
+    @Autowired
+    private RequestHolderConfiguration requestHolderConfiguration;
 
     void checkToken(TokenEntity te) {
         // token不合法标识
@@ -48,11 +47,8 @@ public class CheckToken {
             }
             // 判断用户登录ip是不是当前ip
             else {
-                // 获得用户ip
-                ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-                HttpServletRequest request = attributes.getRequest();
                 // 获取ip地址
-                String ip = request.getRemoteAddr();
+                String ip = requestHolderConfiguration.getHttpServletRequest().getRemoteAddr();
                 // 不相等，证明不是本机ip
                 if(!StrUtil.equals(ip, sysUserToken.getIp())) {
                     tokenInvalidFlag = true;

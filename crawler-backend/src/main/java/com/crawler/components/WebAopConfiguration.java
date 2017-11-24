@@ -18,8 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -39,6 +37,9 @@ public class WebAopConfiguration {
     @Autowired
     private CheckPermissions checkPermissions;
 
+    @Autowired
+    private RequestHolderConfiguration requestHolderConfiguration;
+
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Pointcut("execution(* com.crawler.controller.*.*(..))")
@@ -48,8 +49,7 @@ public class WebAopConfiguration {
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
         // 接收到请求，记录请求内容
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
+        HttpServletRequest request = requestHolderConfiguration.getHttpServletRequest();
         LoggerUtils.printDebugLogger(logger, "URL : " + request.getRequestURL().toString());
         LoggerUtils.printDebugLogger(logger, "HTTP_METHOD : " + request.getMethod());
         LoggerUtils.printDebugLogger(logger, "IP : " + request.getRemoteAddr());
@@ -72,8 +72,7 @@ public class WebAopConfiguration {
         RequireToken requireToken = objMethod.getAnnotation(RequireToken.class);
         // 需要验证token
         if (!ObjectUtils.isEmpty(requireToken)) {
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            HttpServletRequest request = attributes.getRequest();
+            HttpServletRequest request = requestHolderConfiguration.getHttpServletRequest();
             // 得到请求参数
             Map<String, String[]> parameterMap = request.getParameterMap();
             if (ObjectUtils.isEmpty(parameterMap.get("uid"))

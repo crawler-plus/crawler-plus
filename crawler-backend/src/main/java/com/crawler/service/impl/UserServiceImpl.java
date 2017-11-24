@@ -1,6 +1,7 @@
 package com.crawler.service.impl;
 
 import com.crawler.components.CrawlerProperties;
+import com.crawler.components.RequestHolderConfiguration;
 import com.crawler.dao.*;
 import com.crawler.domain.*;
 import com.crawler.service.api.UserService;
@@ -13,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private CrawlerProperties crawlerProperties;
+
+    @Autowired
+    private RequestHolderConfiguration requestHolderConfiguration;
 
     @Override
     @Transactional(readOnly = true)
@@ -161,10 +162,8 @@ public class UserServiceImpl implements UserService {
             SysLog sysLog = new SysLog();
             sysLog.setLoginAccount(sysUser.getLoginAccount());
             sysLog.setTypeId(1);
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            HttpServletRequest request = attributes.getRequest();
             // 获取ip地址
-            String ip = request.getRemoteAddr();
+            String ip = requestHolderConfiguration.getHttpServletRequest().getRemoteAddr();
             sysLog.setIp(ip);
             logMapper.logAdd(sysLog);
             // 将用户表中的token字段更新

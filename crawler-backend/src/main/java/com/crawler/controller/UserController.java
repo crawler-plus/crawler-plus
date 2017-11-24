@@ -3,6 +3,7 @@ package com.crawler.controller;
 import com.crawler.annotation.RequirePermissions;
 import com.crawler.annotation.RequireToken;
 import com.crawler.components.CrawlerProperties;
+import com.crawler.components.RequestHolderConfiguration;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysLog;
 import com.crawler.domain.SysRole;
@@ -15,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +49,9 @@ public class UserController {
 
     @Autowired
     private CrawlerProperties crawlerProperties;
+
+    @Autowired
+    private RequestHolderConfiguration requestHolderConfiguration;
 
     /**
      * 用户登录
@@ -229,11 +230,8 @@ public class UserController {
         SysLog sysLog = new SysLog();
         sysLog.setLoginAccount(sysUserByUserId.getLoginAccount());
         sysLog.setTypeId(2);
-        // 获得用户ip
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
         // 获取ip地址
-        String ip = request.getRemoteAddr();
+        String ip = requestHolderConfiguration.getHttpServletRequest().getRemoteAddr();
         sysLog.setIp(ip);
         logService.logAdd(sysLog);
         // 将用户token表中的数据删除
