@@ -3,7 +3,6 @@ package com.crawler.components;
 import com.crawler.domain.SysLock;
 import com.crawler.service.api.ArticleService;
 import com.crawler.service.api.BondMarketService;
-import com.crawler.service.api.SysCaptchaService;
 import com.crawler.service.api.SysLockService;
 import com.crawler.util.LoggerUtils;
 import org.apache.commons.net.ftp.FTPClient;
@@ -33,9 +32,6 @@ public class JobsConfiguration {
     private SysLockService sysLockService;
 
     @Autowired
-    private SysCaptchaService sysCaptchaService;
-
-    @Autowired
     private CrawlerProperties crawlerProperties;
 
     @Autowired
@@ -60,14 +56,6 @@ public class JobsConfiguration {
         sysLock.setSystemCron("0");
         sysLockService.updateSysLock(sysLock);
     }
-
-    /**
-     * 清除数据库中的验证码,每天2点和14点定时清理
-     */
-    @Scheduled(cron = "0 0 2,14 * * ?")
-    public void clearRedisCaptcha() {
-        sysCaptchaService.clearAllSysCaptchas();
-}
 
     /**
      * 清除ftp服务器上的验证码图片,每天2点和14点定时清理

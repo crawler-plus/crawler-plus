@@ -3,6 +3,12 @@ spring:
     active: dev
   application:
     name: captcha-service
+  redis:
+    database: 0
+    host: 192.168.0.104
+    port: 6379
+    password: redis
+    timeout: 10 #配置默认超时时间10ms
 
 logging:
   config: classpath:logback-captcha-producer.xml

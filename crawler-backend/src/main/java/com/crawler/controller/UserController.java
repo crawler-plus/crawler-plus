@@ -3,16 +3,21 @@ package com.crawler.controller;
 import com.crawler.annotation.RequirePermissions;
 import com.crawler.annotation.RequireToken;
 import com.crawler.components.CrawlerProperties;
+import com.crawler.components.RedisConfiguration;
 import com.crawler.components.RequestHolderConfiguration;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysLog;
 import com.crawler.domain.SysRole;
 import com.crawler.domain.SysUser;
-import com.crawler.service.api.*;
+import com.crawler.service.api.LogService;
+import com.crawler.service.api.RoleService;
+import com.crawler.service.api.UserService;
+import com.crawler.service.api.UserTokenService;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,9 +47,6 @@ public class UserController {
     private LogService logService;
 
     @Autowired
-    private SysCaptchaService sysCaptchaService;
-
-    @Autowired
     private UserTokenService userTokenService;
 
     @Autowired
@@ -52,6 +54,12 @@ public class UserController {
 
     @Autowired
     private RequestHolderConfiguration requestHolderConfiguration;
+
+    @Autowired
+    private RedisConfiguration redisConfiguration;
+
+    @Autowired
+    protected RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 用户登录
@@ -65,15 +73,13 @@ public class UserController {
         boolean captchaAccess;
         // 如果配置了需要验证码登录
         if(useCaptcha) {
-            List<String> sysCaptchas = sysCaptchaService.listAllSysCaptcha();
-            // 判断验证码是否正确
             String captcha = sysUser.getCaptcha();
             // 处理验证码前台传过来是空的情况
             if(StringUtils.isEmpty(captcha)) {
                 captcha = "";
             }
             // 如果验证码正确
-            captchaAccess = sysCaptchas.contains(captcha.toLowerCase());
+            captchaAccess = redisConfiguration.setOperations(redisTemplate).isMember("captchaSet", captcha);
         }
         // 如果没有配置验证码登录
         else {

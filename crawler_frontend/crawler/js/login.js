@@ -26,7 +26,7 @@ var login = function () {
             isFormData : false
         };
         var ajaxOptions = {
-            url: comm.url + 'captcha/create',
+            url: comm.captchaUrl + 'create',
             method : 'GET'
         };
         dataRequest.requestSend(

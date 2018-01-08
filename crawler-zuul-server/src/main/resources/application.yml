@@ -17,3 +17,6 @@ zuul:
     main:
       path: /main/**
       service-id: crawler-backend
+    captcha:
+      path: /captcha/**
+      service-id: captcha-service
