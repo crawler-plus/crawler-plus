@@ -1,10 +1,14 @@
 server:
   port: 1000
+  address: 127.0.0.1
 eureka:
-  instance:
-    hostname: localhost
   client:
     register-with-eureka: false
     fetch-registry: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://${server.address}:${server.port}/eureka/
+  instance:
+    hostname: ${server.address}
+  server:
+    enable-self-preservation: false #关闭eureka的自我保护
+    eviction-interval-timer-in-ms: 0 #清理间隔时间，单位为毫秒

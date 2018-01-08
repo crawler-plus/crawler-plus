@@ -1,5 +1,5 @@
 var comm = {
-    url : 'http://127.0.0.1:8088/',
+    url : 'http://127.0.0.1:8050/main/',
     useCaptcha: false
 };
 

@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: crawler-zuul-gateway
+server:
+  port: 8050
+  address: 127.0.0.1
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka/
+    enabled: true #禁止作为eureka的客户端（如需要注册到eureka服务器，要设置为true）
+  instance:
+    hostname: ${server.address}
+
+zuul:
+  routes:
+    main:
+      path: /main/**
+      service-id: crawler-backend

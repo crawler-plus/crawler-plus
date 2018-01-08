@@ -12,6 +12,7 @@
         <module name="crawler-config-server" />
         <module name="crawler-core" />
         <module name="crawler-eureka-server" />
+        <module name="crawler-zuul-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -22,6 +23,8 @@
       <module name="crawler-core" target="1.8" />
       <module name="crawler-eureka-server" target="1.8" />
       <module name="crawler-plus" target="1.8" />
+      <module name="crawler-zuul" target="1.8" />
+      <module name="crawler-zuul-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
