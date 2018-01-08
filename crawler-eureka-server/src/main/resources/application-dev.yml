@@ -11,4 +11,3 @@ eureka:
     hostname: ${server.address}
   server:
     enable-self-preservation: false #关闭eureka的自我保护
-    eviction-interval-timer-in-ms: 0 #清理间隔时间，单位为毫秒

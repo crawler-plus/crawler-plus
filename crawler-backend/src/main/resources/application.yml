@@ -7,9 +7,9 @@ crawler:
   captchaFtpServerPassword: ftpuser # vsftpd默认密码
   captchaFtpServerUrl: /usr/local/img # vsftpd图片存放路径
   useEhCache: false #是否使用ehcache
-  useCaptcha: false #是否使用验证码
+  useCaptcha: true #是否使用验证码
   userTokenKey: crawler_key #用户token生成密钥
-  useRedisCache: false #是否使用redis数据库缓存
+  useRedisCache: true #是否使用redis数据库缓存
 
 spring:
   application:
@@ -48,7 +48,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:1000/eureka/
+      defaultZone: http://127.0.0.1:1000/eureka/
     enabled: true #禁止作为eureka的客户端（如需要注册到eureka服务器，要设置为true）
   instance:
     hostname: ${server.address}

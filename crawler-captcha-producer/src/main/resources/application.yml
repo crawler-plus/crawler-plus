@@ -16,4 +16,4 @@ logging:
 management:
   health:
     defaults:
-      enabled: false
+      enabled: true

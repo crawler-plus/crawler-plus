@@ -7,7 +7,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:1000/eureka/
+      defaultZone: http://127.0.0.1:1000/eureka/
     enabled: true #禁止作为eureka的客户端（如需要注册到eureka服务器，要设置为true）
   instance:
     hostname: ${server.address}
@@ -20,3 +20,13 @@ zuul:
     captcha:
       path: /captcha/**
       service-id: captcha-service
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
