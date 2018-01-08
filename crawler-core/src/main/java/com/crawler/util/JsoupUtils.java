@@ -1,7 +1,7 @@
 package com.crawler.util;
 
 import com.crawler.domain.TransferEntity;
-import com.xiaoleilu.hutool.util.CollectionUtil;
+import com.xiaoleilu.hutool.collection.CollectionUtil;
 import com.xiaoleilu.hutool.util.StrUtil;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
