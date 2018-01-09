@@ -18,32 +18,40 @@ public class RedisCacheHandler implements CacheHandler {
     private RedisTemplate redisTemplate;
 
     @Override
-    public void clearCacheByKey(String key) throws Exception {
+    public void clearCacheByKey(String key) {
         redisTemplate.delete(key);
     }
 
     @Override
-    public void clearCacheByKeys(List<String> keys) throws Exception {
+    public void clearCacheByKeys(List<String> keys) {
         redisTemplate.delete(keys);
     }
 
     @Override
-    public void expireByKey(String key, long timeout, TimeUnit tu) throws Exception {
+    public void expireByKey(String key, long timeout, TimeUnit tu) {
         redisTemplate.expire(key, timeout, tu);
     }
 
     @Override
-    public void setCache(String key, String value) throws Exception {
+    public void setCache(String key, String value) {
         redisConfiguration.valueOperations(redisTemplate).set(key, value);
     }
 
     @Override
-    public Object getCache(String key) throws Exception {
+    public Object getCache(String key) {
         return redisConfiguration.valueOperations(redisTemplate).get(key);
     }
 
     @Override
-    public void appendToCache(String key, String value) throws Exception {
+    public void appendToCache(String key, String value) {
         redisConfiguration.valueOperations(redisTemplate).append(key, value);
+    }
+
+    public void setValueToSet(String key, String value) {
+        redisConfiguration.setOperations(redisTemplate).add(key, value);
+    }
+
+    public boolean valueIsMemberInSet(String key, String value) {
+        return redisConfiguration.setOperations(redisTemplate).isMember(key, value);
     }
 }

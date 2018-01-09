@@ -1,8 +1,8 @@
 package com.crawler.controller;
 
 import com.crawler.components.CrawlerProperties;
-import com.crawler.components.RedisConfiguration;
 import com.crawler.domain.BaseEntity;
+import com.crawler.service.RPCApi;
 import com.crawler.util.FtpUtils;
 import com.crawler.util.LoggerUtils;
 import com.xiaoleilu.hutool.captcha.CaptchaUtil;
@@ -11,7 +11,6 @@ import com.xiaoleilu.hutool.io.IoUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,10 +31,7 @@ public class CreateCaptchaController {
     private CrawlerProperties crawlerProperties;
 
     @Autowired
-    private RedisConfiguration redisConfiguration;
-
-    @Autowired
-    protected RedisTemplate<String, Object> redisTemplate;
+    private RPCApi rpcApi;
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -50,7 +46,7 @@ public class CreateCaptchaController {
         be.setCaptchaCode(capText);
         ByteArrayOutputStream os = null;
         // 向redis的set中写入验证码
-        redisConfiguration.setOperations(redisTemplate).add("captchaSet", capText);
+        rpcApi.writeCaptchaCodeToRedis("captchaSet", capText);
         try {
             os = new ByteArrayOutputStream();
             ImageIO.write(bi, "png", os);

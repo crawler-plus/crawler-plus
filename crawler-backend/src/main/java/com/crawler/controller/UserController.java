@@ -3,12 +3,12 @@ package com.crawler.controller;
 import com.crawler.annotation.RequirePermissions;
 import com.crawler.annotation.RequireToken;
 import com.crawler.components.CrawlerProperties;
-import com.crawler.components.RedisConfiguration;
 import com.crawler.components.RequestHolderConfiguration;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysLog;
 import com.crawler.domain.SysRole;
 import com.crawler.domain.SysUser;
+import com.crawler.service.RPCApi;
 import com.crawler.service.api.LogService;
 import com.crawler.service.api.RoleService;
 import com.crawler.service.api.UserService;
@@ -17,7 +17,6 @@ import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -56,10 +55,7 @@ public class UserController {
     private RequestHolderConfiguration requestHolderConfiguration;
 
     @Autowired
-    private RedisConfiguration redisConfiguration;
-
-    @Autowired
-    protected RedisTemplate<String, Object> redisTemplate;
+    private RPCApi rpcApi;
 
     /**
      * 用户登录
@@ -79,7 +75,7 @@ public class UserController {
                 captcha = "";
             }
             // 如果验证码正确
-            captchaAccess = redisConfiguration.setOperations(redisTemplate).isMember("captchaSet", captcha);
+            captchaAccess = rpcApi.checkCaptchaExists("captchaSet", captcha);
         }
         // 如果没有配置验证码登录
         else {

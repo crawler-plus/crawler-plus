@@ -3,6 +3,7 @@ crawler:
   defaultPassword: 123456 #用户默认密码
   useCaptcha: true #是否使用验证码
   userTokenKey: crawler_key #用户token生成密钥
+  useEhCache: false #是否使用ehCache
 
 spring:
   application:

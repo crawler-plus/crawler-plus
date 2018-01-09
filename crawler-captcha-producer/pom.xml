@@ -29,12 +29,12 @@
 			<artifactId>crawler-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.crawler</groupId>
-			<artifactId>crawler-cache</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-eureka</artifactId>
+			<artifactId>spring-cloud-starter-feign</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
