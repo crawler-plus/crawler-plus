@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/crawler-zuul/pom.xml" />
         <option value="$PROJECT_DIR$/crawler-zuul-server/pom.xml" />
         <option value="$PROJECT_DIR$/crawler-mail/pom.xml" />
+        <option value="$PROJECT_DIR$/crawler-redis-service-provider/pom.xml" />
       </list>
     </option>
   </component>

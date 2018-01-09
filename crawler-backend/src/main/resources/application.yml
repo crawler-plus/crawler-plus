@@ -9,12 +9,6 @@ spring:
     name: crawler-backend
   profiles:
     active: dev
-  redis:
-    database: 0
-    host: 192.168.0.104
-    port: 6379
-    password: redis
-    timeout: 10 #配置默认超时时间10ms
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   aop:
