@@ -16,29 +16,11 @@ public class CrawlerProperties {
     // 用户默认密码
     private String defaultPassword;
 
-    // vsftpd-nginx默认host
-    private String captchaFtpServerHost;
-
-    // vsftpd默认用户名
-    private String captchaFtpServerUserName;
-
-    // vsftpd默认密码
-    private String captchaFtpServerPassword;
-
-    // vsftpd图片存放路径
-    private String captchaFtpServerUrl;
-
-    // vsftpd-nginx默认port
-    private String captchaFtpServerPort;
-
     // 是否使用验证码
     private boolean useCaptcha;
 
     // 用户token生成密钥
     private String userTokenKey;
-
-    // 是否使用redis缓存
-    private boolean useRedisCache;
 
     public String getMd5Salt() {
         return md5Salt;
@@ -56,46 +38,6 @@ public class CrawlerProperties {
         this.defaultPassword = defaultPassword;
     }
 
-    public String getCaptchaFtpServerHost() {
-        return captchaFtpServerHost;
-    }
-
-    public void setCaptchaFtpServerHost(String captchaFtpServerHost) {
-        this.captchaFtpServerHost = captchaFtpServerHost;
-    }
-
-    public String getCaptchaFtpServerUserName() {
-        return captchaFtpServerUserName;
-    }
-
-    public void setCaptchaFtpServerUserName(String captchaFtpServerUserName) {
-        this.captchaFtpServerUserName = captchaFtpServerUserName;
-    }
-
-    public String getCaptchaFtpServerPassword() {
-        return captchaFtpServerPassword;
-    }
-
-    public void setCaptchaFtpServerPassword(String captchaFtpServerPassword) {
-        this.captchaFtpServerPassword = captchaFtpServerPassword;
-    }
-
-    public String getCaptchaFtpServerUrl() {
-        return captchaFtpServerUrl;
-    }
-
-    public void setCaptchaFtpServerUrl(String captchaFtpServerUrl) {
-        this.captchaFtpServerUrl = captchaFtpServerUrl;
-    }
-
-    public String getCaptchaFtpServerPort() {
-        return captchaFtpServerPort;
-    }
-
-    public void setCaptchaFtpServerPort(String captchaFtpServerPort) {
-        this.captchaFtpServerPort = captchaFtpServerPort;
-    }
-
     public boolean isUseCaptcha() {
         return useCaptcha;
     }
@@ -110,13 +52,5 @@ public class CrawlerProperties {
 
     public void setUserTokenKey(String userTokenKey) {
         this.userTokenKey = userTokenKey;
-    }
-
-    public boolean isUseRedisCache() {
-        return useRedisCache;
-    }
-
-    public void setUseRedisCache(boolean useRedisCache) {
-        this.useRedisCache = useRedisCache;
     }
 }
