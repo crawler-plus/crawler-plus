@@ -9,17 +9,6 @@ spring:
     name: crawler-backend
   profiles:
     active: dev
-  mail:
-    host: smtp.qq.com
-    username: 110@qq.com
-    password: 123456
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
   redis:
     database: 0
     host: 192.168.0.104
@@ -30,13 +19,6 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   aop:
     proxy-target-class: true
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    mode: HTML5
-    encoding: UTF-8
-    content-type: text/html
-    cache: false
 
 eureka:
   client:

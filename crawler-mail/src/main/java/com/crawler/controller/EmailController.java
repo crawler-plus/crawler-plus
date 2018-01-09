@@ -2,7 +2,6 @@ package com.crawler.controller;
 
 import com.crawler.domain.BaseEntity;
 import com.crawler.exception.CrawlerException;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -34,7 +33,6 @@ public class EmailController {
     /**
      * 发送简单邮件
      */
-    @ApiOperation(value="发送简单邮件", notes="发送简单邮件")
     @GetMapping("/email")
     public BaseEntity email(BaseEntity be) {
         SimpleMailMessage message = new SimpleMailMessage();
@@ -51,7 +49,6 @@ public class EmailController {
     /**
      * 发送模版邮件
      */
-    @ApiOperation(value="发送模版邮件", notes="发送模版邮件")
     @GetMapping("/sendTemplateEmail")
     public BaseEntity sendTemplateEmail(BaseEntity be) throws CrawlerException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
