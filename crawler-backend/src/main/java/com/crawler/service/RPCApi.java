@@ -16,4 +16,26 @@ public interface RPCApi {
     @RequestMapping(value = "/redis/checkCaptchaExists/{key}/{value}", method = RequestMethod.GET)
     boolean checkCaptchaExists(@PathVariable("key") String key, @PathVariable("value") String value);
 
+    /**
+     * 向redis中插入token数据
+     * @param tokenId
+     * @param token
+     */
+    @RequestMapping(value = "/redis/writeUserToken/{tokenId}/{token}", method = RequestMethod.GET)
+    void writeUserToken(@PathVariable("tokenId") String tokenId, @PathVariable("token") String token);
+
+    /**
+     * 从redis中获取token
+     * @param tokenId
+     */
+    @RequestMapping(value = "/redis/getUserToken/{tokenId}", method = RequestMethod.GET)
+    String getUserToken(@PathVariable("tokenId") String tokenId);
+
+    /**
+     * 从redis中获取token
+     * @param tokenId
+     */
+    @RequestMapping(value = "/redis/deleteUserToken/{tokenId}", method = RequestMethod.GET)
+    void deleteUserToken(@PathVariable("tokenId") String tokenId);
+
 }

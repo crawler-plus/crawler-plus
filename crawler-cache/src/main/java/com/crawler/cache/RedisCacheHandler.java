@@ -3,6 +3,7 @@ package com.crawler.cache;
 import com.crawler.components.RedisConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,24 +18,32 @@ public class RedisCacheHandler implements CacheHandler {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @Override
     public void clearCacheByKey(String key) {
-        redisTemplate.delete(key);
+        stringRedisTemplate.delete(key);
     }
 
     @Override
     public void clearCacheByKeys(List<String> keys) {
-        redisTemplate.delete(keys);
+        stringRedisTemplate.delete(keys);
     }
 
     @Override
     public void expireByKey(String key, long timeout, TimeUnit tu) {
-        redisTemplate.expire(key, timeout, tu);
+        stringRedisTemplate.expire(key, timeout, tu);
     }
 
     @Override
     public void setCache(String key, String value) {
         redisConfiguration.valueOperations(redisTemplate).set(key, value);
+    }
+
+    @Override
+    public void setCacheWithTimeout(String key, String value, long timeout, TimeUnit timeUnit) {
+        redisConfiguration.valueOperations(redisTemplate).set(key, value, timeout, timeUnit);
     }
 
     @Override

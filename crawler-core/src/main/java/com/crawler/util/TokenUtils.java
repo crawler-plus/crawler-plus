@@ -16,14 +16,10 @@ public class TokenUtils {
      * @param tokenKey
      * @return
      */
-   public static TokenEntity createUserToken(String userId, long timestamp, String tokenKey) {
+   public static TokenEntity createUserToken(String userId, String tokenKey) {
        TokenEntity te = new TokenEntity();
        te.setUid(userId);
-       if(timestamp == 0L) {
-           te.setTimestamp(String.valueOf(SystemClock.now()));
-       }else {
-           te.setTimestamp(String.valueOf(timestamp));
-       }
+       te.setTimestamp(SystemClock.now());
        te.setTokenKey(tokenKey);
        // 生成签名
        String sign = Base64.getEncoder().encodeToString(JSONUtil.toJsonStr(te).getBytes());

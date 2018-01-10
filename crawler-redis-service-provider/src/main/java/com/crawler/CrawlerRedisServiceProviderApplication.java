@@ -6,10 +6,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-@EnableEurekaClient
+@EnableDiscoveryClient
 public class CrawlerRedisServiceProviderApplication {
 
 	private static final Logger logger = LoggerFactory.getLogger(CrawlerRedisServiceProviderApplication.class);

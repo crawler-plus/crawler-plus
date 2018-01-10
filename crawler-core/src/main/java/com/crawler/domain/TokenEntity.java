@@ -11,7 +11,7 @@ public class TokenEntity {
 
     private String token;
 
-    private String timestamp;
+    private long timestamp;
 
     public String getUid() {
         return uid;
@@ -37,11 +37,11 @@ public class TokenEntity {
         this.token = token;
     }
 
-    public String getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 }

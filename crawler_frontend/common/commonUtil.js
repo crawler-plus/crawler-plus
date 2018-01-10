@@ -216,10 +216,6 @@ var commonUtil = function () {
         return sessionStorage.getItem("userId");
     };
 
-    var _getTimestamp = function () {
-        return sessionStorage.getItem("timestamp");
-    };
-
     return {
         getObjArrayViaSort: _keySort,
         getUrlParam: _getUrlParam,
@@ -234,8 +230,7 @@ var commonUtil = function () {
         disableBtn: _disableBtn,
         showLoadingMessage: _showLoadingMessage,
         getAccessToken: _getAccessToken,
-        getUserId: _getUserId,
-        getTimestamp: _getTimestamp
+        getUserId: _getUserId
     }
 }();
 $(function () {

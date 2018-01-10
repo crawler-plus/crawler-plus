@@ -59,7 +59,7 @@ var index = function () {
                     isFormData : false
                 };
                 var ajaxOptions = {
-                    url: comm.url + 'user/logout/' + sessionStorage.getItem("userId"),
+                    url: comm.url + 'user/logout/' + sessionStorage.getItem("userId") + "/" + sessionStorage.getItem("token"),
                     method : 'GET'
                 };
                 dataRequest.requestSend(

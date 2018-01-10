@@ -12,20 +12,20 @@ public interface CacheHandler {
      * 根据一个key删除缓存
      * @param key
      */
-    void clearCacheByKey(String key) throws Exception;
+    void clearCacheByKey(String key);
 
     /**
      * 根据多个key删除缓存
      * @param keys
      */
-    void clearCacheByKeys(List<String> keys) throws Exception;
+    void clearCacheByKeys(List<String> keys);
 
     /**
      * 通过key设置缓存的过期时间
      * @param key
      * @param tu
      */
-    void expireByKey(String key, long timeout, TimeUnit tu) throws Exception;
+    void expireByKey(String key, long timeout, TimeUnit tu);
 
     /**
      * 设置缓存
@@ -33,7 +33,16 @@ public interface CacheHandler {
      * @param value
      * @throws Exception
      */
-    void setCache(String key, String value) throws Exception;
+    void setCache(String key, String value);
+
+    /**
+     * 设置缓存（指定过期时间）
+     * @param key
+     * @param value
+     * @param timeout
+     * @param timeUnit
+     */
+    void setCacheWithTimeout(String key, String value, long timeout, TimeUnit timeUnit);
 
     /**
      * 从缓存中取出数据
@@ -41,7 +50,7 @@ public interface CacheHandler {
      * @return
      * @throws Exception
      */
-    Object getCache(String key) throws Exception;
+    Object getCache(String key);
 
     /**
      * 往缓存中追加数据
@@ -49,5 +58,5 @@ public interface CacheHandler {
      * @param value
      * @throws Exception
      */
-    void appendToCache(String key, String value) throws Exception;
+    void appendToCache(String key, String value);
 }

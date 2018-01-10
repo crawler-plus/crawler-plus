@@ -5,14 +5,11 @@ import com.crawler.annotation.RequireToken;
 import com.crawler.components.CrawlerProperties;
 import com.crawler.components.RequestHolderConfiguration;
 import com.crawler.domain.BaseEntity;
-import com.crawler.domain.SysLog;
 import com.crawler.domain.SysRole;
 import com.crawler.domain.SysUser;
 import com.crawler.service.RPCApi;
-import com.crawler.service.api.LogService;
 import com.crawler.service.api.RoleService;
 import com.crawler.service.api.UserService;
-import com.crawler.service.api.UserTokenService;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -41,12 +38,6 @@ public class UserController {
 
     @Autowired
     private RoleService roleService;
-
-    @Autowired
-    private LogService logService;
-
-    @Autowired
-    private UserTokenService userTokenService;
 
     @Autowired
     private CrawlerProperties crawlerProperties;
@@ -224,20 +215,12 @@ public class UserController {
      */
     @ApiOperation(value="用户退出", notes="用户退出")
     @ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
-    @GetMapping(path = "/logout/{id}")
+    @GetMapping(path = "/logout/{id}/{token}")
     @RequireToken
-    public BaseEntity logout(@PathVariable("id") int userId, BaseEntity be) {
-        SysUser sysUserByUserId = userService.getSysUserByUserId(userId);
-        // 往系统log表中添加一条记录
-        SysLog sysLog = new SysLog();
-        sysLog.setLoginAccount(sysUserByUserId.getLoginAccount());
-        sysLog.setTypeId(2);
-        // 获取ip地址
-        String ip = requestHolderConfiguration.getHttpServletRequest().getRemoteAddr();
-        sysLog.setIp(ip);
-        logService.logAdd(sysLog);
-        // 将用户token表中的数据删除
-        userTokenService.deleteByToken(be.getToken());
+    public BaseEntity logout(@PathVariable("id") int userId, @PathVariable("token") String token, BaseEntity be) {
+        String tokenKey = "userToken:" + userId + ":" + token;
+        // 从redis中删除用户token
+        rpcApi.deleteUserToken(tokenKey);
         be.setContent("用户退出");
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;

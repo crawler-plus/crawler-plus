@@ -25,7 +25,7 @@ var dataRequest = function() {
 	 */
 	var _ajaxWrapper=function(signOptions, ajaxOptions, ajaxSuccCallback, ajaxFailedCallback) {
         var ajaxURL = ajaxOptions.url;
-        ajaxURL = ajaxURL + "?uid=" + commonUtil.getUserId() + "&token=" + commonUtil.getAccessToken() + "&timestamp=" + commonUtil.getTimestamp();
+        ajaxURL = ajaxURL + "?uid=" + commonUtil.getUserId() + "&token=" + commonUtil.getAccessToken();
 		if(!signOptions.isFormData && !signOptions.isUploadReq) {
 			ajaxOptions.headers= {
 				'Accept': 'application/json',

@@ -62,36 +62,32 @@ public class WebAopConfiguration {
      */
     @Around("webLog()")
     public Object doAroundAdvice(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
-        // 用户id
-        String uid = "";
         Class<?> classTarget = proceedingJoinPoint.getTarget().getClass();
         Class<?>[] par = ((MethodSignature) proceedingJoinPoint.getSignature()).getParameterTypes();
         // 得到方法名
         String methodName = proceedingJoinPoint.getSignature().getName();
         Method objMethod = classTarget.getMethod(methodName, par);
         RequireToken requireToken = objMethod.getAnnotation(RequireToken.class);
+        HttpServletRequest request = requestHolderConfiguration.getHttpServletRequest();
         // 需要验证token
         if (!ObjectUtils.isEmpty(requireToken)) {
-            HttpServletRequest request = requestHolderConfiguration.getHttpServletRequest();
             // 得到请求参数
             Map<String, String[]> parameterMap = request.getParameterMap();
             if (ObjectUtils.isEmpty(parameterMap.get("uid"))
-                    || ObjectUtils.isEmpty(parameterMap.get("timestamp"))
                     || ObjectUtils.isEmpty(parameterMap.get("token"))) {
                 throw new SecurityException("insecurity access");
             }
             // 设置请求参数
             TokenEntity te = new TokenEntity();
             te.setUid(parameterMap.get("uid")[0]);
-            te.setTimestamp(parameterMap.get("timestamp")[0]);
             te.setToken(parameterMap.get("token")[0]);
             checkToken.checkToken(te);
-            uid = te.getUid();
         }
         RequirePermissions requirePermissions = objMethod.getAnnotation(RequirePermissions.class);
         if (!ObjectUtils.isEmpty(requirePermissions)) {
             // 得到权限字符串的值
             int[] values = requirePermissions.value();
+            String uid = request.getParameterMap().get("uid")[0];
             // 验证该用户是否有这个字符串所代表的权限
             checkPermissions.checkPermissions(uid, values);
         }

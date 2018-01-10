@@ -2,8 +2,14 @@ package com.crawler.service.impl;
 
 import com.crawler.components.CrawlerProperties;
 import com.crawler.components.RequestHolderConfiguration;
-import com.crawler.dao.*;
-import com.crawler.domain.*;
+import com.crawler.dao.ArticleMapper;
+import com.crawler.dao.MenuMapper;
+import com.crawler.dao.UserMapper;
+import com.crawler.domain.SysMenu;
+import com.crawler.domain.SysUser;
+import com.crawler.domain.SysUserRole;
+import com.crawler.domain.TokenEntity;
+import com.crawler.service.RPCApi;
 import com.crawler.service.api.UserService;
 import com.crawler.util.TokenUtils;
 import com.google.common.collect.Lists;
@@ -29,19 +35,16 @@ public class UserServiceImpl implements UserService {
     private MenuMapper menuMapper;
 
     @Autowired
-    private LogMapper logMapper;
-
-    @Autowired
     private ArticleMapper articleMapper;
-
-    @Autowired
-    private UserTokenMapper userTokenMapper;
 
     @Autowired
     private CrawlerProperties crawlerProperties;
 
     @Autowired
     private RequestHolderConfiguration requestHolderConfiguration;
+
+    @Autowired
+    private RPCApi rpcApi;
 
     @Override
     @Transactional(readOnly = true)
@@ -157,25 +160,12 @@ public class UserServiceImpl implements UserService {
                 }
             });
             // 生成用户token
-            TokenEntity userToken = TokenUtils.createUserToken(String.valueOf(sysUserByloginAccount.getId()), 0, crawlerProperties.getUserTokenKey());
-            // 往系统log表中添加一条记录
-            SysLog sysLog = new SysLog();
-            sysLog.setLoginAccount(sysUser.getLoginAccount());
-            sysLog.setTypeId(1);
-            // 获取ip地址
-            String ip = requestHolderConfiguration.getHttpServletRequest().getRemoteAddr();
-            sysLog.setIp(ip);
-            logMapper.logAdd(sysLog);
-            // 将用户表中的token字段更新
-            SysUserToken sysUserToken = new SysUserToken();
-            sysUserToken.setUserId(sysUserByloginAccount.getId());
-            sysUserToken.setToken(userToken.getToken());
-            sysUserToken.setIp(ip);
-            userTokenMapper.tokenAdd(sysUserToken);
+            TokenEntity uToken = TokenUtils.createUserToken(String.valueOf(sysUserByloginAccount.getId()), crawlerProperties.getUserTokenKey());
+            // 向redis中插入用户token,token的key为userToken_用户id
+            rpcApi.writeUserToken("userToken:" + sysUserByloginAccount.getId() + ":" + uToken.getToken(), uToken.getToken());
             infoMap.put("userInfo", sysUserByloginAccount);
             infoMap.put("menuInfo", JSONUtil.toJsonStr(sList));
-            infoMap.put("token", userToken.getToken());
-            infoMap.put("timestamp", userToken.getTimestamp());
+            infoMap.put("token", uToken.getToken());
         }
         return infoMap;
     }

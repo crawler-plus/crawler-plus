@@ -1964,7 +1964,7 @@
         }
         request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
             type: this.options.method,
-            url:  url || this.options.url + "?token="+commonUtil.getAccessToken() + "&uid="+commonUtil.getUserId() + "&timestamp="+commonUtil.getTimestamp(),
+            url:  url || this.options.url + "?token="+commonUtil.getAccessToken() + "&uid="+commonUtil.getUserId(),
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
                 JSON.stringify(data) : data,
             cache: this.options.cache,
@@ -2727,7 +2727,7 @@
             this.options.pageNumber = 1;
         }
         this.initServer(params && params.silent,
-            params && params.query, params && params.url+"?token="+commonUtil.getAccessToken() + "&uid=" + commonUtil.getUserId() + "&timestamp=" + commonUtil.getTimestamp());
+            params && params.query, params && params.url+"?token="+commonUtil.getAccessToken() + "&uid=" + commonUtil.getUserId());
         this.trigger('refresh', params);
     };
 

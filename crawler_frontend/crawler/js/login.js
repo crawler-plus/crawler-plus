@@ -49,7 +49,6 @@ var login = function () {
         sessionStorage.removeItem("userName");
         sessionStorage.removeItem("userId");
         sessionStorage.removeItem("token");
-        sessionStorage.removeItem("timestamp");
 
         $("#loginForm").validate({
             rules: {
@@ -85,7 +84,6 @@ var login = function () {
                             sessionStorage.setItem("userName", data.content.userInfo.loginAccount);
                             sessionStorage.setItem("userId", data.content.userInfo.id);
                             sessionStorage.setItem("token", data.content.token);
-                            sessionStorage.setItem("timestamp", data.content.timestamp);
                             // 跳转到index.html
                             location.href = 'index.html';
                         }
