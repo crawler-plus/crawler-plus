@@ -11,10 +11,9 @@ public interface RPCApi {
     /**
      * 判断验证码是否存在
      * @param key
-     * @param value
      */
-    @RequestMapping(value = "/redis/checkCaptchaExists/{key}/{value}", method = RequestMethod.GET)
-    boolean checkCaptchaExists(@PathVariable("key") String key, @PathVariable("value") String value);
+    @RequestMapping(value = "/redis/checkCaptchaExists/{key}", method = RequestMethod.GET)
+    String checkCaptchaExists(@PathVariable("key") String key);
 
     /**
      * 向redis中插入token数据

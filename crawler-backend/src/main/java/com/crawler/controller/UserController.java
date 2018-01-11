@@ -66,7 +66,7 @@ public class UserController {
                 captcha = "";
             }
             // 如果验证码正确
-            captchaAccess = rpcApi.checkCaptchaExists("captchaSet", captcha);
+            captchaAccess = StringUtils.isEmpty(rpcApi.checkCaptchaExists("captcha:" + captcha)) ? false : true;
         }
         // 如果没有配置验证码登录
         else {

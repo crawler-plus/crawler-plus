@@ -21,15 +21,15 @@ public class RedisServiceProvider {
      */
     @RequestMapping(value = "/writeCaptchaCodeToRedis/{key}/{value}", method = RequestMethod.GET)
     public void writeCaptchaCodeToRedis(@PathVariable("key") String key, @PathVariable("value") String value) {
-        redisCacheHandler.setValueToSet(key, value);
+        redisCacheHandler.setCacheWithTimeout(key, value, 60L, TimeUnit.SECONDS);
     }
 
     /**
      * 判断验证码是否正确
      */
-    @RequestMapping(value = "/checkCaptchaExists/{key}/{value}", method = RequestMethod.GET)
-    public boolean checkCaptchaExists(@PathVariable("key") String key, @PathVariable("value") String value) {
-        return redisCacheHandler.valueIsMemberInSet(key, value);
+    @RequestMapping(value = "/checkCaptchaExists/{key}", method = RequestMethod.GET)
+    public String checkCaptchaExists(@PathVariable("key") String key) {
+        return (String)redisCacheHandler.getCache(key);
     }
 
     /**
