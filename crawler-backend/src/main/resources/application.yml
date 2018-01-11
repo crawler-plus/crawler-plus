@@ -3,7 +3,6 @@ crawler:
   defaultPassword: 123456 #用户默认密码
   useCaptcha: true #是否使用验证码
   userTokenKey: crawler_key #用户token生成密钥
-  useEhCache: false #是否使用ehCache
 
 spring:
   application:
@@ -15,20 +14,20 @@ spring:
   aop:
     proxy-target-class: true
   zipkin:
-    base-url: http://localhost:9411
+    base-url: http://127.0.0.1:1006
 
 eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:1000/eureka/
-    enabled: true #禁止作为eureka的客户端（如需要注册到eureka服务器，要设置为true）
+    enabled: true #作为eureka的客户端（如需要注册到eureka服务器，要设置为true）
   instance:
     hostname: ${server.address}
 
 management:
   health:
     defaults:
-      enabled: false
+      enabled: true
 
 mybatis:
   mapperLocations: classpath:sqlmapper/*.xml

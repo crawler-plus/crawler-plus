@@ -9,4 +9,10 @@ spring:
       label: master
 
 server:
-  port: 18888
+  port: 1003
+  address: 127.0.0.1
+
+management:
+  health:
+    defaults:
+      enabled: true

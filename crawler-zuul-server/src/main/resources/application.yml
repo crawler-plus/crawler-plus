@@ -2,9 +2,9 @@ spring:
   application:
     name: crawler-zuul-gateway
   zipkin:
-    base-url: http://localhost:9411
+    base-url: http://localhost:1006
 server:
-  port: 8050
+  port: 1007
   address: 127.0.0.1
 eureka:
   client:
@@ -24,6 +24,11 @@ zuul:
       path: /captcha/**
       service-id: captcha-service
   ignored-services: '*'
+
+management:
+  health:
+    defaults:
+      enabled: true
 
 hystrix:
   command:

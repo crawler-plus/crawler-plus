@@ -33,7 +33,7 @@ eureka:
 management:
   health:
     defaults:
-      enabled: false
+      enabled: true
 server:
-  port: 8051
+  port: 1004
   address: 127.0.0.1

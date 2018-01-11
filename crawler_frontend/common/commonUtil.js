@@ -1,6 +1,6 @@
 var comm = {
-    url : 'http://127.0.0.1:8050/main/',
-    captchaUrl: 'http://127.0.0.1:8050/captcha/',
+    url : 'http://127.0.0.1:1007/main/',
+    captchaUrl: 'http://127.0.0.1:1007/captcha/',
     useCaptcha: true
 };
 

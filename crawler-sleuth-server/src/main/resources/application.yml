@@ -1,5 +1,5 @@
 server:
-  port: 9411
+  port: 1006
   address: 127.0.0.1
 
 eureka:
