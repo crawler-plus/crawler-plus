@@ -27,8 +27,8 @@ public class PermissionsConst {
     public static final int CRAWLER_CONTENT_SEARCH = 12;
 
     // 自服务管理-用户信息修改权限
-    public static final int SELF_INFO_UPDATE = 15;
+    public static final int SELF_INFO_UPDATE = 14;
 
     // 债券市场查询权限
-    public static final int BOND_MARKET = 16;
+    public static final int BOND_MARKET = 15;
 }

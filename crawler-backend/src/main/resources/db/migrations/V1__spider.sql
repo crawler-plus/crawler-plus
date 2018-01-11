@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : lo
-Source Server Version : 50717
-Source Host           : localhost:3306
+Source Server         : maria
+Source Server Version : 50505
+Source Host           : localhost:3307
 Source Database       : spider
 
 Target Server Type    : MYSQL
-Target Server Version : 50717
+Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-11-23 17:17:36
+Date: 2018-01-11 15:12:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,7 +45,7 @@ CREATE TABLE `crawler_content` (
   `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `time` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `content_body` longtext COLLATE utf8_unicode_ci,
+  `content_body` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL COMMENT '关联的用户id',
   PRIMARY KEY (`cid`)
@@ -54,38 +54,6 @@ CREATE TABLE `crawler_content` (
 -- ----------------------------
 -- Records of crawler_content
 -- ----------------------------
-
--- ----------------------------
--- Table structure for `sys_captcha`
--- ----------------------------
-DROP TABLE IF EXISTS `sys_captcha`;
-CREATE TABLE `sys_captcha` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `captcha` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '验证码',
-  `create_time` datetime DEFAULT NULL COMMENT '生成时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of sys_captcha
--- ----------------------------
-
--- ----------------------------
--- Table structure for `sys_header_footer_content`
--- ----------------------------
-DROP TABLE IF EXISTS `sys_header_footer_content`;
-CREATE TABLE `sys_header_footer_content` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `header_content` longtext COLLATE utf8_unicode_ci COMMENT '页眉内容',
-  `footer_content` longtext COLLATE utf8_unicode_ci COMMENT '页脚内容',
-  `version` int(11) DEFAULT NULL COMMENT '版本号（乐观锁）',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of sys_header_footer_content
--- ----------------------------
-INSERT INTO `sys_header_footer_content` VALUES ('1', '<div>页眉内容</div>', '<div>页脚内容</div>', '2');
 
 -- ----------------------------
 -- Table structure for `sys_lock`
@@ -100,23 +68,6 @@ CREATE TABLE `sys_lock` (
 -- Records of sys_lock
 -- ----------------------------
 INSERT INTO `sys_lock` VALUES ('0', '0');
-
--- ----------------------------
--- Table structure for `sys_log`
--- ----------------------------
-DROP TABLE IF EXISTS `sys_log`;
-CREATE TABLE `sys_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键id',
-  `login_account` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '登录账户',
-  `execute_time` datetime DEFAULT NULL COMMENT '执行时间',
-  `type_id` int(11) DEFAULT NULL COMMENT '类型（1：登录系统，2：登出系统）',
-  `ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'ip地址',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of sys_log
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for `sys_menu`
@@ -136,8 +87,8 @@ CREATE TABLE `sys_menu` (
 -- Records of sys_menu
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES ('1', '系统管理', '0', '1', '#', '1');
-INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', '/druid/index.html', '1');
-INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', '/swagger-ui.html', '1');
+INSERT INTO `sys_menu` VALUES ('2', '网站监控', '1', '2', 'http://127.0.0.1:8088/druid/index.html', '1');
+INSERT INTO `sys_menu` VALUES ('3', 'API文档', '1', '3', 'http://127.0.0.1:8088/swagger-ui.html', '1');
 INSERT INTO `sys_menu` VALUES ('4', '用户管理', '1', '4', 'crawler/userMgmt.html', '1');
 INSERT INTO `sys_menu` VALUES ('5', '角色管理', '1', '5', 'crawler/roleMgmt.html', '1');
 INSERT INTO `sys_menu` VALUES ('6', '网页爬虫管理', '0', '6', '#', '2');
@@ -147,12 +98,9 @@ INSERT INTO `sys_menu` VALUES ('9', '微信公众号查询', '6', '9', 'crawler/
 INSERT INTO `sys_menu` VALUES ('10', '文章爬虫管理', '0', '10', '#', '3');
 INSERT INTO `sys_menu` VALUES ('11', '网站模版管理', '10', '11', 'crawler/templateMgmt.html', '3');
 INSERT INTO `sys_menu` VALUES ('12', '文章查询', '10', '12', 'crawler/articleSearch.html', '3');
-INSERT INTO `sys_menu` VALUES ('13', '系统日志管理', '1', '13', 'crawler/logMgmt.html', '1');
-INSERT INTO `sys_menu` VALUES ('14', '自服务管理', '0', '14', '#', '4');
-INSERT INTO `sys_menu` VALUES ('15', '用户信息修改', '14', '15', 'crawler/userInformationUpdate.html', '4');
-INSERT INTO `sys_menu` VALUES ('16', '页眉页脚管理', '1', '16', 'crawler/headerFooterContentMgmt.html', '1');
-INSERT INTO `sys_menu` VALUES ('17', '债券市场查询', '6', '17', 'crawler/bondMarketSearch.html', '2');
-INSERT INTO `sys_menu` VALUES ('18', '服务可用性监控', '1', '18', '/hystrix', '1');
+INSERT INTO `sys_menu` VALUES ('13', '自服务管理', '0', '13', '#', '4');
+INSERT INTO `sys_menu` VALUES ('14', '用户信息修改', '13', '14', 'crawler/userInformationUpdate.html', '4');
+INSERT INTO `sys_menu` VALUES ('15', '债券市场查询', '6', '15', 'crawler/bondMarketSearch.html', '2');
 
 -- ----------------------------
 -- Table structure for `sys_role`
@@ -169,10 +117,10 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', '系统管理员', '系统管理员角色', '2');
-INSERT INTO `sys_role` VALUES ('2', '项目经理', '项目经理角色', '4');
-INSERT INTO `sys_role` VALUES ('3', '开发人员', '开发人员角色噶', '2');
-INSERT INTO `sys_role` VALUES ('4', '测试人员', '测试人员角色', '2');
+INSERT INTO `sys_role` VALUES ('1', '系统管理员', '系统管理员角色', '4');
+INSERT INTO `sys_role` VALUES ('2', '项目经理', '项目经理角色', '5');
+INSERT INTO `sys_role` VALUES ('3', '开发人员', '开发人员角色噶', '3');
+INSERT INTO `sys_role` VALUES ('4', '测试人员', '测试人员角色', '3');
 
 -- ----------------------------
 -- Table structure for `sys_role_menu`
@@ -183,45 +131,42 @@ CREATE TABLE `sys_role_menu` (
   `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
   `menu_id` int(11) DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=173 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('114', '1', '1');
-INSERT INTO `sys_role_menu` VALUES ('115', '1', '2');
-INSERT INTO `sys_role_menu` VALUES ('116', '1', '3');
-INSERT INTO `sys_role_menu` VALUES ('117', '1', '4');
-INSERT INTO `sys_role_menu` VALUES ('118', '1', '5');
-INSERT INTO `sys_role_menu` VALUES ('119', '1', '13');
-INSERT INTO `sys_role_menu` VALUES ('120', '1', '14');
-INSERT INTO `sys_role_menu` VALUES ('121', '1', '15');
-INSERT INTO `sys_role_menu` VALUES ('127', '3', '6');
-INSERT INTO `sys_role_menu` VALUES ('128', '3', '7');
-INSERT INTO `sys_role_menu` VALUES ('129', '3', '8');
-INSERT INTO `sys_role_menu` VALUES ('130', '3', '9');
-INSERT INTO `sys_role_menu` VALUES ('131', '3', '10');
-INSERT INTO `sys_role_menu` VALUES ('132', '3', '11');
-INSERT INTO `sys_role_menu` VALUES ('133', '3', '12');
-INSERT INTO `sys_role_menu` VALUES ('134', '3', '14');
-INSERT INTO `sys_role_menu` VALUES ('135', '3', '15');
-INSERT INTO `sys_role_menu` VALUES ('136', '4', '6');
-INSERT INTO `sys_role_menu` VALUES ('137', '4', '7');
-INSERT INTO `sys_role_menu` VALUES ('138', '4', '8');
-INSERT INTO `sys_role_menu` VALUES ('139', '4', '9');
-INSERT INTO `sys_role_menu` VALUES ('140', '4', '14');
-INSERT INTO `sys_role_menu` VALUES ('141', '4', '15');
-INSERT INTO `sys_role_menu` VALUES ('148', '2', '16');
-INSERT INTO `sys_role_menu` VALUES ('149', '2', '6');
-INSERT INTO `sys_role_menu` VALUES ('150', '2', '7');
-INSERT INTO `sys_role_menu` VALUES ('151', '2', '8');
-INSERT INTO `sys_role_menu` VALUES ('152', '2', '9');
-INSERT INTO `sys_role_menu` VALUES ('153', '2', '17');
-INSERT INTO `sys_role_menu` VALUES ('154', '2', '10');
-INSERT INTO `sys_role_menu` VALUES ('155', '2', '11');
-INSERT INTO `sys_role_menu` VALUES ('156', '2', '12');
-INSERT INTO `sys_role_menu` VALUES ('157', '2', '14');
-INSERT INTO `sys_role_menu` VALUES ('158', '2', '15');
+INSERT INTO `sys_role_menu` VALUES ('182', '1', '1');
+INSERT INTO `sys_role_menu` VALUES ('183', '1', '2');
+INSERT INTO `sys_role_menu` VALUES ('184', '1', '3');
+INSERT INTO `sys_role_menu` VALUES ('185', '1', '4');
+INSERT INTO `sys_role_menu` VALUES ('186', '1', '5');
+INSERT INTO `sys_role_menu` VALUES ('187', '1', '13');
+INSERT INTO `sys_role_menu` VALUES ('188', '1', '14');
+INSERT INTO `sys_role_menu` VALUES ('189', '2', '6');
+INSERT INTO `sys_role_menu` VALUES ('190', '2', '7');
+INSERT INTO `sys_role_menu` VALUES ('191', '2', '8');
+INSERT INTO `sys_role_menu` VALUES ('192', '2', '9');
+INSERT INTO `sys_role_menu` VALUES ('193', '2', '15');
+INSERT INTO `sys_role_menu` VALUES ('194', '2', '10');
+INSERT INTO `sys_role_menu` VALUES ('195', '2', '11');
+INSERT INTO `sys_role_menu` VALUES ('196', '2', '12');
+INSERT INTO `sys_role_menu` VALUES ('197', '2', '14');
+INSERT INTO `sys_role_menu` VALUES ('198', '3', '6');
+INSERT INTO `sys_role_menu` VALUES ('199', '3', '7');
+INSERT INTO `sys_role_menu` VALUES ('200', '3', '8');
+INSERT INTO `sys_role_menu` VALUES ('201', '3', '9');
+INSERT INTO `sys_role_menu` VALUES ('202', '3', '15');
+INSERT INTO `sys_role_menu` VALUES ('203', '3', '10');
+INSERT INTO `sys_role_menu` VALUES ('204', '3', '11');
+INSERT INTO `sys_role_menu` VALUES ('205', '3', '12');
+INSERT INTO `sys_role_menu` VALUES ('206', '3', '14');
+INSERT INTO `sys_role_menu` VALUES ('207', '4', '6');
+INSERT INTO `sys_role_menu` VALUES ('208', '4', '7');
+INSERT INTO `sys_role_menu` VALUES ('209', '4', '8');
+INSERT INTO `sys_role_menu` VALUES ('210', '4', '9');
+INSERT INTO `sys_role_menu` VALUES ('211', '4', '15');
+INSERT INTO `sys_role_menu` VALUES ('212', '4', '14');
 
 -- ----------------------------
 -- Table structure for `sys_user`
@@ -234,12 +179,12 @@ CREATE TABLE `sys_user` (
   `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '用户密码',
   `version` int(11) DEFAULT NULL COMMENT '乐观锁（版本号）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'admin', 'crawler', 'f74ad5b5c5271f653dbcf5641ca029bd', '2');
+INSERT INTO `sys_user` VALUES ('1', 'admin', 'crawler', 'f74ad5b5c5271f653dbcf5641ca029bd', '4');
 INSERT INTO `sys_user` VALUES ('25', 'zhangsan', '张三', 'f74ad5b5c5271f653dbcf5641ca029bd', '13');
 INSERT INTO `sys_user` VALUES ('26', 'lisi', '李四', 'f74ad5b5c5271f653dbcf5641ca029bd', '2');
 
@@ -252,7 +197,7 @@ CREATE TABLE `sys_user_role` (
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
   `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of sys_user_role
@@ -265,22 +210,7 @@ INSERT INTO `sys_user_role` VALUES ('74', '25', '1');
 INSERT INTO `sys_user_role` VALUES ('75', '25', '2');
 INSERT INTO `sys_user_role` VALUES ('76', '25', '3');
 INSERT INTO `sys_user_role` VALUES ('77', '25', '4');
-INSERT INTO `sys_user_role` VALUES ('78', '1', '1');
-
--- ----------------------------
--- Table structure for `sys_user_token`
--- ----------------------------
-DROP TABLE IF EXISTS `sys_user_token`;
-CREATE TABLE `sys_user_token` (
-  `user_id` int(11) NOT NULL COMMENT '用户id',
-  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '用户token',
-  `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT '登录ip地址',
-  PRIMARY KEY (`user_id`,`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of sys_user_token
--- ----------------------------
+INSERT INTO `sys_user_role` VALUES ('89', '1', '1');
 
 -- ----------------------------
 -- Table structure for `template_config`
