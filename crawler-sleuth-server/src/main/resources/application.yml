@@ -1,0 +1,16 @@
+server:
+  port: 9411
+  address: 127.0.0.1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:1000/eureka/
+    enabled: true
+  instance:
+    hostname: ${server.address}
+
+management:
+  health:
+    defaults:
+      enabled: true

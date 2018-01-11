@@ -14,6 +14,8 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   aop:
     proxy-target-class: true
+  zipkin:
+    base-url: http://localhost:9411
 
 eureka:
   client:

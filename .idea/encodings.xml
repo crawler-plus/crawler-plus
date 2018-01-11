@@ -10,6 +10,7 @@
     <file url="file://$PROJECT_DIR$/crawler-eureka-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-mail" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-redis-service-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/crawler-sleuth-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-zuul-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-zuul-server/src/main/resources/application.yml" charset="GBK" />
   </component>
