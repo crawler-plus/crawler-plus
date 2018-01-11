@@ -18,12 +18,16 @@
     </developers>
 
     <modules>
-        <module>crawler-core</module>
         <module>crawler-backend</module>
-        <module>crawler-eureka-server</module>
-        <module>crawler-captcha-producer</module>
         <module>crawler-cache</module>
+        <module>crawler-captcha-producer</module>
         <module>crawler-config-server</module>
+        <module>crawler-core</module>
+        <module>crawler-eureka-server</module>
+        <module>crawler-mail</module>
+        <module>crawler-redis-service-provider</module>
+        <module>crawler-sleuth-server</module>
+        <module>crawler-zuul-server</module>
     </modules>
 
     <parent>
