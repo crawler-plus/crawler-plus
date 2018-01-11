@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -98,6 +99,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(SysUser sysUser) {
+        // 将用户菜单字符串从redis中删除
+        rpcApi.deleteUserMenuInfo(sysUser.getId());
         String password = SecureUtil.md5(sysUser.getPassword() + crawlerProperties.getMd5Salt());
         sysUser.setPassword(password);
         // 首先更新用户表
@@ -144,27 +147,37 @@ public class UserServiceImpl implements UserService {
         if(exists > 0) {
             // 得到用户信息
             SysUser sysUserByloginAccount = this.getSysUserByloginAccount(sysUser.getLoginAccount());
-            // 得到用户对应的菜单信息
-            List<SysMenu> menuList = menuMapper.getMenuList(sysUserByloginAccount.getId());
-            List<List<SysMenu>> sList = Lists.newArrayList();
-            menuList.forEach(t -> {
-                // 如果是一个根节点
-                if(t.getMenuParentId() == 0) {
-                    List<SysMenu> smList = Lists.newArrayList();
-                    smList.add(t);
-                    sList.add(smList);
-                }
-                // 如果是上一个根节点的子节点
-                else {
-                    sList.get(sList.size() - 1).add(t);
-                }
-            });
+            // 判断是否可以从redis中获取用户的菜单列表字符串
+            String userMenuStr = rpcApi.getUserMenuInfo(sysUserByloginAccount.getId());
+            if(StringUtils.isEmpty(userMenuStr)) {
+                // 得到用户对应的菜单信息
+                List<SysMenu> menuList = menuMapper.getMenuList(sysUserByloginAccount.getId());
+                List<List<SysMenu>> sList = Lists.newArrayList();
+                menuList.forEach(t -> {
+                    // 如果是一个根节点
+                    if(t.getMenuParentId() == 0) {
+                        List<SysMenu> smList = Lists.newArrayList();
+                        smList.add(t);
+                        sList.add(smList);
+                    }
+                    // 如果是上一个根节点的子节点
+                    else {
+                        sList.get(sList.size() - 1).add(t);
+                    }
+                });
+                userMenuStr = JSONUtil.toJsonStr(sList);
+                // 写用户菜单字符串到redis
+                Map<String, String> menuMap = new HashMap<>();
+                menuMap.put("userId", String.valueOf(sysUserByloginAccount.getId()));
+                menuMap.put("userInfo", userMenuStr);
+                rpcApi.writeUserMenuInfoToRedis(menuMap);
+            }
             // 生成用户token
             TokenEntity uToken = TokenUtils.createUserToken(String.valueOf(sysUserByloginAccount.getId()), crawlerProperties.getUserTokenKey());
             // 向redis中插入用户token,token的key为userToken_用户id
             rpcApi.writeUserToken("userToken:" + sysUserByloginAccount.getId() + ":" + uToken.getToken(), uToken.getToken());
             infoMap.put("userInfo", sysUserByloginAccount);
-            infoMap.put("menuInfo", JSONUtil.toJsonStr(sList));
+            infoMap.put("menuInfo", userMenuStr);
             infoMap.put("token", uToken.getToken());
         }
         return infoMap;

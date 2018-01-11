@@ -2,11 +2,9 @@ package com.crawler.controller;
 
 import com.crawler.cache.RedisCacheHandler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -56,4 +54,29 @@ public class RedisServiceProvider {
         redisCacheHandler.clearCacheByKey(tokenId);
     }
 
+    /**
+     * 将用户的菜单字符串写到redis中
+     */
+    @RequestMapping(value = "/writeUserMenuInfoToRedis", method = RequestMethod.GET)
+    public void writeUserMenuInfoToRedis(@RequestParam Map<String, String> param) {
+        String userId = param.get("userId");
+        String menuInfo = param.get("userInfo");
+        redisCacheHandler.setCacheWithTimeout("menu:" + userId, menuInfo, 3L, TimeUnit.HOURS);
+    }
+
+    /**
+     * 从redis中获取用户的菜单字符串
+     */
+    @RequestMapping(value = "/getUserMenuInfo/{userId}", method = RequestMethod.GET)
+    public String getUserMenuInfo(@PathVariable("userId") int userId) {
+        return (String)redisCacheHandler.getCache("menu:" + userId);
+    }
+
+    /**
+     * 从redis中删除用户菜单字符串
+     */
+    @RequestMapping(value = "/deleteUserMenuInfo/{userId}", method = RequestMethod.GET)
+    public void deleteUserMenuInfo(@PathVariable("userId") int userId) {
+        redisCacheHandler.clearCacheByKey("menu:" + userId);
+    }
 }

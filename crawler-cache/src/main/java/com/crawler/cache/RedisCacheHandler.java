@@ -63,4 +63,20 @@ public class RedisCacheHandler implements CacheHandler {
     public boolean valueIsMemberInSet(String key, String value) {
         return redisConfiguration.setOperations(redisTemplate).isMember(key, value);
     }
+
+    public void setCollectionsToList(String key, Object o) {
+        redisConfiguration.listOperations(redisTemplate).leftPushAll(key, o);
+    }
+
+    public void setValueToList(String key, Object o) {
+        redisConfiguration.listOperations(redisTemplate).leftPush(key, o);
+    }
+
+    public List getCollectionsValueFromList(String key) {
+        return redisConfiguration.listOperations(redisTemplate).range(key, 0, -1);
+    }
+
+    public void clearValueFromList(String key) {
+        redisTemplate.delete(key);
+    }
 }

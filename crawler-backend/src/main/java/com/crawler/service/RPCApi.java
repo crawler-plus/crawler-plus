@@ -4,6 +4,9 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Map;
 
 @FeignClient("crawler-redis-service-provider")
 public interface RPCApi {
@@ -37,4 +40,24 @@ public interface RPCApi {
     @RequestMapping(value = "/redis/deleteUserToken/{tokenId}", method = RequestMethod.GET)
     void deleteUserToken(@PathVariable("tokenId") String tokenId);
 
+    /**
+     * 将用户的菜单字符串写到redis中
+     */
+    @RequestMapping(value = "/redis/writeUserMenuInfoToRedis", method = RequestMethod.GET)
+    void writeUserMenuInfoToRedis(@RequestParam Map<String, String> param);
+
+    /**
+     * 从redis中获取用户的菜单字符串
+     * @param userId
+     */
+    @RequestMapping(value = "/redis/getUserMenuInfo/{userId}", method = RequestMethod.GET)
+    String getUserMenuInfo(@PathVariable("userId") int userId);
+
+
+    /**
+     * 从redis中删除用户菜单字符串
+     * @param userId
+     */
+    @RequestMapping(value = "/redis/deleteUserMenuInfo/{userId}", method = RequestMethod.GET)
+    void deleteUserMenuInfo(@PathVariable("userId") int userId);
 }

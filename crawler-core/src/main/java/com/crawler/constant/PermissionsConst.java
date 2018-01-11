@@ -11,9 +11,6 @@ public class PermissionsConst {
     // 角色管理权限
     public static final int ROLE_MGMT =5;
 
-    // 系统日志管理权限
-    public static final int LOG_MGMT = 13;
-
     // 网页爬虫查询权限
     public static final int NET_CRAWLER_SEARCH = 7;
 
@@ -32,9 +29,6 @@ public class PermissionsConst {
     // 自服务管理-用户信息修改权限
     public static final int SELF_INFO_UPDATE = 15;
 
-    // 页眉页脚管理权限
-    public static final int HEADER_FOOTER_CONTENT = 16;
-
     // 债券市场查询权限
-    public static final int BOND_MARKET = 17;
+    public static final int BOND_MARKET = 16;
 }
