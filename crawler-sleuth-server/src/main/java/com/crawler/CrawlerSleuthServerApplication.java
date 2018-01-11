@@ -18,6 +18,6 @@ public class CrawlerSleuthServerApplication {
 		SpringApplication application = new SpringApplication(CrawlerSleuthServerApplication.class);
 		application.setBannerMode(Banner.Mode.OFF);
 		application.run(args);
-		LoggerUtils.printLogger(logger, "--------------sleuth-server project starts----------------");
+		LoggerUtils.printLogger(logger, "--------------crawler-sleuth-server project starts----------------");
 	}
 }

@@ -20,6 +20,6 @@ public class CrawlerCaptchaProducerApplication {
 		SpringApplication application = new SpringApplication(CrawlerCaptchaProducerApplication.class);
 		application.setBannerMode(Banner.Mode.OFF);
 		application.run(args);
-		LoggerUtils.printLogger(logger, "--------------CrawlerCaptchaProducer project starts----------------");
+		LoggerUtils.printLogger(logger, "--------------crawler-captcha-producer project starts----------------");
 	}
 }
