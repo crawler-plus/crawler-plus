@@ -43,7 +43,7 @@ public class RedisServiceProvider {
      */
     @RequestMapping(value = "/getUserToken/{tokenId}", method = RequestMethod.GET)
     public String getUserToken(@PathVariable("tokenId") String tokenId) {
-        return (String)redisCacheHandler.getCache(tokenId);
+        return (String)redisCacheHandler.getCache("userToken:" + tokenId);
     }
 
     /**
@@ -51,7 +51,7 @@ public class RedisServiceProvider {
      */
     @RequestMapping(value = "/deleteUserToken/{tokenId}", method = RequestMethod.GET)
     public void deleteUserToken(@PathVariable("tokenId") String tokenId) {
-        redisCacheHandler.clearCacheByKey(tokenId);
+        redisCacheHandler.clearCacheByKey("userToken:" + tokenId);
     }
 
     /**
