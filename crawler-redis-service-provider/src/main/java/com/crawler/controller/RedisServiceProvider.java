@@ -19,7 +19,7 @@ public class RedisServiceProvider {
      */
     @RequestMapping(value = "/writeCaptchaCodeToRedis/{key}/{value}", method = RequestMethod.GET)
     public void writeCaptchaCodeToRedis(@PathVariable("key") String key, @PathVariable("value") String value) {
-        redisCacheHandler.setCacheWithTimeout(key, value, 60L, TimeUnit.SECONDS);
+        redisCacheHandler.setCacheWithTimeout("captcha:" + key, value, 60L, TimeUnit.SECONDS);
     }
 
     /**
@@ -27,7 +27,7 @@ public class RedisServiceProvider {
      */
     @RequestMapping(value = "/checkCaptchaExists/{key}", method = RequestMethod.GET)
     public String checkCaptchaExists(@PathVariable("key") String key) {
-        return (String)redisCacheHandler.getCache(key);
+        return (String)redisCacheHandler.getCache("captcha:" + key);
     }
 
     /**
@@ -35,7 +35,7 @@ public class RedisServiceProvider {
      */
     @RequestMapping(value = "/writeUserToken/{tokenId}/{token}", method = RequestMethod.GET)
     public void writeUserToken(@PathVariable("tokenId") String tokenId, @PathVariable("token") String token) {
-        redisCacheHandler.setCacheWithTimeout(tokenId, token, 3L, TimeUnit.HOURS);
+        redisCacheHandler.setCacheWithTimeout("userToken:" + tokenId, token, 3L, TimeUnit.HOURS);
     }
 
     /**

@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
             // 生成用户token
             TokenEntity uToken = TokenUtils.createUserToken(String.valueOf(sysUserByloginAccount.getId()), crawlerProperties.getUserTokenKey());
             // 向redis中插入用户token,token的key为userToken_用户id
-            rpcApi.writeUserToken("userToken:" + sysUserByloginAccount.getId() + ":" + uToken.getToken(), uToken.getToken());
+            rpcApi.writeUserToken(sysUserByloginAccount.getId() + ":" + uToken.getToken(), uToken.getToken());
             infoMap.put("userInfo", sysUserByloginAccount);
             infoMap.put("menuInfo", userMenuStr);
             infoMap.put("token", uToken.getToken());

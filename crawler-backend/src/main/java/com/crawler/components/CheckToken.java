@@ -23,7 +23,7 @@ public class CheckToken {
         // 用户id
         String uid = te.getUid();
         // 得到token的值
-        String tokenVal = rpcApi.getUserToken("userToken:" + uid + ":" + token);
+        String tokenVal = rpcApi.getUserToken(uid + ":" + token);
         // 如果token的值为空
         if(StringUtils.isEmpty(tokenVal)) {
             tokenInvalidFlag = true;

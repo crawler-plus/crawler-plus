@@ -66,7 +66,7 @@ public class UserController {
                 captcha = "";
             }
             // 如果验证码正确
-            captchaAccess = StringUtils.isEmpty(rpcApi.checkCaptchaExists("captcha:" + captcha)) ? false : true;
+            captchaAccess = StringUtils.isEmpty(rpcApi.checkCaptchaExists(captcha)) ? false : true;
         }
         // 如果没有配置验证码登录
         else {
@@ -218,7 +218,7 @@ public class UserController {
     @GetMapping(path = "/logout/{id}/{token}")
     @RequireToken
     public BaseEntity logout(@PathVariable("id") int userId, @PathVariable("token") String token, BaseEntity be) {
-        String tokenKey = "userToken:" + userId + ":" + token;
+        String tokenKey = userId + ":" + token;
         // 从redis中删除用户token
         rpcApi.deleteUserToken(tokenKey);
         be.setContent("用户退出");

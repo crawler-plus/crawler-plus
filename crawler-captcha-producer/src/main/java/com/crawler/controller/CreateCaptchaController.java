@@ -46,7 +46,7 @@ public class CreateCaptchaController {
         be.setCaptchaCode(capText);
         ByteArrayOutputStream os = null;
         // 向redis的set中写入验证码
-        rpcApi.writeCaptchaCodeToRedis("captcha:" + capText, capText);
+        rpcApi.writeCaptchaCodeToRedis(capText, capText);
         try {
             os = new ByteArrayOutputStream();
             ImageIO.write(bi, "png", os);
