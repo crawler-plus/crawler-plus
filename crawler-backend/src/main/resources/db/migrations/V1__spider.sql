@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2018-01-11 16:07:35
+Date: 2018-01-12 12:21:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,35 +34,6 @@ CREATE TABLE `bond_market` (
 -- ----------------------------
 -- Records of bond_market
 -- ----------------------------
-INSERT INTO `bond_market` VALUES ('1204323625', '000509', '华塑控股', '关于子公司申请解除《收回国有土地使用权补偿协议书》的补充公告', '交易', '2018-01-12', '2018-01-11 15:43:11', 'finalpage/2018-01-12/1204323625.PDF');
-INSERT INTO `bond_market` VALUES ('1204323626', '000029', '深深房Ａ', '关于筹划重大资产重组事项停牌进展公告', '其它重大事项', '2018-01-12', '2018-01-11 15:43:11', 'finalpage/2018-01-12/1204323626.PDF');
-INSERT INTO `bond_market` VALUES ('1204323627', '000766', '通化金马', '关于全资子公司哈尔滨圣泰生物制药有限公司使用部分闲置募集资金进行现金管理的进展公告', '交易', '2018-01-12', '2018-01-11 15:43:11', 'finalpage/2018-01-12/1204323627.PDF');
-INSERT INTO `bond_market` VALUES ('1204323628', '000755', '*ST三维', '关于重大资产重组进展公告', '其它重大事项', '2018-01-12', '2018-01-11 15:43:11', 'finalpage/2018-01-12/1204323628.PDF');
-INSERT INTO `bond_market` VALUES ('1204323629', '000877', '天山股份', '中信证券股份有限公司关于公司2017年度持续督导培训情况的报告', '中介机构报告', '2018-01-12', '2018-01-11 15:43:11', 'finalpage/2018-01-12/1204323629.PDF');
-INSERT INTO `bond_market` VALUES ('1204323630', '000089', '深圳机场', '关于召开2018年第一次临时股东大会的提示性公告', '股东大会', '2018-01-12', '2018-01-11 15:43:10', 'finalpage/2018-01-12/1204323630.PDF');
-INSERT INTO `bond_market` VALUES ('1204323631', '001965', '招商公路', '关于召开2018年第一次临时股东大会的提示性公告', '股东大会', '2018-01-12', '2018-01-11 15:43:10', 'finalpage/2018-01-12/1204323631.PDF');
-INSERT INTO `bond_market` VALUES ('1204323632', '000639', '西王食品', '第十二届监事会第五次会议决议公告', '监事会公告', '2018-01-12', '2018-01-11 15:43:10', 'finalpage/2018-01-12/1204323632.PDF');
-INSERT INTO `bond_market` VALUES ('1204323633', '000639', '西王食品', '关于新增开设募集资金专户及签署三方监管协议的公告', '其它重大事项', '2018-01-12', '2018-01-11 15:43:10', 'finalpage/2018-01-12/1204323633.PDF');
-INSERT INTO `bond_market` VALUES ('1204323634', '000639', '西王食品', '华泰联合证券有限责任公司关于公司使用募集资金置换先期投入的核查意见', '中介机构报告', '2018-01-12', '2018-01-11 15:43:10', 'finalpage/2018-01-12/1204323634.PDF');
-INSERT INTO `bond_market` VALUES ('1204323635', '000639', '西王食品', '第十二届董事会第九次会议决议公告', '董事会公告', '2018-01-12', '2018-01-11 15:43:09', 'finalpage/2018-01-12/1204323635.PDF');
-INSERT INTO `bond_market` VALUES ('1204323636', '000639', '西王食品', '独立董事关于第十二届董事会第九次会议相关事项之独立意见', '上市公司制度', '2018-01-12', '2018-01-11 15:43:10', 'finalpage/2018-01-12/1204323636.PDF');
-INSERT INTO `bond_market` VALUES ('1204323637', '000639', '西王食品', '关于以非公开发行股票募集资金置换预先已投入募投项目自筹资金的公告', '增发', '2018-01-12', '2018-01-11 15:43:09', 'finalpage/2018-01-12/1204323637.PDF');
-INSERT INTO `bond_market` VALUES ('1204323638', '000797', '中国武夷', '关于承接埃塞俄比亚国际工程施工项目的公告', '交易', '2018-01-12', '2018-01-11 15:43:08', 'finalpage/2018-01-12/1204323638.PDF');
-INSERT INTO `bond_market` VALUES ('1204323639', '000797', '中国武夷', '兴业证券股份有限公司关于公司配股持续督导2017年度现场检查报告', '中介机构报告', '2018-01-12', '2018-01-11 15:43:09', 'finalpage/2018-01-12/1204323639.PDF');
-INSERT INTO `bond_market` VALUES ('1204323640', '000797', '中国武夷', '兴业证券股份有限公司关于公司2017年度培训工作报告', '中介机构报告', '2018-01-12', '2018-01-11 15:43:09', 'finalpage/2018-01-12/1204323640.PDF');
-INSERT INTO `bond_market` VALUES ('1204323641', '000831', '五矿稀土', '关于公司所属分离企业生产情况的公告', '其它重大事项', '2018-01-12', '2018-01-11 15:43:08', 'finalpage/2018-01-12/1204323641.PDF');
-INSERT INTO `bond_market` VALUES ('1204323646', '300398', '飞凯材料', '关于控股股东股份质押的公告', '其它重大事项', '2018-01-11', '2018-01-11 15:43:11', 'finalpage/2018-01-11/1204323646.PDF');
-INSERT INTO `bond_market` VALUES ('1204323648', '300465', '高伟达', '关于收到《中国证监会行政许可申请终止审查通知书》的公告', '其它重大事项', '2018-01-11', '2018-01-11 15:43:11', 'finalpage/2018-01-11/1204323648.PDF');
-INSERT INTO `bond_market` VALUES ('1204323649', '300308', '中际旭创', '关于使用闲置资金购买银行理财产品情况的公告', '交易', '2018-01-12', '2018-01-11 15:43:08', 'finalpage/2018-01-12/1204323649.PDF');
-INSERT INTO `bond_market` VALUES ('1204323650', '300344', '太空板业', '关于控股股东部分股权解除质押的公告', '其它重大事项', '2018-01-12', '2018-01-11 15:43:08', 'finalpage/2018-01-12/1204323650.PDF');
-INSERT INTO `bond_market` VALUES ('1204323651', '300092', '科新机电', '关于完成工商变更登记的公告', '其它重大事项', '2018-01-11', '2018-01-11 15:43:11', 'finalpage/2018-01-11/1204323651.PDF');
-INSERT INTO `bond_market` VALUES ('1204323652', '300718', '长盛轴承', '国信证券股份有限公司关于对公司2018年度持续督导培训报告', '中介机构报告', '2018-01-12', '2018-01-11 15:43:08', 'finalpage/2018-01-12/1204323652.PDF');
-INSERT INTO `bond_market` VALUES ('1204323653', '300718', '长盛轴承', '关于控股子公司完成工商变更登记的公告', '交易', '2018-01-12', '2018-01-11 15:43:08', 'finalpage/2018-01-12/1204323653.PDF');
-INSERT INTO `bond_market` VALUES ('1204323654', '002160', '常铝股份', '关于筹划发行股份及支付现金购买资产事项停牌进展公告', '增发', '2018-01-12', '2018-01-11 15:43:08', 'finalpage/2018-01-12/1204323654.PDF');
-INSERT INTO `bond_market` VALUES ('1204323655', '002412', '汉森制药', '关于控股孙公司宁乡妇女儿童医院有限公司完成注销登记的公告', '交易', '2018-01-12', '2018-01-11 15:43:08', 'finalpage/2018-01-12/1204323655.PDF');
-INSERT INTO `bond_market` VALUES ('1204323656', '002457', '青龙管业', '重大合同公告', '其它重大事项', '2018-01-12', '2018-01-11 15:43:08', 'finalpage/2018-01-12/1204323656.PDF');
-INSERT INTO `bond_market` VALUES ('1204323658', '002801', '微光股份', '中天国富证券有限公司关于公司2017年持续督导培训情况报告', '中介机构报告', '2018-01-12', '2018-01-11 15:43:07', 'finalpage/2018-01-12/1204323658.PDF');
-INSERT INTO `bond_market` VALUES ('1204323659', '002801', '微光股份', '中天国富证券有限公司关于公司2017年定期现场检查报告', '中介机构报告', '2018-01-12', '2018-01-11 15:43:07', 'finalpage/2018-01-12/1204323659.PDF');
 
 -- ----------------------------
 -- Table structure for `crawler_content`
@@ -78,25 +49,11 @@ CREATE TABLE `crawler_content` (
   `created` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL COMMENT '关联的用户id',
   PRIMARY KEY (`cid`)
-) ENGINE=InnoDB AUTO_INCREMENT=936 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=980 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of crawler_content
 -- ----------------------------
-
--- ----------------------------
--- Table structure for `sys_lock`
--- ----------------------------
-DROP TABLE IF EXISTS `sys_lock`;
-CREATE TABLE `sys_lock` (
-  `system_cron` char(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '系统是否正在运行爬取任务（0：否，1：是）',
-  `business_cron` char(1) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '用户是否正在运行爬取任务（0：否，1：是）'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- ----------------------------
--- Records of sys_lock
--- ----------------------------
-INSERT INTO `sys_lock` VALUES ('0', '0');
 
 -- ----------------------------
 -- Table structure for `sys_menu`
@@ -260,6 +217,6 @@ CREATE TABLE `template_config` (
 -- ----------------------------
 -- Records of template_config
 -- ----------------------------
-INSERT INTO `template_config` VALUES ('13118d0ada1741f0b5d816907cf7178c', 'http://sports.sina.com.cn/nba/', '.news-list-b', '#j_title', '.article-a__time', '#artibody', '1', '25');
-INSERT INTO `template_config` VALUES ('4aafe7ebe6a949d294c5483c81cef361', 'http://sports.sina.com.cn/nba/', '.news-list-b', '#j_title', '.article-a__time', '#artibody', '3', '26');
-INSERT INTO `template_config` VALUES ('4aafe7ebe6a949d294c5483c81cef362', 'http://sports.sina.com.cn/csl/', '.blk13', '#j_title', '.article-a__time', '#artibody', '1', '26');
+INSERT INTO `template_config` VALUES ('13118d0ada1741f0b5d816907cf7178c', 'http://sports.sina.com.cn/nba/', '.news-list-b', '.main-title', '.date', '#artibody', '1', '25');
+INSERT INTO `template_config` VALUES ('4aafe7ebe6a949d294c5483c81cef361', 'http://sports.sina.com.cn/nba/', '.news-list-b', '.main-title', '.date', '#artibody', '1', '26');
+INSERT INTO `template_config` VALUES ('4aafe7ebe6a949d294c5483c81cef362', 'http://sports.sina.com.cn/csl/', '.blk13', '.main-title', '.date', '#artibody', '1', '26');
