@@ -1,6 +1,17 @@
-spring:
-  profiles:
-    active: dev
+server:
+  port: 1000
+  address: 127.0.0.1
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${server.address}:${server.port}/eureka/
+  instance:
+    hostname: ${server.address}
+  server:
+    enable-self-preservation: false #关闭eureka的自我保护
+    eviction-interval-timer-in-ms: 4000 #清理间隔
 
 management:
   health:
