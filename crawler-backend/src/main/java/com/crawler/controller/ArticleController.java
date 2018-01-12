@@ -4,14 +4,14 @@ import com.crawler.annotation.RequirePermissions;
 import com.crawler.annotation.RequireToken;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.CrawlerContent;
-import com.crawler.domain.SysLock;
 import com.crawler.domain.TemplateConfig;
+import com.crawler.service.RPCApi;
 import com.crawler.service.api.ArticleService;
-import com.crawler.service.api.SysLockService;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,7 +35,7 @@ public class ArticleController {
 	private ArticleService articleService;
 
 	@Autowired
-	private SysLockService sysLockService;
+	private RPCApi rpcApi;
 
 	/**
 	 * 保存文章配置
@@ -166,19 +166,15 @@ public class ArticleController {
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken
 	public BaseEntity executeCron(@PathVariable("id") int userId, BaseEntity be) {
-		// 检查系统是否正在运行定时任务，爬取文章，如下条件成立，说明当前没有线程运行定时任务
-		SysLock checkLock = sysLockService.getSysLock();
-		if("0".equals(checkLock.getBusinessCron()) && "0".equals(checkLock.getSystemCron())) {
-			// 向数据库中赋值
-			SysLock sysLock = new SysLock();
-			sysLock.setBusinessCron("1");
-			sysLockService.updateSysLock(sysLock);
+		// 检查该用户是否正在进行爬取
+		String lockByUserId = rpcApi.getLockByUserId(userId);
+		if(StringUtils.isEmpty(lockByUserId)) {
+			// 锁定
+			rpcApi.lockByUserId(userId);
 			// 执行爬取任务
 			this.articleService.cronjob(userId);
-			// 将businessCron设置为0
-			sysLock.setBusinessCron("0");
-			sysLockService.updateSysLock(sysLock);
-			be.setContent("执行爬取...");
+			// 解除锁定
+			rpcApi.deleteLockByUserId(userId);
 			be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		}else {
 			be.setContent("系统中有其他线程正在爬取文章，请稍后重试！");

@@ -79,4 +79,28 @@ public class RedisServiceProvider {
     public void deleteUserMenuInfo(@PathVariable("userId") int userId) {
         redisCacheHandler.clearCacheByKey("menu:" + userId);
     }
+
+    /**
+     * 根据用户id上锁
+     */
+    @RequestMapping(value = "/lockByUserId/{userId}", method = RequestMethod.GET)
+    public void lockByUserId(@PathVariable("userId") int userId) {
+        redisCacheHandler.setCacheWithTimeout("lock:" + userId, "lock", 5L, TimeUnit.MINUTES);
+    }
+
+    /**
+     * 判断用户id是否上锁
+     */
+    @RequestMapping(value = "/getLockByUserId/{userId}", method = RequestMethod.GET)
+    public String getLockByUserId(@PathVariable("userId") int userId) {
+        return (String)redisCacheHandler.getCache("lock:" + userId);
+    }
+
+    /**
+     * 删除用户id的锁
+     */
+    @RequestMapping(value = "/deleteLockByUserId/{userId}", method = RequestMethod.GET)
+    public void deleteLockByUserId(@PathVariable("userId") int userId) {
+        redisCacheHandler.clearCacheByKey("lock:" + userId);
+    }
 }
