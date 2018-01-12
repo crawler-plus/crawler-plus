@@ -25,6 +25,12 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<Integer> getMenuIdList(int userId) {
+        return menuMapper.getMenuIdList(userId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<TreeNode> getMenuTreeList() {
         return menuMapper.getMenuTreeList();
     }

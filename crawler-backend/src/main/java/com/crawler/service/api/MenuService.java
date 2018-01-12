@@ -17,6 +17,12 @@ public interface MenuService {
     List<SysMenu> getMenuList(int userId);
 
     /**
+     * 根据用户ID得到菜单ID列表
+     * @return
+     */
+    List<Integer> getMenuIdList(int userId);
+
+    /**
      * 获得菜单列表树
      * @return
      */
