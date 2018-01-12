@@ -20,6 +20,17 @@ public class LoggerUtils {
     }
 
     /**
+     * 打印异常日志
+     * @param logger
+     * @param message
+     */
+    public static void printExceptionLogger(Logger logger, String message) {
+        if(logger.isWarnEnabled()) {
+            logger.warn(message);
+        }
+    }
+
+    /**
      * 打印日志(info 级别)
      * @param logger
      * @param message

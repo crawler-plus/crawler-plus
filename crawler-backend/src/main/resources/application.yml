@@ -47,5 +47,9 @@ flyway:
   sql-migration-suffix: .sql
   encoding: UTF-8
 
+feign:
+  hystrix:
+    enabled: true
+
 logging:
   config: classpath:logback-crawler.xml

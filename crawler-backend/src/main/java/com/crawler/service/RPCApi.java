@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@FeignClient("crawler-redis-service-provider")
+@FeignClient(value = "crawler-redis-service-provider", fallback = HystrixClientFallback.class)
 public interface RPCApi {
 
     /**
