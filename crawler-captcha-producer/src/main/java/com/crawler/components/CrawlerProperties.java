@@ -25,6 +25,9 @@ public class CrawlerProperties {
     // vsftpd-nginx默认port
     private String captchaFtpServerPort;
 
+    // vsftpd-nginx默认本地host
+    private String captchaFtpServerLocalHost;
+
     public String getCaptchaFtpServerHost() {
         return captchaFtpServerHost;
     }
@@ -63,5 +66,13 @@ public class CrawlerProperties {
 
     public void setCaptchaFtpServerPort(String captchaFtpServerPort) {
         this.captchaFtpServerPort = captchaFtpServerPort;
+    }
+
+    public String getCaptchaFtpServerLocalHost() {
+        return captchaFtpServerLocalHost;
+    }
+
+    public void setCaptchaFtpServerLocalHost(String captchaFtpServerLocalHost) {
+        this.captchaFtpServerLocalHost = captchaFtpServerLocalHost;
     }
 }

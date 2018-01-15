@@ -31,7 +31,7 @@ public class JobsConfiguration {
     public void clearFtpCaptchaImg() {
         FTPClient ftpClient = new FTPClient();
         try {
-            ftpClient.connect(crawlerProperties.getCaptchaFtpServerHost());
+            ftpClient.connect(crawlerProperties.getCaptchaFtpServerLocalHost());
             ftpClient.login(crawlerProperties.getCaptchaFtpServerUserName(), crawlerProperties.getCaptchaFtpServerPassword());
             ftpClient.changeWorkingDirectory(crawlerProperties.getCaptchaFtpServerUrl());
             FTPFile[] ftpFileArr = ftpClient.listFiles(crawlerProperties.getCaptchaFtpServerUrl());

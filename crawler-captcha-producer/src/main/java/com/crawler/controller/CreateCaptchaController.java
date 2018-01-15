@@ -51,7 +51,7 @@ public class CreateCaptchaController {
             os = new ByteArrayOutputStream();
             ImageIO.write(bi, "png", os);
             InputStream inputStream = new ByteArrayInputStream(os.toByteArray());
-            FtpUtils.fileUploadByFtp(crawlerProperties.getCaptchaFtpServerHost(),
+            FtpUtils.fileUploadByFtp(crawlerProperties.getCaptchaFtpServerLocalHost(),
                     crawlerProperties.getCaptchaFtpServerUserName(),
                     crawlerProperties.getCaptchaFtpServerPassword(),
                     crawlerProperties.getCaptchaFtpServerUrl(),
