@@ -1,5 +1,6 @@
 crawler:
   captchaFtpServerHost: 192.168.0.104  # vsftpd-nginx默认host
+  captchaFtpServerLocalHost: 192.168.0.104 # vsftpd-nginx默认本地host
   captchaFtpServerPort: 8888 # vsftpd-nginx默认port
   captchaFtpServerUserName: ftpuser # vsftpd默认用户名
   captchaFtpServerPassword: ftpuser # vsftpd默认密码
