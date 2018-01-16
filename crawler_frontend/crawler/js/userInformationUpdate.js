@@ -19,7 +19,6 @@ var userInformationUpdate = function () {
             ajaxOptions,
             function (data) {
                 $("#name").val(data.content.name);
-                $("#password").val(data.content.password);
                 $("#version").val(data.content.version);
             }
         );

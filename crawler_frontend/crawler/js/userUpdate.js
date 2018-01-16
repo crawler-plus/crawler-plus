@@ -20,7 +20,6 @@ var userUpdate = function () {
             function (data) {
                 $("#loginAccount").val(data.content.loginAccount);
                 $("#name").val(data.content.name);
-                $("#password").val(data.content.password);
                 $("#version").val(data.content.version);
             }
         );
