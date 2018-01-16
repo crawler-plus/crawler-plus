@@ -26,7 +26,7 @@ var templateMgmt = function () {
                     isFormData : false
                 };
                 var ajaxOptions = {
-                    url: comm.url + 'article/executeCron/' + commonUtil.getUserId(),
+                    url: comm.url + 'article/executeCron',
                     method : 'GET'
                 };
                 dataRequest.requestSend(
@@ -54,7 +54,7 @@ var templateMgmt = function () {
             isFormData : false
         };
         var ajaxOptions = {
-            url: comm.url + 'article/listAllTemplateConfig/' + commonUtil.getUserId(),
+            url: comm.url + 'article/listAllTemplateConfig',
             method : 'GET'
         };
         dataRequest.requestSend(

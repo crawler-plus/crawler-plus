@@ -22,9 +22,7 @@ var articleSearch = function () {
                     limit: params.limit,
                     offset: params.offset,
                     sortOrder: params.order,
-                    page: params.offset / params.limit + 1,
-                    // 查询参数
-                    userId: commonUtil.getUserId()
+                    page: params.offset / params.limit + 1
                 }
             }
         });
@@ -47,7 +45,6 @@ var articleSearch = function () {
         bootstrapTableEl.bootstrapTable("refresh", {
             url: userQueryUrl,
             query: {
-                userId: commonUtil.getUserId()
             }
         });
     };

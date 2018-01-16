@@ -48,17 +48,17 @@ public class HystrixClientFallback implements RPCApi {
     }
 
     @Override
-    public void lockByUserId(int userId) {
+    public void lockByAdmin() {
         LoggerUtils.printExceptionLogger(logger, "服务不可用！请检查服务器状态！");
     }
 
     @Override
-    public String getLockByUserId(int userId) {
+    public String getLockByAdmin() {
         return "";
     }
 
     @Override
-    public void deleteLockByUserId(int userId) {
+    public void deleteLockByAdmin() {
         LoggerUtils.printExceptionLogger(logger, "服务不可用！请检查服务器状态！");
     }
 }

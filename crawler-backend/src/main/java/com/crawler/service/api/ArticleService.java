@@ -32,7 +32,7 @@ public interface ArticleService {
      * 列出所有文章配置
      * @return
      */
-    List<TemplateConfig> listAllTemplateConfig(int userId);
+    List<TemplateConfig> listAllTemplateConfig();
 
     /**
      * 根据id获得文章配置
@@ -45,7 +45,7 @@ public interface ArticleService {
      * 列出所有查询出的文章
      * @return
      */
-    List<CrawlerContent> listAllCrawlerContents(int userId);
+    List<CrawlerContent> listAllCrawlerContents();
 
     /**
      * 根据id获得指定文章
@@ -56,27 +56,15 @@ public interface ArticleService {
     CrawlerContent getCrawlerContent(String id);
 
     /**
-     * 批量添加文章
-     * @param cList
-     */
-    void batchSaveCrawlerContent(List<CrawlerContent> cList);
-
-    /**
      * 添加文章
      * @param cc
      */
     void saveCrawlerContent(CrawlerContent cc);
 
     /**
-     * 获取所有数据库文章urls
-     * @return
-     */
-    List<String> fetchAllArticleUrls();
-
-    /**
      * 执行爬取
      */
-    void cronjob(int userId);
+    void cronjob();
 
     /**
      * 判断文章配置否存在
@@ -89,11 +77,5 @@ public interface ArticleService {
      * 得到文章数量
      * @return
      */
-    int getCrawlerContentSize(int userId);
-
-    /**
-     * 得到文章配置表里所有不重复的userId
-     * @return
-     */
-    List<Integer> fetchAllUserIdFromTemplateConfig();
+    int getCrawlerContentSize();
 }

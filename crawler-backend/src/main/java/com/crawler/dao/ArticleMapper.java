@@ -34,7 +34,7 @@ public interface ArticleMapper {
      * 列出所有文章配置
      * @return
      */
-    List<TemplateConfig> listAllTemplateConfig(int userId);
+    List<TemplateConfig> listAllTemplateConfig();
 
     /**
      * 根据id获得文章配置
@@ -47,7 +47,7 @@ public interface ArticleMapper {
      * 列出所有查询出的文章
      * @return
      */
-    List<CrawlerContent> listAllCrawlerContents(int userId);
+    List<CrawlerContent> listAllCrawlerContents();
 
     /**
      * 根据id获得指定文章
@@ -61,18 +61,6 @@ public interface ArticleMapper {
      * @param cc
      */
     void saveCrawlerContent(CrawlerContent cc);
-
-    /**
-     * 批量添加文章
-     * @param cList
-     */
-    void batchSaveCrawlerContent(List<CrawlerContent> cList);
-
-    /**
-     * 获取所有数据库文章urls
-     * @return
-     */
-    List<String> fetchAllArticleUrls();
     
     /**
      * 判断是否存在url
@@ -91,23 +79,5 @@ public interface ArticleMapper {
      * 得到文章数量
      * @return
      */
-    int getCrawlerContentSize(int userId);
-
-    /**
-     * 根据用户id删除文章配置
-     * @param id
-     */
-    void removeTemplateConfigByUserId(int id);
-
-    /**
-     * 根据用户id删除文章
-     * @param id
-     */
-    void removeCrawlerContentByUserId(int id);
-
-    /**
-     * 得到文章配置表里所有不重复的userId
-     * @return
-     */
-    List<Integer> fetchAllUserIdFromTemplateConfig();
+    int getCrawlerContentSize();
 }

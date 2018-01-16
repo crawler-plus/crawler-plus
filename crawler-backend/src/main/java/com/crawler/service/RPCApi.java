@@ -64,18 +64,18 @@ public interface RPCApi {
     /**
      * 根据用户id上锁
      */
-    @RequestMapping(value = "/redis/lockByUserId/{userId}", method = RequestMethod.GET)
-    void lockByUserId(@PathVariable("userId") int userId);
+    @RequestMapping(value = "/redis/lockByAdmin", method = RequestMethod.GET)
+    void lockByAdmin();
 
     /**
      * 判断用户id是否上锁
      */
-    @RequestMapping(value = "/redis/getLockByUserId/{userId}", method = RequestMethod.GET)
-    String getLockByUserId(@PathVariable("userId") int userId);
+    @RequestMapping(value = "/redis/getLockByAdmin", method = RequestMethod.GET)
+    String getLockByAdmin();
 
     /**
      * 删除用户id的锁
      */
-    @RequestMapping(value = "/redis/deleteLockByUserId/{userId}", method = RequestMethod.GET)
-    void deleteLockByUserId(@PathVariable("userId") int userId);
+    @RequestMapping(value = "/redis/deleteLockByAdmin", method = RequestMethod.GET)
+    void deleteLockByAdmin();
 }

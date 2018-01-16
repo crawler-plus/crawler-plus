@@ -81,8 +81,6 @@ public class UserServiceImpl implements UserService {
     public void delete(int userId) {
         userMapper.deleteUser(userId);
         userMapper.deleteUserRoleMapping(userId);
-        articleMapper.removeCrawlerContentByUserId(userId);
-        articleMapper.removeTemplateConfigByUserId(userId);
     }
 
     @Override

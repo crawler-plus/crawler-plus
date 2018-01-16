@@ -26,8 +26,6 @@ public class TemplateConfig {
 
     private int version; // 版本号（乐观锁）
 
-    private int userId; // 关联的用户id
-
     public String getId() {
         return id;
     }
@@ -82,13 +80,5 @@ public class TemplateConfig {
 
     public void setVersion(int version) {
         this.version = version;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 }

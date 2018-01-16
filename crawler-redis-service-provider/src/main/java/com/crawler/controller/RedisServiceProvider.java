@@ -83,24 +83,24 @@ public class RedisServiceProvider {
     /**
      * 根据用户id上锁
      */
-    @RequestMapping(value = "/lockByUserId/{userId}", method = RequestMethod.GET)
-    public void lockByUserId(@PathVariable("userId") int userId) {
-        redisCacheHandler.setCacheWithTimeout("lock:" + userId, "lock", 5L, TimeUnit.MINUTES);
+    @RequestMapping(value = "/lockByAdmin", method = RequestMethod.GET)
+    public void lockByAdmin() {
+        redisCacheHandler.setCacheWithTimeout("lock", "lock", 5L, TimeUnit.MINUTES);
     }
 
     /**
      * 判断用户id是否上锁
      */
-    @RequestMapping(value = "/getLockByUserId/{userId}", method = RequestMethod.GET)
-    public String getLockByUserId(@PathVariable("userId") int userId) {
-        return (String)redisCacheHandler.getCache("lock:" + userId);
+    @RequestMapping(value = "/getLockByAdmin", method = RequestMethod.GET)
+    public String getLockByAdmin() {
+        return (String)redisCacheHandler.getCache("lock");
     }
 
     /**
      * 删除用户id的锁
      */
-    @RequestMapping(value = "/deleteLockByUserId/{userId}", method = RequestMethod.GET)
-    public void deleteLockByUserId(@PathVariable("userId") int userId) {
-        redisCacheHandler.clearCacheByKey("lock:" + userId);
+    @RequestMapping(value = "/deleteLockByAdmin", method = RequestMethod.GET)
+    public void deleteLockByAdmin() {
+        redisCacheHandler.clearCacheByKey("lock");
     }
 }

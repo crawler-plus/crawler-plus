@@ -97,12 +97,11 @@ public class ArticleController {
 	 * 列出所有文章配置
 	 */
 	@ApiOperation(value="列出所有文章配置", notes="列出所有文章配置")
-	@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
-	@GetMapping(path = "/listAllTemplateConfig/{id}")
+	@GetMapping(path = "/listAllTemplateConfig")
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken
-	public BaseEntity listAllTemplateConfig(@PathVariable("id") int userId, BaseEntity be) {
-		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig(userId);
+	public BaseEntity listAllTemplateConfig(BaseEntity be) {
+		List<TemplateConfig> templateConfigs = articleService.listAllTemplateConfig();
 		be.setContent(templateConfigs);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		return be;
@@ -132,10 +131,10 @@ public class ArticleController {
 	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
 	@RequireToken
 	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, BaseEntity be) {
-		int crawlerContentSize = articleService.getCrawlerContentSize(crawlerContent.getUserId());
+		int crawlerContentSize = articleService.getCrawlerContentSize();
 		// 分页查询
 		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
-		List<CrawlerContent> contents = articleService.listAllCrawlerContents(crawlerContent.getUserId());
+		List<CrawlerContent> contents = articleService.listAllCrawlerContents();
 		be.setTotal(crawlerContentSize);
 		be.setRows(contents);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
@@ -161,20 +160,19 @@ public class ArticleController {
 	 * 执行cron
 	 */
 	@ApiOperation(value="执行cron", notes="执行cron")
-	@ApiImplicitParam(name = "userId", value = "系统用户id", required = true, dataType = "int")
-	@GetMapping(path = "/executeCron/{id}")
+	@GetMapping(path = "/executeCron")
 	@RequirePermissions(value = TEMPLATE_MGMT)
 	@RequireToken
-	public BaseEntity executeCron(@PathVariable("id") int userId, BaseEntity be) {
+	public BaseEntity executeCron(BaseEntity be) {
 		// 检查该用户是否正在进行爬取
-		String lockByUserId = rpcApi.getLockByUserId(userId);
+		String lockByUserId = rpcApi.getLockByAdmin();
 		if(StringUtils.isEmpty(lockByUserId)) {
 			// 锁定
-			rpcApi.lockByUserId(userId);
+			rpcApi.lockByAdmin();
 			// 执行爬取任务
-			this.articleService.cronjob(userId);
+			this.articleService.cronjob();
 			// 解除锁定
-			rpcApi.deleteLockByUserId(userId);
+			rpcApi.deleteLockByAdmin();
 			be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		}else {
 			be.setContent("系统中有其他线程正在爬取文章，请稍后重试！");
