@@ -1,7 +1,8 @@
 crawler:
   md5Salt: crawler #密码加密salt
   defaultPassword: 123456 #用户默认密码
-  useCaptcha: true #是否使用验证码
+  loginUseCaptcha: true #登录系统是否使用验证码
+  registerUseCaptcha: true #登录系统是否使用验证码
   userTokenKey: crawler_key #用户token生成密钥
 
 spring:

@@ -1,7 +1,8 @@
 var comm = {
     url : 'http://127.0.0.1:1007/main/',
     captchaUrl: 'http://127.0.0.1:1007/captcha/',
-    useCaptcha: true
+    loginUseCaptcha: true,
+    registerUseCaptcha: true
 };
 
 var commonUtil = function () {

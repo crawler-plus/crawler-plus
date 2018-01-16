@@ -34,6 +34,9 @@ public class SysUser extends BaseEntity {
     // 是否简单修改用户信息（如果来自用户管理，为0代表否，如果来自自服务管理，为1代表是）
     private int simpleUpdate;
 
+    // 是否为注册用户来的还是系统用户添加的，如果是注册用户为0，系统用户添加的用户为1
+    private int addUserFrom;
+
     public interface First {}
 
     public interface Second {}
@@ -102,5 +105,13 @@ public class SysUser extends BaseEntity {
 
     public void setSimpleUpdate(int simpleUpdate) {
         this.simpleUpdate = simpleUpdate;
+    }
+
+    public int getAddUserFrom() {
+        return addUserFrom;
+    }
+
+    public void setAddUserFrom(int addUserFrom) {
+        this.addUserFrom = addUserFrom;
     }
 }

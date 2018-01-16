@@ -11,8 +11,8 @@ var login = function () {
         }).on("mouseout", function () {
             $(this).css("cursor", "");
         });
-        $("#register").on('click', function () {
-            location.href = 'register.html';
+        $("#login").on('click', function () {
+            location.href = 'login.html';
         });
     };
 
@@ -47,13 +47,8 @@ var login = function () {
 
     var init = function () {
         btn_init();
-        // 清空sessionStorage中关于用户的信息
-        sessionStorage.removeItem("userPermissions");
-        sessionStorage.removeItem("userName");
-        sessionStorage.removeItem("userId");
-        sessionStorage.removeItem("token");
 
-        $("#loginForm").validate({
+        $("#registerForm").validate({
             rules: {
                 loginAccount: {
                     required : true
@@ -68,11 +63,11 @@ var login = function () {
             submitHandler: function () {
                 // 通过表单验证
                 var signOptions = {
-                    formID : 'loginForm',
+                    formID : 'registerForm',
                     isFormData : true
                 };
                 var ajaxOptions = {
-                    url: comm.url + 'user/login',
+                    url: comm.url + 'user/register',
                     method : 'POST'
                 };
                 dataRequest.requestSend(
@@ -82,13 +77,7 @@ var login = function () {
                         if(data.msgCode === '400') {
                             layer.msg(data.content, {icon: 5});
                         }else {
-                            // 将用户信息和用户权限信息转为字符串存在sessionStorage中
-                            sessionStorage.setItem("userPermissions", data.content.menuInfo);
-                            sessionStorage.setItem("userName", data.content.userInfo.loginAccount);
-                            sessionStorage.setItem("userId", data.content.userInfo.id);
-                            sessionStorage.setItem("token", data.content.token);
-                            // 跳转到index.html
-                            location.href = 'index.html';
+                            layer.msg(data.content, {icon: 1});
                         }
                     }
                 );
@@ -102,7 +91,7 @@ var login = function () {
 }();
 $(function () {
 
-    var useCaptcha = comm.loginUseCaptcha;
+    var useCaptcha = comm.registerUseCaptcha;
     if(!useCaptcha) {
         $("#captchaDiv").css("display", "none");
         $("#captChaImgDiv").css("display", "none");

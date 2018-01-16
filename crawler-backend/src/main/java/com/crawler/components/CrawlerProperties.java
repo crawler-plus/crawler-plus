@@ -16,8 +16,11 @@ public class CrawlerProperties {
     // 用户默认密码
     private String defaultPassword;
 
-    // 是否使用验证码
-    private boolean useCaptcha;
+    // 登录系统是否使用验证码
+    private boolean loginUseCaptcha;
+
+    // 注册系统是否使用验证码
+    private boolean registerUseCaptcha;
 
     // 用户token生成密钥
     private String userTokenKey;
@@ -38,12 +41,20 @@ public class CrawlerProperties {
         this.defaultPassword = defaultPassword;
     }
 
-    public boolean isUseCaptcha() {
-        return useCaptcha;
+    public boolean isLoginUseCaptcha() {
+        return loginUseCaptcha;
     }
 
-    public void setUseCaptcha(boolean useCaptcha) {
-        this.useCaptcha = useCaptcha;
+    public void setLoginUseCaptcha(boolean loginUseCaptcha) {
+        this.loginUseCaptcha = loginUseCaptcha;
+    }
+
+    public boolean isRegisterUseCaptcha() {
+        return registerUseCaptcha;
+    }
+
+    public void setRegisterUseCaptcha(boolean registerUseCaptcha) {
+        this.registerUseCaptcha = registerUseCaptcha;
     }
 
     public String getUserTokenKey() {

@@ -3,7 +3,6 @@ package com.crawler.controller;
 import com.crawler.annotation.RequirePermissions;
 import com.crawler.annotation.RequireToken;
 import com.crawler.components.CrawlerProperties;
-import com.crawler.components.RequestHolderConfiguration;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.SysRole;
 import com.crawler.domain.SysUser;
@@ -43,10 +42,57 @@ public class UserController {
     private CrawlerProperties crawlerProperties;
 
     @Autowired
-    private RequestHolderConfiguration requestHolderConfiguration;
-
-    @Autowired
     private RPCApi rpcApi;
+
+    /**
+     * 用户注册
+     */
+    @ApiOperation(value="用户注册", notes="用户注册")
+    @ApiImplicitParam(name = "sysUser", value = "系统用户entity", dataType = "SysUser")
+    @PostMapping("/register")
+    public BaseEntity register(@Validated({SysUser.Second.class}) SysUser sysUser, BaseEntity be) {
+        boolean useCaptcha = crawlerProperties.isRegisterUseCaptcha();
+        // 验证码是否通过
+        boolean captchaAccess;
+        // 如果配置了需要验证码登录
+        if(useCaptcha) {
+            String captcha = sysUser.getCaptcha();
+            // 处理验证码前台传过来是空的情况
+            if(StringUtils.isEmpty(captcha)) {
+                captcha = "";
+            }
+            // 如果验证码正确
+            captchaAccess = StringUtils.isEmpty(rpcApi.checkCaptchaExists(captcha)) ? false : true;
+        }
+        // 如果没有配置验证码登录
+        else {
+            captchaAccess = true;
+        }
+        // 如果验证码没有通过
+        if(!captchaAccess) {
+            be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
+            be.setContent("验证码错误，请重新输入");
+        }
+        // 如果验证码通过
+        else {
+            SysUser s = new SysUser();
+            s.setLoginAccount(sysUser.getLoginAccount());
+            // 判断用户是否存在
+            int userExists = userService.checkUserExists(s);
+            // 如果用户存在
+            if(userExists > 0) {
+                be.setContent("该用户登录帐号已经存在，请换个登录帐号试试");
+                be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
+            }else {
+                // 表示系统注册的用户
+                sysUser.setAddUserFrom(0);
+                userService.addUser(sysUser);
+                be.setContent("注册成功，请前往登录页面登录！");
+                be.setMsgCode(MESSAGE_CODE_OK.getCode());
+            }
+        }
+        return be;
+    }
 
     /**
      * 用户登录
@@ -55,7 +101,7 @@ public class UserController {
     @ApiImplicitParam(name = "sysUser", value = "系统用户entity", dataType = "SysUser")
     @PostMapping("/login")
     public BaseEntity login(@Validated({SysUser.Second.class}) SysUser sysUser, BaseEntity be) {
-        boolean useCaptcha = crawlerProperties.isUseCaptcha();
+        boolean useCaptcha = crawlerProperties.isLoginUseCaptcha();
         // 验证码是否通过
         boolean captchaAccess;
         // 如果配置了需要验证码登录
@@ -178,6 +224,7 @@ public class UserController {
             be.setContent("该用户登录帐号已经存在，请换个登录帐号试试");
             be.setMsgCode(MESSAGE_CODE_ERROR.getCode());
         }else {
+            sysUser.setAddUserFrom(1);
             userService.addUser(sysUser);
             be.setContent("新增用户成功");
             be.setMsgCode(MESSAGE_CODE_OK.getCode());

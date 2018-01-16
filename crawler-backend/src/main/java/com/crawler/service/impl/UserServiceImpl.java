@@ -85,11 +85,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(SysUser sysUser) {
-        // 默认密码：123456
-        String password = SecureUtil.md5(crawlerProperties.getDefaultPassword() + crawlerProperties.getMd5Salt());
+        int userFrom = sysUser.getAddUserFrom();
+        String password;
+        if(1 == userFrom) {
+            password = SecureUtil.md5(crawlerProperties.getDefaultPassword() + crawlerProperties.getMd5Salt());
+        }else {
+            password = SecureUtil.md5(sysUser.getPassword() + crawlerProperties.getMd5Salt());
+        }
         sysUser.setPassword(password);
         // 首先向用户表中新增一条数据
         userMapper.userAdd(sysUser);
+        // 如果是系统注册来的用户
+        if(0 == userFrom) {
+            sysUser.setUserRoleStr("6");
+        }
         // 得到用户选择的角色
         String userRoleStr = sysUser.getUserRoleStr();
         addSysUserRole(userRoleStr, sysUser);
