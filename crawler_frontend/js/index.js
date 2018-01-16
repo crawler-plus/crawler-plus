@@ -2,10 +2,6 @@ var index = function () {
 
     var init = function () {
 
-        var userId = sessionStorage.getItem("userId");
-        if(null == userId) {
-            location.href = 'login.html';
-        }
         var userPermissions = sessionStorage.getItem("userPermissions");
         var menuInfo = JSON.parse(userPermissions);
         // 如果当前用户分配了菜单
@@ -49,7 +45,7 @@ var index = function () {
         }
 
         // 点击退出按钮，发起后台请求，清空token信息
-        $("#logoutBtn").on('click', function () {
+        $(".logoutBtn").on('click', function () {
             layer.confirm('确定要退出吗？', {
                 btn: ['是','否'] //按钮
             }, function(){

@@ -20,26 +20,51 @@
             </div>
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            欢迎光临 crawler-plus
+                        </div>
+                        <div class="logo-element">CP
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
         <!--左侧导航结束-->
         <!--右侧部分开始-->
         <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                <script>document.write(sessionStorage.getItem("userName"))</script>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info logoutBtn" data-toggle="" href="#">
+                               退出
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
             <div class="row content-tabs">
                 <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content">
-                        <a href="javascript:" class="active J_menuTab" data-id="index_v1.html">首页</a>
+                        <a href="javascript:;" class="active J_menuTab" data-id="index_v1.html">首页</a>
                     </div>
                 </nav>
+                <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
+                </button>
                 <div class="btn-group roll-nav roll-right">
-                    <button class="dropdown J_tabClose" data-toggle="dropdown">信息/操作<span class="caret"></span>
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
                     </button>
                     <ul role="menu" class="dropdown-menu dropdown-menu-right">
-                        <li class=""><a>当前用户：<script>document.write(sessionStorage.getItem("userName"))</script></a>
-                        </li>
                         <li class="J_tabShowActive"><a>定位当前选项卡</a>
                         </li>
                         <li class="divider"></li>
@@ -49,31 +74,31 @@
                         </li>
                     </ul>
                 </div>
-                <btn id="logoutBtn" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i>退出</btn>
+                <a class="roll-nav roll-right J_tabExit logoutBtn"><i class="fa fa fa-sign-out"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="index_v1.html?v=4.0" frameborder="0" data-id="index_v1.html" seamless></iframe>
             </div>
+            <div class="footer">
+                <div class="pull-right">&copy;  <a href="https://github.com/crawler-plus/crawler-plus" target="_blank">crawler-plus</a>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
-
     <script id="handleBarScript1" type="text/x-handlebars-template">
         <li></li>
     </script>
-
     <script id="handleBarScript2" type="text/x-handlebars-template">
         <a href="{{href}}"><i class="fa fa-cutlery"></i> <span class="nav-label">{{text}}</span><span class="fa arrow"></span></a>
     </script>
-
     <script id="handleBarScript3" type="text/x-handlebars-template">
         <ul class="nav nav-second-level"></ul>
     </script>
-
     <script id="handleBarScript4" type="text/x-handlebars-template">
         <li><a class="J_menuItem" href="{{href}}">{{text}}</a>
         </li>
     </script>
-
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/bootstrap.min.js?v=3.3.6"></script>
     <script src="common/commonUtil.js"></script>
@@ -87,5 +112,7 @@
     <script src="js/myContabs.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
     <script src="js/handlebars.js"></script>
+
+
 </body>
 </html>
