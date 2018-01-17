@@ -139,6 +139,23 @@ public class ArticleController {
 	}
 
 	/**
+	 * 列出所有查询出的文章（只包含标题和id）
+	 */
+	@ApiOperation(value="列出所有查询出的文章（只包含标题和id）", notes="列出所有查询出的文章（只包含标题和id）")
+	@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", dataType = "CrawlerContent")
+	@GetMapping("/listAllSimpleCrawlerContents")
+	public BaseEntity listAllSimpleCrawlerContents(CrawlerContent crawlerContent, BaseEntity be) {
+		int crawlerContentSize = articleService.getCrawlerContentSize();
+		// 分页查询
+		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
+		List<CrawlerContent> contents = articleService.listAllCrawlerContents();
+		be.setTotal(crawlerContentSize);
+		be.setRows(contents);
+		be.setMsgCode(MESSAGE_CODE_OK.getCode());
+		return be;
+	}
+
+	/**
 	 * 根据id获得指定文章
 	 */
 	@ApiOperation(value="根据id获得指定文章", notes="根据id获得指定文章")

@@ -61,7 +61,12 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleMapper.listAllCrawlerContents();
 	}
 
-	@Override
+    @Override
+    public List<CrawlerContent> listAllSimpleCrawlerContents() {
+        return articleMapper.listAllSimpleCrawlerContents();
+    }
+
+    @Override
 	public CrawlerContent getCrawlerContent(String id) {
 		return articleMapper.getCrawlerContent(id);
 	}
@@ -87,6 +92,8 @@ public class ArticleServiceImpl implements ArticleService {
                 List<String> crawlerUrl = Lists.newArrayList();
                 // 得到一级url
                 String url = tc.getUrl();
+                String crawlerPrefix = tc.getCrawlerPrefix();
+                String mainId = tc.getId();
                 // 构造其他参数信息
                 TransferEntity te = new TransferEntity();
                 te.setUrl(url);
@@ -107,6 +114,8 @@ public class ArticleServiceImpl implements ArticleService {
                 if(size == 0) continue;
                 for (Element anALink : aLink) {
                     String link = anALink.attr("href");
+                    if(link.startsWith("http")) continue;
+                    link = crawlerPrefix + link;
                     crawlerUrl.add(link);
                 }
                 if (!CollectionUtils.isEmpty(crawlerUrl)) {
@@ -134,37 +143,22 @@ public class ArticleServiceImpl implements ArticleService {
                             // 继续下次循环
                             continue;
                         }
-                        String timeExp = tc.getTimePattern();
-                        Integer timeIndex = 0;
-                        String[] timeExps = timeExp.split(":");
-                        if(timeExps.length > 1) {
-                        	timeExp = timeExps[0];
-                        	timeIndex = Integer.parseInt(timeExps[1])-1;
-                        	if(timeIndex < 0) timeIndex = 0;
-                        }
-                        String time;
                         // 得到标题元素
                         Elements titleE = d.select(tc.getTitlePattern());
-                        // 证明是无效链接，继续下次循环
-                        if (titleE.size() == 0) continue;
                         // 得到时间元素
-                        Elements timeE = d.select(timeExp);
+                        Elements timeE = d.select(tc.getTimePattern());
                         // 得到内容元素
                         Elements bodyE = d.select(tc.getContentPattern());
-                        // 证明是无效链接，继续下次循环
-                        if (bodyE.size() == 0) continue;
-                        String title = titleE.get(0).html();
-                        if(timeIndex >= timeE.size()) {
-                        	timeIndex = timeE.size() - 1;
-                        }
-                        time = timeE.get(timeIndex).html();
-                        String body = bodyE.get(0).html();
+                        String title = titleE.size() == 0 ? "" : titleE.get(0).html();
+                        String time = timeE.size() == 0 ? "" : timeE.get(0).html();
+                        String body = bodyE.size() == 0 ? "" : bodyE.get(0).html();
                         CrawlerContent c = new CrawlerContent();
                         c.setId(UUID.randomUUID().toString().replace("-", ""));
                         c.setUrl(eachUrl);
                         c.setTitle(title);
                         c.setTime(time);
                         c.setContentBody(body);
+                        c.setRefId(mainId);
                         // 改为每次插入单条数据！！！
                         saveCrawlerContent(c);
                     }

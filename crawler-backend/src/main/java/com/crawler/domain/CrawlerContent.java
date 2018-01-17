@@ -19,6 +19,10 @@ public class CrawlerContent extends BaseEntity {
 
     private int userId; // 关联的用户id
 
+    private String siteName; //关联的网站名称
+
+    private String refId; // 关联的模板id
+
     public String getId() {
         return id;
     }
@@ -73,5 +77,21 @@ public class CrawlerContent extends BaseEntity {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getSiteName() {
+        return siteName;
+    }
+
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
+    }
+
+    public String getRefId() {
+        return refId;
+    }
+
+    public void setRefId(String refId) {
+        this.refId = refId;
     }
 }

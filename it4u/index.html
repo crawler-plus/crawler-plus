@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="ibox-content">
+    <h1>IT软件更新资讯</h1>
+</div>
+<div class="wrapper wrapper-content  animated fadeInRight blog">
+    <ul class="sortable-list connectList agile-list" id="dataRow">
+    </ul>
+</div>
+
+<script id="resultScript" type="text/x-handlebars-template">
+    <li class="warning-element">
+            <span class="btn-link">
+                搜索结果
+            </span>
+    </li>
+</script>
+
+<script id="handleBarScript" type="text/x-handlebars-template">
+    <li class="warning-element">
+            <span class="btn-link">
+            </span>
+        <div class="agile-detail" id="{{id}}">
+            <div><b>资讯标题：</b><a href="articleDetail.html?id={{id}}">{{title}}</a></div><br>
+            <div>获取时间：{{insertTime}}</div><br>
+        </div>
+    </li>
+</script>
+
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/jquery.goup.min.js"></script>
+<script src="js/handlebars.js"></script>
+<script src="js/plugins/toastr/toastr.min.js"></script>
+<script src="js/plugins/layer/layer.min.js"></script>
+<script src="common/dataRequest.js"></script>
+<script src="common/commonUtil.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

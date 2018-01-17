@@ -74,7 +74,9 @@ var templateMgmt = function () {
                                 "firstLevelPattern": eachData.firstLevelPattern,
                                 "titlePattern": eachData.titlePattern,
                                 "timePattern": eachData.timePattern,
-                                "contentPattern": eachData.contentPattern
+                                "contentPattern": eachData.contentPattern,
+                                "crawlerPrefix": eachData.crawlerPrefix,
+                                "siteName": eachData.siteName
                             };
                             //匹配json内容
                             var html = template(json);

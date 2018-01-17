@@ -26,6 +26,10 @@ public class TemplateConfig {
 
     private int version; // 版本号（乐观锁）
 
+    private String crawlerPrefix; // 带爬网站的前缀
+
+    private String siteName; // 网站名称
+
     public String getId() {
         return id;
     }
@@ -80,5 +84,21 @@ public class TemplateConfig {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public String getCrawlerPrefix() {
+        return crawlerPrefix;
+    }
+
+    public void setCrawlerPrefix(String crawlerPrefix) {
+        this.crawlerPrefix = crawlerPrefix;
+    }
+
+    public String getSiteName() {
+        return siteName;
+    }
+
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
     }
 }

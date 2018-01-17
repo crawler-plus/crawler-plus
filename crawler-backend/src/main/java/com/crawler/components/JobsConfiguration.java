@@ -17,9 +17,9 @@ public class JobsConfiguration {
     private ArticleService articleService;
 
     /**
-     * 根据模板爬取文章信息,每天0点，6点，12点，18点自动执行
+     * 根据模板爬取文章信息,每间隔1个小时自动执行
      */
-    @Scheduled(cron = "0 0 0,6,12,18 * * ?")
+    @Scheduled(cron = "0 */1 * * *")
     public void cronJob() {
         // 执行爬取任务
         this.articleService.cronjob();

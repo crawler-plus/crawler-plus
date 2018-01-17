@@ -23,6 +23,12 @@
             <if test='contentPattern != null and contentPattern != "" '>
                 content_pattern,
             </if>
+            <if test='crawlerPrefix != null and crawlerPrefix != "" '>
+                crawler_prefix,
+            </if>
+            <if test='siteName != null and siteName != "" '>
+                site_name,
+            </if>
                 version,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -43,6 +49,12 @@
             </if>
             <if test='contentPattern != null and contentPattern != "" '>
                 #{contentPattern, jdbcType=VARCHAR},
+            </if>
+            <if test='crawlerPrefix != null and crawlerPrefix != "" '>
+                #{crawlerPrefix, jdbcType=VARCHAR},
+            </if>
+            <if test='siteName != null and siteName != "" '>
+                #{siteName, jdbcType=VARCHAR},
             </if>
                 1,
         </trim>
@@ -66,6 +78,12 @@
             <if test='contentPattern != null and contentPattern != "" '>
                 content_pattern = #{contentPattern, jdbcType=VARCHAR},
             </if>
+            <if test='crawlerPrefix != null and crawlerPrefix != "" '>
+                crawler_prefix = #{crawlerPrefix, jdbcType=VARCHAR},
+            </if>
+            <if test='siteName != null and siteName != "" '>
+                site_name = #{siteName, jdbcType=VARCHAR},
+            </if>
                 version = version + 1,
         </trim>
         WHERE id = #{id, jdbcType=VARCHAR}
@@ -81,7 +99,9 @@
                 first_level_pattern   AS firstLevelPattern,
                 title_pattern         AS titlePattern,
                 time_pattern          AS timePattern,
-                content_pattern       AS contentPattern
+                content_pattern       AS contentPattern,
+                crawler_prefix        AS crawlerPrefix,
+                site_name             AS siteName
         FROM template_config
     </select>
 
@@ -93,6 +113,8 @@
         title_pattern         AS titlePattern,
         time_pattern          AS timePattern,
         content_pattern       AS contentPattern,
+        crawler_prefix        AS crawlerPrefix,
+        site_name             AS siteName,
         version               AS version
         FROM template_config
         WHERE id = #{id, jdbcType=VARCHAR}
@@ -110,15 +132,26 @@
         ORDER BY created DESC
     </select>
 
-    <select id="getCrawlerContent" resultType="com.crawler.domain.CrawlerContent" parameterType="String">
+    <select id="listAllSimpleCrawlerContents" resultType="com.crawler.domain.CrawlerContent">
         SELECT
         id             AS id,
-        url            AS url,
         title          AS title,
-        time          AS time,
-        content_body   AS contentBody
+        DATE_FORMAT(created, '%Y年%m月%d日 %H:%i:%s') AS insertTime
         FROM crawler_content
-        WHERE id = #{id, jdbcType=VARCHAR}
+        ORDER BY created DESC
+    </select>
+
+    <select id="getCrawlerContent" resultType="com.crawler.domain.CrawlerContent" parameterType="String">
+        SELECT
+        cc.id             AS id,
+        cc.url            AS url,
+        cc.title          AS title,
+        cc.time          AS time,
+        cc.content_body   AS contentBody,
+        concat(tc.site_name, '[', tc.crawler_prefix, ']') AS siteName
+        FROM crawler_content cc JOIN template_config tc
+        ON cc.ref_id = tc.id
+        WHERE cc.id = #{id, jdbcType=VARCHAR}
     </select>
 
     <insert id="saveCrawlerContent" parameterType="com.crawler.domain.CrawlerContent">
@@ -140,6 +173,9 @@
             <if test='contentBody != null and contentBody != "" '>
                 content_body,
             </if>
+            <if test='refId != null and refId != "" '>
+                ref_id,
+            </if>
                 created,
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -158,6 +194,9 @@
             </if>
             <if test='contentBody != null and contentBody != "" '>
                 #{contentBody, jdbcType=VARCHAR},
+            </if>
+            <if test='refId != null and refId != "" '>
+                #{refId, jdbcType=VARCHAR},
             </if>
                 NOW(),
         </trim>

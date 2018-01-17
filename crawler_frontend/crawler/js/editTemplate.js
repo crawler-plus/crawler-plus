@@ -24,6 +24,8 @@ var editTemplate = function () {
                 $("#timePattern").val(pPata.timePattern);
                 $("#contentPattern").val(pPata.contentPattern);
                 $("#version").val(pPata.version);
+                $("#crawlerPrefix").val(pPata.crawlerPrefix);
+                $("#siteName").val(pPata.siteName);
             }
         );
 
