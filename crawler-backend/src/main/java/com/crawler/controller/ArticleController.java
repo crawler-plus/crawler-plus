@@ -148,7 +148,7 @@ public class ArticleController {
 		int crawlerContentSize = articleService.getCrawlerContentSize();
 		// 分页查询
 		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
-		List<CrawlerContent> contents = articleService.listAllCrawlerContents();
+		List<CrawlerContent> contents = articleService.listAllSimpleCrawlerContents();
 		be.setTotal(crawlerContentSize);
 		be.setRows(contents);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
