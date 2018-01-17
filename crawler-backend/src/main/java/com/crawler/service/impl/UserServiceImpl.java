@@ -18,7 +18,6 @@ import com.xiaoleilu.hutool.crypto.SecureUtil;
 import com.xiaoleilu.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
@@ -26,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -48,31 +46,26 @@ public class UserServiceImpl implements UserService {
     private RPCApi rpcApi;
 
     @Override
-    @Transactional(readOnly = true)
     public int checkUserExists(SysUser sysUser) {
         return userMapper.checkUserExists(sysUser);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public SysUser getSysUserByloginAccount(String loginAccount) {
         return userMapper.getSysUserByloginAccount(loginAccount);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<SysUser> listAll(SysUser sysUser) {
         return userMapper.listAll(sysUser);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public int getUsersListCount(SysUser sysUser) {
         return userMapper.getUsersListCount(sysUser);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public SysUser getSysUserByUserId(int id) {
         return userMapper.getSysUserByUserId(id);
     }

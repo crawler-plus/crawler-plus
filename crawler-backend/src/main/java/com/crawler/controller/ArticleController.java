@@ -18,7 +18,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
-import static com.crawler.constant.PermissionsConst.CRAWLER_CONTENT_SEARCH;
 import static com.crawler.constant.PermissionsConst.TEMPLATE_MGMT;
 import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_ERROR;
 import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
@@ -128,8 +127,6 @@ public class ArticleController {
 	@ApiOperation(value="列出所有查询出的文章", notes="列出所有查询出的文章")
 	@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", dataType = "CrawlerContent")
 	@GetMapping("/listAllCrawlerContents")
-	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
-	@RequireToken
 	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, BaseEntity be) {
 		int crawlerContentSize = articleService.getCrawlerContentSize();
 		// 分页查询
@@ -147,8 +144,6 @@ public class ArticleController {
 	@ApiOperation(value="根据id获得指定文章", notes="根据id获得指定文章")
 	@ApiImplicitParam(name = "id", value = "文章id", required = true, dataType = "String")
 	@GetMapping(path = "/getCrawlerContent/{id}")
-	@RequirePermissions(value = CRAWLER_CONTENT_SEARCH)
-	@RequireToken
 	public BaseEntity getCrawlerContent(@PathVariable("id") String id, BaseEntity be) {
 		CrawlerContent crawlerContent = articleService.getCrawlerContent(id);
 		be.setContent(crawlerContent);

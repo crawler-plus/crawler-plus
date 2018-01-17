@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
@@ -23,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 
 @Service
-@Transactional
 public class BondMarketServiceImpl implements BondMarketService {
 
 	@Autowired
@@ -37,7 +35,6 @@ public class BondMarketServiceImpl implements BondMarketService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<String> fetchAllIdsFromBondMarket() {
         return bondMarketMapper.fetchAllIdsFromBondMarket();
     }
@@ -111,19 +108,16 @@ public class BondMarketServiceImpl implements BondMarketService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public int getBondMarketListCount() {
         return bondMarketMapper.getBondMarketListCount();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<BondMarket> listAll() {
         return bondMarketMapper.listAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
     public BondMarket getBondMarketItemById(String id) {
         return bondMarketMapper.getBondMarketItemById(id);
     }

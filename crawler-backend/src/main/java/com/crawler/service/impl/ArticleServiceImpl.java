@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -25,7 +24,6 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Service
-@Transactional
 public class ArticleServiceImpl implements ArticleService {
 
 	@Autowired
@@ -49,25 +47,21 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<TemplateConfig> listAllTemplateConfig() {
 		return articleMapper.listAllTemplateConfig();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public TemplateConfig getTemplateConfig(String id) {
 		return articleMapper.getTemplateConfig(id);
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public List<CrawlerContent> listAllCrawlerContents() {
 		return articleMapper.listAllCrawlerContents();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public CrawlerContent getCrawlerContent(String id) {
 		return articleMapper.getCrawlerContent(id);
 	}
@@ -180,13 +174,11 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
     @Override
-    @Transactional(readOnly = true)
     public int checkTemplateConfigExists(TemplateConfig templateConfig) {
         return articleMapper.checkTemplateConfigExists(templateConfig);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public int getCrawlerContentSize() {
         return articleMapper.getCrawlerContentSize();
     }

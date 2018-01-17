@@ -7,32 +7,27 @@ import com.crawler.service.api.RoleService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 
 @Service
-@Transactional
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleMapper roleMapper;
 
     @Override
-    @Transactional(readOnly = true)
     public List<SysRole> listAll(SysRole sysRole) {
         return roleMapper.listAll(sysRole);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public int getRolesListCount(SysRole sysRole) {
         return roleMapper.getRolesListCount(sysRole);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public int getUserReferencesCountByRoleId(int roleId) {
         return roleMapper.getUserReferencesCountByRoleId(roleId);
     }
@@ -44,13 +39,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<SysRole> getRoleByUserId(int userId) {
         return roleMapper.getRoleByUserId(userId);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public int checkRoleNameExists(SysRole sysRole) {
         return roleMapper.checkRoleNameExists(sysRole);
     }
@@ -76,13 +69,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public SysRole getRoleByRoleId(int roleId) {
         return roleMapper.getRoleByRoleId(roleId);
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Integer> fetchAllMenuId(int roleId) {
         return roleMapper.fetchAllMenuId(roleId);
     }
@@ -111,7 +102,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public int checkRoleExists(SysRole sysRole) {
         return roleMapper.checkRoleExists(sysRole);
     }
