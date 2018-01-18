@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
+    <meta name="keywords" content="IT软件资讯">
+    <meta name="description" content="IT软件资讯">
     <link rel="shortcut icon" href="favicon.ico">
     <link href="css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
@@ -13,18 +13,19 @@
     <link href="css/style.css?v=4.1.0" rel="stylesheet">
 </head>
 <body class="gray-bg">
-    <div class="wrapper wrapper-content  animated fadeInRight article">
+    <div>
         <div class="row" id="dataRow">
         </div>
     </div>
-
     <script id="handleBarScript1" type="text/x-handlebars-template">
-        <div class="col-lg-10 col-lg-offset-1">
+        <div>
             <div class="ibox">
                 <div class="ibox-content">
-                    文章转载自 {{siteName}}<br><br>
-                    原文标题：{{title}}<br><br>
-                    原文地址：{{url}}<br><br>
+                    <div style="border:dotted;background-color: #FFE4B5">
+                        文章转载自 {{siteName}}<br><br>
+                        原文标题：{{title}}<br><br>
+                        原文地址：{{url}}<br><br>
+                    </div>
                     <div>
                         {{{contentBody}}}
                     </div>
@@ -32,7 +33,6 @@
             </div>
         </div>
     </script>
-
     <script src="js/jquery.min.js?v=2.1.4"></script>
     <script src="js/handlebars.js"></script>
     <script src="js/bootstrap.min.js?v=3.3.6"></script>

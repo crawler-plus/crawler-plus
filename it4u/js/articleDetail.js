@@ -34,6 +34,25 @@ var articleDetail = function () {
             var html = template(data.content);
             //输入模板
             $("#dataRow").html(html);
+            $("title").html(data.content.title);
+            // 获得可视宽度
+            var cWidth = document.documentElement.clientWidth;
+            // 遍历每一张图片
+            $("img").each(function () {
+                // 获得这个图片的实际宽度
+                var actualWidth = parseInt($(this).css("width"));
+                // 获得这个图片的实际高度
+                var actualHeight = parseInt($(this).css("height"));
+                // 获得高度和宽度的比
+                var pix = actualHeight / actualWidth;
+                // 网站适配，如果是电脑屏幕就把图片变成原图片的4分之一宽度，防止图片太大
+                if(cWidth > 1024) {
+                    cWidth = cWidth / 4;
+                }
+                // 给宽高设置，防止移动端显示错乱
+                $(this).css("width", cWidth);
+                $(this).css("height", cWidth * pix);
+            });
         }
     };
 

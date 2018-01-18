@@ -9,17 +9,19 @@ public class BaseEntity extends TokenEntity {
 
     private Object content;
 
-    private int limit;
+    private int limit; // 一页显示条数
 
     private int offset;
 
-    private int page;
+    private int page; // 当前页数
 
-    private int total;
+    private int total; // 总条数
 
     private Object rows;
 
     private String captchaCode;
+
+    private int totalPage; // 总页数
 
     public String getMsgCode() {
         return msgCode;
@@ -83,5 +85,13 @@ public class BaseEntity extends TokenEntity {
 
     public void setCaptchaCode(String captchaCode) {
         this.captchaCode = captchaCode;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
     }
 }

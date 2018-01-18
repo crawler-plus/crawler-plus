@@ -142,15 +142,21 @@ public class ArticleController {
 	 * 列出所有查询出的文章（只包含标题和id）
 	 */
 	@ApiOperation(value="列出所有查询出的文章（只包含标题和id）", notes="列出所有查询出的文章（只包含标题和id）")
-	@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", dataType = "CrawlerContent")
-	@GetMapping("/listAllSimpleCrawlerContents")
-	public BaseEntity listAllSimpleCrawlerContents(CrawlerContent crawlerContent, BaseEntity be) {
+	@ApiImplicitParam(name = "page", value = "当前页数", dataType = "int")
+	@GetMapping("/listAllSimpleCrawlerContents/{page}")
+	public BaseEntity listAllSimpleCrawlerContents(@PathVariable("page") int page, BaseEntity be) {
+		// 默认一页显示10条数据
+		int limit = 10;
 		int crawlerContentSize = articleService.getCrawlerContentSize();
+		// 计算总页数
+		int totalPageSize = crawlerContentSize % limit == 0 ? crawlerContentSize / limit : crawlerContentSize / limit + 1;
 		// 分页查询
-		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
+		PageHelper.startPage(page, limit);
 		List<CrawlerContent> contents = articleService.listAllSimpleCrawlerContents();
 		be.setTotal(crawlerContentSize);
 		be.setRows(contents);
+		be.setTotalPage(totalPageSize);
+		be.setPage(page);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		return be;
 	}
