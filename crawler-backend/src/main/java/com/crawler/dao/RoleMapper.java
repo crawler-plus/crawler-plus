@@ -20,13 +20,6 @@ public interface RoleMapper {
     List<SysRole> listAll(SysRole sysRole);
 
     /**
-     * 根据条件获得系统角色数量
-     * @param sysRole
-     * @return
-     */
-    int getRolesListCount(SysRole sysRole);
-
-    /**
      * 查看引用该角色的用户数量
      * @return
      */

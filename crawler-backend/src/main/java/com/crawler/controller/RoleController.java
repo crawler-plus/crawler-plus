@@ -8,6 +8,7 @@ import com.crawler.domain.TreeNode;
 import com.crawler.service.api.MenuService;
 import com.crawler.service.api.RoleService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -45,11 +46,13 @@ public class RoleController {
     @RequirePermissions(value = ROLE_MGMT)
     @RequireToken
     public BaseEntity queryAll(SysRole sysRole, BaseEntity be) {
-        int roleCount =  roleService.getRolesListCount(sysRole);
         // 分页查询
         PageHelper.startPage(sysRole.getPage(),sysRole.getLimit());
         List<SysRole> sysRoles = roleService.listAll(sysRole);
-        be.setTotal(roleCount);
+        // 得到分页后信息
+        PageInfo<SysRole> p = new PageInfo<>(sysRoles);
+        // 设置总记录数
+        be.setTotal(p.getTotal());
         be.setRows(sysRoles);
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;

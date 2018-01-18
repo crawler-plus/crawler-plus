@@ -70,12 +70,6 @@
         ORDER BY id DESC
     </select>
 
-    <select id="getBondMarketListCount" resultType="int">
-        SELECT
-        COUNT(1)
-        FROM bond_market
-    </select>
-
     <select id="getBondMarketItemById" resultType="com.crawler.domain.BondMarket" parameterType="java.lang.String">
         SELECT
         id AS id,

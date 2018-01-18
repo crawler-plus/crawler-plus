@@ -24,12 +24,6 @@ public interface BondMarketMapper {
     List<String> fetchAllIdsFromBondMarket();
 
     /**
-     * 得到债券市场数据数量
-     * @return
-     */
-    int getBondMarketListCount();
-
-    /**
      * 债券市场分页查询
      * @return
      */

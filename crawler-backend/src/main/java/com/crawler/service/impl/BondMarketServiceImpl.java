@@ -108,11 +108,6 @@ public class BondMarketServiceImpl implements BondMarketService {
     }
 
     @Override
-    public int getBondMarketListCount() {
-        return bondMarketMapper.getBondMarketListCount();
-    }
-
-    @Override
     public List<BondMarket> listAll() {
         return bondMarketMapper.listAll();
     }

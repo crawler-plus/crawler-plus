@@ -219,8 +219,4 @@
         </trim>
     </select>
 
-    <select id="getCrawlerContentSize" resultType="int">
-        SELECT COUNT(1) FROM crawler_content
-    </select>
-
 </mapper>

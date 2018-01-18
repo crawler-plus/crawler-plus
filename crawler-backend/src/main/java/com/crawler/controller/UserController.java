@@ -10,6 +10,7 @@ import com.crawler.service.RPCApi;
 import com.crawler.service.api.RoleService;
 import com.crawler.service.api.UserService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,11 +147,13 @@ public class UserController {
     @RequirePermissions(value = USER_MGMT)
     @RequireToken
     public BaseEntity queryAll(SysUser sysUser, BaseEntity be) {
-        int userCount = userService.getUsersListCount(sysUser);
         // 分页查询
 		PageHelper.startPage(sysUser.getPage(),sysUser.getLimit());
         List<SysUser> sysUsers = userService.listAll(sysUser);
-        be.setTotal(userCount);
+        // 得到分页后信息
+        PageInfo<SysUser> p = new PageInfo<>(sysUsers);
+        // 设置总记录数
+        be.setTotal(p.getTotal());
         be.setRows(sysUsers);
         be.setMsgCode(MESSAGE_CODE_OK.getCode());
         return be;

@@ -80,10 +80,4 @@ public interface ArticleMapper {
      * @return
      */
     int checkTemplateConfigExists(TemplateConfig templateConfig);
-
-    /**
-     * 得到文章数量
-     * @return
-     */
-    int getCrawlerContentSize();
 }

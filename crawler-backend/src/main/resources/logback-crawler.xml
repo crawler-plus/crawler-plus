@@ -15,7 +15,7 @@
 				<pattern>${PATTERN}</pattern>
 			</encoder>
 		</appender>
-		<logger name="com.crawler" level="debug"/>
+		<logger name="com.crawler.components" level="debug"/>
 		<root level="info">
 			<appender-ref ref="CONSOLE" />
 		</root>
@@ -42,7 +42,7 @@
 				<pattern>${PATTERN}</pattern>
 			</encoder>
 		</appender>
-		<logger name="com.crawler" level="debug"/>
+		<logger name="com.crawler.components" level="debug"/>
 		<root level="info">
 			<appender-ref ref="TEST-FILE" />
 			<appender-ref ref="CONSOLE" />
@@ -66,8 +66,9 @@
 				<pattern>${PATTERN}</pattern>
 			</encoder>
 		</appender>
-		<logger name="com.crawler" level="warn"/>
-		<root level="warn">
+		<logger name="com.crawler.components" level="info"/>
+		<logger name="com.crawler.dao" level="warn" />
+		<root level="info">
 			<appender-ref ref="PROD_FILE" />
 			<appender-ref ref="CONSOLE" />
 		</root>

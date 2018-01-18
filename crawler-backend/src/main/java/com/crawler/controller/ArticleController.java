@@ -8,6 +8,7 @@ import com.crawler.domain.TemplateConfig;
 import com.crawler.service.RPCApi;
 import com.crawler.service.api.ArticleService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,11 +129,11 @@ public class ArticleController {
 	@ApiImplicitParam(name = "crawlerContent", value = "文章 Entity", dataType = "CrawlerContent")
 	@GetMapping("/listAllCrawlerContents")
 	public BaseEntity listAllCrawlerContents(CrawlerContent crawlerContent, BaseEntity be) {
-		int crawlerContentSize = articleService.getCrawlerContentSize();
 		// 分页查询
 		PageHelper.startPage(crawlerContent.getPage(), crawlerContent.getLimit());
 		List<CrawlerContent> contents = articleService.listAllCrawlerContents();
-		be.setTotal(crawlerContentSize);
+		PageInfo<CrawlerContent> p = new PageInfo<>(contents);
+		be.setTotal(p.getTotal());
 		be.setRows(contents);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		return be;
@@ -147,15 +148,17 @@ public class ArticleController {
 	public BaseEntity listAllSimpleCrawlerContents(@PathVariable("page") int page, BaseEntity be) {
 		// 默认一页显示10条数据
 		int limit = 10;
-		int crawlerContentSize = articleService.getCrawlerContentSize();
-		// 计算总页数
-		int totalPageSize = crawlerContentSize % limit == 0 ? crawlerContentSize / limit : crawlerContentSize / limit + 1;
 		// 分页查询
 		PageHelper.startPage(page, limit);
 		List<CrawlerContent> contents = articleService.listAllSimpleCrawlerContents();
-		be.setTotal(crawlerContentSize);
+		// 得到分页后信息
+		PageInfo<CrawlerContent> p = new PageInfo<>(contents);
+		// 设置总记录数
+		be.setTotal(p.getTotal());
+		// 设置结果集
 		be.setRows(contents);
-		be.setTotalPage(totalPageSize);
+		// 设置总页数
+		be.setTotalPage(p.getPages());
 		be.setPage(page);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		return be;

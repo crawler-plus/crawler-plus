@@ -13,15 +13,6 @@
         </if>
     </select>
 
-    <select id="getRolesListCount" resultType="int" parameterType="com.crawler.domain.SysRole">
-        SELECT
-        COUNT(1)
-        FROM sys_role
-        <if test='roleName != null and roleName != "" '>
-            WHERE role_name LIKE CONCAT("%", #{roleName, jdbcType=VARCHAR}, "%")
-        </if>
-    </select>
-
     <select id="getUserReferencesCountByRoleId" resultType="int" parameterType="int">
         SELECT
         COUNT(1)

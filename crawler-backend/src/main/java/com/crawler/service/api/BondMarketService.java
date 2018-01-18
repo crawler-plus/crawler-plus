@@ -25,13 +25,6 @@ public interface BondMarketService {
      * 爬取债券市场数据
      */
     void crawBondMarket();
-
-    /**
-     * 得到债券市场数据数量
-     * @return
-     */
-    int getBondMarketListCount();
-
     /**
      * 债券市场分页查询
      * @return

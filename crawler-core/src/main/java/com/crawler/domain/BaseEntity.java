@@ -15,7 +15,7 @@ public class BaseEntity extends TokenEntity {
 
     private int page; // 当前页数
 
-    private int total; // 总条数
+    private long total; // 总条数
 
     private Object rows;
 
@@ -63,11 +63,11 @@ public class BaseEntity extends TokenEntity {
         this.page = page;
     }
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 

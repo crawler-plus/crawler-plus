@@ -38,15 +38,6 @@
         </if>
     </select>
 
-    <select id="getUsersListCount" resultType="int" parameterType="com.crawler.domain.SysUser">
-        SELECT
-        COUNT(1)
-        FROM sys_user
-        <if test='name != null and name != "" '>
-            WHERE name LIKE CONCAT("%", #{name, jdbcType=VARCHAR}, "%")
-        </if>
-    </select>
-
     <select id="getSysUserByUserId" resultType="com.crawler.domain.SysUser" parameterType="int">
         SELECT
         id AS id,

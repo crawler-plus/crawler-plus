@@ -7,6 +7,7 @@ import com.crawler.domain.BondMarket;
 import com.crawler.exception.CrawlerException;
 import com.crawler.service.api.BondMarketService;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,11 +55,13 @@ public class BondMarketController {
 	@RequirePermissions(value = BOND_MARKET)
 	@RequireToken
 	public BaseEntity queryAll(BondMarket bondMarket, BaseEntity be) {
-		int bondMarketCount = bondMarketService.getBondMarketListCount();
 		// 分页查询
 		PageHelper.startPage(bondMarket.getPage(),bondMarket.getLimit());
 		List<BondMarket> bondMarkets = bondMarketService.listAll();
-		be.setTotal(bondMarketCount);
+		// 得到分页后信息
+		PageInfo<BondMarket> p = new PageInfo<>(bondMarkets);
+		// 设置总记录数
+		be.setTotal(p.getTotal());
 		be.setRows(bondMarkets);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		return be;

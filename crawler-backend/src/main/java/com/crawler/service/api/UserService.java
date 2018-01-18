@@ -32,13 +32,6 @@ public interface UserService {
     List<SysUser> listAll(SysUser sysUser);
 
     /**
-     * 根据条件获得系统用户数量
-     * @param sysUser
-     * @return
-     */
-    int getUsersListCount(SysUser sysUser);
-
-    /**
      * 通过用户id获得用户信息
      * @param id
      * @return

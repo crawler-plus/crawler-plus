@@ -61,11 +61,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int getUsersListCount(SysUser sysUser) {
-        return userMapper.getUsersListCount(sysUser);
-    }
-
-    @Override
     public SysUser getSysUserByUserId(int id) {
         return userMapper.getSysUserByUserId(id);
     }

@@ -23,11 +23,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public int getRolesListCount(SysRole sysRole) {
-        return roleMapper.getRolesListCount(sysRole);
-    }
-
-    @Override
     public int getUserReferencesCountByRoleId(int roleId) {
         return roleMapper.getUserReferencesCountByRoleId(roleId);
     }
