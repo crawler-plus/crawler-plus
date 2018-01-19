@@ -1,0 +1,1 @@
+INSERT INTO `template_config` VALUES ('c292fcf2c8444d79acfdce493da7552c', 'http://www.oschina.net/news/project', '#all-news .main-info > a', 'h1', 'span .mr:eq(0)', '.editor-viewer', '1', 'http://www.oschina.net', '开源中国社区');
