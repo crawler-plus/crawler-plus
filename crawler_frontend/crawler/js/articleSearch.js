@@ -79,7 +79,7 @@ var articleSearch = function () {
                 var params = {
                     id: id
                 };
-                commonUtil.openUrlInIframe("文章详情", commonUtil.buildUrlParam("crawler/articleSearchDetail.html", params));
+                commonUtil.layerOpen("文章详情", commonUtil.buildUrlParam("../crawler/articleSearchDetail.html", params));
             }
         },
 

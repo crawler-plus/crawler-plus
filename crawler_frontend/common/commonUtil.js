@@ -123,30 +123,16 @@ var commonUtil = function () {
      * @param height    高度
      */
     var _layerOpen = function (title, url) {
-        var height = "90%";
-        var width = "800px";
-        var endFunction = function(){};
-
-        if (arguments[2]) {
-            width = arguments[2];
-        }
-
-        if (arguments[3]) {
-            height = arguments[3];
-        }
-
-        if (arguments[4]) {
-            var endFunction = arguments[4]
-        }
-
+        // 获得可视宽度
+        var cWidth = document.documentElement.clientWidth + "px";
+        var cHeight = document.documentElement.clientHeight + "px";
         layer.open({
             type: 2,
             title: title,
             shadeClose: false,
             shade: 0.5,
-            area: [width, height],
-            content: url, //iframe的url,
-            end: endFunction
+            area: [cWidth, cHeight],
+            content: url
         });
     };
 
