@@ -149,8 +149,8 @@ public class ArticleServiceImpl implements ArticleService {
                         Elements timeE = d.select(tc.getTimePattern());
                         // 得到内容元素
                         Elements bodyE = d.select(tc.getContentPattern());
-                        String title = titleE.size() == 0 ? "" : titleE.get(0).html();
-                        String time = timeE.size() == 0 ? "" : timeE.get(0).html();
+                        String title = titleE.size() == 0 ? "" : titleE.get(0).text();
+                        String time = timeE.size() == 0 ? "" : timeE.get(0).text();
                         String body = bodyE.size() == 0 ? "" : bodyE.get(0).html();
                         CrawlerContent c = new CrawlerContent();
                         c.setId(UUID.randomUUID().toString().replace("-", ""));
