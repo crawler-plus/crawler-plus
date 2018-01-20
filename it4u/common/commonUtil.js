@@ -47,41 +47,6 @@ var commonUtil = function () {
     };
 
     /**
-     * 打开layer
-     * @param title 标题
-     * @param url   链接
-     * @param width     宽度
-     * @param height    高度
-     */
-    var _layerOpen = function (title, url) {
-        var height = "90%";
-        var width = "300px";
-        var endFunction = function(){};
-
-        if (arguments[2]) {
-            width = arguments[2];
-        }
-
-        if (arguments[3]) {
-            height = arguments[3];
-        }
-
-        if (arguments[4]) {
-            var endFunction = arguments[4]
-        }
-
-        layer.open({
-            type: 2,
-            title: title,
-            shadeClose: false,
-            shade: 0.5,
-            area: [width, height],
-            content: url, //iframe的url,
-            end: endFunction
-        });
-    };
-
-    /**
      * 在Iframe中打开新页面
      * @param title   //页面子标题
      * @param dataUrl //页面URL
@@ -99,22 +64,12 @@ var commonUtil = function () {
         window.parent.contabs.closeActiveTab();
     };
 
-    var _showLoadingMessage = function () {
-        layer.msg('拼命抓取中,请稍候......', {
-            icon: 16
-            ,shade: 0.01
-            ,time: 1000 * 3600 // 1 hour
-        });
-    };
-
     return {
         getObjArrayViaSort: _keySort,
         getUrlParam: _getUrlParam,
-        layerOpen: _layerOpen,
         buildUrlParam: _buildUrlParam,
         openUrlInIframe:_openUrlInIframe,
-        closeTab:closeTab,
-        showLoadingMessage: _showLoadingMessage
+        closeTab:closeTab
     }
 }();
 $(function () {

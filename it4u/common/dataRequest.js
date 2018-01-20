@@ -39,17 +39,17 @@ var dataRequest = function() {
             headers: ajaxOptions.headers,
             cache: false
         };
-        commonUtil.showLoadingMessage();
+		var spinner = new Spinner();
+        spinner.spin(document.getElementById("dataRow"));
 		$.ajax(ajaxOpts).done(function(data){
-            layer.closeAll();
             ajaxSuccCallback(data);
 		}).fail(function (error, status) {
-            layer.closeAll();
 			// 断网
 			if(error.statusText === 'error' && error.status !== 500) {
-                layer.msg('请检查网络', {icon: 5});
+                toastr.error("请检查网络！");
         	}
         }).always(function () {
+            spinner.spin();
         });
 	};
 

@@ -24,7 +24,7 @@ var articleDetail = function () {
     // 获取数据
     var fecthData = function (data) {
         if(!data.content) {
-            layer.msg('没有该文章！', {icon: 5});
+            toastr.error("没有该文章！");
         }else {
             // 首先生成第一个模版
             var tpl = $("#handleBarScript1").html();
