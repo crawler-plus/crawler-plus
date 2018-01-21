@@ -56,16 +56,28 @@ var barCodeSearch = function () {
 
     var init = function () {
         _fetchDataFromServer();
-        initKeywordSearch();
+        $("#closeSpan").on('click', function () {
+            $("#keyword").val("").focus();
+        });
+
+        $("#searchSpan").on('click', function () {
+            _keySearch();
+        });
+
+        $('#keyword').keydown(function(e){
+            if(e.keyCode==13){
+                _keySearch();
+            }
+        });
     };
 
-    var initKeywordSearch = function () {
-        $("#keywordSearch").on("click", function () {
-            var keyword = $("#keyword").val();
-            console.log(keyword);
-            outKeyWord = keyword;
-            _fetchDataFromServer(null, keyword);
-        });
+    /**
+     *
+     */
+    var _keySearch = function () {
+        var keyword = $("#keyword").val();
+        outKeyWord = keyword;
+        _fetchDataFromServer(null, keyword);
     }
 
     /**

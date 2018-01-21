@@ -10,21 +10,28 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="css/plugins/toastr/toastr.min.css">
+    <link href="css/font-awesome.css" rel="stylesheet">
 </head>
 <body class="gray-bg">
 <a name="top" id="top"></a>
 <div class="ibox-content">
     <h1>IT4U-分享最新IT资讯</h1>
 </div>
-<div align="left" style="background-color: #ccff99">
-    <ul class="nav nav-list">
-        <li><a href="index.html"><i class="icon-home icon-white"></i> 首页</a></li>
-    </ul>
-</div>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">首页</a>
+            <a class="navbar-brand" href="">关于</a>
+        </div>
+    </div>
+</nav>
 <div align="right"><a class="btn btn-default" href="#bottom" target="_self">回到底部</a></div>
-<div class="wrapper wrapper-content">
-    <input autofocus id="keyword" type="text" class="form-control" placeholder="输入关键字查询"><br>
-    <button class="btn btn-primary" id="keywordSearch">查询</button>
+<div>
+    <div class="input-group">
+        <span class="input-group-addon" id="closeSpan"><i class="fa fa-close fa-fw"></i></span>
+        <span class="input-group-addon" id="searchSpan"><i class="fa fa-search fa-fw"></i></span>
+        <input autofocus id="keyword" type="text" class="form-control" placeholder="输入关键字查询" style="width: 50%">
+    </div>
 </div>
 <ul class="sortable-list  agile-list" id="dataRow">
 </ul>
