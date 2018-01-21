@@ -2,6 +2,7 @@ package com.crawler.controller;
 
 import com.crawler.annotation.RequirePermissions;
 import com.crawler.annotation.RequireToken;
+import com.crawler.domain.ArticleTransferEntity;
 import com.crawler.domain.BaseEntity;
 import com.crawler.domain.CrawlerContent;
 import com.crawler.domain.TemplateConfig;
@@ -144,13 +145,15 @@ public class ArticleController {
 	 */
 	@ApiOperation(value="列出所有查询出的文章（只包含标题和id）", notes="列出所有查询出的文章（只包含标题和id）")
 	@ApiImplicitParam(name = "page", value = "当前页数", dataType = "int")
-	@GetMapping("/listAllSimpleCrawlerContents/{page}")
-	public BaseEntity listAllSimpleCrawlerContents(@PathVariable("page") int page, BaseEntity be) {
+	@PostMapping("/listAllSimpleCrawlerContents")
+	public BaseEntity listAllSimpleCrawlerContents(@RequestBody ArticleTransferEntity at, BaseEntity be) {
 		// 默认一页显示10条数据
 		int limit = 10;
+		// 将输入关键字变成小写
+		at.setKeyword(at.getKeyword().toLowerCase());
 		// 分页查询
-		PageHelper.startPage(page, limit);
-		List<CrawlerContent> contents = articleService.listAllSimpleCrawlerContents();
+		PageHelper.startPage(at.getCurrentPage(), limit);
+		List<CrawlerContent> contents = articleService.listAllSimpleCrawlerContents(at);
 		// 得到分页后信息
 		PageInfo<CrawlerContent> p = new PageInfo<>(contents);
 		// 设置总记录数
@@ -159,7 +162,7 @@ public class ArticleController {
 		be.setRows(contents);
 		// 设置总页数
 		be.setTotalPage(p.getPages());
-		be.setPage(page);
+		be.setPage(at.getCurrentPage());
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());
 		return be;
 	}

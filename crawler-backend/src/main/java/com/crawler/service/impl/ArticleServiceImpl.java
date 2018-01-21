@@ -1,6 +1,7 @@
 package com.crawler.service.impl;
 
 import com.crawler.dao.ArticleMapper;
+import com.crawler.domain.ArticleTransferEntity;
 import com.crawler.domain.CrawlerContent;
 import com.crawler.domain.TemplateConfig;
 import com.crawler.domain.TransferEntity;
@@ -62,8 +63,8 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
     @Override
-    public List<CrawlerContent> listAllSimpleCrawlerContents() {
-        return articleMapper.listAllSimpleCrawlerContents();
+    public List<CrawlerContent> listAllSimpleCrawlerContents(ArticleTransferEntity at) {
+        return articleMapper.listAllSimpleCrawlerContents(at);
     }
 
     @Override

@@ -12,17 +12,24 @@
     <link rel="stylesheet" href="css/plugins/toastr/toastr.min.css">
 </head>
 <body class="gray-bg">
+<a name="top" id="top"></a>
 <div class="ibox-content">
     <h1>IT4U-分享最新IT资讯</h1>
 </div>
-<div class="wrapper wrapper-content">
-    <a name="top" id="top"></a>
-    <div align="right"><a class="btn btn-default" href="#bottom" target="_self">回到底部</a></div>
-    <ul class="sortable-list  agile-list" id="dataRow">
+<div align="left" style="background-color: #ccff99">
+    <ul class="nav nav-list">
+        <li><a href="index.html"><i class="icon-home icon-white"></i> 首页</a></li>
     </ul>
-    <div align="right"><a class="btn btn-default" href="#top" target="_self">回到顶部</a></div>
-    <a name="bottom" id="bottom"></a>
 </div>
+<div align="right"><a class="btn btn-default" href="#bottom" target="_self">回到底部</a></div>
+<div class="wrapper wrapper-content">
+    <input autofocus id="keyword" type="text" class="form-control" placeholder="输入关键字查询"><br>
+    <button class="btn btn-primary" id="keywordSearch">查询</button>
+</div>
+<ul class="sortable-list  agile-list" id="dataRow">
+</ul>
+<div align="right"><a class="btn btn-default" href="#top" target="_self">回到顶部</a></div>
+<a name="bottom" id="bottom"></a>
 <script id="resultScript" type="text/x-handlebars-template">
     <li class="warning-element">
             <span class="btn-link">
@@ -34,10 +41,12 @@
     <li class="warning-element">
             <span class="btn-link">
             </span>
-        <div class="agile-detail" id="{{id}}">
-            <div><b>标题：</b><a href="articleDetail.html?id={{id}}">{{title}}</a></div><br>
-            <div><b>获取时间：</b>{{insertTime}}</div><br>
-        </div>
+        <a href="articleDetail.html?id={{id}}">
+            <div class="agile-detail" id="{{id}}">
+                <div><b>标题：</b>{{title}}</div><br>
+                <div><b>更新时间：</b>{{insertTime}}</div><br>
+            </div>
+        </a>
     </li>
 </script>
 <script id="getMoreScript" type="text/x-handlebars-template">

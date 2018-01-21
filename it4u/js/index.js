@@ -2,6 +2,7 @@ var barCodeSearch = function () {
     // 展示数据的url
     var listUrl = 'article/listAllSimpleCrawlerContents';
     var currentPage;
+    var outKeyWord;
     // 获取数据
     var fetchData = function (data) {
         currentPage = data.page;
@@ -48,22 +49,47 @@ var barCodeSearch = function () {
         // 点击加载更多按钮
         $(".getMoreLi").on('click', function () {
             currentPage++;
-            init(currentPage);
+            _fetchDataFromServer(currentPage, outKeyWord);
         });
 
     };
 
-    var init = function (currentPage) {
+    var init = function () {
+        _fetchDataFromServer();
+        initKeywordSearch();
+    };
+
+    var initKeywordSearch = function () {
+        $("#keywordSearch").on("click", function () {
+            var keyword = $("#keyword").val();
+            console.log(keyword);
+            outKeyWord = keyword;
+            _fetchDataFromServer(null, keyword);
+        });
+    }
+
+    /**
+     * 从服务器端获取数据的通用方法
+     * @private
+     */
+    var _fetchDataFromServer = function (currentPage, keyword) {
         if(!currentPage) {
             currentPage = 1;
         }
+        if(!keyword) {
+            keyword = "";
+        }
+        var jsonObj = {};
+        jsonObj.currentPage = currentPage;
+        jsonObj.keyword = keyword;
         var signOptions = {
             formID : null,
             isFormData : false
         };
         var ajaxOptions = {
-            url: comm.url + listUrl + "/" + currentPage,
-            method : 'GET'
+            url: comm.url + listUrl,
+            method : 'POST',
+            data : JSON.stringify(jsonObj)
         };
         dataRequest.requestSend(
             signOptions,
@@ -72,7 +98,7 @@ var barCodeSearch = function () {
                 fetchData(data);
             }
         );
-    };
+    }
 
     return {
         init: init
