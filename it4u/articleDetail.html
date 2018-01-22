@@ -7,11 +7,14 @@
     <meta name="keywords" content="IT资讯">
     <meta name="description" content="IT资讯">
     <link rel="shortcut icon" href="favicon.ico">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/plugins/toastr/toastr.min.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/scroll.css">
 </head>
 <body class="gray-bg">
+<p id="back-to-top"><a href="#top"><span></span>返回顶部</a></p>
 <div class="ibox-content">
     <h1>IT4U-分享最新IT资讯</h1>
 </div>
@@ -19,7 +22,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="index.html">首页</a>
-            <a class="navbar-brand" href="">关于</a>
+            <a class="navbar-brand" href="about.html">关于</a>
         </div>
     </div>
 </nav>
@@ -28,7 +31,7 @@
         </div>
     </div>
 <div class="text-center">
-    <button class="btn btn-info" style="text-align: center" onclick="history.go(-1)">返回</button>
+    <span href="#" onclick="history.go(-1)" style="cursor: pointer"><i class="fa fa-hand-o-left fa-fw"></i></span>
 </div>
     <script id="handleBarScript1" type="text/x-handlebars-template">
         <div>
