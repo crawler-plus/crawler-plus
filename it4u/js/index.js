@@ -95,7 +95,7 @@ var barCodeSearch = function () {
                     _toNextPage();
                 }
             }
-            if (scrollTop > 100){
+            if (scrollTop > 400){
                 backToTop.fadeIn(1500);
             } else {
                 backToTop.fadeOut(1500);

@@ -34,7 +34,7 @@ var articleDetail = function () {
         $(window).scroll(function(){
             var $this = $(this),
                 scrollTop = $this.scrollTop();//滚动高度
-            if (scrollTop > 100){
+            if (scrollTop > 400){
                 backToTop.fadeIn(1500);
             } else {
                 backToTop.fadeOut(1500);
@@ -55,7 +55,7 @@ var articleDetail = function () {
             //匹配json内容
             var html = template(content);
             //输入模板
-            dataRow.html(html);
+            dataRow.prepend(html);
             title.html(content.title);
             // 获得可视宽度
             var cWidth = document.documentElement.clientWidth;
