@@ -89,7 +89,7 @@ var barCodeSearch = function () {
                 viewH = document.body.clientHeight,//可见高度
                 contentH = document.body.scrollHeight,//内容高度
                 scrollTop = $this.scrollTop();//滚动高度
-            var x = contentH - viewH - scrollTop;
+            var x = Math.abs(contentH - viewH - scrollTop);
             if(totalP != currentPage) {
                 if(x >= 0 && x <= 1) { //到达底部0-1px时,加载新内容
                     _toNextPage();
