@@ -103,7 +103,7 @@ var barCodeSearch = function () {
         });
 
         $("#preferUL").find("span[class=btn-link]").on("click", function () {
-            var val = $(this).text();
+            var val = $.trim($(this).text());
             keyW.val(val);
             outKeyWord = val;
             _fetchDataFromServer(null, val);
