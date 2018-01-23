@@ -101,6 +101,15 @@ var barCodeSearch = function () {
                 backToTop.fadeOut(1500);
             }
         });
+
+        $("#preferUL").find("span[class=btn-link]").on("click", function () {
+            var val = $(this).text();
+            keyW.val(val);
+            outKeyWord = val;
+            _fetchDataFromServer(null, val);
+        }).on("mouseover", function () {
+            $(this).css("cursor", "pointer");
+        });
     };
 
     var _toNextPage = function () {
@@ -130,7 +139,7 @@ var barCodeSearch = function () {
         }
         var jsonObj = {};
         jsonObj.currentPage = currentPage;
-        jsonObj.keyword = keyword;
+        jsonObj.keyword = $.trim(keyword);
         var signOptions = {
             formID : null,
             isFormData : false
