@@ -7,14 +7,6 @@ var dataRequest = function() {
 		return $("#" + formID).serializeArray();
 	};
 
-    /**
-     * 序列化form数据
-     * @param {Object} formID
-     */
-    var _serializeForm = function(formID) {
-        return $("#" + formID).serialize();
-    };
-
 	/**
 	 * ajax 公用封装
 	 * @param signOptions
@@ -37,13 +29,13 @@ var dataRequest = function() {
             data: ajaxOptions.data,
             dataType: "json",
             headers: ajaxOptions.headers,
-            cache: false
+            cache: true
         };
 		var spinner = new Spinner();
         spinner.spin(document.getElementById("dataRow"));
 		$.ajax(ajaxOpts).done(function(data){
             ajaxSuccCallback(data);
-		}).fail(function (error, status) {
+		}).fail(function (error) {
 			// 断网
 			if(error.statusText === 'error' && error.status !== 500) {
                 toastr.error("请检查网络！");

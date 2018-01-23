@@ -1,59 +1,59 @@
-var barCodeSearch = function () {
-    var listUrl = 'article/listAllSimpleCrawlerContents', // 展示数据的url
-        currentPage, // 当前页数
-        totalP,      // 总页数
-        outKeyWord, // 查询关键字
-        dataRow = $("#dataRow"), // 数据div
-        resultScript = $("#resultScript"),
-        handleBarScript = $("#handleBarScript"),
-        getMoreScript = $("#getMoreScript"),
-        closeSpan = $("#closeSpan"),
-        searchSpan = $("#searchSpan"),
-        keyW = $('#keyword'),
-        backToTop = $("#back-to-top"),
-        bodyHtml = $('body, html');
+let it4u = function () {
+    const it4uConst = {
+        listUrl : 'article/listAllSimpleCrawlerContents', // 展示数据的url
+        currentPage : !1, // 当前页数
+        totalP : !1,      // 总页数
+        outKeyWord : !1, // 查询关键字
+        dataRow : $("#dataRow"), // 数据div
+        resultScript : $("#resultScript"),
+        handleBarScript : $("#handleBarScript"),
+        getMoreScript : $("#getMoreScript"),
+        closeSpan : $("#closeSpan"),
+        searchSpan : $("#searchSpan"),
+        keyW : $('#keyword'),
+        backToTop : $("#back-to-top"),
+        bodyHtml : $('body, html'),
+        preferUL : $("#preferUL")
+    }
 
     // 获取数据
-    var fetchData = function (data) {
-        currentPage = data.page;
-        var content = data.rows;
-        if(currentPage === 1) {
-            dataRow.html("");
+    let fetchData = function (data) {
+        it4uConst.currentPage = data.page;
+        let content = data.rows;
+        if(it4uConst.currentPage === 1) {
+            it4uConst.dataRow.empty();
             // 用jquery获取模板
-            var tpl = resultScript.html();
-            //预编译模板
-            var template = Handlebars.compile(tpl);
-            //匹配json内容
-            var html = template({"totalSize" : data.total});
-            dataRow.append(html);
+            let tpl = it4uConst.resultScript.html(),
+                template = Handlebars.compile(tpl),
+                html = template({"totalSize" : data.total});
+            it4uConst.dataRow.append(html);
         }
         // 得到数据的条数
-        var length = content.length;
+        let length = content.length;
         if(length) {
-            // 用jquery获取模板
-            var tpl = handleBarScript.html();
-            //预编译模板
-            var template = Handlebars.compile(tpl);
-            for(var i = 0; i < length; i ++) {
+            // 盛放数据的数组
+            let resArray = [],
+                tpl = it4uConst.handleBarScript.html(),
+                template = Handlebars.compile(tpl);
+            for(let i = 0; i < length; i ++) {
                 //匹配json内容
-                var html = template({"title" : content[i].title, "id" : content[i].id, "insertTime": content[i].insertTime});
-                // 先将最后一个getMoreLi删除
-                $(".getMoreLi:last").remove();
-                //输入模板
-                dataRow.append(html);
+                let html = template({"title" : content[i].title, "id" : content[i].id, "insertTime": content[i].insertTime});
+                resArray.push(html);
             }
+            //输入模板
+            it4uConst.dataRow.append(resArray.join(""));
+            // 先将最后一个getMoreLi删除
+            $(".getMoreLi").remove();
             // 判断当前页是不是最后一页
-            var totalPage = data.totalPage;
-            totalP = totalPage;
+            let totalPage = data.totalPage;
+            it4uConst.totalP = totalPage;
             // 如果不是最后一页
-            if(currentPage < totalPage) {
+            if(it4uConst.currentPage < totalPage) {
                 // 用jquery获取模板
-                var tpl = getMoreScript.html();
-                //预编译模板
-                var template = Handlebars.compile(tpl);
-                //匹配json内容
-                var html = template({});
-                dataRow.append(html);
+                let tpl = it4uConst.getMoreScript.html(),
+                    template = Handlebars.compile(tpl),
+                    html = template({});
+                it4uConst.dataRow.append(html);
             }
         }
 
@@ -63,92 +63,93 @@ var barCodeSearch = function () {
         });
     };
 
-    var init = function () {
+    let init = function () {
         _fetchDataFromServer();
-        closeSpan.on('click', function () {
-            keyW.val("").focus();
+        it4uConst.closeSpan.on('click', function () {
+            it4uConst.keyW.val("").focus();
         });
 
-        searchSpan.on('click', function () {
+        it4uConst.searchSpan.on('click', function () {
             _keySearch();
         });
 
-        keyW.keydown(function(e){
-            if(e.keyCode==13){
+        it4uConst.keyW.keydown(function(e){
+            if(e.keyCode === 13){
                 _keySearch();
             }
         });
 
-        backToTop.click(function(){
-            bodyHtml.animate({scrollTop:0},1000);
+        it4uConst.backToTop.click(function(){
+            it4uConst.bodyHtml.animate({scrollTop:0},1000);
             return false;
         });
 
         $(window).scroll(function(){
-            var $this = $(this),
-                viewH = document.body.clientHeight,//可见高度
-                contentH = document.body.scrollHeight,//内容高度
-                scrollTop = $this.scrollTop();//滚动高度
-            var x = Math.abs(contentH - viewH - scrollTop);
-            if(totalP != currentPage) {
+            let $this = $(this),
+                body = document.body,
+                viewH = body.clientHeight,//可见高度
+                contentH = body.scrollHeight,//内容高度
+                scrollTop = $this.scrollTop(),//滚动高度
+                offset = contentH - viewH - scrollTop;
+            let x = offset >= 0 ? offset : -offset;
+            if(it4uConst.totalP != it4uConst.currentPage) {
                 if(x >= 0 && x <= 1) { //到达底部0-1px时,加载新内容
                     _toNextPage();
                 }
             }
             if (scrollTop > 400){
-                backToTop.fadeIn(1500);
+                it4uConst.backToTop.fadeIn(1000);
             } else {
-                backToTop.fadeOut(1500);
+                it4uConst.backToTop.fadeOut(1000);
             }
         });
 
-        $("#preferUL").find("span[class=btn-link]").on("click", function () {
-            var val = $.trim($(this).text());
-            keyW.val(val);
-            outKeyWord = val;
-            _fetchDataFromServer(null, val);
+        it4uConst.preferUL.find(".btn-link").on("click", function () {
+            let val = $.trim($(this).text());
+            it4uConst.keyW.val(val);
+            it4uConst.outKeyWord = val;
+            _fetchDataFromServer(!1, val);
         }).on("mouseover", function () {
             $(this).css("cursor", "pointer");
         });
     };
 
-    var _toNextPage = function () {
-        currentPage++;
-        _fetchDataFromServer(currentPage, outKeyWord);
+    let _toNextPage = function () {
+        it4uConst.currentPage++;
+        _fetchDataFromServer(it4uConst.currentPage, it4uConst.outKeyWord);
     }
 
     /**
      *
      */
-    var _keySearch = function () {
-        var keyword = keyW.val();
-        outKeyWord = keyword;
-        _fetchDataFromServer(null, keyword);
+    let _keySearch = function () {
+        let keyword = it4uConst.keyW.val();
+        it4uConst.outKeyWord = keyword;
+        _fetchDataFromServer(!1, keyword);
     }
 
     /**
      * 从服务器端获取数据的通用方法
      * @private
      */
-    var _fetchDataFromServer = function (currentPage, keyword) {
+    let _fetchDataFromServer = function (currentPage, keyword) {
         if(!currentPage) {
             currentPage = 1;
         }
         if(!keyword) {
             keyword = "";
         }
-        var jsonObj = {};
-        jsonObj.currentPage = currentPage;
-        jsonObj.keyword = $.trim(keyword);
-        var signOptions = {
+        let jsonObj = {
+            currentPage : currentPage,
+            keyword : $.trim(keyword)
+        }, signOptions = {
             formID : null,
             isFormData : false
-        };
-        var ajaxOptions = {
-            url: comm.url + listUrl,
+        }, ajaxOptions = {
+            url: comm.url + it4uConst.listUrl,
             method : 'POST',
             data : JSON.stringify(jsonObj)
-        };
+        }
         dataRequest.requestSend(
             signOptions,
             ajaxOptions,
@@ -163,5 +164,5 @@ var barCodeSearch = function () {
     }
 }();
 $(function () {
-    barCodeSearch.init();
+    it4u.init();
 });
