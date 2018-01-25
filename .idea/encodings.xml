@@ -13,5 +13,6 @@
     <file url="file://$PROJECT_DIR$/crawler-sleuth-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-zuul-server" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/crawler-zuul-server/src/main/resources/application.yml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/it4u-thymeleaf" charset="UTF-8" />
   </component>
 </project>

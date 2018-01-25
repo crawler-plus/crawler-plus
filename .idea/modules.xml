@@ -13,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/crawler-redis-service-provider/crawler-redis-service-provider.iml" filepath="$PROJECT_DIR$/crawler-redis-service-provider/crawler-redis-service-provider.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-sleuth-server/crawler-sleuth-server.iml" filepath="$PROJECT_DIR$/crawler-sleuth-server/crawler-sleuth-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-zuul-server/crawler-zuul-server.iml" filepath="$PROJECT_DIR$/crawler-zuul-server/crawler-zuul-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/it4u-thymeleaf/it4u-thymeleaf.iml" filepath="$PROJECT_DIR$/it4u-thymeleaf/it4u-thymeleaf.iml" />
     </modules>
   </component>
 </project>

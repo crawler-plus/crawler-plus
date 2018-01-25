@@ -16,6 +16,7 @@
         <module name="crawler-redis-service-provider" />
         <module name="crawler-sleuth-server" />
         <module name="crawler-zuul-server" />
+        <module name="it4u-thymeleaf" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -30,6 +31,7 @@
       <module name="crawler-redis-service-provider" target="1.8" />
       <module name="crawler-sleuth-server" target="1.8" />
       <module name="crawler-zuul-server" target="1.8" />
+      <module name="it4u-thymeleaf" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

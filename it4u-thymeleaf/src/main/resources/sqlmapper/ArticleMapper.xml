@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crawler.dao.ArticleMapper" >
+
+    <select id="listAllSimpleCrawlerContents" resultType="com.crawler.domain.CrawlerContent" parameterType="com.crawler.domain.ArticleTransferEntity">
+        SELECT
+        id             AS id,
+        title          AS title,
+        DATE_FORMAT(created, '%Y年%m月%d日 %H:%i:%s') AS insertTime
+        FROM crawler_content
+        <if test='keyword != null and keyword != "" '>
+            WHERE LOWER(title) LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        ORDER BY created DESC
+    </select>
+
+    <select id="getCrawlerContent" resultType="com.crawler.domain.CrawlerContent" parameterType="String">
+        SELECT
+        cc.id             AS id,
+        cc.url            AS url,
+        cc.title          AS title,
+        cc.time          AS time,
+        cc.content_body   AS contentBody,
+        concat(tc.site_name, '[', tc.crawler_prefix, ']') AS siteName
+        FROM crawler_content cc JOIN template_config tc
+        ON cc.ref_id = tc.id
+        WHERE cc.id = #{id, jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>

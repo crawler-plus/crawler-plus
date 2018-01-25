@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT4U-分享最新IT资讯</title>
+    <meta name="keywords" content="IT资讯">
+    <meta name="description" content="IT资讯">
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/plugins/toastr/toastr.min.css}">
+    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/css/scroll.css}">
+</head>
+<body>
+<p id="back-to-top"><a href="#top"><span></span>返回顶部</a></p>
+<div style="background-color: #EEE9E9; width: 100%; height: 50px">
+    <a class="navbar-brand" style="color: #CD5C5C" href="/">首页</a>
+    <a class="navbar-brand" style="color: #CD5C5C" href="/about">关于</a>
+    <span class="navbar-brand">IT4U-分享最新IT资讯</span>
+</div>
+<br>
+<div style="width: 70%">
+    <div class="input-group">
+        <input autofocus id="keyword" type="text" class="form-control" placeholder="输入关键字查询">
+        <span class="input-group-addon" id="closeSpan"><i class="fa fa-close"></i></span>
+        <span class="input-group-addon" id="searchSpan"><i class="fa fa-search"></i></span>
+    </div>
+</div>
+<ul class="sortable-list" id="preferUL" style="line-height: 30px">
+    <li>
+        &nbsp;&nbsp;<span style="background-color: #F2F2F2">热门关键词:</span>
+        <span>&nbsp;&nbsp;|</span>
+        <span class="btn-link">&nbsp;&nbsp;java&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;php&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;js&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;python&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;node&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;spring&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;mybatis&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;mysql&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;oracle&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;docker&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;linux&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;web&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;数据库&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;缓存&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;大数据&nbsp;&nbsp;</span>|
+        <span class="btn-link">&nbsp;&nbsp;云&nbsp;&nbsp;</span>|
+    </li>
+</ul>
+<ul class="sortable-list agile-list" id="dataRow">
+</ul>
+<script id="resultScript" type="text/x-handlebars-template">
+    <div>&nbsp;&nbsp;<span style="background-color: #F2F2F2">资讯条数:&nbsp;{{totalSize}}条</span></div><br>
+</script>
+<script id="handleBarScript" type="text/x-handlebars-template">
+    <li class="warning-element">
+            <span class="btn-link">
+            </span>
+        <a href="/get/{{id}}">
+            <div class="agile-detail" id="{{id}}">
+                <div><b>标题：</b>{{title}}</div><br>
+                <div><b>更新时间：</b>{{insertTime}}</div><br>
+            </div>
+        </a>
+    </li>
+</script>
+<script id="getMoreScript" type="text/x-handlebars-template">
+    <li class="warning-element text-center getMoreLi">
+            <span class="btn-link">
+                点击加载更多......
+            </span>
+    </li>
+</script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/handlebars.js}"></script>
+<script th:src="@{/common/dataRequest.js}"></script>
+<script th:src="@{/common/commonUtil.js}"></script>
+<script th:src="@{/js/index.js}"></script>
+<script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+<script th:src="@{/js/spin.js}"></script>
+</body>
+</html>

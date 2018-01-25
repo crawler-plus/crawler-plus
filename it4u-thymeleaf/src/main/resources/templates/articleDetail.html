@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${messages.content.title}"></title>
+    <meta name="keywords" content="IT资讯">
+    <meta name="description" content="IT资讯">
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/plugins/toastr/toastr.min.css}">
+    <link rel="stylesheet" th:href="@{/css/scroll.css}">
+
+</head>
+<body>
+<p id="back-to-top"><a href="#top"><span></span>返回顶部</a></p>
+<div style="background-color: #EEE9E9; width: 100%; height: 50px">
+    <a class="navbar-brand" style="color: #CD5C5C" href="/">首页</a>
+    <a class="navbar-brand" style="color: #CD5C5C" href="/about">关于</a>
+    <span class="navbar-brand">IT4U-分享最新IT资讯</span>
+</div>
+    <div>
+        <div class="row" id="dataRow">
+            <div>
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div style="border:dotted;">
+                            文章转载自 <span th:text="${messages.content.siteName}"></span><br><br>
+                            原文标题：<span th:text="${messages.content.title}"></span><br><br>
+                            原文地址：<span th:text="${messages.content.url}"></span><br><br>
+                        </div>
+                        <div th:utext="${messages.content.contentBody}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/articleDetail.js}"></script>
+<script th:src="@{/js/plugins/toastr/toastr.min.js}"></script>
+<script th:src="@{/js/spin.js}"></script>
+</body>
+</html>
