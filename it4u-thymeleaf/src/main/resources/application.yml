@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: it4u-thymeleaf
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: LEGACYHTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: true
+
+management:
+  health:
+    defaults:
+      enabled: true
+
+mybatis:
+  mapperLocations: classpath:sqlmapper/*.xml
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
