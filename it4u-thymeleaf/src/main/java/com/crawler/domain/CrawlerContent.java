@@ -5,6 +5,8 @@ package com.crawler.domain;
  */
 public class CrawlerContent extends BaseEntity {
 
+    private int cid; // 文章cid
+
     private String id; // 文章id
 
     private String url; // 文章url
@@ -93,5 +95,13 @@ public class CrawlerContent extends BaseEntity {
 
     public void setRefId(String refId) {
         this.refId = refId;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
     }
 }

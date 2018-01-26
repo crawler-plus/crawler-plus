@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 页面</title>
     <meta name="keywords" content="404">
     <meta name="description" content="404">
-    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
     <div class="middle-box text-center">
@@ -17,8 +14,10 @@
         <div>
             抱歉，页面好像去火星了~
         </div>
+        <br>
+        <div>
+            <a href="/">回首页</a>
+        </div>
     </div>
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>

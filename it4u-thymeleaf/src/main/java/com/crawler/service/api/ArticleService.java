@@ -19,9 +19,9 @@ public interface ArticleService {
 
     /**
      * 根据id获得指定文章
-     * @param id
+     * @param cid
      * @return
      */
 
-    CrawlerContent getCrawlerContent(String id);
+    CrawlerContent getCrawlerContent(int cid);
 }

@@ -4,6 +4,7 @@
 
     <select id="listAllSimpleCrawlerContents" resultType="com.crawler.domain.CrawlerContent" parameterType="com.crawler.domain.ArticleTransferEntity">
         SELECT
+        cid            AS cid,
         id             AS id,
         title          AS title,
         DATE_FORMAT(created, '%Y年%m月%d日 %H:%i:%s') AS insertTime
@@ -14,7 +15,7 @@
         ORDER BY created DESC
     </select>
 
-    <select id="getCrawlerContent" resultType="com.crawler.domain.CrawlerContent" parameterType="String">
+    <select id="getCrawlerContent" resultType="com.crawler.domain.CrawlerContent" parameterType="java.lang.Integer">
         SELECT
         cc.id             AS id,
         cc.url            AS url,
@@ -24,7 +25,7 @@
         concat(tc.site_name, '[', tc.crawler_prefix, ']') AS siteName
         FROM crawler_content cc JOIN template_config tc
         ON cc.ref_id = tc.id
-        WHERE cc.id = #{id, jdbcType=VARCHAR}
+        WHERE cc.cid = #{id, jdbcType=INTEGER}
     </select>
 
 

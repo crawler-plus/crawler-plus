@@ -1,6 +1,6 @@
 let it4u = function () {
     const it4uConst = {
-        listUrl : 'list', // 展示数据的url
+        listUrl : 'fetchArticles', // 展示数据的url
         currentPage : !1, // 当前页数
         totalP : !1,      // 总页数
         outKeyWord : !1, // 查询关键字
@@ -37,7 +37,7 @@ let it4u = function () {
                 template = Handlebars.compile(tpl);
             for(let i = 0; i < length; i ++) {
                 //匹配json内容
-                let html = template({"title" : content[i].title, "id" : content[i].id, "insertTime": content[i].insertTime});
+                let html = template({"title" : content[i].title, "id" : content[i].cid, "insertTime": content[i].insertTime});
                 resArray.push(html);
             }
             //输入模板

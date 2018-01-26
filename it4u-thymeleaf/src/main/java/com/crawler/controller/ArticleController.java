@@ -32,7 +32,7 @@ public class ArticleController {
 	/**
 	 * 列出所有查询出的文章（只包含标题和id）
 	 */
-	@PostMapping(value = "/list")
+	@PostMapping(value = "/fetchArticles")
 	@ResponseBody
 	public BaseEntity listAllSimpleCrawlerContents(@RequestBody ArticleTransferEntity at, BaseEntity be) {
 		// 默认一页显示10条数据
@@ -58,8 +58,8 @@ public class ArticleController {
 	/**
 	 * 根据id获得指定文章
 	 */
-	@GetMapping(path = "/get/{id}")
-	public ModelAndView getCrawlerContent(@PathVariable("id") String id, BaseEntity be) {
+	@GetMapping(path = "/article/{id}")
+	public ModelAndView getCrawlerContent(@PathVariable("id") int id, BaseEntity be) {
 		CrawlerContent crawlerContent = articleService.getCrawlerContent(id);
 		be.setContent(crawlerContent);
 		be.setMsgCode(MESSAGE_CODE_OK.getCode());

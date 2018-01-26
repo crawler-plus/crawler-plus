@@ -21,7 +21,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public CrawlerContent getCrawlerContent(String id) {
-        return articleMapper.getCrawlerContent(id);
+    public CrawlerContent getCrawlerContent(int cid) {
+        return articleMapper.getCrawlerContent(cid);
     }
 }
