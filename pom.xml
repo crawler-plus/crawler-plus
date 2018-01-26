@@ -29,6 +29,7 @@
         <module>crawler-sleuth-server</module>
         <module>crawler-zuul-server</module>
         <module>it4u-thymeleaf</module>
+        <module>crawler-schedule-task</module>
     </modules>
 
     <parent>

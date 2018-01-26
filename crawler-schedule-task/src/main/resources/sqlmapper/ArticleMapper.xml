@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crawler.dao.ArticleMapper" >
+
+    <select id="listAllTemplateConfig" resultType="com.crawler.domain.TemplateConfig">
+        SELECT id                    AS id,
+                url                   AS url,
+                first_level_pattern   AS firstLevelPattern,
+                title_pattern         AS titlePattern,
+                time_pattern          AS timePattern,
+                content_pattern       AS contentPattern,
+                crawler_prefix        AS crawlerPrefix,
+                site_name             AS siteName
+        FROM template_config
+    </select>
+
+    <insert id="saveCrawlerContent" parameterType="com.crawler.domain.CrawlerContent">
+        INSERT INTO crawler_content
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+                cid,
+            <if test='id != null and id != "" '>
+                id,
+            </if>
+            <if test='url != null and url != "" '>
+                url,
+            </if>
+            <if test='title != null and title != "" '>
+                title,
+            </if>
+            <if test='time != null and time != "" '>
+                time,
+            </if>
+            <if test='contentBody != null and contentBody != "" '>
+                content_body,
+            </if>
+            <if test='refId != null and refId != "" '>
+                ref_id,
+            </if>
+                created,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+                NULL,
+            <if test='id != null and id != "" '>
+                #{id, jdbcType=VARCHAR},
+            </if>
+            <if test='url != null and url != "" '>
+                #{url, jdbcType=VARCHAR},
+            </if>
+            <if test='title != null and title != "" '>
+                #{title, jdbcType=VARCHAR},
+            </if>
+            <if test='time != null and time != "" '>
+                #{time, jdbcType=VARCHAR},
+            </if>
+            <if test='contentBody != null and contentBody != "" '>
+                #{contentBody, jdbcType=VARCHAR},
+            </if>
+            <if test='refId != null and refId != "" '>
+                #{refId, jdbcType=VARCHAR},
+            </if>
+                NOW(),
+        </trim>
+    </insert>
+
+    <select id="isExistUrl" resultType="java.lang.Integer" parameterType="com.crawler.domain.CrawlerContent">
+        SELECT
+        COUNT(url) AS cnt
+        FROM crawler_content
+        WHERE url = #{url, jdbcType=VARCHAR}
+    </select>
+
+</mapper>

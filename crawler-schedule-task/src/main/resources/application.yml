@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: crawler-schedule-task
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+management:
+  health:
+    defaults:
+      enabled: true
+
+mybatis:
+  mapperLocations: classpath:sqlmapper/*.xml

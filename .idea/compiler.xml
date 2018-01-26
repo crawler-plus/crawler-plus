@@ -14,6 +14,7 @@
         <module name="crawler-eureka-server" />
         <module name="crawler-mail" />
         <module name="crawler-redis-service-provider" />
+        <module name="crawler-schedule-task" />
         <module name="crawler-sleuth-server" />
         <module name="crawler-zuul-server" />
         <module name="it4u-thymeleaf" />
@@ -29,6 +30,7 @@
       <module name="crawler-mail" target="1.8" />
       <module name="crawler-plus" target="1.8" />
       <module name="crawler-redis-service-provider" target="1.8" />
+      <module name="crawler-schedule-task" target="1.8" />
       <module name="crawler-sleuth-server" target="1.8" />
       <module name="crawler-zuul-server" target="1.8" />
       <module name="it4u-thymeleaf" target="1.8" />

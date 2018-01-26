@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/crawler-mail/crawler-mail.iml" filepath="$PROJECT_DIR$/crawler-mail/crawler-mail.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-plus.iml" filepath="$PROJECT_DIR$/crawler-plus.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-redis-service-provider/crawler-redis-service-provider.iml" filepath="$PROJECT_DIR$/crawler-redis-service-provider/crawler-redis-service-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crawler-schedule-task/crawler-schedule-task.iml" filepath="$PROJECT_DIR$/crawler-schedule-task/crawler-schedule-task.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-sleuth-server/crawler-sleuth-server.iml" filepath="$PROJECT_DIR$/crawler-sleuth-server/crawler-sleuth-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/crawler-zuul-server/crawler-zuul-server.iml" filepath="$PROJECT_DIR$/crawler-zuul-server/crawler-zuul-server.iml" />
       <module fileurl="file://$PROJECT_DIR$/it4u-thymeleaf/it4u-thymeleaf.iml" filepath="$PROJECT_DIR$/it4u-thymeleaf/it4u-thymeleaf.iml" />
