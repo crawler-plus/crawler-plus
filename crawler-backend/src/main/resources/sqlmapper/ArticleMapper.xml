@@ -132,18 +132,6 @@
         ORDER BY created DESC
     </select>
 
-    <select id="listAllSimpleCrawlerContents" resultType="com.crawler.domain.CrawlerContent" parameterType="com.crawler.domain.ArticleTransferEntity">
-        SELECT
-        id             AS id,
-        title          AS title,
-        DATE_FORMAT(created, '%Y年%m月%d日 %H:%i:%s') AS insertTime
-        FROM crawler_content
-        <if test='keyword != null and keyword != "" '>
-            WHERE LOWER(title) LIKE CONCAT('%', #{keyword}, '%')
-        </if>
-        ORDER BY created DESC
-    </select>
-
     <select id="getCrawlerContent" resultType="com.crawler.domain.CrawlerContent" parameterType="String">
         SELECT
         cc.id             AS id,
