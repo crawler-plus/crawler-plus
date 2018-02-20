@@ -8,8 +8,8 @@ import com.google.common.collect.Maps;
 import com.xiaoleilu.hutool.date.DateUtil;
 import com.xiaoleilu.hutool.http.HttpUtil;
 import com.xiaoleilu.hutool.io.FileUtil;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.xiaoleilu.hutool.json.JSONArray;
+import com.xiaoleilu.hutool.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,16 +51,16 @@ public class BondMarketServiceImpl implements BondMarketService {
             JSONArray outArray = json.getJSONArray("classifiedAnnouncements");
             if(!ObjectUtils.isEmpty(outArray)) {
                 // 循环外层的array对象，得到里面的每个股份公司的数据，也是一个json数组
-                for(int i = 0; i < outArray.length(); i ++) {
+                for(int i = 0; i < outArray.size(); i ++) {
                     JSONArray innerArray = outArray.getJSONArray(i);
                     if(!ObjectUtils.isEmpty(innerArray)) {
                         // 循环每一个内层数据
-                        for(int j = 0; j < innerArray.length(); j ++) {
+                        for(int j = 0; j < innerArray.size(); j ++) {
                             List<String> allIds = this.fetchAllIdsFromBondMarket();
                             // 得到每个条目的数据
                             JSONObject eachObject = innerArray.getJSONObject(j);
                             // 得到主键id
-                            String announcementId = eachObject.getString("announcementId");
+                            String announcementId = eachObject.getStr("announcementId");
                             if(!CollectionUtils.isEmpty(allIds)) {
                                 // 如果数据存在，不插入，继续下一次循环
                                 if(allIds.contains(announcementId)) {
@@ -68,20 +68,20 @@ public class BondMarketServiceImpl implements BondMarketService {
                                 }
                             }
                             // 得到证券代码
-                            String secCode = eachObject.getString("secCode");
+                            String secCode = eachObject.getStr("secCode");
                             // 得到证券简称
-                            String secName = eachObject.getString("secName");
+                            String secName = eachObject.getStr("secName");
                             // 得到公告标题
-                            String announcementTitle = eachObject.getString("announcementTitle");
+                            String announcementTitle = eachObject.getStr("announcementTitle");
                             // 得到公告类别
-                            String announcementTypeName = eachObject.getString("announcementTypeName");
+                            String announcementTypeName = eachObject.getStr("announcementTypeName");
                             // 得到发布时间
                             long announcementTime = eachObject.getLong("announcementTime");
                             // 把发布时间转成yyyy-mm-dd格式的字符串
                             Date d = new Date(announcementTime);
                             String announcementTimeStr = DateUtil.format(d, "yyyy-MM-dd");
                             // 得到pdf下载url字符串
-                            String adjunctUrl = eachObject.getString("adjunctUrl");
+                            String adjunctUrl = eachObject.getStr("adjunctUrl");
                             BondMarket bm = new BondMarket();
                             bm.setId(announcementId);
                             bm.setCode(secCode);
