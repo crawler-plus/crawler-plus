@@ -5,13 +5,29 @@ spring:
     active: dev
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  redis:
+    database: 0
+    host: 192.168.0.104
+    port: 6379
+    password: redis
+    timeout: 10 #配置默认超时时间10ms
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-    mode: LEGACYHTML5
+    mode: HTML
     encoding: UTF-8
     content-type: text/html
     cache: true
+    # 配置静态文件属性
+    resources:
+      add-mappings: true
+      cache-period: 3600
+      static-locations: classpath:/static/
+      chain:
+        cache: true
+        enabled: true
+        gzipped: false
+        html-application-cache: true
 
 management:
   health:
