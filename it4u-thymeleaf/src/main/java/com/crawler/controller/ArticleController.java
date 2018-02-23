@@ -48,7 +48,6 @@ public class ArticleController {
 	@PostMapping(value = "/fetchArticles")
 	@ResponseBody
 	public BaseEntity listAllSimpleCrawlerContents(@RequestBody ArticleTransferEntity at, BaseEntity be) {
-		// TODO 需要从elasticsearch中检索文章
 		// 默认一页显示10条数据
 		int limit = 10;
 		// 将输入关键字变成小写
