@@ -14,7 +14,8 @@ let stat = function () {
                 // 指定图表的配置项和数据
                 var option = {
                     title: {
-                        text: '网站浏览器点击次数分布图'
+                        text: '网站浏览器点击次数分布图',
+                        x:'center'
                     },
                     tooltip: {},
                     legend: {
@@ -42,7 +43,6 @@ let stat = function () {
                 var option2 = {
                     title : {
                         text: '站点访问来源点击次数分布图',
-                        subtext: '汇总统计图',
                         x:'center'
                     },
                     tooltip : {
