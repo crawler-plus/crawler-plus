@@ -126,7 +126,7 @@ public class ArticleController {
 		Iterator itor= terminalType.entrySet().iterator();
 		while(itor.hasNext()){
 			Map.Entry<String,String> entry = (Map.Entry<String,String>)itor.next();
-            String key = entry.getKey().equals("0") ? "电脑端" : "移动端";
+            String key = entry.getKey().equals("0") ? "PC端" : "移动端";
             String value = entry.getValue();
             TerminalStat ts = new TerminalStat();
             ts.setName(key);
