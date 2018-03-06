@@ -7,10 +7,9 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
   redis:
     database: 0
-    host: 192.168.0.104
+    host: hadoop
     port: 6379
-    password: redis
-    timeout: 10 #配置默认超时时间10ms
+    timeout: 1000 #配置默认超时时间10ms
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
