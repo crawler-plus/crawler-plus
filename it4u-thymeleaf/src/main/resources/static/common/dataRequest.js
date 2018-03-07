@@ -29,7 +29,7 @@ var dataRequest = function() {
             data: ajaxOptions.data,
             dataType: "json",
             headers: ajaxOptions.headers,
-            cache: true
+			async: true
         };
 		var spinner = new Spinner();
         spinner.spin(document.getElementById("dataRow"));

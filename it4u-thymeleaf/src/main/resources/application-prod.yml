@@ -1,13 +1,13 @@
 server:
   port: 1010
-  address: 192.168.3.129
+  address: 172.31.141.216
 
 master:
   datasource:
     driverClassName: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://127.0.0.1:3307/spider?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mariadb://172.31.141.222:3306/spider?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
     username: root
-    password: 12345678
+    password: root
   enable: true
 
 slave:

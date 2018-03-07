@@ -9,7 +9,7 @@ let stat = function () {
             type: "GET",
             url: comm.url + "operationSystemStat",
             dataType : "json",
-            async: false,
+            async: true,
             success: function (result) {
                 // 指定图表的配置项和数据
                 var option = {
@@ -22,6 +22,10 @@ let stat = function () {
                         data:['分布']
                     },
                     xAxis: {
+                        //设置字体倾斜
+                        axisLabel:{
+                            rotate:15 //倾斜度 -90 至 90 默认为0
+                        },
                         data: result.namesList
                     },
                     yAxis: {},
@@ -38,7 +42,7 @@ let stat = function () {
             type: "GET",
             url: comm.url + "terminalStat",
             dataType : "json",
-            async: false,
+            async: true,
             success: function (result) {
                 var option2 = {
                     title : {
@@ -78,7 +82,7 @@ let stat = function () {
             type: "GET",
             url: comm.url + "totalClickCountStat",
             dataType : "json",
-            async: false,
+            async: true,
             success: function (result) {
                 $("#totalClickCount").text(result.totalClickCount);
             }
