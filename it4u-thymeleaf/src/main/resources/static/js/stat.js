@@ -8,26 +8,6 @@ var stat = function () {
         var myChart3 = echarts.init(document.getElementById('main3'));
         var myChart4 = echarts.init(document.getElementById('main4'));
 
-
-        var option4 = {
-            title: {
-                text: '按照日期点击量统计',
-                x:'center'
-            },
-            xAxis: {
-                type: 'category',
-                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: [{
-                data: [820, 932, 901, 934, 1290, 1330, 1320],
-                type: 'line'
-            }]
-        };
-        myChart4.setOption(option4);
-
         $.ajax({
             type: "GET",
             url: comm.url + "operationSystemStat",
@@ -139,6 +119,32 @@ var stat = function () {
                     ]
                 };
                 myChart3.setOption(option3);
+            }
+        })
+        $.ajax({
+            type: "GET",
+            url: comm.url + "clickByDateCountStat",
+            dataType : "json",
+            async: true,
+            success: function (result) {
+                var option4 = {
+                    title: {
+                        text: '按日期点击量统计',
+                        x:'center'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: result.xData
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: result.yData,
+                        type: 'line'
+                    }]
+                };
+                myChart4.setOption(option4);
             }
         })
         $.ajax({

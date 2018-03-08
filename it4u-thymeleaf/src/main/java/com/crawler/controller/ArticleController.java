@@ -18,8 +18,10 @@ import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static com.crawler.constant.ResponseCodeConst.MESSAGE_CODE_OK;
 
@@ -146,7 +148,7 @@ public class ArticleController {
 		}else {
 			Iterator itor = terminalType.entrySet().iterator();
 			while(itor.hasNext()){
-				Map.Entry<String,String> entry = (Map.Entry<String,String>)itor.next();
+				Map.Entry<String, String> entry = (Map.Entry<String,String>)itor.next();
 				String key = entry.getKey().equals("0") ? "PC端" : "移动端";
 				String value = entry.getValue();
 				TerminalStat ts = new TerminalStat();
@@ -177,7 +179,7 @@ public class ArticleController {
 		List<Long> valuesList = new ArrayList<>();
 		Iterator itor = terminalType.entrySet().iterator();
 		while(itor.hasNext()){
-			Map.Entry<String,String> entry = (Map.Entry<String,String>)itor.next();
+			Map.Entry<String, String> entry = (Map.Entry<String,String>)itor.next();
 			String key = entry.getKey();
 			String value = entry.getValue();
 			valuesList.add(Long.parseLong(value));
@@ -231,7 +233,7 @@ public class ArticleController {
 		}else {
 			Iterator itor = cityType.entrySet().iterator();
 			while(itor.hasNext()){
-				Map.Entry<String,String> entry = (Map.Entry<String,String>)itor.next();
+				Map.Entry<String, String> entry = (Map.Entry<String,String>)itor.next();
 				String key = entry.getKey();
 				String value = entry.getValue();
 				CityStat cs = new CityStat();
@@ -244,6 +246,41 @@ public class ArticleController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("namesList", namesList);
 		map.put("data", list);
+		return map;
+	}
+
+	/**
+	 * 根据日期计算访问次数
+	 * @return
+	 */
+	@GetMapping(path = "/clickByDateCountStat")
+	@ResponseBody
+	public Map<String, Object> clickByDateCountStat() {
+		// 从redis中获取数据
+		Jedis jedis = RedisUtil.getJedis();
+		Map<String, String> dateMap = jedis.hgetAll("clickByDateCount");
+		RedisUtil.returnResource(jedis);
+		List<String> xList = new ArrayList<>();
+		List<String> yList = new ArrayList<>();
+		// 如果没有数据
+		if(MapUtil.isEmpty(dateMap)) {
+			String now = new SimpleDateFormat("yyyyMMdd").format(new Date());
+			xList.add(now);
+			yList.add("100");
+		}else {
+			Set<String> strings = dateMap.keySet();
+			List<String> tmpXList = strings.stream().collect(Collectors.toList());
+			List<String> tmpYList = new ArrayList<>();
+			Collections.sort(tmpXList); // 排序
+			for(String s : tmpXList) {
+				tmpYList.add(dateMap.get(s));
+			}
+			xList = tmpXList;
+			yList = tmpYList;
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("xData", xList);
+		map.put("yData", yList);
 		return map;
 	}
 }
