@@ -5,9 +5,9 @@ server:
 master:
   datasource:
     driverClassName: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/spider?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+    url: jdbc:mariadb://localhost:3307/spider?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
     username: root
-    password: root
+    password: 12345678
   enable: true
 
 slave:

@@ -31,7 +31,7 @@ var dataRequest = function() {
             headers: ajaxOptions.headers,
 			async: true
         };
-		var spinner = new Spinner();
+        var spinner = new Spinner();
         spinner.spin(document.getElementById("dataRow"));
 		$.ajax(ajaxOpts).done(function(data){
             ajaxSuccCallback(data);

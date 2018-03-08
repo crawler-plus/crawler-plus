@@ -1,10 +1,10 @@
-let articleDetail = function () {
-    const it4uConst = {
+var articleDetail = function () {
+    var it4uConst = {
         backToTop : $("#back-to-top"),
         bodyHtml : $('body, html')
     }
 
-    let init = function () {
+    var init = function () {
 
         it4uConst.backToTop.click(function(){
             it4uConst.bodyHtml.animate({scrollTop:0},1000);
@@ -12,7 +12,7 @@ let articleDetail = function () {
         });
 
         $(window).scroll(function(){
-            let $this = $(this),
+            var $this = $(this),
                 scrollTop = $this.scrollTop();//滚动高度
             if (scrollTop > 400){
                 it4uConst.backToTop.fadeIn(1000);
@@ -22,10 +22,10 @@ let articleDetail = function () {
         });
 
         // 获得可视宽度
-        let cWidth = document.documentElement.clientWidth;
+        var cWidth = document.documentElement.clientWidth;
         // 遍历每一张图片
         $("img").each(function () {
-            let $this = $(this),
+            var $this = $(this),
                 actualWidth = parseInt($this.css("width")),// 获得这个图片的实际宽度
                 actualHeight = parseInt($this.css("height")), // 获得这个图片的实际高度
                 pix = actualHeight / actualWidth; // 获得高度和宽度的比
