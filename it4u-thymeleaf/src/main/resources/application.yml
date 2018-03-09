@@ -2,7 +2,7 @@ spring:
   application:
     name: it4u-thymeleaf
   profiles:
-    active: dev
+    active: prod
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   redis:

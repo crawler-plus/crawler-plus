@@ -132,35 +132,19 @@ public class ArticleController {
 		Jedis jedis = RedisUtil.getJedis();
 		Map<String, String> terminalType = jedis.hgetAll("terminalType");
 		RedisUtil.returnResource(jedis);
-		List<TerminalStat> list = new ArrayList<>();
 		List<String> namesList = new ArrayList<>();
-		if(MapUtil.isEmpty(terminalType)) {
-			namesList.add("PC端");
-			namesList.add("移动端");
-			TerminalStat ts = new TerminalStat();
-			ts.setName("PC端");
-			ts.setValue("0");
-			TerminalStat ts1 = new TerminalStat();
-			ts1.setName("移动端");
-			ts1.setValue("0");
-			list.add(ts);
-			list.add(ts1);
-		}else {
-			Iterator itor = terminalType.entrySet().iterator();
-			while(itor.hasNext()){
-				Map.Entry<String, String> entry = (Map.Entry<String,String>)itor.next();
-				String key = entry.getKey().equals("0") ? "PC端" : "移动端";
-				String value = entry.getValue();
-				TerminalStat ts = new TerminalStat();
-				ts.setName(key);
-				ts.setValue(value);
-				list.add(ts);
-				namesList.add(key);
-			}
+		List<Long> valuesList = new ArrayList<>();
+		Iterator itor = terminalType.entrySet().iterator();
+		while(itor.hasNext()){
+			Map.Entry<String, String> entry = (Map.Entry<String,String>)itor.next();
+			String key = entry.getKey().equals("0") ? "PC端" : "移动端";
+			String value = entry.getValue();
+			valuesList.add(Long.parseLong(value));
+			namesList.add(key);
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("namesList", namesList);
-		map.put("data", list);
+		map.put("valuesList", valuesList);
 		return map;
 	}
 
@@ -173,21 +157,32 @@ public class ArticleController {
 	public Map<String, Object> operationSystemStat() {
 		// 从redis中获取数据
 		Jedis jedis = RedisUtil.getJedis();
-		Map<String, String> terminalType = jedis.hgetAll("operationSystemType");
+		Map<String, String> operationSystemType = jedis.hgetAll("operationSystemType");
 		RedisUtil.returnResource(jedis);
+		List<OperationSystemStat> list = new ArrayList<>();
 		List<String> namesList = new ArrayList<>();
-		List<Long> valuesList = new ArrayList<>();
-		Iterator itor = terminalType.entrySet().iterator();
-		while(itor.hasNext()){
-			Map.Entry<String, String> entry = (Map.Entry<String,String>)itor.next();
-			String key = entry.getKey();
-			String value = entry.getValue();
-			valuesList.add(Long.parseLong(value));
-			namesList.add(key);
+		if(MapUtil.isEmpty(operationSystemType)) {
+			namesList.add("Chrome");
+			OperationSystemStat ts = new OperationSystemStat();
+			ts.setName("Chrome");
+			ts.setValue("0");
+			list.add(ts);
+		}else {
+			Iterator itor = operationSystemType.entrySet().iterator();
+			while(itor.hasNext()){
+				Map.Entry<String, String> entry = (Map.Entry<String,String>)itor.next();
+				String key = entry.getKey();
+				String value = entry.getValue();
+				OperationSystemStat ts = new OperationSystemStat();
+				ts.setName(key);
+				ts.setValue(value);
+				list.add(ts);
+				namesList.add(key);
+			}
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("namesList", namesList);
-		map.put("valuesList", valuesList);
+		map.put("data", list);
 		return map;
 	}
 
